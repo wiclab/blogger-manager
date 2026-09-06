@@ -2,16 +2,43 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <meta
+    name="robots"
+    content="noindex,nofollow"
+  >
+
   <title>Blogger Manager</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f7fa;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --blue: #2563eb;
+      --green: #15803d;
+      --orange: #b45309;
+      --red: #b91c1c;
+      --dark: #111827;
+    }
 
     body {
       margin: 0;
-      background: #f5f7fa;
-      color: #1f2937;
+
+      background: var(--bg);
+      color: var(--text);
+
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -20,165 +47,8 @@
         sans-serif;
     }
 
-    .wrap {
-      width: min(1380px, calc(100% - 32px));
-      margin: 36px auto;
-    }
-
-    h1 {
-      margin: 0 0 6px;
-    }
-
-    .sub {
-      margin: 0;
-      color: #6b7280;
-    }
-
-    #updated,
-    .method {
-      color: #6b7280;
-      font-size: 13px;
-    }
-
-    #updated {
-      margin-top: 14px;
-    }
-
-    .method {
-      margin-top: 6px;
-    }
-
-    .blogs {
-      display: grid;
-      grid-template-columns:
-        repeat(
-          auto-fit,
-          minmax(280px, 1fr)
-        );
-      gap: 16px;
-      margin: 26px 0;
-    }
-
-    .card {
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.04);
-    }
-
-    .card h2 {
-      margin: 0 0 10px;
-    }
-
-    .numbers {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      margin-top: 18px;
-    }
-
-    .number strong {
-      display: block;
-      font-size: 25px;
-    }
-
-    .number span {
-      font-size: 12px;
-      color: #6b7280;
-    }
-
-    .tuning-info {
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid #eee;
-      color: #6b7280;
-      font-size: 12px;
-      line-height: 1.7;
-  }
-
-  .tuning-info strong {
-    color: #374151;
-  }
-
-  .common-label {
-    display: inline-block;
-    margin: 2px 3px 2px 0;
-    padding: 2px 6px;
-    border-radius: 999px;
-    background: #f3f4f6;
-    color: #4b5563;
-  }
-
-    .controls {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin: 22px 0 12px;
-    }
-
-    button {
-      border: 1px solid #d1d5db;
-      background: white;
-      color: #1f2937;
-      border-radius: 10px;
-      padding: 9px 12px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    button:hover,
-    button.active {
-      background: #111827;
-      color: white;
-      border-color: #111827;
-    }
-
-    .count-line {
-      font-size: 13px;
-      color: #6b7280;
-      margin: 0 0 10px;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-      background: white;
-      border-radius: 14px;
-      border: 1px solid #e5e7eb;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 1180px;
-    }
-
-    th,
-    td {
-      padding: 11px 12px;
-      border-bottom: 1px solid #eee;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    th {
-      background: #f9fafb;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    td {
-      font-size: 13px;
-    }
-
-    tr:hover td {
-      background: #fcfcfd;
-    }
-
     a {
-      color: #2563eb;
+      color: var(--blue);
       text-decoration: none;
     }
 
@@ -186,50 +56,484 @@
       text-decoration: underline;
     }
 
-    .title-link {
+    button {
+      font-family: inherit;
+    }
+
+    /* =========================
+       로그인 화면
+    ========================= */
+
+    #loginScreen {
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+    }
+
+    .login-card {
+      width: min(430px, 100%);
+
+      background: white;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 22px;
+
+      padding: 36px;
+
+      text-align: center;
+
+      box-shadow:
+        0 12px 35px
+        rgba(0, 0, 0, .07);
+    }
+
+    .login-logo {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .login-card h1 {
+      margin:
+        0 0 8px;
+
+      font-size: 27px;
+    }
+
+    .login-desc {
+      margin:
+        0 0 28px;
+
+      color:
+        var(--muted);
+
+      line-height: 1.6;
+
+      font-size: 14px;
+    }
+
+    #googleButton {
+      display: flex;
+      justify-content: center;
+
+      min-height: 44px;
+    }
+
+    #loginMessage {
+      margin-top: 18px;
+
+      min-height: 20px;
+
+      font-size: 13px;
+    }
+
+    .login-error {
+      color: var(--red);
       font-weight: 600;
+    }
+
+    .login-info {
+      color: var(--muted);
+    }
+
+    /* =========================
+       관리자 페이지
+    ========================= */
+
+    #app {
+      display: none;
+    }
+
+    .wrap {
+      width:
+        min(
+          1400px,
+          calc(100% - 32px)
+        );
+
+      margin:
+        34px auto 70px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      gap: 20px;
+
+      margin-bottom: 8px;
+    }
+
+    .title-area h1 {
+      margin:
+        0 0 5px;
+
+      font-size: 29px;
+    }
+
+    .sub {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 14px;
+    }
+
+    /* =========================
+       로그인 사용자
+    ========================= */
+
+    .user-box {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      background: white;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 14px;
+
+      padding:
+        8px 10px;
+    }
+
+    .user-photo {
+      width: 34px;
+      height: 34px;
+
+      object-fit: cover;
+
+      border-radius: 50%;
+
+      background:
+        #e5e7eb;
+    }
+
+    .user-data {
+      line-height: 1.25;
+    }
+
+    .user-name {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .admin-state {
+      font-size: 10px;
+      color: var(--green);
+    }
+
+    .logout-button {
+      border:
+        1px solid var(--border);
+
+      background: white;
+
+      color: #4b5563;
+
+      border-radius: 8px;
+
+      padding:
+        6px 8px;
+
+      font-size: 11px;
+
+      cursor: pointer;
+    }
+
+    .logout-button:hover {
+      background: #f3f4f6;
+    }
+
+    /* =========================
+       상단 정보
+    ========================= */
+
+    #updated,
+    #method {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    #updated {
+      margin-top: 15px;
+    }
+
+    #method {
+      margin-top: 7px;
+
+      max-width: 1100px;
+
+      line-height: 1.55;
+    }
+
+    /* =========================
+       블로그 카드
+    ========================= */
+
+    .blogs {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(300px, 1fr)
+        );
+
+      gap: 16px;
+
+      margin:
+        26px 0;
+    }
+
+    .card {
+      background: white;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 17px;
+
+      padding: 20px;
+
+      box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, .035);
+    }
+
+    .card h2 {
+      margin:
+        0 0 10px;
+    }
+
+    .numbers {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 25px;
+
+      margin-top: 18px;
+    }
+
+    .number strong {
+      display: block;
+
+      font-size: 25px;
+    }
+
+    .number span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* =========================
+       자동 튜닝 정보
+    ========================= */
+
+    .tuning-info {
+      margin-top: 17px;
+
+      padding-top: 14px;
+
+      border-top:
+        1px solid #eee;
+
+      color: var(--muted);
+
+      font-size: 12px;
+
+      line-height: 1.75;
+    }
+
+    .tuning-info strong {
+      color: #374151;
+    }
+
+    .common-label {
+      display: inline-block;
+
+      margin:
+        3px 3px 0 0;
+
+      padding:
+        2px 6px;
+
+      border-radius: 999px;
+
+      background: #f3f4f6;
+
+      color: #4b5563;
+
+      font-size: 10px;
+    }
+
+    /* =========================
+       필터 버튼
+    ========================= */
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin:
+        22px 0 10px;
+    }
+
+    .controls button {
+      border:
+        1px solid #d1d5db;
+
+      background: white;
+
+      color: var(--text);
+
+      border-radius: 10px;
+
+      padding:
+        9px 12px;
+
+      font-size: 12px;
+      font-weight: 600;
+
+      cursor: pointer;
+    }
+
+    .controls button:hover,
+    .controls button.active {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+    }
+
+    #countLine {
+      margin:
+        0 0 10px;
+
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* =========================
+       테이블
+    ========================= */
+
+    .table-wrap {
+      overflow-x: auto;
+
+      background: white;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 15px;
+    }
+
+    table {
+      width: 100%;
+
+      min-width: 1250px;
+
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding:
+        11px 12px;
+
+      text-align: left;
+      vertical-align: top;
+
+      border-bottom:
+        1px solid #eee;
+    }
+
+    th {
+      background: #f9fafb;
+
+      font-size: 11px;
+
+      white-space: nowrap;
+    }
+
+    td {
+      font-size: 12px;
+    }
+
+    tbody tr:hover td {
+      background: #fcfcfd;
+    }
+
+    .post-title {
+      font-weight: 600;
+
       line-height: 1.45;
     }
 
     .ok {
-      color: #16803b;
+      color: var(--green);
       font-weight: 700;
     }
 
     .warn {
-      color: #b45309;
+      color: var(--orange);
       font-weight: 700;
     }
 
     .danger {
-      color: #b91c1c;
+      color: var(--red);
       font-weight: 700;
     }
 
     .badge {
       display: inline-block;
+
+      margin: 2px;
+
+      padding:
+        3px 7px;
+
+      border-radius: 999px;
+
       background: #fff7ed;
       color: #9a3412;
-      border-radius: 999px;
-      padding: 3px 7px;
-      margin: 2px;
-      font-size: 11px;
+
+      font-size: 10px;
+
       white-space: nowrap;
     }
 
     .badge.isolated {
       background: #fef2f2;
-      color: #b91c1c;
+      color: var(--red);
+    }
+
+    .badge.missing-title {
+      background: #fff1f2;
+      color: #be123c;
     }
 
     .recommendations {
-      min-width: 245px;
-      max-width: 330px;
+      min-width: 270px;
+      max-width: 350px;
     }
 
     .recommendation {
       display: block;
-      margin-bottom: 6px;
+
+      margin-bottom: 7px;
+
       line-height: 1.35;
     }
 
@@ -238,30 +542,62 @@
     }
 
     .score {
+      margin-left: 3px;
+
       color: #9ca3af;
-      font-size: 10px;
-      margin-left: 4px;
+
+      font-size: 9px;
+    }
+
+    .reason {
+      display: block;
+
+      margin-top: 2px;
+
+      color: #9ca3af;
+
+      font-size: 9px;
     }
 
     .muted {
       color: #9ca3af;
     }
 
-    @media (max-width: 700px) {
+    /* =========================
+       모바일
+    ========================= */
+
+    @media (max-width: 750px) {
+
       .wrap {
-        width: min(
-          100% - 20px,
-          1380px
-        );
-        margin: 22px auto;
+        width:
+          calc(100% - 20px);
+
+        margin:
+          22px auto 50px;
       }
 
-      h1 {
+      .topbar {
+        display: block;
+      }
+
+      .user-box {
+        margin-top: 16px;
+
+        width: fit-content;
+      }
+
+      .title-area h1 {
         font-size: 25px;
       }
 
       .card {
         padding: 16px;
+      }
+
+      .login-card {
+        padding:
+          28px 20px;
       }
     }
   </style>
@@ -269,111 +605,691 @@
 
 <body>
 
-<div class="wrap">
+<!-- =========================
+     로그인
+========================= -->
 
-  <h1>📊 Blogger Manager</h1>
+<section id="loginScreen">
 
-  <p class="sub">
-    별다알 + Nobody Asked Data 통합 점검
-  </p>
+  <div class="login-card">
 
-  <div id="updated"></div>
+    <div class="login-logo">
+      📊
+    </div>
 
-  <div
-    id="method"
-    class="method">
-  </div>
+    <h1>
+      Blogger Manager
+    </h1>
 
-  <div
-    id="blogs"
-    class="blogs">
-  </div>
+    <p class="login-desc">
+      별다알 + Nobody Asked Data<br>
+      관리자 로그인이 필요합니다.
+    </p>
 
-  <div
-    class="controls"
-    id="controls">
+    <div id="googleButton"></div>
 
-    <button
-      data-filter="all"
-      class="active"
-      onclick="setFilter('all')">
-      전체 글
-    </button>
-
-    <button
-      data-filter="warning"
-      onclick="setFilter('warning')">
-      ⚠ 경고 글
-    </button>
-
-    <button
-      data-filter="isolated"
-      onclick="setFilter('isolated')">
-      🏝 고립 글
-    </button>
-
-    <button
-      data-filter="internal"
-      onclick="setFilter('internal')">
-      나가는 내부링크 0
-    </button>
-
-    <button
-      data-filter="recommended"
-      onclick="setFilter('recommended')">
-      🔗 추천 있음
-    </button>
-
-    <button
-      data-filter="short"
-      onclick="setFilter('short')">
-      본문 짧음
-    </button>
-
-    <button
-      data-filter="h2"
-      onclick="setFilter('h2')">
-      H2 없음
-    </button>
+    <div
+      id="loginMessage"
+      class="login-info">
+      Google 계정으로 인증해주세요.
+    </div>
 
   </div>
 
-  <p
-    id="countLine"
-    class="count-line">
-  </p>
+</section>
 
-  <div class="table-wrap">
 
-    <table>
+<!-- =========================
+     관리 페이지
+========================= -->
 
-      <thead>
-        <tr>
-          <th>블로그</th>
-          <th>글 제목</th>
-          <th>글자수</th>
-          <th>나가는 링크</th>
-          <th>받는 링크</th>
-          <th>외부링크</th>
-          <th>이미지</th>
-          <th>H2</th>
-          <th>점검</th>
-          <th>내부링크 추천</th>
-        </tr>
-      </thead>
+<main id="app">
 
-      <tbody id="posts"></tbody>
+  <div class="wrap">
 
-    </table>
+    <div class="topbar">
+
+      <div class="title-area">
+
+        <h1>
+          📊 Blogger Manager
+        </h1>
+
+        <p class="sub">
+          별다알 + Nobody Asked Data 통합 점검
+        </p>
+
+      </div>
+
+      <div class="user-box">
+
+        <img
+          id="userPhoto"
+          class="user-photo"
+          alt=""
+        >
+
+        <div class="user-data">
+
+          <div
+            id="userName"
+            class="user-name">
+            관리자
+          </div>
+
+          <div class="admin-state">
+            관리자 인증됨 ✓
+          </div>
+
+        </div>
+
+        <button
+          class="logout-button"
+          onclick="logout()">
+          로그아웃
+        </button>
+
+      </div>
+
+    </div>
+
+    <div id="updated"></div>
+
+    <div id="method"></div>
+
+    <div
+      id="blogs"
+      class="blogs">
+    </div>
+
+    <div
+      id="controls"
+      class="controls">
+
+      <button
+        class="active"
+        data-filter="all"
+        onclick="setFilter('all')">
+        전체 글
+      </button>
+
+      <button
+        data-filter="warning"
+        onclick="setFilter('warning')">
+        ⚠ 경고 글
+      </button>
+
+      <button
+        data-filter="isolated"
+        onclick="setFilter('isolated')">
+        🏝 고립 글
+      </button>
+
+      <button
+        data-filter="internal"
+        onclick="setFilter('internal')">
+        나가는 내부링크 0
+      </button>
+
+      <button
+        data-filter="recommended"
+        onclick="setFilter('recommended')">
+        🔗 추천 있음
+      </button>
+
+      <button
+        data-filter="short"
+        onclick="setFilter('short')">
+        본문 짧음
+      </button>
+
+      <button
+        data-filter="h2"
+        onclick="setFilter('h2')">
+        H2 없음
+      </button>
+
+    </div>
+
+    <p id="countLine"></p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>블로그</th>
+            <th>글 제목</th>
+            <th>글자수</th>
+            <th>나가는 링크</th>
+            <th>받는 링크</th>
+            <th>외부링크</th>
+            <th>이미지</th>
+            <th>H2</th>
+            <th>점검</th>
+            <th>내부링크 추천</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="posts"></tbody>
+
+      </table>
+
+    </div>
 
   </div>
 
-</div>
+</main>
+
+
+<!-- Google Identity Services -->
+<script
+  src="https://accounts.google.com/gsi/client"
+  async
+  defer>
+</script>
+
 
 <script>
 
+/* =========================================================
+   ★ 여기 2개가 설정값
+========================================================= */
+
+/*
+ * 방금 만든 OAuth Client ID
+ *
+ * Secret은 절대 넣지 마세요.
+ */
+const GOOGLE_CLIENT_ID =
+  "745983224346-2bir36jrfv79g8igk46aocv49o44u50f.apps.googleusercontent.com";
+
+
+/*
+ * 본인 Google 이메일의 SHA-256
+ *
+ * 이메일 자체를 GitHub에 공개하지 않기 위해
+ * 해시만 저장합니다.
+ */
+const ALLOWED_EMAIL_SHA256 =
+  "f2a29bc2b66ac59ad17f1d687cf09b681d247025b5053e39bc300e30b94b5903";
+
+
+/* =========================================================
+   상태
+========================================================= */
+
 let REPORT = null;
+
 let FILTER = "all";
+
+
+/* =========================================================
+   SHA-256
+========================================================= */
+
+async function sha256(text) {
+
+  const bytes =
+    new TextEncoder()
+      .encode(text);
+
+  const hashBuffer =
+    await crypto.subtle.digest(
+      "SHA-256",
+      bytes
+    );
+
+  return [...new Uint8Array(hashBuffer)]
+    .map(
+      byte =>
+        byte
+          .toString(16)
+          .padStart(2, "0")
+    )
+    .join("");
+}
+
+
+/* =========================================================
+   Google JWT decode
+
+   주의:
+   현재 단계에서는 관리자 UI 표시용입니다.
+
+   실제 Blogger 수정 기능을 붙일 때는
+   서버에서도 반드시 토큰을 검증합니다.
+========================================================= */
+
+function decodeJwtPayload(token) {
+
+  const part =
+    token.split(".")[1];
+
+  if (!part) {
+    throw new Error(
+      "잘못된 Google 인증 토큰입니다."
+    );
+  }
+
+  const base64 =
+    part
+      .replace(/-/g, "+")
+      .replace(/_/g, "/");
+
+  const padded =
+    base64.padEnd(
+      base64.length +
+      (4 - base64.length % 4) % 4,
+      "="
+    );
+
+  const binary =
+    atob(padded);
+
+  const bytes =
+    Uint8Array.from(
+      binary,
+      char =>
+        char.charCodeAt(0)
+    );
+
+  const json =
+    new TextDecoder()
+      .decode(bytes);
+
+  return JSON.parse(json);
+}
+
+
+/* =========================================================
+   Google 로그인 완료
+========================================================= */
+
+async function handleCredentialResponse(response) {
+
+  const message =
+    document.getElementById(
+      "loginMessage"
+    );
+
+  try {
+
+    const payload =
+      decodeJwtPayload(
+        response.credential
+      );
+
+    /*
+     * Google이 이메일을 검증했는지 확인
+     */
+    if (!payload.email_verified) {
+
+      throw new Error(
+        "Google에서 확인되지 않은 이메일입니다."
+      );
+
+    }
+
+    /*
+     * 토큰 만료
+     */
+    const now =
+      Math.floor(
+        Date.now() / 1000
+      );
+
+    if (
+      Number(payload.exp || 0) <= now
+    ) {
+
+      throw new Error(
+        "로그인 토큰이 만료되었습니다."
+      );
+
+    }
+
+    const email =
+      String(
+        payload.email || ""
+      )
+        .trim()
+        .toLowerCase();
+
+    const emailHash =
+      await sha256(email);
+
+    /*
+     * 관리자 계정 검사
+     */
+    if (
+      emailHash !==
+      ALLOWED_EMAIL_SHA256
+    ) {
+
+      message.className =
+        "login-error";
+
+      message.textContent =
+        "이 계정은 관리자 권한이 없습니다.";
+
+      google.accounts.id.disableAutoSelect();
+
+      return;
+    }
+
+    /*
+     * 브라우저 세션 동안만 로그인 유지
+     *
+     * 이메일 자체는 저장하지 않음.
+     */
+    const session = {
+      sub:
+        payload.sub,
+
+      emailHash,
+
+      name:
+        payload.name ||
+        "관리자",
+
+      picture:
+        payload.picture ||
+        "",
+
+      exp:
+        Number(
+          payload.exp || 0
+        )
+    };
+
+    sessionStorage.setItem(
+      "bloggerManagerSession",
+      JSON.stringify(session)
+    );
+
+    showApp(session);
+
+  } catch (error) {
+
+    console.error(error);
+
+    message.className =
+      "login-error";
+
+    message.textContent =
+      error.message ||
+      "로그인 처리에 실패했습니다.";
+
+  }
+}
+
+
+/* =========================================================
+   기존 세션 확인
+========================================================= */
+
+function restoreSession() {
+
+  try {
+
+    const raw =
+      sessionStorage.getItem(
+        "bloggerManagerSession"
+      );
+
+    if (!raw) {
+      return false;
+    }
+
+    const session =
+      JSON.parse(raw);
+
+    const now =
+      Math.floor(
+        Date.now() / 1000
+      );
+
+    if (
+      !session.exp ||
+      session.exp <= now
+    ) {
+
+      sessionStorage.removeItem(
+        "bloggerManagerSession"
+      );
+
+      return false;
+    }
+
+    if (
+      session.emailHash !==
+      ALLOWED_EMAIL_SHA256
+    ) {
+
+      sessionStorage.removeItem(
+        "bloggerManagerSession"
+      );
+
+      return false;
+    }
+
+    showApp(session);
+
+    return true;
+
+  } catch {
+
+    sessionStorage.removeItem(
+      "bloggerManagerSession"
+    );
+
+    return false;
+
+  }
+}
+
+
+/* =========================================================
+   Google 로그인 초기화
+========================================================= */
+
+function initGoogleLogin() {
+
+  /*
+   * Google SDK가 아직 로딩 중이면 잠시 후 재시도
+   */
+  if (
+    !window.google ||
+    !google.accounts ||
+    !google.accounts.id
+  ) {
+
+    setTimeout(
+      initGoogleLogin,
+      200
+    );
+
+    return;
+  }
+
+  google.accounts.id.initialize({
+    client_id:
+      GOOGLE_CLIENT_ID,
+
+    callback:
+      handleCredentialResponse,
+
+    auto_select:
+      false,
+
+    cancel_on_tap_outside:
+      false
+  });
+
+  google.accounts.id.renderButton(
+    document.getElementById(
+      "googleButton"
+    ),
+    {
+      theme:
+        "outline",
+
+      size:
+        "large",
+
+      shape:
+        "pill",
+
+      text:
+        "signin_with",
+
+      width:
+        280
+    }
+  );
+
+  /*
+   * 같은 탭에서 이미 인증했다면 복구
+   */
+  restoreSession();
+}
+
+
+/* =========================================================
+   앱 열기
+========================================================= */
+
+async function showApp(session) {
+
+  document
+    .getElementById(
+      "loginScreen"
+    )
+    .style.display =
+      "none";
+
+  document
+    .getElementById(
+      "app"
+    )
+    .style.display =
+      "block";
+
+  document
+    .getElementById(
+      "userName"
+    )
+    .textContent =
+      session.name ||
+      "관리자";
+
+  const photo =
+    document.getElementById(
+      "userPhoto"
+    );
+
+  if (session.picture) {
+
+    photo.src =
+      session.picture;
+
+    photo.style.display =
+      "block";
+
+  } else {
+
+    photo.style.display =
+      "none";
+
+  }
+
+  /*
+   * 최초 로그인 시에만 report 로드
+   */
+  if (!REPORT) {
+
+    try {
+
+      await loadReport();
+
+    } catch (error) {
+
+      console.error(error);
+
+      document
+        .getElementById(
+          "method"
+        )
+        .textContent =
+          "리포트를 불러오는 중 오류가 발생했습니다: " +
+          error.message;
+
+    }
+
+  }
+}
+
+
+/* =========================================================
+   로그아웃
+========================================================= */
+
+function logout() {
+
+  sessionStorage.removeItem(
+    "bloggerManagerSession"
+  );
+
+  REPORT = null;
+
+  if (
+    window.google &&
+    google.accounts &&
+    google.accounts.id
+  ) {
+
+    google.accounts.id.disableAutoSelect();
+
+  }
+
+  document
+    .getElementById(
+      "app"
+    )
+    .style.display =
+      "none";
+
+  document
+    .getElementById(
+      "loginScreen"
+    )
+    .style.display =
+      "flex";
+
+  document
+    .getElementById(
+      "loginMessage"
+    )
+    .className =
+      "login-info";
+
+  document
+    .getElementById(
+      "loginMessage"
+    )
+    .textContent =
+      "로그아웃되었습니다.";
+
+}
+
+
+/* =========================================================
+   report.json
+========================================================= */
 
 async function loadReport() {
 
@@ -384,165 +1300,248 @@ async function loadReport() {
     );
 
   if (!response.ok) {
+
     throw new Error(
       "report.json을 불러오지 못했습니다."
     );
+
   }
 
   REPORT =
     await response.json();
 
+  const generatedAt =
+    new Date(
+      REPORT.generatedAt
+    );
+
   document
-    .getElementById("updated")
+    .getElementById(
+      "updated"
+    )
     .textContent =
       "마지막 검사: " +
-      new Date(
-        REPORT.generatedAt
-      ).toLocaleString("ko-KR");
+      generatedAt
+        .toLocaleString("ko-KR");
 
   document
-    .getElementById("method")
+    .getElementById(
+      "method"
+    )
     .textContent =
       REPORT.recommendationMethod ||
-      "추천은 같은 블로그 안의 제목·라벨·본문 유사도를 기준으로 계산합니다.";
+      "";
 
   renderBlogs();
+
   renderPosts();
 }
 
+
+/* =========================================================
+   상단 블로그 카드
+========================================================= */
+
 function renderBlogs() {
+
   const container =
-    document.getElementById("blogs");
+    document.getElementById(
+      "blogs"
+    );
 
   container.innerHTML =
-    REPORT.blogs.map(blog => {
+    REPORT.blogs
+      .map(blog => {
 
-      const tuning =
-        blog.tuning || {};
+        const tuning =
+          blog.tuning || {};
 
-      const threshold =
-        Math.round(
+        const threshold =
+          Math.round(
+            Number(
+              tuning.threshold || 0
+            ) * 100
+          );
+
+        const single =
+          Math.round(
+            Number(
+              tuning
+                .singleEvidenceThreshold ||
+              0
+            ) * 100
+          );
+
+        const weak =
+          Math.round(
+            Number(
+              tuning
+                .weakEvidenceThreshold ||
+              0
+            ) * 100
+          );
+
+        const trusted =
           Number(
-            tuning.threshold || 0
-          ) * 100
-        );
+            tuning
+              .trustedPositiveSamples ||
+            0
+          );
 
-      const weakThreshold =
-        Math.round(
+        const raw =
           Number(
-            tuning.weakEvidenceThreshold || 0
-          ) * 100
-        );
+            tuning
+              .rawPositiveSamples ||
+            0
+          );
 
-      const trusted =
-        Number(
-          tuning.trustedPositiveSamples || 0
-        );
+        const rejected =
+          Number(
+            tuning
+              .rejectedPositiveSamples ||
+            0
+          );
 
-      const raw =
-        Number(
-          tuning.rawPositiveSamples || 0
-        );
+        const labels =
+          (blog.commonLabels || [])
+            .map(item => `
+              <span class="common-label">
+                ${escapeHtml(item.label)}
+                ${number(item.count)}
+              </span>
+            `)
+            .join("");
 
-      const rejected =
-        Number(
-          tuning.rejectedPositiveSamples || 0
-        );
+        return `
 
-      const commonLabels =
-        (blog.commonLabels || [])
-          .map(item => `
-            <span class="common-label">
-              ${escapeHtml(item.label)}
-              ${item.count}
-            </span>
-          `)
-          .join("");
+          <div class="card">
 
-      return `
-        <div class="card">
+            <h2>
+              ${escapeHtml(blog.name)}
+            </h2>
 
-          <h2>
-            ${escapeHtml(blog.name)}
-          </h2>
+            <a
+              href="${safeUrl(blog.url)}"
+              target="_blank"
+              rel="noopener noreferrer">
 
-          <a
-            href="${safeUrl(blog.url)}"
-            target="_blank"
-            rel="noopener">
-            블로그 열기 ↗
-          </a>
+              블로그 열기 ↗
 
-          <div class="numbers">
+            </a>
 
-            <div class="number">
-              <strong>${number(blog.totalPosts)}</strong>
-              <span>게시글</span>
+            <div class="numbers">
+
+              <div class="number">
+                <strong>
+                  ${number(blog.totalPosts)}
+                </strong>
+                <span>게시글</span>
+              </div>
+
+              <div class="number">
+                <strong>
+                  ${number(blog.warningPosts)}
+                </strong>
+                <span>경고 글</span>
+              </div>
+
+              <div class="number">
+                <strong>
+                  ${number(blog.isolatedPosts)}
+                </strong>
+                <span>고립 글</span>
+              </div>
+
+              <div class="number">
+                <strong>
+                  ${number(blog.recommendationPosts)}
+                </strong>
+                <span>추천 가능</span>
+              </div>
+
             </div>
 
-            <div class="number">
-              <strong>${number(blog.warningPosts)}</strong>
-              <span>경고 글</span>
-            </div>
+            <div class="tuning-info">
 
-            <div class="number">
-              <strong>${number(blog.isolatedPosts)}</strong>
-              <span>고립 글</span>
-            </div>
+              <div>
+                🎯 자동 기준
+                <strong>
+                  ${threshold}%
+                </strong>
+              </div>
 
-            <div class="number">
-              <strong>${number(blog.recommendationPosts)}</strong>
-              <span>추천 가능</span>
+              <div>
+                1️⃣ 단일 근거
+                <strong>
+                  ${single}%
+                </strong>
+              </div>
+
+              <div>
+                0️⃣ 약한 관계
+                <strong>
+                  ${weak}%
+                </strong>
+              </div>
+
+              <div>
+                🧠 신뢰 학습
+                <strong>
+                  ${trusted} / ${raw}
+                </strong>
+
+                · 제외
+                ${rejected}
+              </div>
+
+              ${
+                labels
+                  ? `
+                    <div style="margin-top:7px">
+
+                      흔한 라벨<br>
+
+                      ${labels}
+
+                    </div>
+                  `
+                  : ""
+              }
+
             </div>
 
           </div>
+        `;
 
-          <div class="tuning-info">
-
-            <div>
-              🎯 자동 추천 기준
-              <strong>${threshold}%</strong>
-            </div>
-
-            <div>
-              🧹 약한 관계 기준
-              <strong>${weakThreshold}%</strong>
-            </div>
-
-            <div>
-              🧠 신뢰 학습
-              <strong>${trusted} / ${raw}</strong>
-              · 제외 ${rejected}
-            </div>
-
-            ${
-              commonLabels
-                ? `
-                  <div style="margin-top:6px">
-                    흔한 라벨<br>
-                    ${commonLabels}
-                  </div>
-                `
-                : ""
-            }
-
-          </div>
-
-        </div>
-      `;
-    }).join("");
+      })
+      .join("");
 }
+
+
+/* =========================================================
+   전체 글
+========================================================= */
 
 function allPosts() {
 
-  return REPORT.blogs.flatMap(
-    blog =>
-      blog.posts.map(post => ({
-        ...post,
-        blogName: blog.name
-      }))
-  );
+  return REPORT.blogs
+    .flatMap(
+      blog =>
+        blog.posts.map(
+          post => ({
+            ...post,
+
+            blogName:
+              blog.name
+          })
+        )
+    );
 }
+
+
+/* =========================================================
+   필터
+========================================================= */
 
 function matchesFilter(post) {
 
@@ -552,37 +1551,65 @@ function matchesFilter(post) {
   const recommendations =
     post.recommendations || [];
 
-  const incomingLinks =
-    Number(
-      post.incomingLinks || 0
+  if (
+    FILTER === "warning"
+  ) {
+    return (
+      warnings.length > 0
     );
+  }
 
-  if (FILTER === "warning")
-    return warnings.length > 0;
+  if (
+    FILTER === "isolated"
+  ) {
+    return (
+      Number(
+        post.incomingLinks || 0
+      ) === 0
+    );
+  }
 
-  if (FILTER === "isolated")
-    return incomingLinks === 0;
+  if (
+    FILTER === "internal"
+  ) {
+    return (
+      Number(
+        post.internalLinks || 0
+      ) === 0
+    );
+  }
 
-  if (FILTER === "internal")
-    return Number(
-      post.internalLinks || 0
-    ) === 0;
+  if (
+    FILTER === "recommended"
+  ) {
+    return (
+      recommendations.length > 0
+    );
+  }
 
-  if (FILTER === "recommended")
-    return recommendations.length > 0;
-
-  if (FILTER === "short")
+  if (
+    FILTER === "short"
+  ) {
     return warnings.includes(
       "본문 짧음"
     );
+  }
 
-  if (FILTER === "h2")
+  if (
+    FILTER === "h2"
+  ) {
     return warnings.includes(
       "H2 없음"
     );
+  }
 
   return true;
 }
+
+
+/* =========================================================
+   게시글 테이블
+========================================================= */
 
 function renderPosts() {
 
@@ -591,7 +1618,9 @@ function renderPosts() {
 
   const posts =
     all
-      .filter(matchesFilter)
+      .filter(
+        matchesFilter
+      )
       .sort(
         (a, b) =>
           new Date(b.updated) -
@@ -599,7 +1628,9 @@ function renderPosts() {
       );
 
   document
-    .getElementById("countLine")
+    .getElementById(
+      "countLine"
+    )
     .textContent =
       `표시 중: ${posts.length} / 전체 ${all.length}개 글`;
 
@@ -617,9 +1648,14 @@ function renderPosts() {
       const recommendations =
         post.recommendations || [];
 
-      const incomingLinks =
+      const incoming =
         Number(
           post.incomingLinks || 0
+        );
+
+      const outgoing =
+        Number(
+          post.internalLinks || 0
         );
 
       const warningHtml =
@@ -629,20 +1665,34 @@ function renderPosts() {
               정상
             </span>
           `
-          : warnings.map(w => {
+          : warnings
+              .map(warning => {
 
-              const cls =
-                w === "고립 글"
-                  ? "badge isolated"
-                  : "badge";
+                let className =
+                  "badge";
 
-              return `
-                <span class="${cls}">
-                  ${escapeHtml(w)}
-                </span>
-              `;
+                if (
+                  warning === "고립 글"
+                ) {
+                  className +=
+                    " isolated";
+                }
 
-            }).join("");
+                if (
+                  warning === "제목 없음"
+                ) {
+                  className +=
+                    " missing-title";
+                }
+
+                return `
+                  <span class="${className}">
+                    ${escapeHtml(warning)}
+                  </span>
+                `;
+
+              })
+              .join("");
 
       const recommendationHtml =
         recommendations.length === 0
@@ -653,28 +1703,53 @@ function renderPosts() {
           `
           : recommendations
               .map(
-                (rec, index) => `
+                (rec, index) => {
 
-                  <a
-                    class="recommendation"
-                    href="${safeUrl(rec.url)}"
-                    target="_blank"
-                    rel="noopener">
+                  const reasons =
+                    (
+                      rec.reasons ||
+                      []
+                    )
+                      .map(
+                        reason =>
+                          escapeHtml(reason)
+                      )
+                      .join(" · ");
 
-                    ${index + 1}.
-                    ${escapeHtml(rec.title)}
+                  return `
 
-                    <span class="score">
-                      ${Math.round(
-                        Number(
-                          rec.score || 0
-                        ) * 100
-                      )}%
-                    </span>
+                    <a
+                      class="recommendation"
+                      href="${safeUrl(rec.url)}"
+                      target="_blank"
+                      rel="noopener noreferrer">
 
-                  </a>
+                      ${index + 1}.
+                      ${escapeHtml(rec.title)}
 
-                `
+                      <span class="score">
+                        ${Math.round(
+                          Number(
+                            rec.score || 0
+                          ) * 100
+                        )}%
+                      </span>
+
+                      ${
+                        reasons
+                          ? `
+                            <span class="reason">
+                              ${reasons}
+                            </span>
+                          `
+                          : ""
+                      }
+
+                    </a>
+
+                  `;
+
+                }
               )
               .join("");
 
@@ -689,17 +1764,21 @@ function renderPosts() {
           </td>
 
           <td>
+
             <a
-              class="title-link"
+              class="post-title"
               href="${safeUrl(post.url)}"
               target="_blank"
-              rel="noopener">
+              rel="noopener noreferrer">
 
-              ${escapeHtml(
+              ${
                 post.title
-              )}
+                  ? escapeHtml(post.title)
+                  : "(제목 없음)"
+              }
 
             </a>
+
           </td>
 
           <td>
@@ -710,27 +1789,23 @@ function renderPosts() {
 
           <td
             class="${
-              Number(
-                post.internalLinks || 0
-              ) === 0
+              outgoing === 0
                 ? "warn"
                 : ""
             }">
 
-            ${number(
-              post.internalLinks
-            )}
+            ${outgoing}
 
           </td>
 
           <td
             class="${
-              incomingLinks === 0
+              incoming === 0
                 ? "danger"
                 : ""
             }">
 
-            ${incomingLinks}
+            ${incoming}
 
           </td>
 
@@ -768,15 +1843,20 @@ function renderPosts() {
           </td>
 
         </tr>
-
       `;
 
     }).join("");
 }
 
+
+/* =========================================================
+   필터 변경
+========================================================= */
+
 function setFilter(filter) {
 
-  FILTER = filter;
+  FILTER =
+    filter;
 
   document
     .querySelectorAll(
@@ -786,7 +1866,9 @@ function setFilter(filter) {
 
       button.classList.toggle(
         "active",
-        button.dataset.filter === filter
+
+        button.dataset.filter ===
+          filter
       );
 
     });
@@ -794,15 +1876,21 @@ function setFilter(filter) {
   renderPosts();
 }
 
+
+/* =========================================================
+   안전 출력
+========================================================= */
+
 function number(value) {
 
-  const n =
+  const result =
     Number(value);
 
-  return Number.isFinite(n)
-    ? n
+  return Number.isFinite(result)
+    ? result
     : 0;
 }
+
 
 function safeUrl(value) {
 
@@ -829,43 +1917,54 @@ function safeUrl(value) {
   return "#";
 }
 
+
 function escapeHtml(value) {
 
   return String(
     value ?? ""
   )
+
     .replaceAll(
       "&",
       "&amp;"
     )
+
     .replaceAll(
       "<",
       "&lt;"
     )
+
     .replaceAll(
       ">",
       "&gt;"
     )
+
     .replaceAll(
       '"',
       "&quot;"
     )
+
     .replaceAll(
       "'",
       "&#039;"
     );
 }
 
-loadReport().catch(error => {
 
-  document.body.innerHTML =
-    "<pre style='padding:30px'>" +
-    escapeHtml(
-      error.message
-    ) +
-    "</pre>";
+/* =========================================================
+   시작
+========================================================= */
 
-});
+window.addEventListener(
+  "load",
+  () => {
+
+    restoreSession();
+
+    initGoogleLogin();
+
+  }
+);
 
 </script>
 
