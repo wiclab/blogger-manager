@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-06T04:55:26.791Z",
-  "recommendationMethod": "같은 블로그 안에서 제목·라벨·본문 단어의 TF-IDF 유사도를 비교한 자동 추천입니다.",
+  "generatedAt": "2026-09-06T04:59:53.919Z",
+  "recommendationMethod": "같은 블로그 안에서 제목·라벨·본문 TF-IDF 유사도를 비교하고, 제목·라벨 일치에 가산점을 적용한 자동 추천입니다. 관련성이 낮은 추천은 표시하지 않습니다.",
   "blogs": [
     {
       "key": "wic",
@@ -10,7 +10,7 @@
       "totalPosts": 53,
       "warningPosts": 39,
       "isolatedPosts": 34,
-      "recommendationPosts": 52,
+      "recommendationPosts": 49,
       "posts": [
         {
           "id": "6212723877294712492",
@@ -35,15 +35,20 @@
             {
               "title": "2030년 한국 여름은 얼마나 더워질까? 2026년 폭염과 기후전망으로 예측해봤다",
               "url": "https://wic12.blogspot.com/2026/08/korea-summer-weather-2030-prediction.html",
-              "score": 0.207
+              "score": 0.268,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
               "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.184
+              "score": 0.243,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
+            "제목 없음",
             "고립 글"
           ]
         },
@@ -97,23 +102,7 @@
               "url": "https://wic12.blogspot.com/2026/09/leftover-food-fridge-freezer-discard-checker.html"
             }
           ],
-          "recommendations": [
-            {
-              "title": "남은 음식, 냉장·냉동·버리기? 10초 보관 판정기",
-              "url": "https://wic12.blogspot.com/2026/09/leftover-food-fridge-freezer-discard-checker.html",
-              "score": 0.186
-            },
-            {
-              "title": "퇴근 후 시간을 알차게 보내는 방법 7가지",
-              "url": "https://wic12.blogspot.com/2026/08/7_0993329413.html",
-              "score": 0.176
-            },
-            {
-              "title": "아침 시간을 여유롭게 만드는 방법 7가지",
-              "url": "https://wic12.blogspot.com/2026/08/7_0774743741.html",
-              "score": 0.167
-            }
-          ],
+          "recommendations": [],
           "warnings": [
             "내부링크 없음",
             "본문 짧음"
@@ -143,7 +132,9 @@
             {
               "title": "회사에서는 다 다른데 퇴근하면 다 똑같다? 한국인의 하루를 통계로 봤다",
               "url": "https://wic12.blogspot.com/2026/09/what-koreans-do-after-work.html",
-              "score": 0.181
+              "score": 0.24,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -174,17 +165,23 @@
             {
               "title": "자동이체 날 통장 잔액 부족하면? 재출금 날짜와 미납 여부 정리",
               "url": "https://wic12.blogspot.com/2026/08/automatic-transfer-insufficient-balance_0996334948.html",
-              "score": 0.209
-            },
-            {
-              "title": "헬스장 6개월권, 2개월 다니고 해지하면 환불 얼마 받을까?",
-              "url": "https://wic12.blogspot.com/2026/09/gym-membership-cancellation-refund-calculation.html",
-              "score": 0.189
+              "score": 0.269,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "신용카드 결제일 바꾸면 카드값 두 번 빠져나갈까?",
               "url": "https://wic12.blogspot.com/2026/08/credit-card-payment-date-change.html",
-              "score": 0.189
+              "score": 0.25,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
+            },
+            {
+              "title": "헬스장 6개월권, 2개월 다니고 해지하면 환불 얼마 받을까?",
+              "url": "https://wic12.blogspot.com/2026/09/gym-membership-cancellation-refund-calculation.html",
+              "score": 0.249,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -213,19 +210,25 @@
           "incomingFrom": [],
           "recommendations": [
             {
-              "title": "에어컨 26도 계속 켜기 vs 껐다 켜기, 한 달 전기세 차이는?",
-              "url": "https://wic12.blogspot.com/2026/08/air-conditioner-26c-on-off-electricity-cost.html",
-              "score": 0.45
-            },
-            {
               "title": "에어컨 껐다 켰다 하면 전기세 더 나올까? 외출할 때는 몇 시간부터 꺼야 할까",
               "url": "https://wic12.blogspot.com/2026/08/air-conditioner-on-off-electricity-bill.html",
-              "score": 0.383
+              "score": 0.706,
+              "sharedTitleWords": 2,
+              "sharedLabels": 2
             },
             {
-              "title": "정수기 렌탈 5년 약정, 18개월 쓰고 해지하면 위약금 얼마일까?",
-              "url": "https://wic12.blogspot.com/2026/09/water-purifier-rental-cancellation-fee.html",
-              "score": 0.2
+              "title": "에어컨 26도 계속 켜기 vs 껐다 켜기, 한 달 전기세 차이는?",
+              "url": "https://wic12.blogspot.com/2026/08/air-conditioner-26c-on-off-electricity-cost.html",
+              "score": 0.672,
+              "sharedTitleWords": 1,
+              "sharedLabels": 2
+            },
+            {
+              "title": "알람을 매일 5분 미루면 1년에 얼마나 더 잘까?",
+              "url": "https://wic12.blogspot.com/2026/08/alarm-snooze-5-minutes-per-year.html",
+              "score": 0.397,
+              "sharedTitleWords": 3,
+              "sharedLabels": 0
             }
           ],
           "warnings": [
@@ -257,17 +260,23 @@
             {
               "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
               "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.242
+              "score": 0.301,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "주말은 왜 이렇게 빨리 끝날까? 48시간을 실제로 계산해봤다",
               "url": "https://wic12.blogspot.com/2026/08/7_01052668583.html",
-              "score": 0.206
+              "score": 0.265,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "서울세계불꽃축제 100만 명은 얼마나 많은 사람일까? 숫자로 체감해봤다",
               "url": "https://wic12.blogspot.com/2026/09/seoul-fireworks-festival-one-million-people.html",
-              "score": 0.181
+              "score": 0.24,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -300,17 +309,23 @@
             {
               "title": "러닝 전에 뭘 먹고 얼마나 쉬어야 할까? 초보자가 알아둘 준비 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7.html",
-              "score": 0.318
+              "score": 0.438,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
               "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
-              "score": 0.215
+              "score": 0.274,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "췌장암 초기 증상은? 놓치기 쉬운 신호와 원인·위험요인 총정리",
               "url": "https://wic12.blogspot.com/2026/08/blog-post_26.html",
-              "score": 0.2
+              "score": 0.259,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -342,17 +357,23 @@
             {
               "title": "물가 3.1% 올랐다는데, 도대체 뭐가 오른 걸까? 2026년 8월 물가 뜯어보기",
               "url": "https://wic12.blogspot.com/2026/09/2026-august-inflation-what-got-expensive.html",
-              "score": 0.212
+              "score": 0.271,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "정수기 렌탈 5년 약정, 18개월 쓰고 해지하면 위약금 얼마일까?",
               "url": "https://wic12.blogspot.com/2026/09/water-purifier-rental-cancellation-fee.html",
-              "score": 0.202
+              "score": 0.261,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "에어컨 26도 계속 켜기 vs 껐다 켜기, 한 달 전기세 차이는?",
               "url": "https://wic12.blogspot.com/2026/08/air-conditioner-26c-on-off-electricity-cost.html",
-              "score": 0.19
+              "score": 0.25,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -385,17 +406,23 @@
             {
               "title": "계좌이체 잘못했는데 상대방이 돈을 안 돌려주면? 착오송금 돌려받는 순서",
               "url": "https://wic12.blogspot.com/2026/09/wrong-bank-transfer-money-back.html",
-              "score": 0.201
+              "score": 0.26,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "방귀에 진짜 불이 붙을까? 방귀로 가스레인지를 켤 수 있을까?",
               "url": "https://wic12.blogspot.com/2026/08/can-farts-catch-fire.html",
-              "score": 0.181
+              "score": 0.241,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "지하철 환승 3분 줄이면 1년에 몇 시간 아낄까? 출퇴근 시간 줄이는 방법",
               "url": "https://wic12.blogspot.com/2026/08/3.html",
-              "score": 0.181
+              "score": 0.241,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -420,19 +447,18 @@
           "incomingFrom": [],
           "recommendations": [
             {
-              "title": "자동이체가 같은 날 몰리면 뭐부터 빠질까? 잔액이 부족할 때 실제로 생기는 일",
-              "url": "https://wic12.blogspot.com/2026/09/multiple-auto-payments-insufficient-balance.html",
-              "score": 0.207
-            },
-            {
               "title": "신용카드 결제일 바꾸면 카드값 두 번 빠져나갈까?",
               "url": "https://wic12.blogspot.com/2026/08/credit-card-payment-date-change.html",
-              "score": 0.169
+              "score": 0.37,
+              "sharedTitleWords": 2,
+              "sharedLabels": 0
             },
             {
               "title": "신용카드 12개월 할부, 3개월 뒤 한꺼번에 갚으면 수수료도 다 내야 할까?",
               "url": "https://wic12.blogspot.com/2026/09/credit-card-installment-early-payment-fee.html",
-              "score": 0.134
+              "score": 0.234,
+              "sharedTitleWords": 1,
+              "sharedLabels": 0
             }
           ],
           "warnings": [
@@ -469,17 +495,23 @@
             {
               "title": "신용카드 결제일 바꾸면 카드값 두 번 빠져나갈까?",
               "url": "https://wic12.blogspot.com/2026/08/credit-card-payment-date-change.html",
-              "score": 0.293
+              "score": 0.352,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "신용카드 12개월 할부, 3개월 뒤 한꺼번에 갚으면 수수료도 다 내야 할까?",
               "url": "https://wic12.blogspot.com/2026/09/credit-card-installment-early-payment-fee.html",
-              "score": 0.25
+              "score": 0.309,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "정수기 렌탈 5년 약정, 18개월 쓰고 해지하면 위약금 얼마일까?",
               "url": "https://wic12.blogspot.com/2026/09/water-purifier-rental-cancellation-fee.html",
-              "score": 0.24
+              "score": 0.299,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -513,17 +545,23 @@
             {
               "title": "에어컨 껐다 켰다 하면 전기세 더 나올까? 외출할 때는 몇 시간부터 꺼야 할까",
               "url": "https://wic12.blogspot.com/2026/08/air-conditioner-on-off-electricity-bill.html",
-              "score": 0.287
+              "score": 0.407,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
-              "title": "집에서 생활비 줄이는 방법 8가지",
-              "url": "https://wic12.blogspot.com/2026/08/8.html",
-              "score": 0.229
+              "title": "추석 당일 서울은 정말 텅 빌까? 교통량 통계로 보는 2026년 추석 서울",
+              "url": "https://wic12.blogspot.com/2026/08/2026.html",
+              "score": 0.362,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
-              "title": "한국은행 기준금리 3%로 올랐는데, 내 대출금리도 바로 오를까?",
-              "url": "https://wic12.blogspot.com/2026/09/base-rate-3-percent-loan-interest-impact.html",
-              "score": 0.212
+              "title": "2030년 한국 여름은 얼마나 더워질까? 2026년 폭염과 기후전망으로 예측해봤다",
+              "url": "https://wic12.blogspot.com/2026/08/korea-summer-weather-2030-prediction.html",
+              "score": 0.343,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -552,17 +590,23 @@
             {
               "title": "정수기 렌탈 5년 약정, 18개월 쓰고 해지하면 위약금 얼마일까?",
               "url": "https://wic12.blogspot.com/2026/09/water-purifier-rental-cancellation-fee.html",
-              "score": 0.429
+              "score": 0.649,
+              "sharedTitleWords": 1,
+              "sharedLabels": 2
             },
             {
               "title": "신용카드 12개월 할부, 3개월 뒤 한꺼번에 갚으면 수수료도 다 내야 할까?",
               "url": "https://wic12.blogspot.com/2026/09/credit-card-installment-early-payment-fee.html",
-              "score": 0.268
+              "score": 0.327,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "자동이체가 같은 날 몰리면 뭐부터 빠질까? 잔액이 부족할 때 실제로 생기는 일",
               "url": "https://wic12.blogspot.com/2026/09/multiple-auto-payments-insufficient-balance.html",
-              "score": 0.224
+              "score": 0.284,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -593,17 +637,23 @@
             {
               "title": "헬스장 6개월권, 2개월 다니고 해지하면 환불 얼마 받을까?",
               "url": "https://wic12.blogspot.com/2026/09/gym-membership-cancellation-refund-calculation.html",
-              "score": 0.429
+              "score": 0.649,
+              "sharedTitleWords": 1,
+              "sharedLabels": 2
             },
             {
               "title": "자동이체가 같은 날 몰리면 뭐부터 빠질까? 잔액이 부족할 때 실제로 생기는 일",
               "url": "https://wic12.blogspot.com/2026/09/multiple-auto-payments-insufficient-balance.html",
-              "score": 0.24
+              "score": 0.299,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "신용카드 12개월 할부, 3개월 뒤 한꺼번에 갚으면 수수료도 다 내야 할까?",
               "url": "https://wic12.blogspot.com/2026/09/credit-card-installment-early-payment-fee.html",
-              "score": 0.234
+              "score": 0.293,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -634,17 +684,23 @@
             {
               "title": "계좌이체 잘못했는데 상대방이 돈을 안 돌려주면? 착오송금 돌려받는 순서",
               "url": "https://wic12.blogspot.com/2026/09/wrong-bank-transfer-money-back.html",
-              "score": 0.321
+              "score": 0.441,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "퇴근 후 시간을 알차게 보내는 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0993329413.html",
-              "score": 0.182
+              "score": 0.241,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "아파트 공사하다 유물이 나오면 진짜 공사가 멈출까?",
               "url": "https://wic12.blogspot.com/2026/09/apartment-construction-artifact-found.html",
-              "score": 0.18
+              "score": 0.24,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -675,17 +731,23 @@
             {
               "title": "월급날이 공휴일이면 전날 받을까, 다음날 받을까? 회사마다 다른 이유",
               "url": "https://wic12.blogspot.com/2026/09/salary-day-holiday-before-or-after.html",
-              "score": 0.321
+              "score": 0.441,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
+            },
+            {
+              "title": "집안 청소 1시간 만에 끝내는 방법｜거실·주방·욕실 빠른 청소 순서",
+              "url": "https://wic12.blogspot.com/2026/08/1.html",
+              "score": 0.325,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "아파트 공사하다 유물이 나오면 진짜 공사가 멈출까?",
               "url": "https://wic12.blogspot.com/2026/09/apartment-construction-artifact-found.html",
-              "score": 0.201
-            },
-            {
-              "title": "2026 추석 장보기 할인 총정리｜농축산물·수산물 최대 40% 할인받는 방법",
-              "url": "https://wic12.blogspot.com/2026/08/40.html",
-              "score": 0.193
+              "score": 0.26,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -715,17 +777,23 @@
             {
               "title": "와이파이 공유기 24시간 켜두면 전기세 얼마나 나올까? 매일 밤 끄면 1년에 얼마 아낄까",
               "url": "https://wic12.blogspot.com/2026/09/wifi-router-24-hours-electricity-cost.html",
-              "score": 0.45
+              "score": 0.672,
+              "sharedTitleWords": 1,
+              "sharedLabels": 2
             },
             {
               "title": "폭염에도 전기요금 걱정 줄이는 에어컨 사용법, 여름철 냉방비 절약 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0857116842.html",
-              "score": 0.269
+              "score": 0.367,
+              "sharedTitleWords": 1,
+              "sharedLabels": 0
             },
             {
               "title": "한국은행 기준금리 3%로 올랐는데, 내 대출금리도 바로 오를까?",
               "url": "https://wic12.blogspot.com/2026/09/base-rate-3-percent-loan-interest-impact.html",
-              "score": 0.19
+              "score": 0.25,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -761,17 +829,23 @@
             {
               "title": "에어컨 26도 계속 켜기 vs 껐다 켜기, 한 달 전기세 차이는?",
               "url": "https://wic12.blogspot.com/2026/08/air-conditioner-26c-on-off-electricity-cost.html",
-              "score": 0.712
-            },
-            {
-              "title": "폭염에도 전기요금 걱정 줄이는 에어컨 사용법, 여름철 냉방비 절약 방법 7가지",
-              "url": "https://wic12.blogspot.com/2026/08/7_0857116842.html",
-              "score": 0.401
+              "score": 1.013,
+              "sharedTitleWords": 3,
+              "sharedLabels": 3
             },
             {
               "title": "와이파이 공유기 24시간 켜두면 전기세 얼마나 나올까? 매일 밤 끄면 1년에 얼마 아낄까",
               "url": "https://wic12.blogspot.com/2026/09/wifi-router-24-hours-electricity-cost.html",
-              "score": 0.383
+              "score": 0.706,
+              "sharedTitleWords": 2,
+              "sharedLabels": 2
+            },
+            {
+              "title": "폭염에도 전기요금 걱정 줄이는 에어컨 사용법, 여름철 냉방비 절약 방법 7가지",
+              "url": "https://wic12.blogspot.com/2026/08/7_0857116842.html",
+              "score": 0.559,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -802,17 +876,23 @@
             {
               "title": "헬스장 6개월권, 2개월 다니고 해지하면 환불 얼마 받을까?",
               "url": "https://wic12.blogspot.com/2026/09/gym-membership-cancellation-refund-calculation.html",
-              "score": 0.268
+              "score": 0.327,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "자동이체 날 통장 잔액 부족하면? 재출금 날짜와 미납 여부 정리",
               "url": "https://wic12.blogspot.com/2026/08/automatic-transfer-insufficient-balance_0996334948.html",
-              "score": 0.252
+              "score": 0.311,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "자동이체가 같은 날 몰리면 뭐부터 빠질까? 잔액이 부족할 때 실제로 생기는 일",
               "url": "https://wic12.blogspot.com/2026/09/multiple-auto-payments-insufficient-balance.html",
-              "score": 0.25
+              "score": 0.309,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -845,17 +925,23 @@
             {
               "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
               "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.469
+              "score": 0.568,
+              "sharedTitleWords": 1,
+              "sharedLabels": 3
             },
             {
               "title": "주말은 왜 이렇게 빨리 끝날까? 48시간을 실제로 계산해봤다",
               "url": "https://wic12.blogspot.com/2026/08/7_01052668583.html",
-              "score": 0.29
+              "score": 0.41,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
-              "title": "",
-              "url": "https://wic12.blogspot.com/2026/09/semiconductor-exports-drop-korea-total-exports.html",
-              "score": 0.207
+              "title": "추석 당일 서울은 정말 텅 빌까? 교통량 통계로 보는 2026년 추석 서울",
+              "url": "https://wic12.blogspot.com/2026/08/2026.html",
+              "score": 0.348,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -886,19 +972,25 @@
           "incomingFrom": [],
           "recommendations": [
             {
-              "title": "주말은 왜 이렇게 빨리 끝날까? 48시간을 실제로 계산해봤다",
-              "url": "https://wic12.blogspot.com/2026/08/7_01052668583.html",
-              "score": 0.485
-            },
-            {
               "title": "2030년 한국 여름은 얼마나 더워질까? 2026년 폭염과 기후전망으로 예측해봤다",
               "url": "https://wic12.blogspot.com/2026/08/korea-summer-weather-2030-prediction.html",
-              "score": 0.469
+              "score": 0.568,
+              "sharedTitleWords": 1,
+              "sharedLabels": 3
             },
             {
               "title": "화장실에서 스마트폰 10분씩 보면 평생 몇 달을 변기에 앉아 있을까?",
               "url": "https://wic12.blogspot.com/2026/08/toilet-smartphone-10-minutes-lifetime.html",
-              "score": 0.395
+              "score": 0.517,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
+            },
+            {
+              "title": "주말은 왜 이렇게 빨리 끝날까? 48시간을 실제로 계산해봤다",
+              "url": "https://wic12.blogspot.com/2026/08/7_01052668583.html",
+              "score": 0.483,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             }
           ],
           "warnings": [
@@ -928,17 +1020,23 @@
             {
               "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
               "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.315
+              "score": 0.434,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "지하철 환승 3분 줄이면 1년에 몇 시간 아낄까? 출퇴근 시간 줄이는 방법",
               "url": "https://wic12.blogspot.com/2026/08/3.html",
-              "score": 0.31
+              "score": 0.429,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "주말은 왜 이렇게 빨리 끝날까? 48시간을 실제로 계산해봤다",
               "url": "https://wic12.blogspot.com/2026/08/7_01052668583.html",
-              "score": 0.306
+              "score": 0.425,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             }
           ],
           "warnings": [
@@ -974,17 +1072,23 @@
             {
               "title": "알람을 매일 5분 미루면 1년에 얼마나 더 잘까?",
               "url": "https://wic12.blogspot.com/2026/08/alarm-snooze-5-minutes-per-year.html",
-              "score": 0.375
+              "score": 0.495,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "화장실에서 스마트폰 10분씩 보면 평생 몇 달을 변기에 앉아 있을까?",
               "url": "https://wic12.blogspot.com/2026/08/toilet-smartphone-10-minutes-lifetime.html",
-              "score": 0.37
+              "score": 0.489,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
-              "title": "방귀에 진짜 불이 붙을까? 방귀로 가스레인지를 켤 수 있을까?",
-              "url": "https://wic12.blogspot.com/2026/08/can-farts-catch-fire.html",
-              "score": 0.224
+              "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
+              "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
+              "score": 0.363,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -1012,17 +1116,23 @@
             {
               "title": "알람을 매일 5분 미루면 1년에 얼마나 더 잘까?",
               "url": "https://wic12.blogspot.com/2026/08/alarm-snooze-5-minutes-per-year.html",
-              "score": 0.449
+              "score": 0.567,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
               "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.395
+              "score": 0.517,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "발에서 나오는 땀을 1년 동안 모으면 몇 L나 될까?",
               "url": "https://wic12.blogspot.com/2026/08/how-much-feet-sweat-per-year.html",
-              "score": 0.37
+              "score": 0.489,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             }
           ],
           "warnings": [
@@ -1052,17 +1162,23 @@
             {
               "title": "화장실에서 스마트폰 10분씩 보면 평생 몇 달을 변기에 앉아 있을까?",
               "url": "https://wic12.blogspot.com/2026/08/toilet-smartphone-10-minutes-lifetime.html",
-              "score": 0.449
+              "score": 0.567,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
+            },
+            {
+              "title": "지하철에서 매일 30분 서 있으면 1년에 며칠을 서 있을까?",
+              "url": "https://wic12.blogspot.com/2026/08/subway-standing-time-per-year.html",
+              "score": 0.512,
+              "sharedTitleWords": 2,
+              "sharedLabels": 1
             },
             {
               "title": "발에서 나오는 땀을 1년 동안 모으면 몇 L나 될까?",
               "url": "https://wic12.blogspot.com/2026/08/how-much-feet-sweat-per-year.html",
-              "score": 0.375
-            },
-            {
-              "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
-              "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.251
+              "score": 0.495,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             }
           ],
           "warnings": [
@@ -1097,17 +1213,23 @@
             {
               "title": "지하철 환승 3분 줄이면 1년에 몇 시간 아낄까? 출퇴근 시간 줄이는 방법",
               "url": "https://wic12.blogspot.com/2026/08/3.html",
-              "score": 0.55
+              "score": 0.651,
+              "sharedTitleWords": 1,
+              "sharedLabels": 3
             },
             {
               "title": "만원 지하철에서 휴대폰으로 내 등을 계속 찌르던 여자와 결국 싸웠다",
               "url": "https://wic12.blogspot.com/2026/08/blog-post.html",
-              "score": 0.297
+              "score": 0.518,
+              "sharedTitleWords": 1,
+              "sharedLabels": 2
             },
             {
-              "title": "화장실에서 스마트폰 10분씩 보면 평생 몇 달을 변기에 앉아 있을까?",
-              "url": "https://wic12.blogspot.com/2026/08/toilet-smartphone-10-minutes-lifetime.html",
-              "score": 0.281
+              "title": "알람을 매일 5분 미루면 1년에 얼마나 더 잘까?",
+              "url": "https://wic12.blogspot.com/2026/08/alarm-snooze-5-minutes-per-year.html",
+              "score": 0.512,
+              "sharedTitleWords": 2,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -1160,17 +1282,23 @@
             {
               "title": "자동이체가 같은 날 몰리면 뭐부터 빠질까? 잔액이 부족할 때 실제로 생기는 일",
               "url": "https://wic12.blogspot.com/2026/09/multiple-auto-payments-insufficient-balance.html",
-              "score": 0.577
-            },
-            {
-              "title": "카드값 빠지는 날 오후에 돈 넣어도 될까? 결제일 몇 시까지 입금해야 할까",
-              "url": "https://wic12.blogspot.com/2026/09/credit-card-payment-afternoon-deposit.html",
-              "score": 0.254
+              "score": 0.698,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "신용카드 12개월 할부, 3개월 뒤 한꺼번에 갚으면 수수료도 다 내야 할까?",
               "url": "https://wic12.blogspot.com/2026/09/credit-card-installment-early-payment-fee.html",
-              "score": 0.252
+              "score": 0.311,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
+            },
+            {
+              "title": "정수기 렌탈 5년 약정, 18개월 쓰고 해지하면 위약금 얼마일까?",
+              "url": "https://wic12.blogspot.com/2026/09/water-purifier-rental-cancellation-fee.html",
+              "score": 0.279,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -1224,17 +1352,23 @@
             {
               "title": "신용카드 12개월 할부, 3개월 뒤 한꺼번에 갚으면 수수료도 다 내야 할까?",
               "url": "https://wic12.blogspot.com/2026/09/credit-card-installment-early-payment-fee.html",
-              "score": 0.387
+              "score": 0.606,
+              "sharedTitleWords": 1,
+              "sharedLabels": 2
+            },
+            {
+              "title": "카드값 빠지는 날 오후에 돈 넣어도 될까? 결제일 몇 시까지 입금해야 할까",
+              "url": "https://wic12.blogspot.com/2026/09/credit-card-payment-afternoon-deposit.html",
+              "score": 0.37,
+              "sharedTitleWords": 2,
+              "sharedLabels": 0
             },
             {
               "title": "자동이체가 같은 날 몰리면 뭐부터 빠질까? 잔액이 부족할 때 실제로 생기는 일",
               "url": "https://wic12.blogspot.com/2026/09/multiple-auto-payments-insufficient-balance.html",
-              "score": 0.293
-            },
-            {
-              "title": "헬스장 6개월권, 2개월 다니고 해지하면 환불 얼마 받을까?",
-              "url": "https://wic12.blogspot.com/2026/09/gym-membership-cancellation-refund-calculation.html",
-              "score": 0.263
+              "score": 0.352,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -1269,12 +1403,16 @@
             {
               "title": "Iced Americano in Korea: Why Koreans Drink It Even in Winter",
               "url": "https://wic12.blogspot.com/2026/08/iced-americano-korea.html",
-              "score": 0.36
+              "score": 0.621,
+              "sharedTitleWords": 2,
+              "sharedLabels": 1
             },
             {
               "title": "Sun Umbrellas in Korea: Why They’re Everywhere in Summer",
               "url": "https://wic12.blogspot.com/2026/08/sun-umbrellas-korea-summer.html",
-              "score": 0.346
+              "score": 0.506,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -1313,12 +1451,16 @@
             {
               "title": "Food Delivery in Korea: Why Is It So Fast and Popular?",
               "url": "https://wic12.blogspot.com/2026/08/food-delivery-korea-everyday-life.html",
-              "score": 0.368
+              "score": 0.628,
+              "sharedTitleWords": 2,
+              "sharedLabels": 1
             },
             {
               "title": "Iced Americano in Korea: Why Koreans Drink It Even in Winter",
               "url": "https://wic12.blogspot.com/2026/08/iced-americano-korea.html",
-              "score": 0.333
+              "score": 0.493,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -1348,17 +1490,23 @@
             {
               "title": "집에서 생활비 줄이는 방법 8가지",
               "url": "https://wic12.blogspot.com/2026/08/8.html",
-              "score": 0.34
+              "score": 0.459,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "폭염에도 전기요금 걱정 줄이는 에어컨 사용법, 여름철 냉방비 절약 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0857116842.html",
-              "score": 0.256
+              "score": 0.415,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "퇴근 후 시간을 알차게 보내는 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0993329413.html",
-              "score": 0.225
+              "score": 0.385,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -1395,17 +1543,23 @@
             {
               "title": "Why Koreans Leave Packages Outside Their Doors: Parcel Delivery Culture in Korea",
               "url": "https://wic12.blogspot.com/2026/08/parcel-delivery-in-korea.html",
-              "score": 0.457
+              "score": 0.717,
+              "sharedTitleWords": 2,
+              "sharedLabels": 1
             },
             {
               "title": "Iced Americano in Korea: Why Koreans Drink It Even in Winter",
               "url": "https://wic12.blogspot.com/2026/08/iced-americano-korea.html",
-              "score": 0.381
+              "score": 0.542,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "Sun Umbrellas in Korea: Why They’re Everywhere in Summer",
               "url": "https://wic12.blogspot.com/2026/08/sun-umbrellas-korea-summer.html",
-              "score": 0.319
+              "score": 0.479,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -1436,17 +1590,23 @@
             {
               "title": "Iced Americano in Korea: Why Koreans Drink It Even in Winter",
               "url": "https://wic12.blogspot.com/2026/08/iced-americano-korea.html",
-              "score": 0.454
+              "score": 0.615,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "Why Koreans Leave Packages Outside Their Doors: Parcel Delivery Culture in Korea",
               "url": "https://wic12.blogspot.com/2026/08/parcel-delivery-in-korea.html",
-              "score": 0.346
+              "score": 0.506,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "Food Delivery in Korea: Why Is It So Fast and Popular?",
               "url": "https://wic12.blogspot.com/2026/08/food-delivery-korea-everyday-life.html",
-              "score": 0.319
+              "score": 0.479,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -1472,19 +1632,25 @@
           "incomingFrom": [],
           "recommendations": [
             {
+              "title": "Why Koreans Leave Packages Outside Their Doors: Parcel Delivery Culture in Korea",
+              "url": "https://wic12.blogspot.com/2026/08/parcel-delivery-in-korea.html",
+              "score": 0.621,
+              "sharedTitleWords": 2,
+              "sharedLabels": 1
+            },
+            {
               "title": "Sun Umbrellas in Korea: Why They’re Everywhere in Summer",
               "url": "https://wic12.blogspot.com/2026/08/sun-umbrellas-korea-summer.html",
-              "score": 0.454
+              "score": 0.615,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "Food Delivery in Korea: Why Is It So Fast and Popular?",
               "url": "https://wic12.blogspot.com/2026/08/food-delivery-korea-everyday-life.html",
-              "score": 0.381
-            },
-            {
-              "title": "Why Koreans Leave Packages Outside Their Doors: Parcel Delivery Culture in Korea",
-              "url": "https://wic12.blogspot.com/2026/08/parcel-delivery-in-korea.html",
-              "score": 0.36
+              "score": 0.542,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -1517,17 +1683,23 @@
             {
               "title": "물가 3.1% 올랐다는데, 도대체 뭐가 오른 걸까? 2026년 8월 물가 뜯어보기",
               "url": "https://wic12.blogspot.com/2026/09/2026-august-inflation-what-got-expensive.html",
-              "score": 0.202
-            },
-            {
-              "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
-              "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.194
+              "score": 0.362,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "2026 추석 장보기 할인 총정리｜농축산물·수산물 최대 40% 할인받는 방법",
               "url": "https://wic12.blogspot.com/2026/08/40.html",
-              "score": 0.194
+              "score": 0.354,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
+            },
+            {
+              "title": "2030년 한국 여름은 얼마나 더워질까? 2026년 폭염과 기후전망으로 예측해봤다",
+              "url": "https://wic12.blogspot.com/2026/08/korea-summer-weather-2030-prediction.html",
+              "score": 0.348,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -1566,17 +1738,23 @@
             {
               "title": "집에서 생활비 줄이는 방법 8가지",
               "url": "https://wic12.blogspot.com/2026/08/8.html",
-              "score": 0.346
+              "score": 0.467,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "폭염에도 전기요금 걱정 줄이는 에어컨 사용법, 여름철 냉방비 절약 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0857116842.html",
-              "score": 0.301
+              "score": 0.421,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
-              "title": "물가 3.1% 올랐다는데, 도대체 뭐가 오른 걸까? 2026년 8월 물가 뜯어보기",
-              "url": "https://wic12.blogspot.com/2026/09/2026-august-inflation-what-got-expensive.html",
-              "score": 0.239
+              "title": "추석 당일 서울은 정말 텅 빌까? 교통량 통계로 보는 2026년 추석 서울",
+              "url": "https://wic12.blogspot.com/2026/08/2026.html",
+              "score": 0.354,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -1625,19 +1803,25 @@
           ],
           "recommendations": [
             {
-              "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
-              "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.358
-            },
-            {
               "title": "화장실에서 스마트폰 10분씩 보면 평생 몇 달을 변기에 앉아 있을까?",
               "url": "https://wic12.blogspot.com/2026/08/toilet-smartphone-10-minutes-lifetime.html",
-              "score": 0.305
+              "score": 0.467,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
-              "title": "알람을 매일 5분 미루면 1년에 얼마나 더 잘까?",
-              "url": "https://wic12.blogspot.com/2026/08/alarm-snooze-5-minutes-per-year.html",
-              "score": 0.287
+              "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
+              "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
+              "score": 0.421,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
+            },
+            {
+              "title": "퇴근 후 시간을 알차게 보내는 방법 7가지",
+              "url": "https://wic12.blogspot.com/2026/08/7_0993329413.html",
+              "score": 0.411,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -1667,19 +1851,25 @@
           "incomingFrom": [],
           "recommendations": [
             {
-              "title": "에어컨 껐다 켰다 하면 전기세 더 나올까? 외출할 때는 몇 시간부터 꺼야 할까",
-              "url": "https://wic12.blogspot.com/2026/08/air-conditioner-on-off-electricity-bill.html",
-              "score": 0.401
-            },
-            {
               "title": "집에서 생활비 줄이는 방법 8가지",
               "url": "https://wic12.blogspot.com/2026/08/8.html",
-              "score": 0.388
+              "score": 0.607,
+              "sharedTitleWords": 1,
+              "sharedLabels": 2
+            },
+            {
+              "title": "에어컨 껐다 켰다 하면 전기세 더 나올까? 외출할 때는 몇 시간부터 꺼야 할까",
+              "url": "https://wic12.blogspot.com/2026/08/air-conditioner-on-off-electricity-bill.html",
+              "score": 0.559,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "2026 추석 장보기 할인 총정리｜농축산물·수산물 최대 40% 할인받는 방법",
               "url": "https://wic12.blogspot.com/2026/08/40.html",
-              "score": 0.301
+              "score": 0.421,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             }
           ],
           "warnings": [
@@ -1719,19 +1909,25 @@
           ],
           "recommendations": [
             {
+              "title": "만원 지하철에서 휴대폰으로 내 등을 계속 찌르던 여자와 결국 싸웠다",
+              "url": "https://wic12.blogspot.com/2026/08/blog-post.html",
+              "score": 0.523,
+              "sharedTitleWords": 1,
+              "sharedLabels": 2
+            },
+            {
               "title": "지하철 환승 3분 줄이면 1년에 몇 시간 아낄까? 출퇴근 시간 줄이는 방법",
               "url": "https://wic12.blogspot.com/2026/08/3.html",
-              "score": 0.496
+              "score": 0.496,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
               "title": "러닝 전에 뭘 먹고 얼마나 쉬어야 할까? 초보자가 알아둘 준비 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7.html",
-              "score": 0.374
-            },
-            {
-              "title": "만원 지하철에서 휴대폰으로 내 등을 계속 찌르던 여자와 결국 싸웠다",
-              "url": "https://wic12.blogspot.com/2026/08/blog-post.html",
-              "score": 0.302
+              "score": 0.493,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             }
           ],
           "warnings": []
@@ -1772,17 +1968,23 @@
             {
               "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
               "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
-              "score": 0.239
+              "score": 0.4,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "러닝 전에 뭘 먹고 얼마나 쉬어야 할까? 초보자가 알아둘 준비 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7.html",
-              "score": 0.224
+              "score": 0.284,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "췌장암 초기 증상은? 놓치기 쉬운 신호와 원인·위험요인 총정리",
               "url": "https://wic12.blogspot.com/2026/08/blog-post_26.html",
-              "score": 0.206
+              "score": 0.266,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -1812,17 +2014,23 @@
             {
               "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
               "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
-              "score": 0.221
+              "score": 0.28,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "잠은 많이 잘수록 좋을까? 8시간 자도 피곤한 이유와 적정 수면시간",
               "url": "https://wic12.blogspot.com/2026/08/blog-post_27.html",
-              "score": 0.206
+              "score": 0.266,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "다이어트는 식단 90% 운동 10%가 진짜일까? 직접 따져봤다",
               "url": "https://wic12.blogspot.com/2026/09/diet-90-percent-food-10-percent-exercise.html",
-              "score": 0.2
+              "score": 0.259,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -1860,23 +2068,7 @@
               "url": "https://wic12.blogspot.com/2026/08/7.html"
             }
           ],
-          "recommendations": [
-            {
-              "title": "빨래 냄새 없애는 방법｜세탁해도 쉰내 나는 원인과 해결법 7가지",
-              "url": "https://wic12.blogspot.com/2026/08/7_0222392275.html",
-              "score": 0.112
-            },
-            {
-              "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
-              "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
-              "score": 0.104
-            },
-            {
-              "title": "러닝 전에 뭘 먹고 얼마나 쉬어야 할까? 초보자가 알아둘 준비 7가지",
-              "url": "https://wic12.blogspot.com/2026/08/7.html",
-              "score": 0.103
-            }
-          ],
+          "recommendations": [],
           "warnings": []
         },
         {
@@ -1904,17 +2096,23 @@
             {
               "title": "집에서 생활비 줄이는 방법 8가지",
               "url": "https://wic12.blogspot.com/2026/08/8.html",
-              "score": 0.288
+              "score": 0.348,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "평생 잠자는 시간은 몇 년일까? 숫자로 보는 재미있는 일상 통계 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_01511384514.html",
-              "score": 0.246
+              "score": 0.305,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "폭염에도 전기요금 걱정 줄이는 에어컨 사용법, 여름철 냉방비 절약 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0857116842.html",
-              "score": 0.2
+              "score": 0.26,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -1947,17 +2145,23 @@
             {
               "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
               "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
-              "score": 0.302
+              "score": 0.523,
+              "sharedTitleWords": 1,
+              "sharedLabels": 2
             },
             {
               "title": "지하철에서 매일 30분 서 있으면 1년에 며칠을 서 있을까?",
               "url": "https://wic12.blogspot.com/2026/08/subway-standing-time-per-year.html",
-              "score": 0.297
+              "score": 0.518,
+              "sharedTitleWords": 1,
+              "sharedLabels": 2
             },
             {
               "title": "지하철 환승 3분 줄이면 1년에 몇 시간 아낄까? 출퇴근 시간 줄이는 방법",
               "url": "https://wic12.blogspot.com/2026/08/3.html",
-              "score": 0.291
+              "score": 0.411,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             }
           ],
           "warnings": [
@@ -1985,13 +2189,7 @@
           "h3": 0,
           "incomingLinks": 0,
           "incomingFrom": [],
-          "recommendations": [
-            {
-              "title": "만원 지하철에서 휴대폰으로 내 등을 계속 찌르던 여자와 결국 싸웠다",
-              "url": "https://wic12.blogspot.com/2026/08/blog-post.html",
-              "score": 0.185
-            }
-          ],
+          "recommendations": [],
           "warnings": [
             "내부링크 없음",
             "고립 글"
@@ -2020,19 +2218,25 @@
           "incomingFrom": [],
           "recommendations": [
             {
-              "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
-              "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.485
-            },
-            {
               "title": "퇴근 후 시간을 알차게 보내는 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0993329413.html",
-              "score": 0.384
+              "score": 0.503,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "아침 시간을 여유롭게 만드는 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0774743741.html",
-              "score": 0.365
+              "score": 0.484,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
+            },
+            {
+              "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
+              "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
+              "score": 0.483,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             }
           ],
           "warnings": [
@@ -2064,17 +2268,23 @@
             {
               "title": "퇴근 후 시간을 알차게 보내는 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0993329413.html",
-              "score": 0.686
+              "score": 0.887,
+              "sharedTitleWords": 2,
+              "sharedLabels": 3
             },
             {
               "title": "주말은 왜 이렇게 빨리 끝날까? 48시간을 실제로 계산해봤다",
               "url": "https://wic12.blogspot.com/2026/08/7_01052668583.html",
-              "score": 0.365
+              "score": 0.484,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
-              "title": "집에서 생활비 줄이는 방법 8가지",
-              "url": "https://wic12.blogspot.com/2026/08/8.html",
-              "score": 0.288
+              "title": "러닝 전에 뭘 먹고 얼마나 쉬어야 할까? 초보자가 알아둘 준비 7가지",
+              "url": "https://wic12.blogspot.com/2026/08/7.html",
+              "score": 0.409,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2107,17 +2317,23 @@
             {
               "title": "폭염에도 전기요금 걱정 줄이는 에어컨 사용법, 여름철 냉방비 절약 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0857116842.html",
-              "score": 0.388
+              "score": 0.607,
+              "sharedTitleWords": 1,
+              "sharedLabels": 2
             },
             {
               "title": "2026 추석 장보기 할인 총정리｜농축산물·수산물 최대 40% 할인받는 방법",
               "url": "https://wic12.blogspot.com/2026/08/40.html",
-              "score": 0.346
+              "score": 0.467,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "빨래 냄새 없애는 방법｜세탁해도 쉰내 나는 원인과 해결법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0222392275.html",
-              "score": 0.34
+              "score": 0.459,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             }
           ],
           "warnings": [
@@ -2150,17 +2366,23 @@
             {
               "title": "아침 시간을 여유롭게 만드는 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0774743741.html",
-              "score": 0.686
+              "score": 0.887,
+              "sharedTitleWords": 2,
+              "sharedLabels": 3
             },
             {
               "title": "주말은 왜 이렇게 빨리 끝날까? 48시간을 실제로 계산해봤다",
               "url": "https://wic12.blogspot.com/2026/08/7_01052668583.html",
-              "score": 0.384
+              "score": 0.503,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
-              "title": "집에서 생활비 줄이는 방법 8가지",
-              "url": "https://wic12.blogspot.com/2026/08/8.html",
-              "score": 0.287
+              "title": "평생 잠자는 시간은 몇 년일까? 숫자로 보는 재미있는 일상 통계 7가지",
+              "url": "https://wic12.blogspot.com/2026/08/7_01511384514.html",
+              "score": 0.411,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2198,17 +2420,23 @@
             {
               "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
               "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
-              "score": 0.374
+              "score": 0.493,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "다이어트는 식단 90% 운동 10%가 진짜일까? 직접 따져봤다",
               "url": "https://wic12.blogspot.com/2026/09/diet-90-percent-food-10-percent-exercise.html",
-              "score": 0.318
+              "score": 0.438,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "퇴근 후 시간을 알차게 보내는 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0993329413.html",
-              "score": 0.259
+              "score": 0.418,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -2238,17 +2466,23 @@
             {
               "title": "지하철에서 매일 30분 서 있으면 1년에 며칠을 서 있을까?",
               "url": "https://wic12.blogspot.com/2026/08/subway-standing-time-per-year.html",
-              "score": 0.55
+              "score": 0.651,
+              "sharedTitleWords": 1,
+              "sharedLabels": 3
             },
             {
               "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
               "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.352
+              "score": 0.472,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "주말은 왜 이렇게 빨리 끝날까? 48시간을 실제로 계산해봤다",
               "url": "https://wic12.blogspot.com/2026/08/7_01052668583.html",
-              "score": 0.33
+              "score": 0.45,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             }
           ],
           "warnings": [
@@ -2288,17 +2522,23 @@
             {
               "title": "빨래 냄새 없애는 방법｜세탁해도 쉰내 나는 원인과 해결법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0222392275.html",
-              "score": 0.41
+              "score": 0.533,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "집에서 생활비 줄이는 방법 8가지",
               "url": "https://wic12.blogspot.com/2026/08/8.html",
-              "score": 0.335
+              "score": 0.455,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
-              "title": "퇴근 후 시간을 알차게 보내는 방법 7가지",
-              "url": "https://wic12.blogspot.com/2026/08/7_0993329413.html",
-              "score": 0.257
+              "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
+              "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
+              "score": 0.338,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2340,17 +2580,23 @@
             {
               "title": "How Long Would It Take to Walk Around the Entire Earth?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html",
-              "score": 0.29
-            },
-            {
-              "title": "Could You Spend 1 Bitcoin in 24 Hours Without Buying Anything Expensive?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/spend-one-bitcoin-in-24-hours.html",
-              "score": 0.25
+              "score": 0.451,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "If Everyone on Earth Screamed at Once, Would It Destroy Anything?",
               "url": "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html",
-              "score": 0.247
+              "score": 0.408,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
+            },
+            {
+              "title": "Could You Spend 1 Bitcoin in 24 Hours Without Buying Anything Expensive?",
+              "url": "https://qevnaxori.blogspot.com/2026/09/spend-one-bitcoin-in-24-hours.html",
+              "score": 0.31,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2383,17 +2629,23 @@
             {
               "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
-              "score": 0.323
+              "score": 0.354,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
-              "score": 0.281
+              "score": 0.315,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "If You Taught a Dog English Every Day for 10 Years, How Far Would It Get?",
               "url": "https://qevnaxori.blogspot.com/2026/09/teach-dog-english-for-10-years.html",
-              "score": 0.198
+              "score": 0.26,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2422,19 +2674,25 @@
           "incomingFrom": [],
           "recommendations": [
             {
+              "title": "If Everyone on Earth Screamed at Once, Would It Destroy Anything?",
+              "url": "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html",
+              "score": 0.376,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
+            },
+            {
               "title": "How Long Would It Take to Count Every Person on Earth?",
               "url": "https://qevnaxori.blogspot.com/2026/09/how-long-count-every-person-earth.html",
-              "score": 0.25
+              "score": 0.31,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "How Long Would It Take to Walk Around the Entire Earth?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html",
-              "score": 0.241
-            },
-            {
-              "title": "If Everyone on Earth Screamed at Once, Would It Destroy Anything?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html",
-              "score": 0.215
+              "score": 0.299,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2469,17 +2727,23 @@
             {
               "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
-              "score": 0.336
+              "score": 0.381,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
-              "score": 0.335
+              "score": 0.374,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "Nobody Lab #002: How Fast Is Your Finger, Really?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html",
-              "score": 0.323
+              "score": 0.364,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -2512,17 +2776,23 @@
             {
               "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
-              "score": 0.702
+              "score": 0.673,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.391
+              "score": 0.435,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "Nobody Lab #006 — How Small a Button Can You Actually Click?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html",
-              "score": 0.323
+              "score": 0.354,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -2555,17 +2825,23 @@
             {
               "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
-              "score": 0.702
+              "score": 0.673,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
               "title": "Nobody Lab #006 — How Small a Button Can You Actually Click?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html",
-              "score": 0.501
+              "score": 0.638,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.335
+              "score": 0.374,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -2593,17 +2869,9 @@
             {
               "title": "How Long Would Your Hair Be If You Never Cut It for 100 Years?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html",
-              "score": 0.234
-            },
-            {
-              "title": "How Many Chickens Would It Take to Defeat a T. Rex?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-chickens-to-defeat-t-rex.html",
-              "score": 0.155
-            },
-            {
-              "title": "How Many Pigeons Would It Take to Carry a Human?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-pigeons-to-carry-a-human.html",
-              "score": 0.143
+              "score": 0.293,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2645,17 +2913,23 @@
             {
               "title": "Nobody Lab #006 — How Small a Button Can You Actually Click?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html",
-              "score": 0.387
+              "score": 0.417,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
-              "score": 0.379
+              "score": 0.409,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.323
+              "score": 0.364,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -2688,17 +2962,23 @@
             {
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.336
+              "score": 0.381,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "Nobody Lab #002: How Fast Is Your Finger, Really?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html",
-              "score": 0.319
+              "score": 0.357,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
-              "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
-              "score": 0.315
+              "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
+              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
+              "score": 0.351,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2729,17 +3009,9 @@
             {
               "title": "How Many Psychopaths Have You Probably Met? The Statistics Explained",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-psychopaths-have-you-met.html",
-              "score": 0.206
-            },
-            {
-              "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.107
-            },
-            {
-              "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
-              "score": 0.107
+              "score": 0.265,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2775,17 +3047,16 @@
             {
               "title": "How Does the Sword Box Magic Trick Not Kill the Person Inside?",
               "url": "https://qevnaxori.blogspot.com/2026/09/how-sword-box-magic-trick-works.html",
-              "score": 0.919
+              "score": 1.101,
+              "sharedTitleWords": 3,
+              "sharedLabels": 4
             },
             {
               "title": "How Many Psychopaths Have You Probably Met? The Statistics Explained",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-psychopaths-have-you-met.html",
-              "score": 0.218
-            },
-            {
-              "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.123
+              "score": 0.277,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2816,17 +3087,23 @@
             {
               "title": "How Many Chickens Would It Take to Defeat a T. Rex?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-chickens-to-defeat-t-rex.html",
-              "score": 0.222
+              "score": 0.281,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "If You Taught a Dog English Every Day for 10 Years, How Far Would It Get?",
               "url": "https://qevnaxori.blogspot.com/2026/09/teach-dog-english-for-10-years.html",
-              "score": 0.21
+              "score": 0.269,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "If Everyone on Earth Screamed at Once, Would It Destroy Anything?",
               "url": "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html",
-              "score": 0.203
+              "score": 0.263,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2857,19 +3134,25 @@
           "incomingFrom": [],
           "recommendations": [
             {
-              "title": "Could We Actually Create a Spider-Man With Genetic Engineering?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/could-genetic-engineering-create-spider-man.html",
-              "score": 0.21
+              "title": "How Long Would Your Hair Be If You Never Cut It for 100 Years?",
+              "url": "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html",
+              "score": 0.356,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
-              "title": "How Long Would It Take to Walk Around the Entire Earth?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html",
-              "score": 0.199
+              "title": "Could We Actually Create a Spider-Man With Genetic Engineering?",
+              "url": "https://qevnaxori.blogspot.com/2026/09/could-genetic-engineering-create-spider-man.html",
+              "score": 0.269,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "Nobody Lab #006 — How Small a Button Can You Actually Click?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html",
-              "score": 0.198
+              "score": 0.26,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2902,17 +3185,23 @@
             {
               "title": "How Long Would It Take to Walk Around the Entire Earth?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html",
-              "score": 0.225
+              "score": 0.284,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "How Long Would It Take to Count Every Person on Earth?",
               "url": "https://qevnaxori.blogspot.com/2026/09/how-long-count-every-person-earth.html",
-              "score": 0.194
+              "score": 0.254,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "Could You Spend 1 Bitcoin in 24 Hours Without Buying Anything Expensive?",
               "url": "https://qevnaxori.blogspot.com/2026/09/spend-one-bitcoin-in-24-hours.html",
-              "score": 0.19
+              "score": 0.249,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -2948,17 +3237,23 @@
             {
               "title": "How Long Would It Take to Count Every Person on Earth?",
               "url": "https://qevnaxori.blogspot.com/2026/09/how-long-count-every-person-earth.html",
-              "score": 0.247
+              "score": 0.408,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
+            },
+            {
+              "title": "Could You Spend 1 Bitcoin in 24 Hours Without Buying Anything Expensive?",
+              "url": "https://qevnaxori.blogspot.com/2026/09/spend-one-bitcoin-in-24-hours.html",
+              "score": 0.376,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "What Are Your Actual Chances of Getting a Seat on a Crowded Subway?",
               "url": "https://qevnaxori.blogspot.com/2026/09/chances-of-getting-seat-crowded-subway.html",
-              "score": 0.229
-            },
-            {
-              "title": "How Many Chickens Would It Take to Defeat a T. Rex?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-chickens-to-defeat-t-rex.html",
-              "score": 0.225
+              "score": 0.288,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -2990,19 +3285,25 @@
           ],
           "recommendations": [
             {
-              "title": "How Much Money Would You Make If You Got Paid 1 Cent for Every Step?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-much-money-1-cent-per-step.html",
-              "score": 0.339
-            },
-            {
               "title": "How Many People Would It Take to Drink the Entire Ocean?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html",
-              "score": 0.313
+              "score": 0.472,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             },
             {
               "title": "How Long Would It Take to Count Every Person on Earth?",
               "url": "https://qevnaxori.blogspot.com/2026/09/how-long-count-every-person-earth.html",
-              "score": 0.29
+              "score": 0.451,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
+            },
+            {
+              "title": "How Much Money Would You Make If You Got Paid 1 Cent for Every Step?",
+              "url": "https://qevnaxori.blogspot.com/2026/08/how-much-money-1-cent-per-step.html",
+              "score": 0.398,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -3033,17 +3334,23 @@
             {
               "title": "How Long Would It Take to Drink a Swimming Pool With a Straw?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-drink-swimming-pool-with-straw.html",
-              "score": 0.51
+              "score": 0.508,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
               "title": "How Many Pigeons Would It Take to Carry a Human?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-pigeons-to-carry-a-human.html",
-              "score": 0.467
+              "score": 0.466,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
-              "title": "How Long Would It Take to Walk Around the Entire Earth?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html",
-              "score": 0.267
+              "title": "If You Taught a Dog English Every Day for 10 Years, How Far Would It Get?",
+              "url": "https://qevnaxori.blogspot.com/2026/09/teach-dog-english-for-10-years.html",
+              "score": 0.356,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -3082,17 +3389,23 @@
             {
               "title": "How Much Money Would You Make If You Got Paid 1 Cent for Every Step?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-much-money-1-cent-per-step.html",
-              "score": 0.533
+              "score": 0.53,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
               "title": "How Long Would Your Hair Be If You Never Cut It for 100 Years?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html",
-              "score": 0.509
+              "score": 0.507,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
-              "title": "How Many Pigeons Would It Take to Carry a Human?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-pigeons-to-carry-a-human.html",
-              "score": 0.458
+              "title": "How Long Would It Take to Walk Around the Entire Earth?",
+              "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html",
+              "score": 0.472,
+              "sharedTitleWords": 1,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -3130,17 +3443,23 @@
             {
               "title": "How Many People Would It Take to Drink the Entire Ocean?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html",
-              "score": 0.533
+              "score": 0.53,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
               "title": "How Long Would Your Hair Be If You Never Cut It for 100 Years?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html",
-              "score": 0.512
+              "score": 0.511,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
               "title": "How Long Would It Take to Walk Around the Entire Earth?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html",
-              "score": 0.339
+              "score": 0.398,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": []
@@ -3177,17 +3496,23 @@
             {
               "title": "How Many People Would It Take to Drink the Entire Ocean?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html",
-              "score": 0.715
+              "score": 0.815,
+              "sharedTitleWords": 1,
+              "sharedLabels": 3
             },
             {
               "title": "How Much Money Would You Make If You Got Paid 1 Cent for Every Step?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-much-money-1-cent-per-step.html",
-              "score": 0.542
+              "score": 0.539,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
               "title": "How Long Would Your Hair Be If You Never Cut It for 100 Years?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html",
-              "score": 0.51
+              "score": 0.508,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             }
           ],
           "warnings": [
@@ -3221,19 +3546,25 @@
           ],
           "recommendations": [
             {
+              "title": "How Many Chickens Would It Take to Defeat a T. Rex?",
+              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-chickens-to-defeat-t-rex.html",
+              "score": 0.504,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
+            },
+            {
               "title": "How Much Money Would You Make If You Got Paid 1 Cent for Every Step?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-much-money-1-cent-per-step.html",
-              "score": 0.485
+              "score": 0.483,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
               "title": "How Long Would Your Hair Be If You Never Cut It for 100 Years?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html",
-              "score": 0.467
-            },
-            {
-              "title": "How Long Would It Take to Drink a Swimming Pool With a Straw?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-drink-swimming-pool-with-straw.html",
-              "score": 0.463
+              "score": 0.466,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             }
           ],
           "warnings": [
@@ -3265,17 +3596,23 @@
             {
               "title": "How Many Pigeons Would It Take to Carry a Human?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-pigeons-to-carry-a-human.html",
-              "score": 0.387
-            },
-            {
-              "title": "How Long Would It Take to Drink a Swimming Pool With a Straw?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-drink-swimming-pool-with-straw.html",
-              "score": 0.226
+              "score": 0.504,
+              "sharedTitleWords": 0,
+              "sharedLabels": 2
             },
             {
               "title": "If Everyone on Earth Screamed at Once, Would It Destroy Anything?",
               "url": "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html",
-              "score": 0.225
+              "score": 0.285,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
+            },
+            {
+              "title": "How Long Would It Take to Drink a Swimming Pool With a Straw?",
+              "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-drink-swimming-pool-with-straw.html",
+              "score": 0.283,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -3309,17 +3646,16 @@
             {
               "title": "How Many Psychopaths Have You Probably Met? The Statistics Explained",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-psychopaths-have-you-met.html",
-              "score": 0.564
+              "score": 0.559,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
               "title": "20 Ridiculous Faker Stats Nobody Asked For",
               "url": "https://qevnaxori.blogspot.com/2026/08/faker-career-stats-nobody-asked-for.html",
-              "score": 0.199
-            },
-            {
-              "title": "What Are Your Actual Chances of Getting a Seat on a Crowded Subway?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/chances-of-getting-seat-crowded-subway.html",
-              "score": 0.123
+              "score": 0.253,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -3353,17 +3689,23 @@
             {
               "title": "How Many of Your Friends Actually Consider You a Friend?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-friends-actually-consider-you-a-friend.html",
-              "score": 0.564
+              "score": 0.559,
+              "sharedTitleWords": 0,
+              "sharedLabels": 3
             },
             {
               "title": "How Does the “Sawing a Person in Half” Magic Trick Actually Work?",
               "url": "https://qevnaxori.blogspot.com/2026/09/how-sawing-person-in-half-magic-trick-works.html",
-              "score": 0.218
+              "score": 0.277,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "How Does the Sword Box Magic Trick Not Kill the Person Inside?",
               "url": "https://qevnaxori.blogspot.com/2026/09/how-sword-box-magic-trick-works.html",
-              "score": 0.206
+              "score": 0.265,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
@@ -3397,17 +3739,16 @@
             {
               "title": "How Many Psychopaths Have You Probably Met? The Statistics Explained",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-psychopaths-have-you-met.html",
-              "score": 0.203
+              "score": 0.258,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             },
             {
               "title": "How Many of Your Friends Actually Consider You a Friend?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-friends-actually-consider-you-a-friend.html",
-              "score": 0.199
-            },
-            {
-              "title": "How Long Would It Take to Walk Around the Entire Earth?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html",
-              "score": 0.109
+              "score": 0.253,
+              "sharedTitleWords": 0,
+              "sharedLabels": 1
             }
           ],
           "warnings": [
