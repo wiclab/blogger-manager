@@ -1,108 +1,556 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
+import path from "node:path";
 
-const API_KEY = process.env.BLOGGER_API_KEY;
+const API_ROOT = "https://www.googleapis.com/blogger/v3";
+const API_KEY = String(process.env.BLOGGER_API_KEY || "").trim();
 
 if (!API_KEY) {
-  throw new Error("BLOGGER_API_KEY가 없습니다.");
+  throw new Error("BLOGGER_API_KEY secret is missing.");
 }
-
-const MODEL_VERSION = "final-2evidence-v1";
 
 const BLOGS = [
   {
     key: "wic",
     name: "별다알",
-    url: "https://wic12.blogspot.com"
+    url: "https://wic12.blogspot.com/",
+    shortTextThreshold: 800,
+    defaultThreshold: 0.20,
   },
   {
     key: "nobody",
     name: "Nobody Asked Data",
-    url: "https://qevnaxori.blogspot.com"
-  }
+    url: "https://qevnaxori.blogspot.com/",
+    shortTextThreshold: 800,
+    defaultThreshold: 0.27,
+  },
 ];
 
-const STOPWORDS = new Set([
-  // English
-  "the", "and", "for", "with", "that", "this", "from", "into",
-  "your", "you", "are", "was", "were", "will", "would", "could",
-  "should", "can", "how", "what", "when", "where", "why", "who",
-  "which", "about", "than", "then", "they", "them", "their",
-  "there", "here", "have", "has", "had", "does", "did", "doing",
-  "not", "but", "all", "any", "our", "out", "one", "two",
-  "more", "most", "really", "actually", "just", "every",
-  "without", "after", "before", "over", "under", "between",
-  "through", "per", "much", "many", "long", "take", "make",
-  "get", "got", "like",
+const MAX_RECOMMENDATIONS = 3;
+const REPORT_PATH = path.resolve("data/report.json");
 
-  // 브랜드/시리즈 공통 단어
-  "nobody", "asked", "data", "lab",
+/* =========================================================
+   Generic / low-information terms
+========================================================= */
 
+const GENERIC_RELATION_TOKENS = new Set([
   // Korean
-  "그리고", "하지만", "그러면", "그래서", "이렇게", "저렇게",
-  "이런", "저런", "대한", "위한", "하는", "되는", "있다",
-  "없다", "있는", "없는", "하면", "해도", "부터", "까지",
-  "에서", "으로", "보다", "정도", "정말", "진짜", "과연",
-  "경우", "때문", "때문에", "방법", "이유", "알아보자",
-  "알아보기",
+  "한국",
+  "대한민국",
+  "사람",
+  "사람들",
+  "생활",
+  "일상",
+  "정보",
+  "방법",
+  "이유",
+  "정도",
+  "경우",
+  "기준",
+  "결과",
+  "가능",
+  "문제",
+  "오늘",
+  "내일",
+  "이번",
+  "정말",
+  "진짜",
+  "얼마",
+  "얼마나",
+  "하면",
+  "했을",
+  "있는",
+  "없는",
+  "대한",
+  "관련",
+  "글",
+  "포스팅",
+  "블로그",
+  "하루",
+  "때문",
+  "이상",
+  "이하",
+  "전체",
+  "한번",
+  "무엇",
+  "뭐",
+  "왜",
+  "어떻게",
+  "그리고",
+  "하지만",
+  "그런데",
+  "이런",
+  "저런",
+  "한다",
+  "된다",
+  "있다",
+  "없다",
+  "했다",
+  "보다",
+  "정리",
+  "확인",
 
-  // 별다알 공통 표현
-  "별다알", "생활실험", "테스트", "실험"
+  // English
+  "how",
+  "what",
+  "why",
+  "when",
+  "where",
+  "who",
+  "would",
+  "could",
+  "can",
+  "actually",
+  "really",
+  "every",
+  "much",
+  "many",
+  "long",
+  "data",
+  "asked",
+  "nobody",
+  "thing",
+  "things",
+  "people",
+  "person",
+  "the",
+  "a",
+  "an",
+  "and",
+  "or",
+  "but",
+  "if",
+  "then",
+  "than",
+  "to",
+  "of",
+  "in",
+  "on",
+  "at",
+  "for",
+  "from",
+  "with",
+  "without",
+  "into",
+  "about",
+  "your",
+  "you",
+  "we",
+  "our",
+  "is",
+  "are",
+  "was",
+  "were",
+  "be",
+  "been",
+  "being",
+  "do",
+  "does",
+  "did",
+  "this",
+  "that",
+  "these",
+  "those",
+  "it",
+  "its",
+  "as",
+  "not",
+  "all",
+  "one",
+  "two",
+  "any",
+]);
+
+const GENERIC_LABELS = new Set([
+  "생활정보",
+  "생활 정보",
+  "정보",
+  "일상",
+  "데이터",
+  "data",
+  "weird data",
+  "thought experiments",
+  "blog",
+  "etc",
 ]);
 
 /* =========================================================
-   기본 유틸
+   Topic groups
+
+   제목 단어가 정확히 겹치지 않아도
+   같은 실제 주제인지 확인하기 위한 보조 근거.
 ========================================================= */
 
-function clamp(value, min, max) {
-  return Math.min(max, Math.max(min, value));
-}
+const TOPIC_GROUPS = {
+  money_banking: [
+    "송금",
+    "오송금",
+    "계좌",
+    "은행",
+    "입금",
+    "출금",
+    "이체",
+    "자동이체",
+    "결제",
+    "카드",
+    "카드값",
+    "월급",
+    "급여",
+    "잔액",
+    "돈",
+    "인증",
+    "원",
+    "bank",
+    "banking",
+    "transfer",
+    "payment",
+    "card",
+    "salary",
+    "deposit",
+    "withdrawal",
+    "money",
+    "balance",
+  ],
 
-function average(values) {
-  if (!values.length) return 0;
+  weather_climate: [
+    "여름",
+    "폭염",
+    "기후",
+    "날씨",
+    "기온",
+    "더위",
+    "장마",
+    "온도",
+    "열대야",
+    "summer",
+    "heat",
+    "weather",
+    "climate",
+    "temperature",
+    "hot",
+    "warming",
+  ],
 
-  return (
-    values.reduce((sum, value) => sum + value, 0) /
-    values.length
+  food_storage: [
+    "음식",
+    "식품",
+    "냉장",
+    "냉동",
+    "보관",
+    "해동",
+    "피자",
+    "유통기한",
+    "상온",
+    "food",
+    "fridge",
+    "refrigerator",
+    "freezer",
+    "frozen",
+    "storage",
+    "pizza",
+    "thaw",
+  ],
+
+  export_economy: [
+    "수출",
+    "수입",
+    "반도체",
+    "무역",
+    "경제",
+    "물가",
+    "인플레이션",
+    "관세",
+    "환율",
+    "export",
+    "import",
+    "semiconductor",
+    "trade",
+    "economy",
+    "inflation",
+    "tariff",
+    "currency",
+  ],
+
+  lab_interactive: [
+    "nobody lab",
+    "생활실험",
+    "life experiment",
+    "reaction",
+    "button",
+    "click",
+    "finger",
+    "seconds",
+    "brain",
+    "pixel",
+    "test",
+    "실험",
+    "버튼",
+    "클릭",
+    "반응",
+    "초",
+    "뇌",
+  ],
+
+  human_scale: [
+    "earth",
+    "planet",
+    "world",
+    "ocean",
+    "walk",
+    "count",
+    "everyone",
+    "scream",
+    "step",
+    "hair",
+    "pigeon",
+    "people",
+    "human",
+    "지구",
+    "세계",
+    "바다",
+    "걷기",
+    "사람",
+    "인류",
+  ],
+
+  electricity_home: [
+    "전기",
+    "전기요금",
+    "에어컨",
+    "냉방",
+    "전력",
+    "청소",
+    "집",
+    "가전",
+    "electricity",
+    "air conditioner",
+    "power",
+    "energy",
+    "home",
+    "cleaning",
+  ],
+
+  wedding_social: [
+    "결혼식",
+    "축의금",
+    "하객",
+    "예식",
+    "wedding",
+    "gift",
+    "guest",
+  ],
+};
+
+/* =========================================================
+   Main
+========================================================= */
+
+async function main() {
+  const reportBlogs = [];
+
+  for (const config of BLOGS) {
+    console.log(`Scanning ${config.name}...`);
+
+    const blogMeta = await getBlogByUrl(config.url);
+
+    const rawPosts = await fetchAllPosts(
+      blogMeta.id
+    );
+
+    const analyzed = analyzeBlog(
+      config,
+      blogMeta,
+      rawPosts
+    );
+
+    reportBlogs.push(analyzed);
+  }
+
+  const report = {
+    generatedAt:
+      new Date().toISOString(),
+
+    modelVersion:
+      "semantic-gate-v3",
+
+    recommendationMethod:
+      "기존 내부링크 학습 + 제목·구체 라벨·시리즈·본문 희귀 핵심어·주제군 관계 게이트를 사용합니다. " +
+      "TF-IDF 점수가 높아도 의미 근거가 부족하면 추천하지 않습니다.",
+
+    blogs:
+      reportBlogs,
+  };
+
+  await fs.mkdir(
+    path.dirname(REPORT_PATH),
+    {
+      recursive: true,
+    }
+  );
+
+  await fs.writeFile(
+    REPORT_PATH,
+    JSON.stringify(
+      report,
+      null,
+      2
+    ) + "\n",
+    "utf8"
+  );
+
+  console.log(
+    `Saved ${REPORT_PATH}`
+  );
+
+  console.log(
+    reportBlogs
+      .map(
+        (blog) =>
+          `${blog.name}: ${blog.totalPosts} posts, ` +
+          `${blog.warningPosts} warnings, ` +
+          `${blog.recommendationPosts} recommendation posts`
+      )
+      .join("\n")
   );
 }
 
-function quantile(values, q) {
-  if (!values.length) return 0;
+/* =========================================================
+   Blogger API
+========================================================= */
 
-  const sorted = [...values].sort((a, b) => a - b);
+async function getBlogByUrl(
+  blogUrl
+) {
+  const url =
+    new URL(
+      `${API_ROOT}/blogs/byurl`
+    );
 
-  if (sorted.length === 1) {
-    return sorted[0];
-  }
-
-  const position = (sorted.length - 1) * q;
-  const lower = Math.floor(position);
-  const upper = Math.ceil(position);
-
-  if (lower === upper) {
-    return sorted[lower];
-  }
-
-  const weight = position - lower;
-
-  return (
-    sorted[lower] * (1 - weight) +
-    sorted[upper] * weight
+  url.searchParams.set(
+    "url",
+    blogUrl
   );
+
+  url.searchParams.set(
+    "view",
+    "READER"
+  );
+
+  url.searchParams.set(
+    "key",
+    API_KEY
+  );
+
+  return fetchJson(url);
 }
 
-function median(values) {
-  return quantile(values, 0.5);
+async function fetchAllPosts(
+  blogId
+) {
+  const posts = [];
+
+  let pageToken = "";
+
+  do {
+    const url =
+      new URL(
+        `${API_ROOT}/blogs/${encodeURIComponent(
+          blogId
+        )}/posts`
+      );
+
+    url.searchParams.set(
+      "key",
+      API_KEY
+    );
+
+    url.searchParams.set(
+      "maxResults",
+      "500"
+    );
+
+    url.searchParams.set(
+      "fetchBodies",
+      "true"
+    );
+
+    url.searchParams.set(
+      "status",
+      "LIVE"
+    );
+
+    url.searchParams.set(
+      "view",
+      "READER"
+    );
+
+    if (pageToken) {
+      url.searchParams.set(
+        "pageToken",
+        pageToken
+      );
+    }
+
+    const data =
+      await fetchJson(url);
+
+    posts.push(
+      ...(data.items || [])
+    );
+
+    pageToken =
+      data.nextPageToken || "";
+
+  } while (pageToken);
+
+  return posts;
 }
 
-async function fetchJson(url) {
-  const response = await fetch(url);
+async function fetchJson(
+  url,
+  attempt = 0
+) {
+  const response =
+    await fetch(
+      url,
+      {
+        headers: {
+          Accept:
+            "application/json",
+
+          "User-Agent":
+            "wiclab-blogger-manager/1.0",
+        },
+      }
+    );
 
   if (!response.ok) {
-    const text = await response.text();
+    const text =
+      await response.text();
+
+    if (
+      (
+        response.status === 429 ||
+        response.status >= 500
+      ) &&
+      attempt < 3
+    ) {
+      await sleep(
+        800 *
+        2 ** attempt
+      );
+
+      return fetchJson(
+        url,
+        attempt + 1
+      );
+    }
 
     throw new Error(
-      `${response.status} ${response.statusText}\n${text}`
+      `Blogger API ${response.status}: ` +
+      text.slice(
+        0,
+        500
+      )
     );
   }
 
@@ -110,137 +558,1758 @@ async function fetchJson(url) {
 }
 
 /* =========================================================
-   Blogger API
+   Blog analysis
 ========================================================= */
 
-async function getBlogInfo(blogUrl) {
-  const url =
-    "https://www.googleapis.com/blogger/v3/blogs/byurl" +
-    `?url=${encodeURIComponent(blogUrl)}` +
-    `&key=${encodeURIComponent(API_KEY)}`;
+function analyzeBlog(
+  config,
+  blogMeta,
+  rawPosts
+) {
+  const posts =
+    rawPosts.map(
+      (post) =>
+        normalizePost(
+          post,
+          config
+        )
+    );
 
-  const data = await fetchJson(url);
+  const postByUrl =
+    new Map(
+      posts.map(
+        (post) => [
+          post.canonicalUrl,
+          post,
+        ]
+      )
+    );
+
+  /* -----------------------------------------------------
+     링크 / 기본 수치
+  ----------------------------------------------------- */
+
+  for (const post of posts) {
+    const links =
+      extractLinks(
+        post.content,
+        post.url
+      );
+
+    const internalTargetUrls =
+      new Set();
+
+    const externalUrls =
+      new Set();
+
+    for (const href of links) {
+      const canonical =
+        canonicalUrl(href);
+
+      if (!canonical) {
+        continue;
+      }
+
+      /*
+       * 실제 존재하는 같은 블로그 게시글
+       */
+      if (
+        postByUrl.has(
+          canonical
+        ) &&
+        canonical !==
+        post.canonicalUrl
+      ) {
+        internalTargetUrls.add(
+          canonical
+        );
+
+        continue;
+      }
+
+      /*
+       * 외부 사이트
+       */
+      try {
+        const linkUrl =
+          new URL(href);
+
+        const blogHost =
+          new URL(
+            config.url
+          ).hostname
+            .toLowerCase();
+
+        if (
+          linkUrl.hostname
+            .toLowerCase() !==
+          blogHost
+        ) {
+          externalUrls.add(
+            canonical
+          );
+        }
+
+      } catch {
+        // malformed URL 무시
+      }
+    }
+
+    post._internalTargetUrls =
+      internalTargetUrls;
+
+    post.internalLinks =
+      internalTargetUrls.size;
+
+    post.externalLinks =
+      externalUrls.size;
+
+    post.images =
+      countMatches(
+        post.content,
+        /<img\b/gi
+      );
+
+    post.h2 =
+      countMatches(
+        post.content,
+        /<h2\b/gi
+      );
+  }
+
+  /* -----------------------------------------------------
+     들어오는 내부링크
+  ----------------------------------------------------- */
+
+  const incomingSources =
+    new Map(
+      posts.map(
+        (post) => [
+          post.canonicalUrl,
+          new Set(),
+        ]
+      )
+    );
+
+  for (const source of posts) {
+    for (
+      const targetUrl
+      of source._internalTargetUrls
+    ) {
+      incomingSources
+        .get(targetUrl)
+        ?.add(
+          source.canonicalUrl
+        );
+    }
+  }
+
+  for (const post of posts) {
+    post.incomingLinks =
+      incomingSources
+        .get(
+          post.canonicalUrl
+        )
+        ?.size || 0;
+  }
+
+  /* -----------------------------------------------------
+     의미 분석 모델
+  ----------------------------------------------------- */
+
+  const tokenStats =
+    buildTokenStats(
+      posts
+    );
+
+  const labelStats =
+    buildLabelStats(
+      posts
+    );
+
+  const pairCache =
+    new Map();
+
+  const scorePair =
+    (
+      source,
+      target
+    ) => {
+      const key =
+        `${source.id}::${target.id}`;
+
+      if (
+        !pairCache.has(key)
+      ) {
+        pairCache.set(
+          key,
+
+          evaluatePair(
+            source,
+            target,
+            tokenStats,
+            labelStats
+          )
+        );
+      }
+
+      return pairCache.get(
+        key
+      );
+    };
+
+  /*
+   * 기존에 사람이 넣어둔 내부링크를
+   * 학습 데이터로 사용해 기준점 자동 계산
+   */
+  const tuning =
+    learnThresholds(
+      config,
+      posts,
+      postByUrl,
+      scorePair
+    );
+
+  /* -----------------------------------------------------
+     추천 계산
+  ----------------------------------------------------- */
+
+  for (const source of posts) {
+    const recommendations =
+      [];
+
+    for (const target of posts) {
+      /*
+       * 자기 자신 제외
+       */
+      if (
+        source.id ===
+        target.id
+      ) {
+        continue;
+      }
+
+      /*
+       * 이미 걸려 있는 링크 제외
+       */
+      if (
+        source
+          ._internalTargetUrls
+          .has(
+            target.canonicalUrl
+          )
+      ) {
+        continue;
+      }
+
+      const relation =
+        scorePair(
+          source,
+          target
+        );
+
+      /*
+       * ★ 최종 의미 관계 게이트
+       *
+       * 점수가 높아도 실제 주제 근거가 없으면
+       * 여기서 탈락.
+       */
+      const decision =
+        passesRecommendationGate(
+          relation,
+          tuning
+        );
+
+      if (
+        !decision.pass
+      ) {
+        continue;
+      }
+
+      recommendations.push({
+        title:
+          target.title ||
+          "(제목 없음)",
+
+        url:
+          target.url,
+
+        score:
+          roundScore(
+            relation.finalScore
+          ),
+
+        reasons:
+          relation.reasons,
+
+        relationStrength:
+          decision
+            .relationStrength,
+      });
+    }
+
+    source.recommendations =
+      recommendations
+        .sort(
+          (a, b) =>
+            b.score -
+              a.score ||
+            a.title.localeCompare(
+              b.title
+            )
+        )
+        .slice(
+          0,
+          MAX_RECOMMENDATIONS
+        );
+  }
+
+  /* -----------------------------------------------------
+     경고
+  ----------------------------------------------------- */
+
+  for (const post of posts) {
+    const warnings = [];
+
+    if (
+      !post.title.trim()
+    ) {
+      warnings.push(
+        "제목 없음"
+      );
+    }
+
+    if (
+      post.textLength <
+      config.shortTextThreshold
+    ) {
+      warnings.push(
+        "본문 짧음"
+      );
+    }
+
+    if (
+      post.h2 === 0
+    ) {
+      warnings.push(
+        "H2 없음"
+      );
+    }
+
+    if (
+      post.internalLinks === 0
+    ) {
+      warnings.push(
+        "내부링크 없음"
+      );
+    }
+
+    if (
+      post.incomingLinks === 0
+    ) {
+      warnings.push(
+        "고립 글"
+      );
+    }
+
+    post.warnings =
+      warnings;
+  }
+
+  /* -----------------------------------------------------
+     흔한 라벨
+  ----------------------------------------------------- */
+
+  const commonLabels =
+    [
+      ...labelStats
+        .counts
+        .entries(),
+    ]
+      .filter(
+        ([, count]) =>
+          count >= 2
+      )
+      .sort(
+        (a, b) =>
+          b[1] -
+            a[1] ||
+          a[0].localeCompare(
+            b[0]
+          )
+      )
+      .slice(
+        0,
+        5
+      )
+      .map(
+        (
+          [
+            label,
+            count,
+          ]
+        ) => ({
+          label,
+          count,
+        })
+      );
+
+  const publicPosts =
+    posts
+      .sort(
+        (a, b) =>
+          new Date(
+            b.published ||
+            0
+          ) -
+          new Date(
+            a.published ||
+            0
+          )
+      )
+      .map(
+        toPublicPost
+      );
 
   return {
-    id: data.id,
-    name: data.name,
-    totalPosts: Number(
-      data.posts?.totalItems || 0
-    )
+    id:
+      String(
+        blogMeta.id
+      ),
+
+    name:
+      config.name,
+
+    url:
+      config.url,
+
+    totalPosts:
+      publicPosts.length,
+
+    warningPosts:
+      publicPosts.filter(
+        (post) =>
+          post.warnings
+            .length > 0
+      ).length,
+
+    isolatedPosts:
+      publicPosts.filter(
+        (post) =>
+          post.incomingLinks ===
+          0
+      ).length,
+
+    recommendationPosts:
+      publicPosts.filter(
+        (post) =>
+          post
+            .recommendations
+            .length > 0
+      ).length,
+
+    tuning,
+
+    commonLabels,
+
+    posts:
+      publicPosts,
   };
 }
 
-async function getAllPosts(blogId) {
-  const posts = [];
-  let pageToken = null;
-
-  do {
-    const params = new URLSearchParams({
-      key: API_KEY,
-      maxResults: "50",
-      fetchBodies: "true"
-    });
-
-    if (pageToken) {
-      params.set("pageToken", pageToken);
-    }
-
-    const url =
-      `https://www.googleapis.com/blogger/v3/blogs/${blogId}/posts?${params}`;
-
-    const data = await fetchJson(url);
-
-    posts.push(...(data.items || []));
-
-    pageToken =
-      data.nextPageToken || null;
-
-  } while (pageToken);
-
-  return posts;
-}
-
 /* =========================================================
-   HTML
+   Post normalization
 ========================================================= */
 
-function decodeHtmlEntities(html = "") {
-  return html
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/&lt;/gi, "<")
-    .replace(/&gt;/gi, ">")
-    .replace(/&quot;/gi, '"')
-    .replace(/&#39;/gi, "'");
-}
+function normalizePost(
+  post,
+  config
+) {
+  const title =
+    String(
+      post.title || ""
+    ).trim();
 
-function stripHtml(html = "") {
-  return decodeHtmlEntities(
-    html
-      .replace(
-        /<script[\s\S]*?<\/script>/gi,
-        " "
-      )
-      .replace(
-        /<style[\s\S]*?<\/style>/gi,
-        " "
-      )
-      .replace(
-        /<[^>]+>/g,
-        " "
-      )
-  )
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function countMatches(text, regex) {
-  return [...text.matchAll(regex)].length;
-}
-
-/* =========================================================
-   URL
-========================================================= */
-
-function normalizeUrl(value, blogUrl) {
-  try {
-    const base = new URL(blogUrl);
-
-    const url = new URL(
-      value,
-      `${blogUrl}/`
+  const content =
+    String(
+      post.content || ""
     );
 
-    if (url.hostname !== base.hostname) {
-      return null;
+  const url =
+    String(
+      post.url || ""
+    ).trim();
+
+  const text =
+    stripHtml(
+      content
+    );
+
+  return {
+    id:
+      String(
+        post.id || ""
+      ),
+
+    blogKey:
+      config.key,
+
+    title,
+
+    content,
+
+    text,
+
+    url,
+
+    canonicalUrl:
+      canonicalUrl(
+        url
+      ),
+
+    published:
+      post.published ||
+      null,
+
+    updated:
+      post.updated ||
+      null,
+
+    labels:
+      Array.isArray(
+        post.labels
+      )
+        ? post.labels
+            .map(
+              (label) =>
+                String(
+                  label
+                ).trim()
+            )
+            .filter(
+              Boolean
+            )
+        : [],
+
+    textLength:
+      text.length,
+
+    internalLinks:
+      0,
+
+    incomingLinks:
+      0,
+
+    externalLinks:
+      0,
+
+    images:
+      0,
+
+    h2:
+      0,
+
+    recommendations:
+      [],
+
+    warnings:
+      [],
+
+    _internalTargetUrls:
+      new Set(),
+  };
+}
+
+function toPublicPost(
+  post
+) {
+  /*
+   * 본문 HTML은 report.json에 넣지 않는다.
+   * GitHub Pages에 불필요하게 전체 본문을 노출하지 않음.
+   */
+
+  return {
+    id:
+      post.id,
+
+    title:
+      post.title,
+
+    url:
+      post.url,
+
+    published:
+      post.published,
+
+    updated:
+      post.updated,
+
+    labels:
+      post.labels,
+
+    textLength:
+      post.textLength,
+
+    internalLinks:
+      post.internalLinks,
+
+    incomingLinks:
+      post.incomingLinks,
+
+    externalLinks:
+      post.externalLinks,
+
+    images:
+      post.images,
+
+    h2:
+      post.h2,
+
+    warnings:
+      post.warnings,
+
+    recommendations:
+      post.recommendations,
+  };
+}
+
+/* =========================================================
+   Link extraction
+========================================================= */
+
+function extractLinks(
+  html,
+  baseUrl
+) {
+  const result = [];
+
+  const regex =
+    /<a\b[^>]*\bhref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/gi;
+
+  let match;
+
+  while (
+    (
+      match =
+        regex.exec(
+          String(
+            html ||
+            ""
+          )
+        )
+    )
+  ) {
+    const rawHref =
+      decodeBasicEntities(
+        match[1] ??
+        match[2] ??
+        match[3] ??
+        ""
+      )
+        .trim();
+
+    if (
+      !rawHref
+    ) {
+      continue;
     }
+
+    if (
+      /^(?:javascript:|mailto:|tel:|data:)/i
+        .test(
+          rawHref
+        )
+    ) {
+      continue;
+    }
+
+    try {
+      const resolved =
+        new URL(
+          rawHref,
+          baseUrl
+        );
+
+      if (
+        resolved.protocol !==
+          "http:" &&
+        resolved.protocol !==
+          "https:"
+      ) {
+        continue;
+      }
+
+      result.push(
+        resolved.href
+      );
+
+    } catch {
+      // malformed href 무시
+    }
+  }
+
+  return result;
+}
+
+/* =========================================================
+   Canonical URL
+========================================================= */
+
+function canonicalUrl(
+  value
+) {
+  try {
+    const url =
+      new URL(
+        String(
+          value ||
+          ""
+        ).trim()
+      );
+
+    if (
+      url.protocol !==
+        "http:" &&
+      url.protocol !==
+        "https:"
+    ) {
+      return "";
+    }
+
+    url.hash =
+      "";
+
+    /*
+     * Blogger 모바일 파라미터 제거
+     */
+    url.searchParams.delete(
+      "m"
+    );
 
     let pathname =
-      url.pathname.replace(/\/+$/, "");
+      url.pathname ||
+      "/";
 
-    if (!pathname) {
-      pathname = "/";
+    if (
+      pathname.length >
+        1 &&
+      pathname.endsWith(
+        "/"
+      )
+    ) {
+      pathname =
+        pathname.slice(
+          0,
+          -1
+        );
     }
 
-    // ?m=1, query, hash는 제외
-    return `https://${base.hostname}${pathname}`;
+    return (
+      `${url.protocol.toLowerCase()}//` +
+      `${url.hostname.toLowerCase()}` +
+      `${
+        url.port
+          ? `:${url.port}`
+          : ""
+      }` +
+      `${pathname}` +
+      `${url.search}`
+    );
 
   } catch {
-    return null;
+    return "";
   }
 }
 
 /* =========================================================
-   텍스트 토큰화
+   Semantic pair scoring
 ========================================================= */
 
-function tokenize(text = "") {
-  return text
-    .normalize("NFKC")
+function evaluatePair(
+  source,
+  target,
+  tokenStats,
+  labelStats
+) {
+  /*
+   * 제목 핵심 토큰
+   */
+  const sourceTitleTokens =
+    informativeTokens(
+      tokenize(
+        source.title
+      ),
+      tokenStats
+    );
+
+  const targetTitleTokens =
+    informativeTokens(
+      tokenize(
+        target.title
+      ),
+      tokenStats
+    );
+
+  /*
+   * 본문은 너무 길게 전부 넣지 않고
+   * 앞 5천자 정도만 의미 비교.
+   */
+  const sourceBodyTokens =
+    informativeTokens(
+      tokenize(
+        source.text.slice(
+          0,
+          5000
+        )
+      ),
+      tokenStats
+    );
+
+  const targetBodyTokens =
+    informativeTokens(
+      tokenize(
+        target.text.slice(
+          0,
+          5000
+        )
+      ),
+      tokenStats
+    );
+
+  const titleCosine =
+    tfidfCosine(
+      sourceTitleTokens,
+      targetTitleTokens,
+      tokenStats.idf
+    );
+
+  const bodyCosine =
+    tfidfCosine(
+      sourceBodyTokens,
+      targetBodyTokens,
+      tokenStats.idf
+    );
+
+  /*
+   * 구체 라벨
+   */
+  const sourceLabels =
+    usefulLabels(
+      source,
+      labelStats
+    );
+
+  const targetLabels =
+    usefulLabels(
+      target,
+      labelStats
+    );
+
+  const sharedLabels =
+    intersection(
+      sourceLabels,
+      targetLabels
+    );
+
+  const labelScore =
+    jaccard(
+      sourceLabels,
+      targetLabels
+    );
+
+  /*
+   * 주제군
+   */
+  const sourceTopics =
+    detectTopics(
+      source
+    );
+
+  const targetTopics =
+    detectTopics(
+      target
+    );
+
+  const sharedTopics =
+    intersection(
+      sourceTopics,
+      targetTopics
+    );
+
+  const topicScore =
+    sharedTopics.length
+      ? Math.min(
+          1,
+          sharedTopics.length /
+          2
+        )
+      : 0;
+
+  /*
+   * 시리즈
+   */
+  const sourceSeries =
+    getSeriesKey(
+      source.title
+    );
+
+  const targetSeries =
+    getSeriesKey(
+      target.title
+    );
+
+  const sameSeries =
+    Boolean(
+      sourceSeries &&
+      targetSeries &&
+      sourceSeries ===
+        targetSeries
+    );
+
+  /*
+   * 실제 겹치는 핵심어
+   */
+  const sharedTitleTokens =
+    intersection(
+      sourceTitleTokens,
+      targetTitleTokens
+    );
+
+  const sharedBodyTokens =
+    intersection(
+      sourceBodyTokens,
+      targetBodyTokens
+    );
+
+  /*
+   * 기본 의미 점수
+   *
+   * 제목을 가장 강하게,
+   * 본문,
+   * 구체 라벨,
+   * 주제군 순서.
+   */
+  const baseScore =
+    clamp(
+      (
+        0.52 *
+        titleCosine
+      ) +
+      (
+        0.28 *
+        bodyCosine
+      ) +
+      (
+        0.12 *
+        labelScore
+      ) +
+      (
+        0.08 *
+        topicScore
+      ),
+      0,
+      1
+    );
+
+  /*
+   * 관계 근거
+   */
+  const evidence = {
+    series:
+      sameSeries,
+
+    title:
+      sharedTitleTokens
+        .length >= 1,
+
+    label:
+      sharedLabels
+        .length >= 1,
+
+    topic:
+      sharedTopics
+        .length >= 1,
+
+    body:
+      sharedBodyTokens
+        .length >= 2,
+  };
+
+  /*
+   * 같은 시리즈는
+   * 그 자체로 강한 근거 2개 상당.
+   */
+  let evidenceCount =
+    0;
+
+  if (
+    evidence.series
+  ) {
+    evidenceCount +=
+      2;
+  }
+
+  if (
+    evidence.title
+  ) {
+    evidenceCount +=
+      1;
+  }
+
+  if (
+    evidence.label
+  ) {
+    evidenceCount +=
+      1;
+  }
+
+  if (
+    evidence.topic
+  ) {
+    evidenceCount +=
+      1;
+  }
+
+  if (
+    evidence.body
+  ) {
+    evidenceCount +=
+      1;
+  }
+
+  /*
+   * 의미 근거에 따른 가점
+   */
+  let boost = 0;
+
+  if (
+    evidence.series
+  ) {
+    boost +=
+      0.18;
+  }
+
+  if (
+    evidence.title
+  ) {
+    boost +=
+      Math.min(
+        0.10,
+        sharedTitleTokens
+          .length *
+          0.04
+      );
+  }
+
+  if (
+    evidence.label
+  ) {
+    boost +=
+      Math.min(
+        0.08,
+        sharedLabels
+          .length *
+          0.04
+      );
+  }
+
+  if (
+    evidence.topic
+  ) {
+    boost +=
+      Math.min(
+        0.06,
+        sharedTopics
+          .length *
+          0.03
+      );
+  }
+
+  if (
+    evidence.body
+  ) {
+    boost +=
+      Math.min(
+        0.06,
+        sharedBodyTokens
+          .length *
+          0.012
+      );
+  }
+
+  const finalScore =
+    clamp(
+      baseScore +
+      boost,
+      0,
+      1
+    );
+
+  /*
+   * 대시보드 표시용 이유
+   */
+  const reasons = [];
+
+  if (
+    sameSeries
+  ) {
+    reasons.push(
+      `같은 시리즈: ${sourceSeries}`
+    );
+  }
+
+  if (
+    sharedTitleTokens.length
+  ) {
+    reasons.push(
+      `제목 핵심어: ${
+        sharedTitleTokens
+          .slice(
+            0,
+            3
+          )
+          .join(", ")
+      }`
+    );
+  }
+
+  if (
+    sharedLabels.length
+  ) {
+    reasons.push(
+      `공통 라벨: ${
+        sharedLabels
+          .slice(
+            0,
+            3
+          )
+          .join(", ")
+      }`
+    );
+  }
+
+  if (
+    sharedTopics.length
+  ) {
+    reasons.push(
+      `주제군: ${
+        sharedTopics
+          .slice(
+            0,
+            2
+          )
+          .join(", ")
+      }`
+    );
+  }
+
+  if (
+    sharedBodyTokens
+      .length >= 2
+  ) {
+    reasons.push(
+      `본문 핵심어: ${
+        sharedBodyTokens
+          .slice(
+            0,
+            3
+          )
+          .join(", ")
+      }`
+    );
+  }
+
+  return {
+    baseScore,
+
+    finalScore,
+
+    titleCosine,
+
+    bodyCosine,
+
+    evidence,
+
+    evidenceCount,
+
+    sameSeries,
+
+    sharedTitleTokens,
+
+    sharedLabels,
+
+    sharedTopics,
+
+    sharedBodyTokens,
+
+    reasons,
+  };
+}
+
+/* =========================================================
+   ★ Final semantic recommendation gate
+========================================================= */
+
+function passesRecommendationGate(
+  relation,
+  tuning
+) {
+  /*
+   * 같은 시리즈
+   *
+   * Nobody Lab ↔ Nobody Lab
+   * 생활실험 ↔ 생활실험
+   */
+  if (
+    relation.sameSeries &&
+    relation.finalScore >=
+      Math.max(
+        0.12,
+        tuning.threshold *
+        0.75
+      )
+  ) {
+    return {
+      pass:
+        true,
+
+      relationStrength:
+        "series",
+    };
+  }
+
+  /*
+   * 서로 다른 의미 근거가
+   * 최소 2개 이상 존재.
+   */
+  if (
+    relation.evidenceCount >=
+      2 &&
+    relation.finalScore >=
+      tuning.threshold
+  ) {
+    return {
+      pass:
+        true,
+
+      relationStrength:
+        "multi-evidence",
+    };
+  }
+
+  /*
+   * 근거가 하나뿐인 경우에는
+   * 훨씬 높은 점수가 필요.
+   *
+   * 제목 / 구체라벨 / 주제군만 허용.
+   */
+  const strongSingleEvidence =
+    (
+      relation
+        .evidence
+        .title ||
+      relation
+        .evidence
+        .label ||
+      relation
+        .evidence
+        .topic
+    );
+
+  if (
+    relation.evidenceCount ===
+      1 &&
+    strongSingleEvidence &&
+    relation.finalScore >=
+      tuning
+        .singleEvidenceThreshold
+  ) {
+    return {
+      pass:
+        true,
+
+      relationStrength:
+        "single-strong",
+    };
+  }
+
+  /*
+   * 본문 단어만 비슷한 경우는
+   * 가장 보수적으로 처리.
+   */
+  if (
+    relation.evidenceCount ===
+      1 &&
+    relation
+      .evidence
+      .body &&
+    relation
+      .sharedBodyTokens
+      .length >= 2 &&
+    relation.finalScore >=
+      tuning
+        .weakEvidenceThreshold
+  ) {
+    return {
+      pass:
+        true,
+
+      relationStrength:
+        "body-only",
+    };
+  }
+
+  /*
+   * ★ 여기로 오면
+   * TF-IDF 점수가 높아도 추천 탈락.
+   */
+  return {
+    pass:
+      false,
+
+    relationStrength:
+      "none",
+  };
+}
+
+/* =========================================================
+   Threshold learning
+   기존 내부링크를 positive sample로 사용
+========================================================= */
+
+function learnThresholds(
+  config,
+  posts,
+  postByUrl,
+  scorePair
+) {
+  const rawPositiveScores =
+    [];
+
+  const trustedPositiveScores =
+    [];
+
+  for (const source of posts) {
+    for (
+      const targetUrl
+      of source._internalTargetUrls
+    ) {
+      const target =
+        postByUrl.get(
+          targetUrl
+        );
+
+      if (!target) {
+        continue;
+      }
+
+      const relation =
+        scorePair(
+          source,
+          target
+        );
+
+      rawPositiveScores.push(
+        relation.finalScore
+      );
+
+      /*
+       * 기존 링크라고 무조건 학습하지 않음.
+       *
+       * 실제 의미 관계 근거가 있는 링크만
+       * 신뢰 positive sample로 채택.
+       */
+      if (
+        relation.evidenceCount >=
+          1 ||
+        relation.sameSeries
+      ) {
+        trustedPositiveScores.push(
+          relation.finalScore
+        );
+      }
+    }
+  }
+
+  const trusted =
+    trustedPositiveScores
+      .sort(
+        (a, b) =>
+          a - b
+      );
+
+  const raw =
+    rawPositiveScores.length;
+
+  const trustedCount =
+    trusted.length;
+
+  const rejected =
+    Math.max(
+      0,
+      raw -
+      trustedCount
+    );
+
+  let threshold =
+    config.defaultThreshold;
+
+  /*
+   * 샘플이 충분하면
+   * 실제 기존 내부링크 분포로 자동 학습.
+   */
+  if (
+    trusted.length >=
+      4
+  ) {
+    const learned =
+      quantile(
+        trusted,
+        0.25
+      ) *
+      0.90;
+
+    threshold =
+      clamp(
+        learned,
+        0.18,
+        0.45
+      );
+  }
+
+  const singleEvidenceThreshold =
+    clamp(
+      threshold +
+      0.05,
+      0.23,
+      0.55
+    );
+
+  const weakEvidenceThreshold =
+    clamp(
+      threshold +
+      0.10,
+      0.28,
+      0.65
+    );
+
+  return {
+    threshold:
+      roundScore(
+        threshold
+      ),
+
+    singleEvidenceThreshold:
+      roundScore(
+        singleEvidenceThreshold
+      ),
+
+    weakEvidenceThreshold:
+      roundScore(
+        weakEvidenceThreshold
+      ),
+
+    trustedPositiveSamples:
+      trustedCount,
+
+    rawPositiveSamples:
+      raw,
+
+    rejectedPositiveSamples:
+      rejected,
+  };
+}
+
+/* =========================================================
+   TF-IDF
+========================================================= */
+
+function buildTokenStats(
+  posts
+) {
+  const df =
+    new Map();
+
+  const total =
+    Math.max(
+      1,
+      posts.length
+    );
+
+  for (const post of posts) {
+    const docTokens =
+      unique([
+        ...tokenize(
+          post.title
+        ),
+
+        ...tokenize(
+          post.text.slice(
+            0,
+            5000
+          )
+        ),
+      ]);
+
+    for (
+      const token
+      of docTokens
+    ) {
+      df.set(
+        token,
+        (
+          df.get(token) ||
+          0
+        ) + 1
+      );
+    }
+  }
+
+  const idf =
+    new Map();
+
+  for (
+    const [
+      token,
+      count,
+    ]
+    of df.entries()
+  ) {
+    idf.set(
+      token,
+
+      Math.log(
+        (
+          1 +
+          total
+        ) /
+        (
+          1 +
+          count
+        )
+      ) + 1
+    );
+  }
+
+  return {
+    df,
+    idf,
+    total,
+  };
+}
+
+/* =========================================================
+   너무 흔한 단어 제거
+
+   블로그 전체 글 35% 이상에서 등장하면
+   관계 판단력이 약하다고 본다.
+========================================================= */
+
+function informativeTokens(
+  tokens,
+  tokenStats
+) {
+  return tokens.filter(
+    (token) => {
+      const count =
+        tokenStats
+          .df
+          .get(token) ||
+        0;
+
+      const ratio =
+        count /
+        tokenStats.total;
+
+      return (
+        ratio <
+        0.35
+      );
+    }
+  );
+}
+
+/* =========================================================
+   TF-IDF cosine
+========================================================= */
+
+function tfidfCosine(
+  tokensA,
+  tokensB,
+  idf
+) {
+  if (
+    !tokensA.length ||
+    !tokensB.length
+  ) {
+    return 0;
+  }
+
+  const vectorA =
+    tfidfVector(
+      tokensA,
+      idf
+    );
+
+  const vectorB =
+    tfidfVector(
+      tokensB,
+      idf
+    );
+
+  let dot = 0;
+
+  let normA = 0;
+
+  let normB = 0;
+
+  for (
+    const value
+    of vectorA.values()
+  ) {
+    normA +=
+      value *
+      value;
+  }
+
+  for (
+    const value
+    of vectorB.values()
+  ) {
+    normB +=
+      value *
+      value;
+  }
+
+  if (
+    !normA ||
+    !normB
+  ) {
+    return 0;
+  }
+
+  const [
+    small,
+    large,
+  ] =
+    vectorA.size <=
+    vectorB.size
+      ? [
+          vectorA,
+          vectorB,
+        ]
+      : [
+          vectorB,
+          vectorA,
+        ];
+
+  for (
+    const [
+      token,
+      value,
+    ]
+    of small.entries()
+  ) {
+    dot +=
+      value *
+      (
+        large.get(
+          token
+        ) ||
+        0
+      );
+  }
+
+  return (
+    dot /
+    (
+      Math.sqrt(
+        normA
+      ) *
+      Math.sqrt(
+        normB
+      )
+    )
+  );
+}
+
+/* =========================================================
+   TF-IDF vector
+========================================================= */
+
+function tfidfVector(
+  tokens,
+  idf
+) {
+  const counts =
+    new Map();
+
+  for (
+    const token
+    of tokens
+  ) {
+    counts.set(
+      token,
+      (
+        counts.get(
+          token
+        ) ||
+        0
+      ) + 1
+    );
+  }
+
+  const total =
+    Math.max(
+      1,
+      tokens.length
+    );
+
+  const vector =
+    new Map();
+
+  for (
+    const [
+      token,
+      count,
+    ]
+    of counts.entries()
+  ) {
+    const tf =
+      count /
+      total;
+
+    vector.set(
+      token,
+
+      tf *
+      (
+        idf.get(
+          token
+        ) ||
+        1
+      )
+    );
+  }
+
+  return vector;
+}
+
+/* =========================================================
+   Tokenization
+========================================================= */
+
+function tokenize(
+  value
+) {
+  return String(
+    value ||
+    ""
+  )
     .toLowerCase()
 
     .replace(
-      /https?:\/\/\S+/g,
+      /&nbsp;/gi,
       " "
     )
 
@@ -249,1729 +2318,708 @@ function tokenize(text = "") {
       " "
     )
 
-    .split(/\s+/)
-
-    .map(token => token.trim())
-
-    .filter(Boolean)
-
-    .filter(
-      token =>
-        !/^\d+$/.test(token)
+    .split(
+      /\s+/
     )
 
-    .filter(token => {
-      const length =
-        [...token].length;
-
-      if (/[가-힣]/.test(token)) {
-        return length >= 2;
-      }
-
-      return length >= 3;
-    })
+    .map(
+      normalizeToken
+    )
 
     .filter(
-      token =>
-        !STOPWORDS.has(token)
-    );
-}
-
-/* =========================================================
-   시리즈 자동 감지
-
-   Nobody Lab #006
-   Nobody Lab 005
-   생활실험 #001
-========================================================= */
-
-function inferSeriesKey(title = "") {
-  const normalized = title
-    .normalize("NFKC")
-    .toLowerCase()
-    .replace(/\s+/g, " ")
-    .trim();
-
-  if (!normalized) {
-    return null;
-  }
-
-  const match = normalized.match(
-    /^(.{2,60}?)\s*(?:#|no\.?\s*|part\s*|ep\.?\s*)?\d{1,4}\b/i
-  );
-
-  if (!match) {
-    return null;
-  }
-
-  const prefix = match[1]
-    .replace(
-      /[^\p{L}\p{N}\s]+/gu,
-      " "
+      Boolean
     )
-    .replace(/\s+/g, " ")
-    .trim();
 
-  if ([...prefix].length < 2) {
-    return null;
-  }
-
-  return prefix;
-}
-
-function validateSeriesKeys(posts) {
-  const counts = new Map();
-
-  for (const post of posts) {
-    if (!post._seriesKey) continue;
-
-    counts.set(
-      post._seriesKey,
-      (counts.get(post._seriesKey) || 0) + 1
-    );
-  }
-
-  for (const post of posts) {
-    if (!post._seriesKey) continue;
+    .filter(
+      (token) =>
+        !GENERIC_RELATION_TOKENS
+          .has(
+            token
+          )
+    )
 
     /*
-     * 최소 2개의 글이 같은 prefix를 가져야
-     * 실제 시리즈로 인정
+     * 연도 / 숫자 단독은
+     * 관계 증거에서 제외
      */
-    if (
-      (counts.get(post._seriesKey) || 0) < 2
-    ) {
-      post._seriesKey = null;
-    }
-  }
+    .filter(
+      (token) =>
+        !/^\d+(?:\.\d+)?$/
+          .test(
+            token
+          )
+    )
+
+    .filter(
+      (token) =>
+        !(
+          token.length <=
+            1 &&
+          /^[가-힣]$/u.test(
+            token
+          )
+        )
+    )
+
+    .filter(
+      (token) =>
+        !(
+          token.length <=
+            2 &&
+          /^[a-z]+$/i.test(
+            token
+          )
+        )
+    );
 }
 
 /* =========================================================
-   게시글 기본 분석
+   간단한 token normalization
 ========================================================= */
 
-function analyzePost(post, blogUrl) {
-  const html =
-    post.content || "";
-
-  const text =
-    stripHtml(html);
-
-  const title =
-    post.title || "";
-
-  const labels =
-    post.labels || [];
-
-  const host =
-    new URL(blogUrl).hostname;
-
-  const links = [
-    ...html.matchAll(
-      /<a\b[^>]*href=["']([^"']+)["'][^>]*>/gi
+function normalizeToken(
+  token
+) {
+  let value =
+    String(
+      token ||
+      ""
     )
-  ].map(
-    match => match[1]
-  );
+      .trim()
+      .toLowerCase();
 
-  const outgoingInternalUrls =
-    new Set();
-
-  let externalLinks = 0;
-
-  for (const href of links) {
-    try {
-      const url =
-        new URL(
-          href,
-          blogUrl
-        );
-
-      if (url.hostname === host) {
-        const normalized =
-          normalizeUrl(
-            href,
-            blogUrl
-          );
-
-        if (normalized) {
-          outgoingInternalUrls.add(
-            normalized
-          );
-        }
-
-      } else if (
-        url.protocol === "http:" ||
-        url.protocol === "https:"
-      ) {
-        externalLinks++;
-      }
-
-    } catch {
-      // 이상한 링크 무시
-    }
-  }
-
-  const h2 =
-    countMatches(
-      html,
-      /<h2\b/gi
-    );
-
-  const h3 =
-    countMatches(
-      html,
-      /<h3\b/gi
-    );
-
-  const images =
-    countMatches(
-      html,
-      /<img\b/gi
-    );
-
-  const warnings = [];
-
-  if (!title.trim()) {
-    warnings.push("제목 없음");
-  }
-
-  if (text.length < 1000) {
-    warnings.push("본문 짧음");
-  }
-
-  if (h2 === 0) {
-    warnings.push("H2 없음");
-  }
-
-  if (labels.length === 0) {
-    warnings.push("라벨 없음");
+  if (!value) {
+    return "";
   }
 
   /*
-   * 제목 > 라벨 > 본문 순으로
-   * 조금 더 영향을 주도록 구성
+   * English very-light stemming
    */
-  const recommendationText = [
-    title,
-    title,
-    title,
-
-    labels.join(" "),
-    labels.join(" "),
-
-    text.slice(0, 6000)
-  ].join(" ");
-
-  return {
-    id:
-      post.id,
-
-    title,
-
-    url:
-      post.url,
-
-    normalizedUrl:
-      normalizeUrl(
-        post.url,
-        blogUrl
-      ),
-
-    published:
-      post.published,
-
-    updated:
-      post.updated,
-
-    labels,
-
-    textLength:
-      text.length,
-
-    internalLinks: 0,
-
-    externalLinks,
-
-    images,
-
-    h2,
-
-    h3,
-
-    incomingLinks: 0,
-
-    incomingFrom: [],
-
-    recommendations: [],
-
-    warnings,
-
-    /*
-     * 내부 계산용
-     */
-    _outgoingInternalUrls:
-      [...outgoingInternalUrls],
-
-    _tokens:
-      tokenize(
-        recommendationText
-      ),
-
-    _titleTokens:
-      tokenize(title),
-
-    _seriesKey:
-      inferSeriesKey(title)
-  };
-}
-
-/* =========================================================
-   실제 게시글 → 게시글 링크만 인정
-========================================================= */
-
-function finalizePostLinks(posts) {
-  const byUrl =
-    new Map(
-      posts
-        .filter(
-          post =>
-            post.normalizedUrl
-        )
-        .map(
-          post => [
-            post.normalizedUrl,
-            post
-          ]
-        )
-    );
-
-  for (const post of posts) {
-    const targets =
-      new Set();
-
-    for (
-      const targetUrl
-      of post._outgoingInternalUrls
-    ) {
-      const target =
-        byUrl.get(targetUrl);
-
-      if (
-        !target ||
-        target.id === post.id
-      ) {
-        continue;
-      }
-
-      targets.add(targetUrl);
-    }
-
-    post._outgoingInternalUrls =
-      [...targets];
-
-    post.internalLinks =
-      targets.size;
-
-    post.warnings =
-      post.warnings.filter(
-        warning =>
-          warning !== "내부링크 없음"
-      );
-
-    if (post.internalLinks === 0) {
-      post.warnings.push(
-        "내부링크 없음"
-      );
-    }
-  }
-}
-
-/* =========================================================
-   받는 링크 + 고립 글
-========================================================= */
-
-function addIncomingLinkData(posts) {
-  const byUrl =
-    new Map(
-      posts
-        .filter(
-          post =>
-            post.normalizedUrl
-        )
-        .map(
-          post => [
-            post.normalizedUrl,
-            post
-          ]
-        )
-    );
-
-  for (const source of posts) {
-    const targets =
-      new Set(
-        source._outgoingInternalUrls ||
-        []
-      );
-
-    for (
-      const targetUrl
-      of targets
-    ) {
-      const target =
-        byUrl.get(targetUrl);
-
-      if (
-        !target ||
-        target.id === source.id
-      ) {
-        continue;
-      }
-
-      target.incomingFrom.push({
-        title:
-          source.title,
-
-        url:
-          source.url
-      });
-    }
-  }
-
-  for (const post of posts) {
-    post.incomingLinks =
-      post.incomingFrom.length;
-
+  if (
+    /^[a-z]+$/i
+      .test(
+        value
+      )
+  ) {
     if (
-      post.incomingLinks === 0 &&
-      !post.warnings.includes(
-        "고립 글"
+      value.length > 5 &&
+      value.endsWith(
+        "ies"
       )
     ) {
-      post.warnings.push(
-        "고립 글"
-      );
+      value =
+        `${value.slice(
+          0,
+          -3
+        )}y`;
+    }
+
+    else if (
+      value.length > 5 &&
+      value.endsWith(
+        "ing"
+      )
+    ) {
+      value =
+        value.slice(
+          0,
+          -3
+        );
+    }
+
+    else if (
+      value.length > 4 &&
+      value.endsWith(
+        "ed"
+      )
+    ) {
+      value =
+        value.slice(
+          0,
+          -2
+        );
+    }
+
+    else if (
+      value.length > 4 &&
+      value.endsWith(
+        "s"
+      ) &&
+      !value.endsWith(
+        "ss"
+      )
+    ) {
+      value =
+        value.slice(
+          0,
+          -1
+        );
     }
   }
-}
 
-/* =========================================================
-   TF-IDF
-========================================================= */
-
-function buildTfidfVectors(posts) {
-  const documentFrequency =
-    new Map();
-
-  for (const post of posts) {
-    const uniqueTokens =
-      new Set(
-        post._tokens || []
-      );
-
-    for (
-      const token
-      of uniqueTokens
-    ) {
-      documentFrequency.set(
-        token,
-        (
-          documentFrequency
-            .get(token) || 0
-        ) + 1
-      );
-    }
-  }
-
-  const totalDocuments =
-    posts.length;
-
-  return posts.map(post => {
-    const counts =
-      new Map();
-
-    for (
-      const token
-      of post._tokens || []
-    ) {
-      counts.set(
-        token,
-        (
-          counts.get(token) || 0
-        ) + 1
-      );
-    }
-
-    const vector =
-      new Map();
-
-    let magnitudeSquared = 0;
-
-    for (
-      const [token, count]
-      of counts
-    ) {
-      const documentCount =
-        documentFrequency
-          .get(token) || 1;
-
-      const idf =
-        Math.log(
-          (totalDocuments + 1) /
-          (documentCount + 1)
-        ) + 1;
-
-      const tf =
-        1 + Math.log(count);
-
-      const weight =
-        tf * idf;
-
-      vector.set(
-        token,
-        weight
-      );
-
-      magnitudeSquared +=
-        weight * weight;
-    }
-
-    return {
-      id:
-        post.id,
-
-      vector,
-
-      magnitude:
-        Math.sqrt(
-          magnitudeSquared
-        )
-    };
-  });
-}
-
-function cosineSimilarity(a, b) {
+  /*
+   * Korean 조사 약식 제거
+   */
   if (
-    !a ||
-    !b ||
-    !a.magnitude ||
-    !b.magnitude
+    /^[가-힣]+$/u
+      .test(
+        value
+      ) &&
+    value.length >=
+      3
   ) {
-    return 0;
-  }
+    const suffixes = [
+      "에서는",
+      "으로",
+      "에서",
+      "에게",
+      "까지",
+      "부터",
+      "보다",
+      "처럼",
+      "하고",
+      "하며",
+      "하면",
+      "로",
+      "은",
+      "는",
+      "이",
+      "가",
+      "을",
+      "를",
+      "의",
+      "에",
+      "와",
+      "과",
+      "도",
+      "만",
+    ];
 
-  const [small, large] =
-    a.vector.size <= b.vector.size
-      ? [
-          a.vector,
-          b.vector
-        ]
-      : [
-          b.vector,
-          a.vector
-        ];
+    for (
+      const suffix
+      of suffixes
+    ) {
+      if (
+        value.length -
+          suffix.length >=
+          2 &&
+        value.endsWith(
+          suffix
+        )
+      ) {
+        value =
+          value.slice(
+            0,
+            -suffix.length
+          );
 
-  let dot = 0;
-
-  for (
-    const [token, weight]
-    of small
-  ) {
-    const other =
-      large.get(token);
-
-    if (other) {
-      dot +=
-        weight * other;
+        break;
+      }
     }
   }
 
-  return (
-    dot /
-    (
-      a.magnitude *
-      b.magnitude
-    )
-  );
+  return value;
 }
 
 /* =========================================================
-   제목 겹침
+   Label statistics
 ========================================================= */
 
-function overlapCoefficient(
-  tokensA,
-  tokensB
+function buildLabelStats(
+  posts
 ) {
-  const a =
-    new Set(tokensA || []);
-
-  const b =
-    new Set(tokensB || []);
-
-  if (!a.size || !b.size) {
-    return 0;
-  }
-
-  let shared = 0;
-
-  for (const token of a) {
-    if (b.has(token)) {
-      shared++;
-    }
-  }
-
-  return (
-    shared /
-    Math.min(
-      a.size,
-      b.size
-    )
-  );
-}
-
-/* =========================================================
-   라벨 희귀도
-========================================================= */
-
-function normalizeLabel(label) {
-  return String(label)
-    .normalize("NFKC")
-    .toLowerCase()
-    .trim();
-}
-
-function buildLabelStats(posts) {
   const counts =
     new Map();
 
-  const totalPosts =
-    posts.length;
+  const total =
+    Math.max(
+      1,
+      posts.length
+    );
 
   for (const post of posts) {
     const labels =
-      new Set(
-        (post.labels || [])
-          .map(normalizeLabel)
-          .filter(Boolean)
+      unique(
+        post.labels
+          .map(
+            normalizeLabel
+          )
+          .filter(
+            Boolean
+          )
       );
 
-    for (const label of labels) {
+    for (
+      const label
+      of labels
+    ) {
       counts.set(
         label,
         (
-          counts.get(label) || 0
+          counts.get(
+            label
+          ) ||
+          0
         ) + 1
       );
     }
   }
 
-  const weights =
-    new Map();
-
-  for (
-    const [label, count]
-    of counts
-  ) {
-    /*
-     * 흔한 라벨 → 0 쪽
-     * 희귀 라벨 → 1 쪽
-     */
-    const rarity =
-      Math.log(
-        (totalPosts + 1) /
-        (count + 1)
-      ) /
-      Math.log(
-        totalPosts + 1
-      );
-
-    weights.set(
-      label,
-      clamp(
-        rarity,
-        0,
-        1
-      )
-    );
-  }
-
-  const commonLabels =
-    [...counts.entries()]
-
-      .filter(
-        ([, count]) =>
-          count >=
-          Math.max(
-            3,
-            Math.ceil(
-              totalPosts * 0.25
-            )
-          )
-      )
-
-      .sort(
-        (a, b) =>
-          b[1] - a[1]
-      )
-
-      .map(
-        ([label, count]) => ({
-          label,
-
-          count,
-
-          ratio:
-            Number(
-              (
-                count /
-                totalPosts
-              ).toFixed(3)
-            )
-        })
-      );
-
   return {
     counts,
-    weights,
-    commonLabels
+    total,
   };
 }
 
 /* =========================================================
-   두 글의 관계
+   Useful / specific labels only
 ========================================================= */
 
-function calculatePairFeatures(
-  source,
-  target,
-  vectorById,
+function usefulLabels(
+  post,
   labelStats
 ) {
-  const semantic =
-    cosineSimilarity(
-      vectorById.get(source.id),
-      vectorById.get(target.id)
-    );
-
-  const titleOverlap =
-    overlapCoefficient(
-      source._titleTokens,
-      target._titleTokens
-    );
-
-  const sourceLabels =
-    new Set(
-      (source.labels || [])
-        .map(normalizeLabel)
-        .filter(Boolean)
-    );
-
-  const targetLabels =
-    new Set(
-      (target.labels || [])
-        .map(normalizeLabel)
-        .filter(Boolean)
-    );
-
-  const sharedLabels = [];
-
-  let labelStrength = 0;
-
-  for (const label of sourceLabels) {
-    if (
-      !targetLabels.has(label)
-    ) {
-      continue;
-    }
-
-    sharedLabels.push(label);
-
-    const rarity =
-      labelStats.weights
-        .get(label) || 0;
-
-    labelStrength +=
-      rarity * 0.18;
-  }
-
-  labelStrength =
-    clamp(
-      labelStrength,
-      0,
-      0.32
-    );
-
-  const seriesMatch =
-    Boolean(
-      source._seriesKey &&
-      target._seriesKey &&
-      source._seriesKey ===
-        target._seriesKey
-    );
-
-  /*
-   * 최종 관계점수
-   */
-  let score =
-    semantic * 0.58;
-
-  score +=
-    titleOverlap * 0.30;
-
-  score +=
-    labelStrength;
-
-  if (seriesMatch) {
-    score += 0.24;
-  }
-
-  /*
-   * 각각 독립적인 증거로 계산
-   */
-  const titleEvidence =
-    titleOverlap >= 0.16;
-
-  const labelEvidence =
-    labelStrength >= 0.055;
-
-  const seriesEvidence =
-    seriesMatch;
-
-  /*
-   * semanticEvidence는 아래 학습 단계에서
-   * 블로그별 분포 기준으로 다시 판단
-   */
-  const structuralEvidenceCount =
-    [
-      titleEvidence,
-      labelEvidence,
-      seriesEvidence
-    ].filter(Boolean).length;
-
-  if (
-    structuralEvidenceCount === 0
-  ) {
-    score -= 0.06;
-  }
-
-  if (source.textLength < 700) {
-    score *= 0.94;
-  }
-
-  if (target.textLength < 700) {
-    score *= 0.94;
-  }
-
-  return {
-    score:
-      clamp(
-        score,
-        0,
-        1
-      ),
-
-    semantic,
-
-    titleOverlap,
-
-    labelStrength,
-
-    sharedLabels,
-
-    seriesMatch,
-
-    titleEvidence,
-
-    labelEvidence,
-
-    seriesEvidence,
-
-    structuralEvidenceCount
-  };
-}
-
-/* =========================================================
-   기존 내부링크
-========================================================= */
-
-function collectExistingLinkedPairs(posts) {
-  const byUrl =
-    new Map(
-      posts
-        .filter(
-          post =>
-            post.normalizedUrl
-        )
-        .map(
-          post => [
-            post.normalizedUrl,
-            post
-          ]
-        )
-    );
-
-  const pairs = [];
-
-  for (const source of posts) {
-    const targets =
-      new Set(
-        source._outgoingInternalUrls ||
-        []
-      );
-
-    for (
-      const targetUrl
-      of targets
-    ) {
-      const target =
-        byUrl.get(targetUrl);
-
-      if (
-        !target ||
-        target.id === source.id
-      ) {
-        continue;
-      }
-
-      pairs.push({
-        source,
-        target
-      });
-    }
-  }
-
-  return pairs;
-}
-
-/* =========================================================
-   자동 학습
-
-   ★ 최종 튜닝 핵심 ★
-
-   기존 링크가 있다고 바로 학습하지 않는다.
-
-   다음 4가지 중 최소 2개가 필요:
-
-   - 제목 연관
-   - 구체적 공통 라벨
-   - 같은 시리즈
-   - 본문 유사도 상위권
-========================================================= */
-
-function learnRecommendationThreshold(
-  posts,
-  vectorById,
-  labelStats
-) {
-  const existingPairs =
-    collectExistingLinkedPairs(
-      posts
-    );
-
-  const linkedKeys =
-    new Set(
-      existingPairs.map(
-        ({ source, target }) =>
-          `${source.id}:${target.id}`
+  return unique(
+    post.labels
+      .map(
+        normalizeLabel
       )
-    );
+      .filter(
+        Boolean
+      )
+  )
+    .filter(
+      (label) => {
+        if (
+          GENERIC_LABELS
+            .has(
+              label
+            )
+        ) {
+          return false;
+        }
 
-  /*
-   * 전체 미연결 후보
-   */
-  const candidateFeatures = [];
-
-  for (const source of posts) {
-    for (const target of posts) {
-      if (
-        source.id === target.id
-      ) {
-        continue;
-      }
-
-      if (
-        linkedKeys.has(
-          `${source.id}:${target.id}`
-        )
-      ) {
-        continue;
-      }
-
-      candidateFeatures.push(
-        calculatePairFeatures(
-          source,
-          target,
-          vectorById,
-          labelStats
-        )
-      );
-    }
-  }
-
-  const candidateScores =
-    candidateFeatures.map(
-      item => item.score
-    );
-
-  const semanticScores =
-    candidateFeatures.map(
-      item => item.semantic
-    );
-
-  const candidateP80 =
-    quantile(
-      candidateScores,
-      0.80
-    );
-
-  const candidateP90 =
-    quantile(
-      candidateScores,
-      0.90
-    );
-
-  const candidateP95 =
-    quantile(
-      candidateScores,
-      0.95
-    );
-
-  const candidateP97 =
-    quantile(
-      candidateScores,
-      0.97
-    );
-
-  const semanticP80 =
-    quantile(
-      semanticScores,
-      0.80
-    );
-
-  const semanticP90 =
-    quantile(
-      semanticScores,
-      0.90
-    );
-
-  /*
-   * 기존 링크의 feature 계산
-   */
-  const rawPositiveFeatures =
-    existingPairs.map(
-      ({ source, target }) => {
-
-        const feature =
-          calculatePairFeatures(
-            source,
-            target,
-            vectorById,
+        const ratio =
+          (
             labelStats
-          );
+              .counts
+              .get(
+                label
+              ) ||
+            0
+          ) /
+          labelStats.total;
 
-        const semanticEvidence =
-          feature.semantic >=
-          semanticP80;
-
-        const evidenceCount =
-          [
-            feature.titleEvidence,
-            feature.labelEvidence,
-            feature.seriesEvidence,
-            semanticEvidence
-          ].filter(Boolean).length;
-
-        return {
-          ...feature,
-
-          semanticEvidence,
-
-          evidenceCount,
-
-          sourceTitle:
-            source.title,
-
-          targetTitle:
-            target.title
-        };
+        /*
+         * 글 절반 이상에 달린 라벨은
+         * 관계 근거로 쓰지 않음.
+         */
+        return (
+          ratio <
+          0.5
+        );
       }
     );
+}
 
-  /*
-   * ★ 최소 2개 근거 ★
-   */
-  const trustedPositiveFeatures =
-    rawPositiveFeatures.filter(
-      item =>
-        item.evidenceCount >= 2
-    );
-
-  const trustedPositiveScores =
-    trustedPositiveFeatures.map(
-      item => item.score
-    );
-
-  let threshold;
-
-  if (
-    trustedPositiveScores.length >= 5
-  ) {
-    const trustedQ25 =
-      quantile(
-        trustedPositiveScores,
-        0.25
-      );
-
-    const trustedMedian =
-      median(
-        trustedPositiveScores
-      );
-
-    /*
-     * 신뢰샘플과 전체 후보 상위권을 혼합.
-     * 후보 상위 10%보다 느슨해질 수 없음.
-     */
-    const learned =
-      trustedQ25 * 0.60 +
-      trustedMedian * 0.15 +
-      candidateP90 * 0.25;
-
-    threshold =
-      Math.max(
-        learned,
-        candidateP90
-      );
-
-  } else {
-    /*
-     * 좋은 내부링크 샘플이 부족하면
-     * 전체 후보의 상위 5%만 추천
-     */
-    threshold =
-      candidateP95;
-  }
-
-  /*
-   * 14~15% 추천 방지.
-   * 자동학습 폭주 방지용 안전선.
-   */
-  threshold =
-    clamp(
-      threshold,
-      0.20,
-      0.68
-    );
-
-  /*
-   * 근거가 단 하나만 있는 경우
-   */
-  const singleEvidenceThreshold =
-    clamp(
-      Math.max(
-        threshold + 0.05,
-        candidateP95
-      ),
-      0.25,
-      0.75
-    );
-
-  /*
-   * 구조적 근거가 하나도 없는 경우
-   */
-  const weakEvidenceThreshold =
-    clamp(
-      Math.max(
-        threshold + 0.10,
-        candidateP97,
-        semanticP90 * 0.80
-      ),
-      0.30,
-      0.80
-    );
-
-  /*
-   * 같은 시리즈
-   */
-  const seriesThreshold =
-    clamp(
-      threshold * 0.88,
-      0.18,
-      threshold
-    );
-
-  return {
-    threshold,
-
-    singleEvidenceThreshold,
-
-    weakEvidenceThreshold,
-
-    seriesThreshold,
-
-    semanticEvidenceThreshold:
-      semanticP80,
-
-    rawPositiveSamples:
-      rawPositiveFeatures.length,
-
-    trustedPositiveSamples:
-      trustedPositiveFeatures.length,
-
-    rejectedPositiveSamples:
-      rawPositiveFeatures.length -
-      trustedPositiveFeatures.length,
-
-    candidateSamples:
-      candidateFeatures.length,
-
-    trustedPositiveMedian:
-      median(
-        trustedPositiveScores
-      ),
-
-    trustedPositiveAverage:
-      average(
-        trustedPositiveScores
-      ),
-
-    candidateP80,
-
-    candidateP90,
-
-    candidateP95,
-
-    candidateP97,
-
-    semanticP80,
-
-    semanticP90
-  };
+function normalizeLabel(
+  value
+) {
+  return String(
+    value ||
+    ""
+  )
+    .trim()
+    .toLowerCase();
 }
 
 /* =========================================================
-   추천 생성
+   Series detection
 ========================================================= */
 
-function addRecommendations(posts) {
-  validateSeriesKeys(posts);
+function getSeriesKey(
+  title
+) {
+  const value =
+    String(
+      title ||
+      ""
+    )
+      .toLowerCase();
 
-  const vectors =
-    buildTfidfVectors(posts);
+  const patterns = [
+    /\bnobody\s+lab\s*#?\s*\d+/i,
 
-  const vectorById =
-    new Map(
-      vectors.map(
-        item => [
-          item.id,
-          item
-        ]
-      )
-    );
+    /\blife\s+experiment\s*#?\s*\d+/i,
 
-  const labelStats =
-    buildLabelStats(posts);
+    /생활\s*실험\s*#?\s*\d+/i,
+  ];
 
-  const tuning =
-    learnRecommendationThreshold(
-      posts,
-      vectorById,
-      labelStats
-    );
-
-  for (const source of posts) {
-    const alreadyLinked =
-      new Set(
-        source._outgoingInternalUrls ||
-        []
+  for (
+    const pattern
+    of patterns
+  ) {
+    const match =
+      value.match(
+        pattern
       );
 
-    const candidates = [];
-
-    for (const target of posts) {
-      if (
-        source.id === target.id
-      ) {
-        continue;
-      }
-
-      /*
-       * 이미 링크된 글은 추천하지 않음
-       */
-      if (
-        target.normalizedUrl &&
-        alreadyLinked.has(
-          target.normalizedUrl
-        )
-      ) {
-        continue;
-      }
-
-      const features =
-        calculatePairFeatures(
-          source,
-          target,
-          vectorById,
-          labelStats
-        );
-
-      const semanticEvidence =
-        features.semantic >=
-        tuning.semanticEvidenceThreshold;
-
-      const evidenceCount =
-        [
-          features.titleEvidence,
-          features.labelEvidence,
-          features.seriesEvidence,
-          semanticEvidence
-        ].filter(Boolean).length;
-
-      let requiredThreshold;
-
-      /*
-       * 같은 시리즈 + 다른 근거도 존재
-       */
-      if (
-        features.seriesMatch &&
-        evidenceCount >= 2
-      ) {
-        requiredThreshold =
-          tuning.seriesThreshold;
-
-      /*
-       * 근거 2개 이상
-       */
-      } else if (
-        evidenceCount >= 2
-      ) {
-        requiredThreshold =
-          tuning.threshold;
-
-      /*
-       * 근거 딱 하나
-       */
-      } else if (
-        evidenceCount === 1
-      ) {
-        requiredThreshold =
-          tuning.singleEvidenceThreshold;
-
-      /*
-       * 별다른 구조적 근거 없음
-       */
-      } else {
-        requiredThreshold =
-          tuning.weakEvidenceThreshold;
-      }
-
-      if (
-        features.score <
-        requiredThreshold
-      ) {
-        continue;
-      }
-
-      const reasons = [];
-
-      if (features.seriesMatch) {
-        reasons.push(
-          "같은 시리즈"
-        );
-      }
-
-      if (
-        features.titleEvidence
-      ) {
-        reasons.push(
-          "제목 연관"
-        );
-      }
-
-      if (
-        features.labelEvidence &&
-        features.sharedLabels.length
-      ) {
-        reasons.push(
-          `공통 라벨: ${features.sharedLabels.join(", ")}`
-        );
-      }
-
-      if (semanticEvidence) {
-        reasons.push(
-          "본문 연관"
-        );
-      }
-
-      candidates.push({
-        title:
-          target.title,
-
-        url:
-          target.url,
-
-        score:
-          Number(
-            features.score
-              .toFixed(3)
-          ),
-
-        evidenceCount,
-
-        reasons,
-
-        semantic:
-          Number(
-            features.semantic
-              .toFixed(3)
-          ),
-
-        titleOverlap:
-          Number(
-            features.titleOverlap
-              .toFixed(3)
-          ),
-
-        sharedLabels:
-          features.sharedLabels,
-
-        seriesMatch:
-          features.seriesMatch
-      });
-    }
-
-    candidates.sort(
-      (a, b) =>
-        b.score - a.score
-    );
-
-    if (!candidates.length) {
-      source.recommendations = [];
+    if (!match) {
       continue;
     }
 
-    /*
-     * 1위에 비해 지나치게 약한 2/3위 제거
-     */
-    const bestScore =
-      candidates[0].score;
-
-    const relativeFloor =
-      bestScore * 0.78;
-
-    source.recommendations =
-      candidates
-        .filter(
-          candidate =>
-            candidate.score >=
-            relativeFloor
-        )
-        .slice(0, 3);
+    return match[0]
+      .replace(
+        /#?\s*\d+$/i,
+        ""
+      )
+      .replace(
+        /\s+/g,
+        " "
+      )
+      .trim();
   }
 
-  return {
-    tuning,
-
-    commonLabels:
-      labelStats.commonLabels
-  };
+  return "";
 }
 
 /* =========================================================
-   report 저장 전 계산용 필드 제거
+   Topic detection
 ========================================================= */
 
-function cleanForReport(post) {
-  const {
-    _outgoingInternalUrls,
-    _tokens,
-    _titleTokens,
-    _seriesKey,
-    normalizedUrl,
-    ...publicPost
-  } = post;
+function detectTopics(
+  post
+) {
+  const haystack =
+    (
+      `${post.title}\n` +
+      `${post.text.slice(
+        0,
+        3500
+      )}`
+    )
+      .toLowerCase();
 
-  return publicPost;
-}
+  const result = [];
 
-/* =========================================================
-   블로그 검사
-========================================================= */
-
-async function scanBlog(config) {
-  console.log(
-    `\n🔎 ${config.name} 검사 시작`
-  );
-
-  const blog =
-    await getBlogInfo(
-      config.url
-    );
-
-  console.log(
-    `Blog ID: ${blog.id}`
-  );
-
-  console.log(
-    `API 게시글 수: ${blog.totalPosts}`
-  );
-
-  const rawPosts =
-    await getAllPosts(
-      blog.id
-    );
-
-  console.log(
-    `실제 가져온 글: ${rawPosts.length}`
-  );
-
-  const posts =
-    rawPosts.map(
-      post =>
-        analyzePost(
-          post,
-          config.url
-        )
-    );
-
-  /*
-   * 실제 게시글 링크만 내부링크로 인정
-   */
-  finalizePostLinks(posts);
-
-  /*
-   * 받는 링크 + 고립 글
-   */
-  addIncomingLinkData(posts);
-
-  /*
-   * 자동학습 + 추천
-   */
-  const recommendationAnalysis =
-    addRecommendations(posts);
-
-  const publicPosts =
-    posts.map(
-      cleanForReport
-    );
-
-  const warningPosts =
-    publicPosts.filter(
-      post =>
-        post.warnings.length > 0
-    );
-
-  const isolatedPosts =
-    publicPosts.filter(
-      post =>
-        post.incomingLinks === 0
-    );
-
-  const recommendationPosts =
-    publicPosts.filter(
-      post =>
-        post.recommendations.length > 0
-    );
-
-  const t =
-    recommendationAnalysis.tuning;
-
-  console.log(
-    `⚠️ 경고 글: ${warningPosts.length}`
-  );
-
-  console.log(
-    `🏝️ 고립 글: ${isolatedPosts.length}`
-  );
-
-  console.log(
-    `🔗 추천 가능: ${recommendationPosts.length}`
-  );
-
-  console.log(
-    `🎯 자동 기준: ${(t.threshold * 100).toFixed(1)}%`
-  );
-
-  console.log(
-    `🧠 신뢰 학습: ${t.trustedPositiveSamples}/${t.rawPositiveSamples}`
-  );
-
-  console.log(
-    `🗑️ 기존 링크 학습 제외: ${t.rejectedPositiveSamples}`
-  );
-
-  console.log(
-    `1️⃣ 단일 근거 기준: ${(t.singleEvidenceThreshold * 100).toFixed(1)}%`
-  );
-
-  console.log(
-    `0️⃣ 약한 관계 기준: ${(t.weakEvidenceThreshold * 100).toFixed(1)}%`
-  );
-
-  return {
-    key:
-      config.key,
-
-    name:
-      config.name,
-
-    url:
-      config.url,
-
-    blogId:
-      blog.id,
-
-    totalPosts:
-      publicPosts.length,
-
-    warningPosts:
-      warningPosts.length,
-
-    isolatedPosts:
-      isolatedPosts.length,
-
-    recommendationPosts:
-      recommendationPosts.length,
-
-    tuning: {
-      threshold:
-        Number(
-          t.threshold
-            .toFixed(3)
-        ),
-
-      singleEvidenceThreshold:
-        Number(
-          t.singleEvidenceThreshold
-            .toFixed(3)
-        ),
-
-      weakEvidenceThreshold:
-        Number(
-          t.weakEvidenceThreshold
-            .toFixed(3)
-        ),
-
-      seriesThreshold:
-        Number(
-          t.seriesThreshold
-            .toFixed(3)
-        ),
-
-      rawPositiveSamples:
-        t.rawPositiveSamples,
-
-      trustedPositiveSamples:
-        t.trustedPositiveSamples,
-
-      rejectedPositiveSamples:
-        t.rejectedPositiveSamples,
-
-      candidateSamples:
-        t.candidateSamples,
-
-      trustedPositiveMedian:
-        Number(
-          t.trustedPositiveMedian
-            .toFixed(3)
-        ),
-
-      trustedPositiveAverage:
-        Number(
-          t.trustedPositiveAverage
-            .toFixed(3)
-        ),
-
-      candidateP90:
-        Number(
-          t.candidateP90
-            .toFixed(3)
-        ),
-
-      candidateP95:
-        Number(
-          t.candidateP95
-            .toFixed(3)
-        ),
-
-      candidateP97:
-        Number(
-          t.candidateP97
-            .toFixed(3)
-        )
-    },
-
-    commonLabels:
-      recommendationAnalysis
-        .commonLabels,
-
-    posts:
-      publicPosts
-  };
-}
-
-/* =========================================================
-   전체 실행
-========================================================= */
-
-async function main() {
-  const results = [];
-
-  for (const blog of BLOGS) {
-    results.push(
-      await scanBlog(blog)
-    );
+  for (
+    const [
+      topic,
+      keywords,
+    ]
+    of Object.entries(
+      TOPIC_GROUPS
+    )
+  ) {
+    if (
+      keywords.some(
+        (keyword) =>
+          haystack.includes(
+            keyword
+              .toLowerCase()
+          )
+      )
+    ) {
+      result.push(
+        topic
+      );
+    }
   }
 
-  const report = {
-    modelVersion:
-      MODEL_VERSION,
+  return result;
+}
 
-    generatedAt:
-      new Date()
-        .toISOString(),
+/* =========================================================
+   Strip HTML
+========================================================= */
 
-    recommendationMethod:
-      "기존 내부링크를 모두 학습하지 않고 제목·구체 라벨·시리즈·본문 연관성 중 최소 2개 이상의 근거가 있는 기존 링크만 신뢰 학습 데이터로 사용합니다. 블로그별 후보 분포를 이용해 추천 기준을 자동 계산하며 근거가 적을수록 더 높은 점수를 요구합니다.",
+function stripHtml(
+  html
+) {
+  return decodeBasicEntities(
+    String(
+      html ||
+      ""
+    )
 
-    blogs:
-      results
-  };
+      .replace(
+        /<script\b[\s\S]*?<\/script>/gi,
+        " "
+      )
 
-  fs.mkdirSync(
-    "data",
-    {
-      recursive: true
+      .replace(
+        /<style\b[\s\S]*?<\/style>/gi,
+        " "
+      )
+
+      .replace(
+        /<br\s*\/?\s*>/gi,
+        "\n"
+      )
+
+      .replace(
+        /<\/p\s*>/gi,
+        "\n"
+      )
+
+      .replace(
+        /<[^>]+>/g,
+        " "
+      )
+  )
+    .replace(
+      /\s+/g,
+      " "
+    )
+    .trim();
+}
+
+/* =========================================================
+   Basic entities
+========================================================= */
+
+function decodeBasicEntities(
+  value
+) {
+  return String(
+    value ||
+    ""
+  )
+    .replaceAll(
+      "&nbsp;",
+      " "
+    )
+    .replaceAll(
+      "&amp;",
+      "&"
+    )
+    .replaceAll(
+      "&lt;",
+      "<"
+    )
+    .replaceAll(
+      "&gt;",
+      ">"
+    )
+    .replaceAll(
+      "&quot;",
+      "\""
+    )
+    .replaceAll(
+      "&#39;",
+      "'"
+    )
+    .replaceAll(
+      "&#x27;",
+      "'"
+    );
+}
+
+/* =========================================================
+   Helpers
+========================================================= */
+
+function countMatches(
+  value,
+  regex
+) {
+  return (
+    String(
+      value ||
+      ""
+    )
+      .match(
+        regex
+      ) ||
+    []
+  ).length;
+}
+
+function intersection(
+  a,
+  b
+) {
+  const setB =
+    new Set(b);
+
+  return unique(
+    a.filter(
+      (item) =>
+        setB.has(
+          item
+        )
+    )
+  );
+}
+
+function jaccard(
+  a,
+  b
+) {
+  const setA =
+    new Set(a);
+
+  const setB =
+    new Set(b);
+
+  if (
+    !setA.size ||
+    !setB.size
+  ) {
+    return 0;
+  }
+
+  let common =
+    0;
+
+  for (
+    const item
+    of setA
+  ) {
+    if (
+      setB.has(
+        item
+      )
+    ) {
+      common +=
+        1;
+    }
+  }
+
+  return (
+    common /
+    (
+      setA.size +
+      setB.size -
+      common
+    )
+  );
+}
+
+function unique(
+  values
+) {
+  return [
+    ...new Set(
+      values
+    ),
+  ];
+}
+
+function quantile(
+  sortedValues,
+  q
+) {
+  if (
+    !sortedValues.length
+  ) {
+    return 0;
+  }
+
+  if (
+    sortedValues.length ===
+      1
+  ) {
+    return sortedValues[0];
+  }
+
+  const position =
+    (
+      sortedValues.length -
+      1
+    ) *
+    q;
+
+  const base =
+    Math.floor(
+      position
+    );
+
+  const rest =
+    position -
+    base;
+
+  const next =
+    sortedValues[
+      base + 1
+    ];
+
+  if (
+    next ===
+    undefined
+  ) {
+    return sortedValues[
+      base
+    ];
+  }
+
+  return (
+    sortedValues[
+      base
+    ] +
+    rest *
+    (
+      next -
+      sortedValues[
+        base
+      ]
+    )
+  );
+}
+
+function clamp(
+  value,
+  min,
+  max
+) {
+  return Math.min(
+    max,
+    Math.max(
+      min,
+      value
+    )
+  );
+}
+
+function roundScore(
+  value
+) {
+  return (
+    Math.round(
+      Number(
+        value ||
+        0
+      ) *
+      10000
+    ) /
+    10000
+  );
+}
+
+function sleep(
+  ms
+) {
+  return new Promise(
+    (resolve) =>
+      setTimeout(
+        resolve,
+        ms
+      )
+  );
+}
+
+/* =========================================================
+   Run
+========================================================= */
+
+main()
+  .catch(
+    (error) => {
+      console.error(
+        error
+      );
+
+      process.exitCode =
+        1;
     }
   );
-
-  fs.writeFileSync(
-    "data/report.json",
-
-    JSON.stringify(
-      report,
-      null,
-      2
-    ),
-
-    "utf8"
-  );
-
-  console.log(
-    `\n✅ ${MODEL_VERSION}`
-  );
-
-  console.log(
-    "✅ data/report.json 생성 완료"
-  );
-}
-
-main().catch(error => {
-  console.error(
-    "\n❌ 검사 실패"
-  );
-
-  console.error(error);
-
-  process.exit(1);
-});
