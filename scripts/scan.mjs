@@ -19,6 +19,22 @@ const BLOGS = [
   }
 ];
 
+const STOPWORDS = new Set([
+  "the", "and", "for", "with", "that", "this", "from", "into", "your",
+  "you", "are", "was", "were", "will", "would", "could", "should", "can",
+  "how", "what", "when", "where", "why", "who", "which", "about", "than",
+  "then", "they", "them", "their", "there", "here", "have", "has", "had",
+  "does", "did", "doing", "not", "but", "all", "any", "our", "out", "one",
+  "two", "more", "most", "really", "actually", "just", "every", "without",
+  "after", "before", "over", "under", "between", "through", "per", "much",
+  "many", "long", "take", "make", "get", "got", "like",
+
+  "그리고", "하지만", "그러면", "그래서", "이렇게", "저렇게", "이런", "저런",
+  "대한", "위한", "하는", "되는", "있다", "없다", "있는", "없는", "하면", "해도",
+  "부터", "까지", "에서", "으로", "보다", "정도", "정말", "진짜", "과연",
+  "경우", "때문", "때문에", "방법", "이유", "알아보자", "알아보기"
+]);
+
 async function fetchJson(url) {
   const response = await fetch(url);
 
@@ -97,6 +113,43 @@ function countMatches(text, regex) {
   return [...text.matchAll(regex)].length;
 }
 
+function normalizeUrl(value, blogUrl) {
+  try {
+    const base = new URL(blogUrl);
+    const url = new URL(value, `${blogUrl}/`);
+
+    if (url.hostname !== base.hostname) {
+      return null;
+    }
+
+    let pathname = url.pathname.replace(/\/+$/, "");
+    if (!pathname) pathname = "/";
+
+    return `https://${base.hostname}${pathname}`;
+  } catch {
+    return null;
+  }
+}
+
+function tokenize(text = "") {
+  const normalized = text
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/https?:\/\/\S+/g, " ")
+    .replace(/[^\p{L}\p{N}]+/gu, " ");
+
+  return normalized
+    .split(/\s+/)
+    .map(token => token.trim())
+    .filter(Boolean)
+    .filter(token => !/^\d+$/.test(token))
+    .filter(token => {
+      const len = [...token].length;
+      return /[가-힣]/.test(token) ? len >= 2 : len >= 3;
+    })
+    .filter(token => !STOPWORDS.has(token));
+}
+
 function analyzePost(post, blogUrl) {
   const html = post.content || "";
   const text = stripHtml(html);
@@ -106,6 +159,7 @@ function analyzePost(post, blogUrl) {
   ].map(match => match[1]);
 
   const host = new URL(blogUrl).hostname;
+  const outgoingInternalUrls = new Set();
 
   let internalLinks = 0;
   let externalLinks = 0;
@@ -116,11 +170,20 @@ function analyzePost(post, blogUrl) {
 
       if (url.hostname === host) {
         internalLinks++;
-      } else if (url.protocol === "http:" || url.protocol === "https:") {
+
+        const normalized = normalizeUrl(href, blogUrl);
+
+        if (normalized) {
+          outgoingInternalUrls.add(normalized);
+        }
+      } else if (
+        url.protocol === "http:" ||
+        url.protocol === "https:"
+      ) {
         externalLinks++;
       }
     } catch {
-      // 잘못된 URL은 일단 무시
+      // 잘못된 URL 무시
     }
   }
 
@@ -131,53 +194,342 @@ function analyzePost(post, blogUrl) {
   if (countMatches(html, /<h2\b/gi) === 0) warnings.push("H2 없음");
   if (!post.labels || post.labels.length === 0) warnings.push("라벨 없음");
 
+  const title = post.title || "";
+  const labels = post.labels || [];
+
+  const recommendationText = [
+    title,
+    title,
+    labels.join(" "),
+    labels.join(" "),
+    text.slice(0, 6000)
+  ].join(" ");
+
   return {
     id: post.id,
-    title: post.title,
+    title,
     url: post.url,
+    normalizedUrl: normalizeUrl(post.url, blogUrl),
     published: post.published,
     updated: post.updated,
-    labels: post.labels || [],
+    labels,
     textLength: text.length,
     internalLinks,
     externalLinks,
     images: countMatches(html, /<img\b/gi),
     h2: countMatches(html, /<h2\b/gi),
     h3: countMatches(html, /<h3\b/gi),
-    warnings
+
+    incomingLinks: 0,
+    incomingFrom: [],
+    recommendations: [],
+
+    warnings,
+
+    _outgoingInternalUrls: [...outgoingInternalUrls],
+    _tokens: tokenize(recommendationText)
   };
 }
 
+function addIncomingLinkData(posts) {
+  const byUrl = new Map(
+    posts
+      .filter(post => post.normalizedUrl)
+      .map(post => [post.normalizedUrl, post])
+  );
+
+  for (const source of posts) {
+    const uniqueTargets =
+      new Set(source._outgoingInternalUrls || []);
+
+    for (const targetUrl of uniqueTargets) {
+      const target = byUrl.get(targetUrl);
+
+      if (!target || target.id === source.id) {
+        continue;
+      }
+
+      target.incomingFrom.push({
+        title: source.title,
+        url: source.url
+      });
+    }
+  }
+
+  for (const post of posts) {
+    post.incomingLinks = post.incomingFrom.length;
+
+    if (
+      post.incomingLinks === 0 &&
+      !post.warnings.includes("고립 글")
+    ) {
+      post.warnings.push("고립 글");
+    }
+  }
+}
+
+function buildTfidfVectors(posts) {
+  const documentFrequency = new Map();
+
+  for (const post of posts) {
+    const uniqueTokens = new Set(post._tokens || []);
+
+    for (const token of uniqueTokens) {
+      documentFrequency.set(
+        token,
+        (documentFrequency.get(token) || 0) + 1
+      );
+    }
+  }
+
+  const totalDocs = posts.length;
+
+  return posts.map(post => {
+    const counts = new Map();
+
+    for (const token of post._tokens || []) {
+      counts.set(
+        token,
+        (counts.get(token) || 0) + 1
+      );
+    }
+
+    const vector = new Map();
+    let magnitudeSquared = 0;
+
+    for (const [token, count] of counts) {
+      const df =
+        documentFrequency.get(token) || 1;
+
+      const idf =
+        Math.log(
+          (totalDocs + 1) / (df + 1)
+        ) + 1;
+
+      const tf =
+        1 + Math.log(count);
+
+      const weight =
+        tf * idf;
+
+      vector.set(token, weight);
+      magnitudeSquared += weight * weight;
+    }
+
+    return {
+      id: post.id,
+      vector,
+      magnitude:
+        Math.sqrt(magnitudeSquared)
+    };
+  });
+}
+
+function cosineSimilarity(a, b) {
+  if (!a.magnitude || !b.magnitude) {
+    return 0;
+  }
+
+  const [small, large] =
+    a.vector.size <= b.vector.size
+      ? [a.vector, b.vector]
+      : [b.vector, a.vector];
+
+  let dot = 0;
+
+  for (const [token, weight] of small) {
+    const other =
+      large.get(token);
+
+    if (other) {
+      dot += weight * other;
+    }
+  }
+
+  return dot /
+    (a.magnitude * b.magnitude);
+}
+
+function addRecommendations(posts) {
+  const vectors =
+    buildTfidfVectors(posts);
+
+  const vectorById =
+    new Map(
+      vectors.map(item => [
+        item.id,
+        item
+      ])
+    );
+
+  for (const source of posts) {
+    const sourceVector =
+      vectorById.get(source.id);
+
+    const alreadyLinked =
+      new Set(
+        source._outgoingInternalUrls || []
+      );
+
+    const sourceLabels =
+      new Set(
+        (source.labels || []).map(
+          label => label.toLowerCase()
+        )
+      );
+
+    const candidates = [];
+
+    for (const target of posts) {
+      if (target.id === source.id) {
+        continue;
+      }
+
+      if (
+        target.normalizedUrl &&
+        alreadyLinked.has(
+          target.normalizedUrl
+        )
+      ) {
+        continue;
+      }
+
+      let score =
+        cosineSimilarity(
+          sourceVector,
+          vectorById.get(target.id)
+        );
+
+      const targetLabels =
+        (target.labels || []).map(
+          label => label.toLowerCase()
+        );
+
+      const sharedLabels =
+        targetLabels.filter(
+          label =>
+            sourceLabels.has(label)
+        ).length;
+
+      score += sharedLabels * 0.12;
+
+      if (score >= 0.10) {
+        candidates.push({
+          title: target.title,
+          url: target.url,
+          score:
+            Number(score.toFixed(3))
+        });
+      }
+    }
+
+    source.recommendations =
+      candidates
+        .sort(
+          (a, b) =>
+            b.score - a.score
+        )
+        .slice(0, 3);
+  }
+}
+
+function cleanForReport(post) {
+  const {
+    _outgoingInternalUrls,
+    _tokens,
+    normalizedUrl,
+    ...publicPost
+  } = post;
+
+  return publicPost;
+}
+
 async function scanBlog(config) {
-  console.log(`\n🔎 ${config.name} 검사 시작`);
-
-  const blog = await getBlogId(config.url);
-
-  console.log(`Blog ID: ${blog.id}`);
-  console.log(`API 게시글 수: ${blog.totalPosts}`);
-
-  const posts = await getAllPosts(blog.id);
-
-  console.log(`실제 가져온 글: ${posts.length}`);
-
-  const analyzedPosts = posts.map(post =>
-    analyzePost(post, config.url)
+  console.log(
+    `\n🔎 ${config.name} 검사 시작`
   );
 
-  const warningPosts = analyzedPosts.filter(
-    post => post.warnings.length > 0
+  const blog =
+    await getBlogId(config.url);
+
+  console.log(
+    `Blog ID: ${blog.id}`
   );
 
-  console.log(`⚠️ 경고가 있는 글: ${warningPosts.length}`);
+  console.log(
+    `API 게시글 수: ${blog.totalPosts}`
+  );
+
+  const rawPosts =
+    await getAllPosts(blog.id);
+
+  console.log(
+    `실제 가져온 글: ${rawPosts.length}`
+  );
+
+  const posts =
+    rawPosts.map(post =>
+      analyzePost(
+        post,
+        config.url
+      )
+    );
+
+  addIncomingLinkData(posts);
+  addRecommendations(posts);
+
+  const publicPosts =
+    posts.map(cleanForReport);
+
+  const warningPosts =
+    publicPosts.filter(
+      post =>
+        post.warnings.length > 0
+    );
+
+  const isolatedPosts =
+    publicPosts.filter(
+      post =>
+        post.incomingLinks === 0
+    );
+
+  const recommendationPosts =
+    publicPosts.filter(
+      post =>
+        post.recommendations.length > 0
+    );
+
+  console.log(
+    `⚠️ 경고가 있는 글: ${warningPosts.length}`
+  );
+
+  console.log(
+    `🏝️ 고립 글: ${isolatedPosts.length}`
+  );
+
+  console.log(
+    `🔗 추천이 있는 글: ${recommendationPosts.length}`
+  );
 
   return {
     key: config.key,
     name: config.name,
     url: config.url,
     blogId: blog.id,
-    totalPosts: posts.length,
-    warningPosts: warningPosts.length,
-    posts: analyzedPosts
+
+    totalPosts:
+      publicPosts.length,
+
+    warningPosts:
+      warningPosts.length,
+
+    isolatedPosts:
+      isolatedPosts.length,
+
+    recommendationPosts:
+      recommendationPosts.length,
+
+    posts: publicPosts
   };
 }
 
@@ -185,27 +537,46 @@ async function main() {
   const results = [];
 
   for (const blog of BLOGS) {
-    results.push(await scanBlog(blog));
+    results.push(
+      await scanBlog(blog)
+    );
   }
 
   const report = {
-    generatedAt: new Date().toISOString(),
+    generatedAt:
+      new Date().toISOString(),
+
+    recommendationMethod:
+      "같은 블로그 안에서 제목·라벨·본문 단어의 TF-IDF 유사도를 비교한 자동 추천입니다.",
+
     blogs: results
   };
 
-  fs.mkdirSync("data", { recursive: true });
+  fs.mkdirSync(
+    "data",
+    { recursive: true }
+  );
 
   fs.writeFileSync(
     "data/report.json",
-    JSON.stringify(report, null, 2),
+    JSON.stringify(
+      report,
+      null,
+      2
+    ),
     "utf8"
   );
 
-  console.log("\n✅ data/report.json 생성 완료");
+  console.log(
+    "\n✅ data/report.json 생성 완료"
+  );
 }
 
 main().catch(error => {
-  console.error("\n❌ 검사 실패");
+  console.error(
+    "\n❌ 검사 실패"
+  );
+
   console.error(error);
   process.exit(1);
 });
