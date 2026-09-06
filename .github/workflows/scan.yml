@@ -1,7 +1,18 @@
 name: Blogger Scan
 
 on:
+  # 필요할 때 수동 실행도 가능
   workflow_dispatch:
+
+  # 1시간마다 자동 실행
+  schedule:
+    - cron: "17 * * * *"
+
+  # 검사 프로그램을 수정하면 즉시 한 번 실행
+  push:
+    paths:
+      - "scripts/scan.mjs"
+      - ".github/workflows/scan.yml"
 
 permissions:
   contents: write
