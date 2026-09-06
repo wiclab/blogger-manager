@@ -6,38 +6,57 @@
   <title>Blogger Manager</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       background: #f5f7fa;
       color: #1f2937;
       font-family:
-        -apple-system, BlinkMacSystemFont,
-        "Segoe UI", "Noto Sans KR", sans-serif;
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans KR",
+        sans-serif;
     }
 
     .wrap {
-      width: min(1200px, calc(100% - 32px));
-      margin: 40px auto;
+      width: min(1380px, calc(100% - 32px));
+      margin: 36px auto;
     }
 
     h1 {
-      margin-bottom: 6px;
+      margin: 0 0 6px;
     }
 
     .sub {
-      margin-top: 0;
+      margin: 0;
       color: #6b7280;
+    }
+
+    #updated,
+    .method {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    #updated {
+      margin-top: 14px;
+    }
+
+    .method {
+      margin-top: 6px;
     }
 
     .blogs {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(280px, 1fr)
+        );
       gap: 16px;
-      margin: 28px 0;
+      margin: 26px 0;
     }
 
     .card {
@@ -45,46 +64,60 @@
       border: 1px solid #e5e7eb;
       border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.04);
+      box-shadow:
+        0 3px 12px
+        rgba(0,0,0,.04);
     }
 
     .card h2 {
-      margin-top: 0;
+      margin: 0 0 10px;
     }
 
     .numbers {
       display: flex;
-      gap: 26px;
+      flex-wrap: wrap;
+      gap: 24px;
       margin-top: 18px;
     }
 
     .number strong {
       display: block;
-      font-size: 26px;
+      font-size: 25px;
     }
 
     .number span {
-      font-size: 13px;
+      font-size: 12px;
       color: #6b7280;
     }
 
     .controls {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
-      margin: 24px 0 14px;
+      margin: 22px 0 12px;
     }
 
     button {
       border: 1px solid #d1d5db;
       background: white;
+      color: #1f2937;
       border-radius: 10px;
-      padding: 9px 13px;
+      padding: 9px 12px;
       cursor: pointer;
+      font-weight: 600;
     }
 
-    button:hover {
-      background: #f3f4f6;
+    button:hover,
+    button.active {
+      background: #111827;
+      color: white;
+      border-color: #111827;
+    }
+
+    .count-line {
+      font-size: 13px;
+      color: #6b7280;
+      margin: 0 0 10px;
     }
 
     .table-wrap {
@@ -97,11 +130,12 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 850px;
+      min-width: 1180px;
     }
 
-    th, td {
-      padding: 12px 14px;
+    th,
+    td {
+      padding: 11px 12px;
       border-bottom: 1px solid #eee;
       text-align: left;
       vertical-align: top;
@@ -109,11 +143,16 @@
 
     th {
       background: #f9fafb;
-      font-size: 13px;
+      font-size: 12px;
+      white-space: nowrap;
     }
 
     td {
-      font-size: 14px;
+      font-size: 13px;
+    }
+
+    tr:hover td {
+      background: #fcfcfd;
     }
 
     a {
@@ -123,6 +162,11 @@
 
     a:hover {
       text-decoration: underline;
+    }
+
+    .title-link {
+      font-weight: 600;
+      line-height: 1.45;
     }
 
     .ok {
@@ -135,6 +179,11 @@
       font-weight: 700;
     }
 
+    .danger {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
     .badge {
       display: inline-block;
       background: #fff7ed;
@@ -143,12 +192,55 @@
       padding: 3px 7px;
       margin: 2px;
       font-size: 11px;
+      white-space: nowrap;
     }
 
-    #updated {
-      color: #6b7280;
-      font-size: 13px;
-      margin-bottom: 12px;
+    .badge.isolated {
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .recommendations {
+      min-width: 245px;
+      max-width: 330px;
+    }
+
+    .recommendation {
+      display: block;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .recommendation:last-child {
+      margin-bottom: 0;
+    }
+
+    .score {
+      color: #9ca3af;
+      font-size: 10px;
+      margin-left: 4px;
+    }
+
+    .muted {
+      color: #9ca3af;
+    }
+
+    @media (max-width: 700px) {
+      .wrap {
+        width: min(
+          100% - 20px,
+          1380px
+        );
+        margin: 22px auto;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+
+      .card {
+        padding: 16px;
+      }
     }
   </style>
 </head>
@@ -158,203 +250,538 @@
 <div class="wrap">
 
   <h1>📊 Blogger Manager</h1>
-  <p class="sub">별다알 + Nobody Asked Data 통합 점검</p>
+
+  <p class="sub">
+    별다알 + Nobody Asked Data 통합 점검
+  </p>
 
   <div id="updated"></div>
 
-  <div id="blogs" class="blogs"></div>
-
-  <div class="controls">
-    <button onclick="setFilter('all')">전체 글</button>
-    <button onclick="setFilter('warning')">⚠ 경고 글만</button>
-    <button onclick="setFilter('internal')">내부링크 없음</button>
-    <button onclick="setFilter('short')">본문 짧음</button>
-    <button onclick="setFilter('h2')">H2 없음</button>
+  <div
+    id="method"
+    class="method">
   </div>
 
+  <div
+    id="blogs"
+    class="blogs">
+  </div>
+
+  <div
+    class="controls"
+    id="controls">
+
+    <button
+      data-filter="all"
+      class="active"
+      onclick="setFilter('all')">
+      전체 글
+    </button>
+
+    <button
+      data-filter="warning"
+      onclick="setFilter('warning')">
+      ⚠ 경고 글
+    </button>
+
+    <button
+      data-filter="isolated"
+      onclick="setFilter('isolated')">
+      🏝 고립 글
+    </button>
+
+    <button
+      data-filter="internal"
+      onclick="setFilter('internal')">
+      나가는 내부링크 0
+    </button>
+
+    <button
+      data-filter="recommended"
+      onclick="setFilter('recommended')">
+      🔗 추천 있음
+    </button>
+
+    <button
+      data-filter="short"
+      onclick="setFilter('short')">
+      본문 짧음
+    </button>
+
+    <button
+      data-filter="h2"
+      onclick="setFilter('h2')">
+      H2 없음
+    </button>
+
+  </div>
+
+  <p
+    id="countLine"
+    class="count-line">
+  </p>
+
   <div class="table-wrap">
+
     <table>
+
       <thead>
         <tr>
           <th>블로그</th>
           <th>글 제목</th>
           <th>글자수</th>
-          <th>내부링크</th>
+          <th>나가는 링크</th>
+          <th>받는 링크</th>
           <th>외부링크</th>
           <th>이미지</th>
           <th>H2</th>
           <th>점검</th>
+          <th>내부링크 추천</th>
         </tr>
       </thead>
 
       <tbody id="posts"></tbody>
+
     </table>
+
   </div>
 
 </div>
 
 <script>
+
 let REPORT = null;
 let FILTER = "all";
 
 async function loadReport() {
-  const response = await fetch("./data/report.json?v=" + Date.now());
+
+  const response =
+    await fetch(
+      "./data/report.json?v=" +
+      Date.now()
+    );
 
   if (!response.ok) {
-    throw new Error("report.json을 불러오지 못했습니다.");
+    throw new Error(
+      "report.json을 불러오지 못했습니다."
+    );
   }
 
-  REPORT = await response.json();
+  REPORT =
+    await response.json();
 
-  document.getElementById("updated").textContent =
-    "마지막 검사: " +
-    new Date(REPORT.generatedAt).toLocaleString("ko-KR");
+  document
+    .getElementById("updated")
+    .textContent =
+      "마지막 검사: " +
+      new Date(
+        REPORT.generatedAt
+      ).toLocaleString("ko-KR");
+
+  document
+    .getElementById("method")
+    .textContent =
+      REPORT.recommendationMethod ||
+      "추천은 같은 블로그 안의 제목·라벨·본문 유사도를 기준으로 계산합니다.";
 
   renderBlogs();
   renderPosts();
 }
 
 function renderBlogs() {
-  const container = document.getElementById("blogs");
 
-  container.innerHTML = REPORT.blogs.map(blog => `
-    <div class="card">
-      <h2>${escapeHtml(blog.name)}</h2>
+  const container =
+    document.getElementById(
+      "blogs"
+    );
 
-      <a href="${blog.url}"
-         target="_blank"
-         rel="noopener">
-        블로그 열기 ↗
-      </a>
+  container.innerHTML =
+    REPORT.blogs.map(blog => `
 
-      <div class="numbers">
+      <div class="card">
 
-        <div class="number">
-          <strong>${blog.totalPosts}</strong>
-          <span>게시글</span>
-        </div>
+        <h2>
+          ${escapeHtml(blog.name)}
+        </h2>
 
-        <div class="number">
-          <strong>${blog.warningPosts}</strong>
-          <span>경고 글</span>
+        <a
+          href="${safeUrl(blog.url)}"
+          target="_blank"
+          rel="noopener">
+          블로그 열기 ↗
+        </a>
+
+        <div class="numbers">
+
+          <div class="number">
+            <strong>
+              ${number(blog.totalPosts)}
+            </strong>
+            <span>게시글</span>
+          </div>
+
+          <div class="number">
+            <strong>
+              ${number(blog.warningPosts)}
+            </strong>
+            <span>경고 글</span>
+          </div>
+
+          <div class="number">
+            <strong>
+              ${number(blog.isolatedPosts)}
+            </strong>
+            <span>고립 글</span>
+          </div>
+
+          <div class="number">
+            <strong>
+              ${number(blog.recommendationPosts)}
+            </strong>
+            <span>추천 가능</span>
+          </div>
+
         </div>
 
       </div>
-    </div>
-  `).join("");
+
+    `).join("");
 }
 
 function allPosts() {
-  return REPORT.blogs.flatMap(blog =>
-    blog.posts.map(post => ({
-      ...post,
-      blogName: blog.name
-    }))
+
+  return REPORT.blogs.flatMap(
+    blog =>
+      blog.posts.map(post => ({
+        ...post,
+        blogName: blog.name
+      }))
   );
 }
 
 function matchesFilter(post) {
 
+  const warnings =
+    post.warnings || [];
+
+  const recommendations =
+    post.recommendations || [];
+
+  const incomingLinks =
+    Number(
+      post.incomingLinks || 0
+    );
+
   if (FILTER === "warning")
-    return post.warnings.length > 0;
+    return warnings.length > 0;
+
+  if (FILTER === "isolated")
+    return incomingLinks === 0;
 
   if (FILTER === "internal")
-    return post.warnings.includes("내부링크 없음");
+    return Number(
+      post.internalLinks || 0
+    ) === 0;
+
+  if (FILTER === "recommended")
+    return recommendations.length > 0;
 
   if (FILTER === "short")
-    return post.warnings.includes("본문 짧음");
+    return warnings.includes(
+      "본문 짧음"
+    );
 
   if (FILTER === "h2")
-    return post.warnings.includes("H2 없음");
+    return warnings.includes(
+      "H2 없음"
+    );
 
   return true;
 }
 
 function renderPosts() {
 
-  const posts = allPosts()
-    .filter(matchesFilter)
-    .sort((a,b) =>
-      new Date(b.updated) - new Date(a.updated)
+  const all =
+    allPosts();
+
+  const posts =
+    all
+      .filter(matchesFilter)
+      .sort(
+        (a, b) =>
+          new Date(b.updated) -
+          new Date(a.updated)
+      );
+
+  document
+    .getElementById("countLine")
+    .textContent =
+      `표시 중: ${posts.length} / 전체 ${all.length}개 글`;
+
+  const tbody =
+    document.getElementById(
+      "posts"
     );
 
-  const tbody = document.getElementById("posts");
+  tbody.innerHTML =
+    posts.map(post => {
 
-  tbody.innerHTML = posts.map(post => {
+      const warnings =
+        post.warnings || [];
 
-    const warningHtml =
-      post.warnings.length === 0
+      const recommendations =
+        post.recommendations || [];
 
-      ? `<span class="ok">정상</span>`
+      const incomingLinks =
+        Number(
+          post.incomingLinks || 0
+        );
 
-      : post.warnings.map(w =>
-          `<span class="badge">${escapeHtml(w)}</span>`
-        ).join("");
+      const warningHtml =
+        warnings.length === 0
+          ? `
+            <span class="ok">
+              정상
+            </span>
+          `
+          : warnings.map(w => {
 
-    return `
-      <tr>
+              const cls =
+                w === "고립 글"
+                  ? "badge isolated"
+                  : "badge";
 
-        <td>
-          ${escapeHtml(post.blogName)}
-        </td>
+              return `
+                <span class="${cls}">
+                  ${escapeHtml(w)}
+                </span>
+              `;
 
-        <td>
-          <a href="${post.url}"
-             target="_blank"
-             rel="noopener">
-            ${escapeHtml(post.title)}
-          </a>
-        </td>
+            }).join("");
 
-        <td>
-          ${post.textLength.toLocaleString()}
-        </td>
+      const recommendationHtml =
+        recommendations.length === 0
+          ? `
+            <span class="muted">
+              추천 없음
+            </span>
+          `
+          : recommendations
+              .map(
+                (rec, index) => `
 
-        <td class="${post.internalLinks === 0 ? "warn" : ""}">
-          ${post.internalLinks}
-        </td>
+                  <a
+                    class="recommendation"
+                    href="${safeUrl(rec.url)}"
+                    target="_blank"
+                    rel="noopener">
 
-        <td>
-          ${post.externalLinks}
-        </td>
+                    ${index + 1}.
+                    ${escapeHtml(rec.title)}
 
-        <td>
-          ${post.images}
-        </td>
+                    <span class="score">
+                      ${Math.round(
+                        Number(
+                          rec.score || 0
+                        ) * 100
+                      )}%
+                    </span>
 
-        <td class="${post.h2 === 0 ? "warn" : ""}">
-          ${post.h2}
-        </td>
+                  </a>
 
-        <td>
-          ${warningHtml}
-        </td>
+                `
+              )
+              .join("");
 
-      </tr>
-    `;
-  }).join("");
+      return `
+
+        <tr>
+
+          <td>
+            ${escapeHtml(
+              post.blogName
+            )}
+          </td>
+
+          <td>
+            <a
+              class="title-link"
+              href="${safeUrl(post.url)}"
+              target="_blank"
+              rel="noopener">
+
+              ${escapeHtml(
+                post.title
+              )}
+
+            </a>
+          </td>
+
+          <td>
+            ${number(
+              post.textLength
+            ).toLocaleString()}
+          </td>
+
+          <td
+            class="${
+              Number(
+                post.internalLinks || 0
+              ) === 0
+                ? "warn"
+                : ""
+            }">
+
+            ${number(
+              post.internalLinks
+            )}
+
+          </td>
+
+          <td
+            class="${
+              incomingLinks === 0
+                ? "danger"
+                : ""
+            }">
+
+            ${incomingLinks}
+
+          </td>
+
+          <td>
+            ${number(
+              post.externalLinks
+            )}
+          </td>
+
+          <td>
+            ${number(
+              post.images
+            )}
+          </td>
+
+          <td
+            class="${
+              Number(
+                post.h2 || 0
+              ) === 0
+                ? "warn"
+                : ""
+            }">
+
+            ${number(post.h2)}
+
+          </td>
+
+          <td>
+            ${warningHtml}
+          </td>
+
+          <td class="recommendations">
+            ${recommendationHtml}
+          </td>
+
+        </tr>
+
+      `;
+
+    }).join("");
 }
 
 function setFilter(filter) {
+
   FILTER = filter;
+
+  document
+    .querySelectorAll(
+      "#controls button"
+    )
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.filter === filter
+      );
+
+    });
+
   renderPosts();
 }
 
+function number(value) {
+
+  const n =
+    Number(value);
+
+  return Number.isFinite(n)
+    ? n
+    : 0;
+}
+
+function safeUrl(value) {
+
+  try {
+
+    const url =
+      new URL(
+        String(value)
+      );
+
+    if (
+      url.protocol === "http:" ||
+      url.protocol === "https:"
+    ) {
+
+      return escapeHtml(
+        url.href
+      );
+
+    }
+
+  } catch {}
+
+  return "#";
+}
+
 function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
 
 loadReport().catch(error => {
+
   document.body.innerHTML =
     "<pre style='padding:30px'>" +
-    escapeHtml(error.message) +
+    escapeHtml(
+      error.message
+    ) +
     "</pre>";
+
 });
+
 </script>
 
 </body>
