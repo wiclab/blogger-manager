@@ -2569,28 +2569,10 @@ async function disconnectBlogger() {
 
 async function loadReport() {
 
-  const response =
-    await fetch(
-      "./data/report.json?v=" +
-      Date.now(),
-      {
-        cache:
-          "no-store"
-      }
-    );
-
-
-  if (!response.ok) {
-
-    throw new Error(
-      "report.json load failed"
-    );
-
-  }
-
-
   REPORT =
-    await response.json();
+    await adminApi(
+      "/report"
+    );
 
 
   /*
