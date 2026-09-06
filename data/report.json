@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T07:57:57.385Z",
+  "generatedAt": "2026-09-06T08:29:47.285Z",
   "modelVersion": "semantic-gate-v3",
   "recommendationMethod": "기존 내부링크 학습 + 제목·구체 라벨·시리즈·본문 희귀 핵심어·주제군 관계 게이트를 사용합니다. TF-IDF 점수가 높아도 의미 근거가 부족하면 추천하지 않습니다.",
   "blogs": [
