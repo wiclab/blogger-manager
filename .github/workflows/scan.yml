@@ -15,7 +15,7 @@ on:
       - ".github/workflows/scan.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   scan:
@@ -35,16 +35,15 @@ jobs:
           BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
         run: node scripts/scan.mjs
 
-      - name: Save report
+      - name: Publish report to Cloudflare
+        env:
+          REPORT_PUBLISH_SECRET: ${{ secrets.REPORT_PUBLISH_SECRET }}
         run: |
-          git config user.name "blogger-manager-bot"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          set -euo pipefail
 
-          git add data/report.json
-
-          if git diff --cached --quiet; then
-            echo "No report changes"
-          else
-            git commit -m "Update Blogger scan report"
-            git push
+          if [ -z "${REPORT_PUBLISH_SECRET:-}" ]; then
+            echo "REPORT_PUBLISH_SECRET is missing"
+            exit 1
           fi
+
+          curl             --fail-with-body             --show-error             --silent             -X POST             "https://blogger-manager-api.chldndlf91.workers.dev/report/publish"             -H "Authorization: Bearer ${REPORT_PUBLISH_SECRET}"             -H "Content-Type: application/json"             --data-binary @data/report.json
