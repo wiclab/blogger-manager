@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T11:26:57.646Z",
+  "generatedAt": "2026-09-06T11:34:31.925Z",
   "modelVersion": "semantic-gate-v3",
   "recommendationMethod": "기존 내부링크 학습 + 제목·구체 라벨·시리즈·본문 희귀 핵심어·주제군 관계 게이트를 사용합니다. TF-IDF 점수가 높아도 의미 근거가 부족하면 추천하지 않습니다.",
   "blogs": [
@@ -3030,8 +3030,8 @@
         "threshold": 0.2424,
         "singleEvidenceThreshold": 0.2924,
         "weakEvidenceThreshold": 0.3424,
-        "trustedPositiveSamples": 18,
-        "rawPositiveSamples": 18,
+        "trustedPositiveSamples": 19,
+        "rawPositiveSamples": 19,
         "rejectedPositiveSamples": 0
       },
       "commonLabels": [
@@ -3142,20 +3142,20 @@
             {
               "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
-              "score": 0.5584,
+              "score": 0.571,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
                 "공통 라벨: nobody lab",
                 "주제군: lab_interactive",
-                "본문 핵심어: smaller, keep, before"
+                "본문 핵심어: smaller, click, keep"
               ],
               "relationStrength": "series"
             },
             {
               "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
-              "score": 0.558,
+              "score": 0.5593,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3260,7 +3260,7 @@
             {
               "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
-              "score": 0.6656,
+              "score": 0.6748,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3273,7 +3273,7 @@
             {
               "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
-              "score": 0.6642,
+              "score": 0.6647,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3307,7 +3307,7 @@
             {
               "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
-              "score": 0.8232,
+              "score": 0.8294,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3320,7 +3320,7 @@
             {
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.714,
+              "score": 0.7141,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3333,7 +3333,7 @@
             {
               "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
-              "score": 0.639,
+              "score": 0.6403,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3358,7 +3358,7 @@
           ],
           "textLength": 1929,
           "internalLinks": 1,
-          "incomingLinks": 1,
+          "incomingLinks": 2,
           "externalLinks": 1,
           "images": 1,
           "h2": 4,
@@ -3367,7 +3367,7 @@
             {
               "title": "Nobody Lab #006 — How Small a Button Can You Actually Click?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html",
-              "score": 0.8548,
+              "score": 0.8475,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab, click",
@@ -3380,7 +3380,7 @@
             {
               "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
-              "score": 0.8232,
+              "score": 0.8294,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3393,7 +3393,7 @@
             {
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.6656,
+              "score": 0.6748,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3446,6 +3446,19 @@
           "warnings": [],
           "recommendations": [
             {
+              "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
+              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
+              "score": 0.7065,
+              "reasons": [
+                "같은 시리즈: nobody lab",
+                "제목 핵심어: lab",
+                "공통 라벨: nobody lab",
+                "주제군: lab_interactive, human_scale",
+                "본문 핵심어: finger, fast, lab"
+              ],
+              "relationStrength": "series"
+            },
+            {
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
               "score": 0.7033,
@@ -3455,19 +3468,6 @@
                 "공통 라벨: nobody lab",
                 "주제군: lab_interactive, human_scale",
                 "본문 핵심어: measur, lab, clock"
-              ],
-              "relationStrength": "series"
-            },
-            {
-              "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
-              "score": 0.6972,
-              "reasons": [
-                "같은 시리즈: nobody lab",
-                "제목 핵심어: lab",
-                "공통 라벨: nobody lab",
-                "주제군: lab_interactive, human_scale",
-                "본문 핵심어: finger, fast, lab"
               ],
               "relationStrength": "series"
             },
@@ -3491,14 +3491,14 @@
           "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
           "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
           "published": "2026-09-02T05:53:43-07:00",
-          "updated": "2026-09-06T04:24:51-07:00",
+          "updated": "2026-09-06T04:31:47-07:00",
           "labels": [
             "Experiments",
             "Nobody Lab",
             "Visual Perception"
           ],
-          "textLength": 4185,
-          "internalLinks": 1,
+          "textLength": 4246,
+          "internalLinks": 2,
           "incomingLinks": 1,
           "externalLinks": 3,
           "images": 1,
@@ -3508,7 +3508,7 @@
             {
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.6642,
+              "score": 0.6647,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3519,28 +3519,28 @@
               "relationStrength": "series"
             },
             {
-              "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
-              "score": 0.6474,
-              "reasons": [
-                "같은 시리즈: nobody lab",
-                "제목 핵심어: lab",
-                "공통 라벨: nobody lab",
-                "주제군: lab_interactive, human_scale",
-                "본문 핵심어: difference, tiny, line"
-              ],
-              "relationStrength": "series"
-            },
-            {
               "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
-              "score": 0.639,
+              "score": 0.6403,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
                 "공통 라벨: nobody lab",
                 "주제군: lab_interactive, human_scale",
                 "본문 핵심어: next, round, browser"
+              ],
+              "relationStrength": "series"
+            },
+            {
+              "title": "Nobody Lab #006 — How Small a Button Can You Actually Click?",
+              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html",
+              "score": 0.571,
+              "reasons": [
+                "같은 시리즈: nobody lab",
+                "제목 핵심어: lab",
+                "공통 라벨: nobody lab",
+                "주제군: lab_interactive",
+                "본문 핵심어: tiny, keep, shrink"
               ],
               "relationStrength": "series"
             }
