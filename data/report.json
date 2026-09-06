@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T11:34:31.925Z",
+  "generatedAt": "2026-09-06T12:33:06.804Z",
   "modelVersion": "semantic-gate-v3",
   "recommendationMethod": "기존 내부링크 학습 + 제목·구체 라벨·시리즈·본문 희귀 핵심어·주제군 관계 게이트를 사용합니다. TF-IDF 점수가 높아도 의미 근거가 부족하면 추천하지 않습니다.",
   "blogs": [
@@ -3023,15 +3023,15 @@
       "name": "Nobody Asked Data",
       "url": "https://qevnaxori.blogspot.com/",
       "totalPosts": 25,
-      "warningPosts": 17,
-      "isolatedPosts": 13,
-      "recommendationPosts": 20,
+      "warningPosts": 13,
+      "isolatedPosts": 11,
+      "recommendationPosts": 11,
       "tuning": {
-        "threshold": 0.2424,
-        "singleEvidenceThreshold": 0.2924,
-        "weakEvidenceThreshold": 0.3424,
-        "trustedPositiveSamples": 19,
-        "rawPositiveSamples": 19,
+        "threshold": 0.2745,
+        "singleEvidenceThreshold": 0.3245,
+        "weakEvidenceThreshold": 0.3745,
+        "trustedPositiveSamples": 27,
+        "rawPositiveSamples": 27,
         "rejectedPositiveSamples": 0
       },
       "commonLabels": [
@@ -3070,13 +3070,12 @@
           ],
           "textLength": 5348,
           "internalLinks": 0,
-          "incomingLinks": 0,
+          "incomingLinks": 1,
           "externalLinks": 3,
           "images": 1,
           "h2": 10,
           "warnings": [
-            "내부링크 없음",
-            "고립 글"
+            "내부링크 없음"
           ],
           "recommendations": [
             {
@@ -3102,17 +3101,6 @@
                 "본문 핵심어: billion, earth, everyone"
               ],
               "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "Could You Spend 1 Bitcoin in 24 Hours Without Buying Anything Expensive?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/spend-one-bitcoin-in-24-hours.html",
-              "score": 0.273,
-              "reasons": [
-                "공통 라벨: weird math",
-                "주제군: lab_interactive, human_scale",
-                "본문 핵심어: until, unit, round"
-              ],
-              "relationStrength": "multi-evidence"
             }
           ]
         },
@@ -3121,7 +3109,7 @@
           "title": "Nobody Lab #006 — How Small a Button Can You Actually Click?",
           "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html",
           "published": "2026-09-05T08:27:26-07:00",
-          "updated": "2026-09-05T08:31:32-07:00",
+          "updated": "2026-09-06T04:40:51-07:00",
           "labels": [
             "Experiment",
             "Human Performance",
@@ -3129,8 +3117,8 @@
             "Nobody Lab",
             "Weird Science"
           ],
-          "textLength": 1735,
-          "internalLinks": 3,
+          "textLength": 1801,
+          "internalLinks": 4,
           "incomingLinks": 0,
           "externalLinks": 1,
           "images": 1,
@@ -3140,22 +3128,9 @@
           ],
           "recommendations": [
             {
-              "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
-              "score": 0.571,
-              "reasons": [
-                "같은 시리즈: nobody lab",
-                "제목 핵심어: lab",
-                "공통 라벨: nobody lab",
-                "주제군: lab_interactive",
-                "본문 핵심어: smaller, click, keep"
-              ],
-              "relationStrength": "series"
-            },
-            {
               "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
-              "score": 0.5593,
+              "score": 0.5646,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3172,15 +3147,15 @@
           "title": "Could You Spend 1 Bitcoin in 24 Hours Without Buying Anything Expensive?",
           "url": "https://qevnaxori.blogspot.com/2026/09/spend-one-bitcoin-in-24-hours.html",
           "published": "2026-09-04T21:21:10-07:00",
-          "updated": "2026-09-04T21:23:13-07:00",
+          "updated": "2026-09-06T04:40:23-07:00",
           "labels": [
             "Bitcoin",
             "Everyday Math",
             "Money",
             "Weird Math"
           ],
-          "textLength": 5391,
-          "internalLinks": 1,
+          "textLength": 5466,
+          "internalLinks": 2,
           "incomingLinks": 0,
           "externalLinks": 4,
           "images": 1,
@@ -3188,42 +3163,7 @@
           "warnings": [
             "고립 글"
           ],
-          "recommendations": [
-            {
-              "title": "If Everyone on Earth Screamed at Once, Would It Destroy Anything?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html",
-              "score": 0.3194,
-              "reasons": [
-                "제목 핵심어: anyth",
-                "공통 라벨: weird math",
-                "주제군: human_scale",
-                "본문 핵심어: value, normal, everyday"
-              ],
-              "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "How Long Would It Take to Walk Around the Entire Earth?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html",
-              "score": 0.2741,
-              "reasons": [
-                "공통 라벨: weird math",
-                "주제군: weather_climate, human_scale",
-                "본문 핵심어: hour, obviously, normal"
-              ],
-              "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "How Long Would It Take to Count Every Person on Earth?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/how-long-count-every-person-earth.html",
-              "score": 0.273,
-              "reasons": [
-                "공통 라벨: weird math",
-                "주제군: lab_interactive, human_scale",
-                "본문 핵심어: hour, rule, round"
-              ],
-              "relationStrength": "multi-evidence"
-            }
-          ]
+          "recommendations": []
         },
         {
           "id": "5180932198810888852",
@@ -3238,7 +3178,7 @@
           ],
           "textLength": 5953,
           "internalLinks": 1,
-          "incomingLinks": 1,
+          "incomingLinks": 2,
           "externalLinks": 4,
           "images": 1,
           "h2": 9,
@@ -3247,7 +3187,7 @@
             {
               "title": "Nobody Lab #002: How Fast Is Your Finger, Really?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html",
-              "score": 0.7033,
+              "score": 0.7072,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3258,28 +3198,28 @@
               "relationStrength": "series"
             },
             {
+              "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
+              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
+              "score": 0.6805,
+              "reasons": [
+                "같은 시리즈: nobody lab",
+                "제목 핵심어: lab",
+                "공통 라벨: nobody lab",
+                "주제군: lab_interactive, human_scale",
+                "본문 핵심어: feel, least, clock"
+              ],
+              "relationStrength": "series"
+            },
+            {
               "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
-              "score": 0.6748,
+              "score": 0.6787,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
                 "공통 라벨: nobody lab",
                 "주제군: lab_interactive, human_scale",
                 "본문 핵심어: least, five, round"
-              ],
-              "relationStrength": "series"
-            },
-            {
-              "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
-              "score": 0.6647,
-              "reasons": [
-                "같은 시리즈: nobody lab",
-                "제목 핵심어: lab",
-                "공통 라벨: nobody lab",
-                "주제군: lab_interactive, human_scale",
-                "본문 핵심어: feel, least, sense"
               ],
               "relationStrength": "series"
             }
@@ -3298,7 +3238,7 @@
           ],
           "textLength": 2614,
           "internalLinks": 1,
-          "incomingLinks": 1,
+          "incomingLinks": 2,
           "externalLinks": 1,
           "images": 1,
           "h2": 5,
@@ -3307,7 +3247,7 @@
             {
               "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
-              "score": 0.8294,
+              "score": 0.8348,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3320,7 +3260,7 @@
             {
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.7141,
+              "score": 0.7202,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3333,13 +3273,13 @@
             {
               "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
-              "score": 0.6403,
+              "score": 0.661,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
                 "공통 라벨: nobody lab",
                 "주제군: lab_interactive, human_scale",
-                "본문 핵심어: idea, pixel, distance"
+                "본문 핵심어: idea, pixel, brain"
               ],
               "relationStrength": "series"
             }
@@ -3367,7 +3307,7 @@
             {
               "title": "Nobody Lab #006 — How Small a Button Can You Actually Click?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html",
-              "score": 0.8475,
+              "score": 0.847,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab, click",
@@ -3380,7 +3320,7 @@
             {
               "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
-              "score": 0.8294,
+              "score": 0.8348,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3393,7 +3333,7 @@
             {
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.6748,
+              "score": 0.6787,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3446,6 +3386,19 @@
           "warnings": [],
           "recommendations": [
             {
+              "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
+              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
+              "score": 0.7072,
+              "reasons": [
+                "같은 시리즈: nobody lab",
+                "제목 핵심어: lab",
+                "공통 라벨: nobody lab",
+                "주제군: lab_interactive, human_scale",
+                "본문 핵심어: measur, lab, clock"
+              ],
+              "relationStrength": "series"
+            },
+            {
               "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
               "score": 0.7065,
@@ -3459,22 +3412,9 @@
               "relationStrength": "series"
             },
             {
-              "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.7033,
-              "reasons": [
-                "같은 시리즈: nobody lab",
-                "제목 핵심어: lab",
-                "공통 라벨: nobody lab",
-                "주제군: lab_interactive, human_scale",
-                "본문 핵심어: measur, lab, clock"
-              ],
-              "relationStrength": "series"
-            },
-            {
               "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
-              "score": 0.6731,
+              "score": 0.6784,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3491,50 +3431,24 @@
           "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
           "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
           "published": "2026-09-02T05:53:43-07:00",
-          "updated": "2026-09-06T04:31:47-07:00",
+          "updated": "2026-09-06T04:36:35-07:00",
           "labels": [
             "Experiments",
             "Nobody Lab",
             "Visual Perception"
           ],
-          "textLength": 4246,
-          "internalLinks": 2,
-          "incomingLinks": 1,
+          "textLength": 4396,
+          "internalLinks": 4,
+          "incomingLinks": 2,
           "externalLinks": 3,
           "images": 1,
           "h2": 7,
           "warnings": [],
           "recommendations": [
             {
-              "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
-              "score": 0.6647,
-              "reasons": [
-                "같은 시리즈: nobody lab",
-                "제목 핵심어: lab",
-                "공통 라벨: nobody lab",
-                "주제군: lab_interactive, human_scale",
-                "본문 핵심어: obviously, length, next"
-              ],
-              "relationStrength": "series"
-            },
-            {
-              "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
-              "score": 0.6403,
-              "reasons": [
-                "같은 시리즈: nobody lab",
-                "제목 핵심어: lab",
-                "공통 라벨: nobody lab",
-                "주제군: lab_interactive, human_scale",
-                "본문 핵심어: next, round, browser"
-              ],
-              "relationStrength": "series"
-            },
-            {
               "title": "Nobody Lab #006 — How Small a Button Can You Actually Click?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html",
-              "score": 0.571,
+              "score": 0.5873,
               "reasons": [
                 "같은 시리즈: nobody lab",
                 "제목 핵심어: lab",
@@ -3560,73 +3474,33 @@
           ],
           "textLength": 10813,
           "internalLinks": 1,
-          "incomingLinks": 0,
+          "incomingLinks": 1,
           "externalLinks": 1,
           "images": 1,
           "h2": 15,
-          "warnings": [
-            "고립 글"
-          ],
-          "recommendations": [
-            {
-              "title": "How Many Psychopaths Have You Probably Met? The Statistics Explained",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-psychopaths-have-you-met.html",
-              "score": 0.2596,
-              "reasons": [
-                "공통 라벨: psychology",
-                "주제군: export_economy, human_scale",
-                "본문 핵심어: close, before, almost"
-              ],
-              "relationStrength": "multi-evidence"
-            }
-          ]
+          "warnings": [],
+          "recommendations": []
         },
         {
           "id": "1745220009832001599",
           "title": "How Does the “Sawing a Person in Half” Magic Trick Actually Work?",
           "url": "https://qevnaxori.blogspot.com/2026/09/how-sawing-person-in-half-magic-trick-works.html",
           "published": "2026-09-01T20:44:38-07:00",
-          "updated": "2026-09-01T20:44:38-07:00",
+          "updated": "2026-09-06T04:37:11-07:00",
           "labels": [
             "How Things Work",
             "Magic",
             "Psychology",
             "Stage Illusions"
           ],
-          "textLength": 10838,
-          "internalLinks": 0,
+          "textLength": 10910,
+          "internalLinks": 1,
           "incomingLinks": 1,
           "externalLinks": 1,
           "images": 1,
           "h2": 14,
-          "warnings": [
-            "내부링크 없음"
-          ],
-          "recommendations": [
-            {
-              "title": "How Does the Sword Box Magic Trick Not Kill the Person Inside?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/how-sword-box-magic-trick-works.html",
-              "score": 0.8361,
-              "reasons": [
-                "제목 핵심어: magic, trick",
-                "공통 라벨: how things work, magic, psychology",
-                "주제군: export_economy, lab_interactive",
-                "본문 핵심어: climb, box, head"
-              ],
-              "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "How Many Psychopaths Have You Probably Met? The Statistics Explained",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-psychopaths-have-you-met.html",
-              "score": 0.2595,
-              "reasons": [
-                "공통 라벨: psychology",
-                "주제군: export_economy, human_scale",
-                "본문 핵심어: close, work, exist"
-              ],
-              "relationStrength": "multi-evidence"
-            }
-          ]
+          "warnings": [],
+          "recommendations": []
         },
         {
           "id": "6905428107090868674",
@@ -3650,30 +3524,7 @@
             "내부링크 없음",
             "고립 글"
           ],
-          "recommendations": [
-            {
-              "title": "If Everyone on Earth Screamed at Once, Would It Destroy Anything?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html",
-              "score": 0.2658,
-              "reasons": [
-                "공통 라벨: science",
-                "주제군: export_economy, human_scale",
-                "본문 핵심어: produce, glass, far"
-              ],
-              "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "How Many Chickens Would It Take to Defeat a T. Rex?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-chickens-to-defeat-t-rex.html",
-              "score": 0.2649,
-              "reasons": [
-                "공통 라벨: science",
-                "주제군: export_economy, human_scale",
-                "본문 핵심어: bite, strength, produc"
-              ],
-              "relationStrength": "multi-evidence"
-            }
-          ]
+          "recommendations": []
         },
         {
           "id": "8356821516042713354",
@@ -3738,7 +3589,7 @@
           ],
           "textLength": 9009,
           "internalLinks": 2,
-          "incomingLinks": 1,
+          "incomingLinks": 3,
           "externalLinks": 1,
           "images": 1,
           "h2": 12,
@@ -3767,17 +3618,6 @@
                 "본문 핵심어: normal, value, source"
               ],
               "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "What Are Your Actual Chances of Getting a Seat on a Crowded Subway?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/chances-of-getting-seat-crowded-subway.html",
-              "score": 0.2694,
-              "reasons": [
-                "공통 라벨: weird math",
-                "주제군: export_economy, human_scale",
-                "본문 핵심어: tak, window, mathematic"
-              ],
-              "relationStrength": "multi-evidence"
             }
           ]
         },
@@ -3786,59 +3626,21 @@
           "title": "How Long Would It Take to Walk Around the Entire Earth?",
           "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html",
           "published": "2026-08-31T20:11:13-07:00",
-          "updated": "2026-08-31T20:11:13-07:00",
+          "updated": "2026-09-06T04:39:31-07:00",
           "labels": [
             "Earth",
             "Human Limits",
             "Thought Experiments",
             "Weird Math"
           ],
-          "textLength": 5306,
-          "internalLinks": 0,
+          "textLength": 5445,
+          "internalLinks": 2,
           "incomingLinks": 1,
           "externalLinks": 1,
           "images": 1,
           "h2": 10,
-          "warnings": [
-            "내부링크 없음"
-          ],
-          "recommendations": [
-            {
-              "title": "How Long Would It Take to Count Every Person on Earth?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/how-long-count-every-person-earth.html",
-              "score": 0.5112,
-              "reasons": [
-                "제목 핵심어: earth",
-                "공통 라벨: weird math",
-                "주제군: human_scale",
-                "본문 핵심어: earth, full, never"
-              ],
-              "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "If Everyone on Earth Screamed at Once, Would It Destroy Anything?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html",
-              "score": 0.3877,
-              "reasons": [
-                "제목 핵심어: earth",
-                "공통 라벨: weird math",
-                "주제군: human_scale",
-                "본문 핵심어: earth, direction, come"
-              ],
-              "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "Could You Spend 1 Bitcoin in 24 Hours Without Buying Anything Expensive?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/spend-one-bitcoin-in-24-hours.html",
-              "score": 0.2741,
-              "reasons": [
-                "공통 라벨: weird math",
-                "주제군: weather_climate, human_scale",
-                "본문 핵심어: enormou, normal, exact"
-              ],
-              "relationStrength": "multi-evidence"
-            }
-          ]
+          "warnings": [],
+          "recommendations": []
         },
         {
           "id": "5450026262122400224",
@@ -3876,7 +3678,7 @@
           ],
           "textLength": 4332,
           "internalLinks": 1,
-          "incomingLinks": 2,
+          "incomingLinks": 3,
           "externalLinks": 1,
           "images": 1,
           "h2": 10,
@@ -3913,17 +3715,6 @@
                 "본문 핵심어: step, money, cent"
               ],
               "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "Could You Spend 1 Bitcoin in 24 Hours Without Buying Anything Expensive?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/spend-one-bitcoin-in-24-hours.html",
-              "score": 0.2693,
-              "reasons": [
-                "공통 라벨: money",
-                "주제군: money_banking, food_storage",
-                "본문 핵심어: money, math, normal"
-              ],
-              "relationStrength": "multi-evidence"
             }
           ]
         },
@@ -3932,35 +3723,20 @@
           "title": "How Long Would It Take to Drink a Swimming Pool With a Straw?",
           "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-drink-swimming-pool-with-straw.html",
           "published": "2026-08-31T06:20:58-07:00",
-          "updated": "2026-08-31T06:20:58-07:00",
+          "updated": "2026-09-06T04:38:16-07:00",
           "labels": [
             "Thought Experiments",
             "Useless Math",
             "Weird Data"
           ],
-          "textLength": 4013,
-          "internalLinks": 0,
+          "textLength": 4079,
+          "internalLinks": 1,
           "incomingLinks": 2,
           "externalLinks": 1,
           "images": 1,
           "h2": 8,
-          "warnings": [
-            "내부링크 없음"
-          ],
-          "recommendations": [
-            {
-              "title": "How Many People Would It Take to Drink the Entire Ocean?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html",
-              "score": 0.6247,
-              "reasons": [
-                "제목 핵심어: drink",
-                "공통 라벨: useless math",
-                "주제군: human_scale",
-                "본문 핵심어: swimm, pool, straw"
-              ],
-              "relationStrength": "multi-evidence"
-            }
-          ]
+          "warnings": [],
+          "recommendations": []
         },
         {
           "id": "8257449251715172167",
@@ -3983,19 +3759,7 @@
           "warnings": [
             "내부링크 없음"
           ],
-          "recommendations": [
-            {
-              "title": "How Many Chickens Would It Take to Defeat a T. Rex?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-chickens-to-defeat-t-rex.html",
-              "score": 0.2681,
-              "reasons": [
-                "공통 라벨: animals",
-                "주제군: lab_interactive, human_scale",
-                "본문 핵심어: tiny, weight, ignor"
-              ],
-              "relationStrength": "multi-evidence"
-            }
-          ]
+          "recommendations": []
         },
         {
           "id": "1107629537178401547",
@@ -4020,41 +3784,7 @@
             "내부링크 없음",
             "고립 글"
           ],
-          "recommendations": [
-            {
-              "title": "How Many Pigeons Would It Take to Carry a Human?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-pigeons-to-carry-a-human.html",
-              "score": 0.2681,
-              "reasons": [
-                "공통 라벨: animals",
-                "주제군: lab_interactive, human_scale",
-                "본문 핵심어: ignor, weigh, force"
-              ],
-              "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "Could We Actually Create a Spider-Man With Genetic Engineering?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/could-genetic-engineering-create-spider-man.html",
-              "score": 0.2649,
-              "reasons": [
-                "공통 라벨: science",
-                "주제군: export_economy, human_scale",
-                "본문 핵심어: science, bite, yet"
-              ],
-              "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "If Everyone on Earth Screamed at Once, Would It Destroy Anything?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html",
-              "score": 0.2617,
-              "reasons": [
-                "공통 라벨: science",
-                "주제군: export_economy, human_scale",
-                "본문 핵심어: combin, today, middle"
-              ],
-              "relationStrength": "multi-evidence"
-            }
-          ]
+          "recommendations": []
         },
         {
           "id": "3114478168353523747",
@@ -4129,28 +3859,6 @@
                 "본문 핵심어: think, secretly, they"
               ],
               "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "How Does the Sword Box Magic Trick Not Kill the Person Inside?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/how-sword-box-magic-trick-works.html",
-              "score": 0.2596,
-              "reasons": [
-                "공통 라벨: psychology",
-                "주제군: export_economy, human_scale",
-                "본문 핵심어: think, they, exist"
-              ],
-              "relationStrength": "multi-evidence"
-            },
-            {
-              "title": "How Does the “Sawing a Person in Half” Magic Trick Actually Work?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/how-sawing-person-in-half-magic-trick-works.html",
-              "score": 0.2595,
-              "reasons": [
-                "공통 라벨: psychology",
-                "주제군: export_economy, human_scale",
-                "본문 핵심어: think, they, exist"
-              ],
-              "relationStrength": "multi-evidence"
             }
           ]
         },
@@ -4178,19 +3886,7 @@
             "내부링크 없음",
             "고립 글"
           ],
-          "recommendations": [
-            {
-              "title": "How Many Psychopaths Have You Probably Met? The Statistics Explained",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-psychopaths-have-you-met.html",
-              "score": 0.2548,
-              "reasons": [
-                "공통 라벨: nobody asked data",
-                "주제군: export_economy, human_scale",
-                "본문 핵심어: play, watch, before"
-              ],
-              "relationStrength": "multi-evidence"
-            }
-          ]
+          "recommendations": []
         }
       ]
     }
