@@ -47,3 +47,4 @@ jobs:
           fi
 
           curl             --fail-with-body             --show-error             --silent             -X POST             "https://blogger-manager-api.chldndlf91.workers.dev/report/publish"             -H "Authorization: Bearer ${REPORT_PUBLISH_SECRET}"             -H "Content-Type: application/json"             --data-binary @data/report.json
+
