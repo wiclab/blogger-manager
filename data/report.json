@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-06T05:13:01.063Z",
-  "recommendationMethod": "고정 퍼센트 대신 각 블로그의 기존 내부링크와 전체 게시글 관계 점수 분포를 이용해 추천 기준을 매 실행마다 자동 계산합니다. 제목, TF-IDF 유사도, 라벨 희귀도, 시리즈 관계를 함께 분석하며 흔한 라벨은 자동으로 영향력이 감소합니다.",
+  "generatedAt": "2026-09-06T05:18:54.974Z",
+  "recommendationMethod": "기존 내부링크를 모두 정답으로 사용하지 않고, 제목·구체 라벨·본문 유사도·시리즈 관계가 확인되는 기존 링크만 신뢰 학습 샘플로 사용합니다. 추천 기준은 각 블로그의 신뢰 학습 샘플과 전체 후보 분포를 이용해 매 실행마다 자동 계산됩니다.",
   "blogs": [
     {
       "key": "wic",
@@ -10,17 +10,20 @@
       "totalPosts": 53,
       "warningPosts": 39,
       "isolatedPosts": 34,
-      "recommendationPosts": 48,
+      "recommendationPosts": 40,
       "tuning": {
-        "threshold": 0.14,
-        "weakEvidenceThreshold": 0.22,
-        "noiseThreshold": 0.22,
-        "positiveSamples": 38,
+        "threshold": 0.18,
+        "weakEvidenceThreshold": 0.26,
+        "seriesThreshold": 0.16,
+        "rawPositiveSamples": 38,
+        "trustedPositiveSamples": 37,
+        "rejectedPositiveSamples": 1,
         "candidateSamples": 2718,
-        "positiveMedian": 0.179,
-        "positiveAverage": 0.214,
-        "candidateP85": 0.071,
-        "candidateP92": 0.123,
+        "trustedPositiveMedian": 0.178,
+        "trustedPositiveAverage": 0.213,
+        "candidateP85": 0.017,
+        "candidateP90": 0.089,
+        "candidateP95": 0.157,
         "candidateP97": 0.199
       },
       "commonLabels": [
@@ -50,30 +53,7 @@
           "h3": 0,
           "incomingLinks": 0,
           "incomingFrom": [],
-          "recommendations": [
-            {
-              "title": "2030년 한국 여름은 얼마나 더워질까? 2026년 폭염과 기후전망으로 예측해봤다",
-              "url": "https://wic12.blogspot.com/2026/08/korea-summer-weather-2030-prediction.html",
-              "score": 0.172,
-              "semantic": 0.088,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "통계"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
-              "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.157,
-              "semantic": 0.063,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "통계"
-              ],
-              "seriesMatch": false
-            }
-          ],
+          "recommendations": [],
           "warnings": [
             "제목 없음",
             "고립 글"
@@ -129,30 +109,7 @@
               "url": "https://wic12.blogspot.com/2026/09/leftover-food-fridge-freezer-discard-checker.html"
             }
           ],
-          "recommendations": [
-            {
-              "title": "남은 음식, 냉장·냉동·버리기? 10초 보관 판정기",
-              "url": "https://wic12.blogspot.com/2026/09/leftover-food-fridge-freezer-discard-checker.html",
-              "score": 0.151,
-              "semantic": 0.049,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활실험"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "회사에서는 다 다른데 퇴근하면 다 똑같다? 한국인의 하루를 통계로 봤다",
-              "url": "https://wic12.blogspot.com/2026/09/what-koreans-do-after-work.html",
-              "score": 0.144,
-              "semantic": 0.036,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "직장인"
-              ],
-              "seriesMatch": false
-            }
-          ],
+          "recommendations": [],
           "warnings": [
             "본문 짧음",
             "내부링크 없음"
@@ -178,19 +135,7 @@
           "h3": 0,
           "incomingLinks": 0,
           "incomingFrom": [],
-          "recommendations": [
-            {
-              "title": "회사에서는 다 다른데 퇴근하면 다 똑같다? 한국인의 하루를 통계로 봤다",
-              "url": "https://wic12.blogspot.com/2026/09/what-koreans-do-after-work.html",
-              "score": 0.168,
-              "semantic": 0.06,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활통계"
-              ],
-              "seriesMatch": false
-            }
-          ],
+          "recommendations": [],
           "warnings": [
             "내부링크 없음",
             "고립 글"
@@ -215,19 +160,7 @@
           "h3": 0,
           "incomingLinks": 0,
           "incomingFrom": [],
-          "recommendations": [
-            {
-              "title": "자동이체 날 통장 잔액 부족하면? 재출금 날짜와 미납 여부 정리",
-              "url": "https://wic12.blogspot.com/2026/08/automatic-transfer-insufficient-balance_0996334948.html",
-              "score": 0.141,
-              "semantic": 0.089,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활금융"
-              ],
-              "seriesMatch": false
-            }
-          ],
+          "recommendations": [],
           "warnings": [
             "고립 글"
           ]
@@ -257,6 +190,10 @@
               "title": "에어컨 26도 계속 켜기 vs 껐다 켜기, 한 달 전기세 차이는?",
               "url": "https://wic12.blogspot.com/2026/08/air-conditioner-26c-on-off-electricity-cost.html",
               "score": 0.381,
+              "reasons": [
+                "공통 라벨: 생활비, 전기요금",
+                "본문 연관"
+              ],
               "semantic": 0.212,
               "titleOverlap": 0.143,
               "sharedLabels": [
@@ -269,6 +206,11 @@
               "title": "에어컨 껐다 켰다 하면 전기세 더 나올까? 외출할 때는 몇 시간부터 꺼야 할까",
               "url": "https://wic12.blogspot.com/2026/08/air-conditioner-on-off-electricity-bill.html",
               "score": 0.356,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: 생활비, 전기요금",
+                "본문 연관"
+              ],
               "semantic": 0.146,
               "titleOverlap": 0.2,
               "sharedLabels": [
@@ -309,29 +251,11 @@
               "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
               "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
               "score": 0.182,
+              "reasons": [
+                "공통 라벨: 데이터",
+                "본문 연관"
+              ],
               "semantic": 0.121,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "데이터"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "서울세계불꽃축제 100만 명은 얼마나 많은 사람일까? 숫자로 체감해봤다",
-              "url": "https://wic12.blogspot.com/2026/09/seoul-fireworks-festival-one-million-people.html",
-              "score": 0.168,
-              "semantic": 0.06,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활통계"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "주말은 왜 이렇게 빨리 끝날까? 48시간을 실제로 계산해봤다",
-              "url": "https://wic12.blogspot.com/2026/08/7_01052668583.html",
-              "score": 0.16,
-              "semantic": 0.085,
               "titleOverlap": 0,
               "sharedLabels": [
                 "데이터"
@@ -370,6 +294,10 @@
               "title": "러닝 전에 뭘 먹고 얼마나 쉬어야 할까? 초보자가 알아둘 준비 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7.html",
               "score": 0.278,
+              "reasons": [
+                "공통 라벨: 건강정보, 운동",
+                "본문 연관"
+              ],
               "semantic": 0.078,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -404,30 +332,7 @@
           "h3": 0,
           "incomingLinks": 0,
           "incomingFrom": [],
-          "recommendations": [
-            {
-              "title": "물가 3.1% 올랐다는데, 도대체 뭐가 오른 걸까? 2026년 8월 물가 뜯어보기",
-              "url": "https://wic12.blogspot.com/2026/09/2026-august-inflation-what-got-expensive.html",
-              "score": 0.148,
-              "semantic": 0.091,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활비"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "정수기 렌탈 5년 약정, 18개월 쓰고 해지하면 위약금 얼마일까?",
-              "url": "https://wic12.blogspot.com/2026/09/water-purifier-rental-cancellation-fee.html",
-              "score": 0.142,
-              "semantic": 0.081,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활비"
-              ],
-              "seriesMatch": false
-            }
-          ],
+          "recommendations": [],
           "warnings": [
             "내부링크 없음",
             "고립 글"
@@ -480,6 +385,10 @@
               "title": "신용카드 결제일 바꾸면 카드값 두 번 빠져나갈까?",
               "url": "https://wic12.blogspot.com/2026/08/credit-card-payment-date-change.html",
               "score": 0.218,
+              "reasons": [
+                "제목 연관",
+                "본문 연관"
+              ],
               "semantic": 0.17,
               "titleOverlap": 0.4,
               "sharedLabels": [],
@@ -521,29 +430,11 @@
               "title": "신용카드 결제일 바꾸면 카드값 두 번 빠져나갈까?",
               "url": "https://wic12.blogspot.com/2026/08/credit-card-payment-date-change.html",
               "score": 0.193,
+              "reasons": [
+                "공통 라벨: 생활금융",
+                "본문 연관"
+              ],
               "semantic": 0.172,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활금융"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "신용카드 12개월 할부, 3개월 뒤 한꺼번에 갚으면 수수료도 다 내야 할까?",
-              "url": "https://wic12.blogspot.com/2026/09/credit-card-installment-early-payment-fee.html",
-              "score": 0.166,
-              "semantic": 0.129,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활금융"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "정수기 렌탈 5년 약정, 18개월 쓰고 해지하면 위약금 얼마일까?",
-              "url": "https://wic12.blogspot.com/2026/09/water-purifier-rental-cancellation-fee.html",
-              "score": 0.16,
-              "semantic": 0.119,
               "titleOverlap": 0,
               "sharedLabels": [
                 "생활금융"
@@ -578,31 +469,7 @@
               "url": "https://wic12.blogspot.com/2026/09/semiconductor-exports-drop-korea-total-exports.html"
             }
           ],
-          "recommendations": [
-            {
-              "title": "에어컨 껐다 켰다 하면 전기세 더 나올까? 외출할 때는 몇 시간부터 꺼야 할까",
-              "url": "https://wic12.blogspot.com/2026/08/air-conditioner-on-off-electricity-bill.html",
-              "score": 0.153,
-              "semantic": 0.047,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활비",
-                "생활정보"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "한국은행 기준금리 3%로 올랐는데, 내 대출금리도 바로 오를까?",
-              "url": "https://wic12.blogspot.com/2026/09/base-rate-3-percent-loan-interest-impact.html",
-              "score": 0.148,
-              "semantic": 0.091,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활비"
-              ],
-              "seriesMatch": false
-            }
-          ],
+          "recommendations": [],
           "warnings": []
         },
         {
@@ -630,6 +497,10 @@
               "title": "정수기 렌탈 5년 약정, 18개월 쓰고 해지하면 위약금 얼마일까?",
               "url": "https://wic12.blogspot.com/2026/09/water-purifier-rental-cancellation-fee.html",
               "score": 0.369,
+              "reasons": [
+                "공통 라벨: 생활금융, 소비자정보",
+                "본문 연관"
+              ],
               "semantic": 0.189,
               "titleOverlap": 0.125,
               "sharedLabels": [
@@ -668,6 +539,10 @@
               "title": "헬스장 6개월권, 2개월 다니고 해지하면 환불 얼마 받을까?",
               "url": "https://wic12.blogspot.com/2026/09/gym-membership-cancellation-refund-calculation.html",
               "score": 0.369,
+              "reasons": [
+                "공통 라벨: 생활금융, 소비자정보",
+                "본문 연관"
+              ],
               "semantic": 0.189,
               "titleOverlap": 0.125,
               "sharedLabels": [
@@ -706,6 +581,10 @@
               "title": "계좌이체 잘못했는데 상대방이 돈을 안 돌려주면? 착오송금 돌려받는 순서",
               "url": "https://wic12.blogspot.com/2026/09/wrong-bank-transfer-money-back.html",
               "score": 0.212,
+              "reasons": [
+                "공통 라벨: 금융생활, 생활정보",
+                "본문 연관"
+              ],
               "semantic": 0.081,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -744,6 +623,10 @@
               "title": "월급날이 공휴일이면 전날 받을까, 다음날 받을까? 회사마다 다른 이유",
               "url": "https://wic12.blogspot.com/2026/09/salary-day-holiday-before-or-after.html",
               "score": 0.212,
+              "reasons": [
+                "공통 라벨: 금융생활, 생활정보",
+                "본문 연관"
+              ],
               "semantic": 0.081,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -781,6 +664,10 @@
               "title": "와이파이 공유기 24시간 켜두면 전기세 얼마나 나올까? 매일 밤 끄면 1년에 얼마 아낄까",
               "url": "https://wic12.blogspot.com/2026/09/wifi-router-24-hours-electricity-cost.html",
               "score": 0.381,
+              "reasons": [
+                "공통 라벨: 생활비, 전기요금",
+                "본문 연관"
+              ],
               "semantic": 0.212,
               "titleOverlap": 0.143,
               "sharedLabels": [
@@ -824,6 +711,11 @@
               "title": "에어컨 26도 계속 켜기 vs 껐다 켜기, 한 달 전기세 차이는?",
               "url": "https://wic12.blogspot.com/2026/08/air-conditioner-26c-on-off-electricity-cost.html",
               "score": 0.659,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: 생활비, 에어컨, 전기요금",
+                "본문 연관"
+              ],
               "semantic": 0.353,
               "titleOverlap": 0.429,
               "sharedLabels": [
@@ -858,41 +750,7 @@
           "h3": 0,
           "incomingLinks": 0,
           "incomingFrom": [],
-          "recommendations": [
-            {
-              "title": "헬스장 6개월권, 2개월 다니고 해지하면 환불 얼마 받을까?",
-              "url": "https://wic12.blogspot.com/2026/09/gym-membership-cancellation-refund-calculation.html",
-              "score": 0.177,
-              "semantic": 0.147,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활금융"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "자동이체 날 통장 잔액 부족하면? 재출금 날짜와 미납 여부 정리",
-              "url": "https://wic12.blogspot.com/2026/08/automatic-transfer-insufficient-balance_0996334948.html",
-              "score": 0.167,
-              "semantic": 0.131,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활금융"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "자동이체가 같은 날 몰리면 뭐부터 빠질까? 잔액이 부족할 때 실제로 생기는 일",
-              "url": "https://wic12.blogspot.com/2026/09/multiple-auto-payments-insufficient-balance.html",
-              "score": 0.166,
-              "semantic": 0.129,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활금융"
-              ],
-              "seriesMatch": false
-            }
-          ],
+          "recommendations": [],
           "warnings": [
             "고립 글"
           ]
@@ -924,6 +782,10 @@
               "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
               "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
               "score": 0.358,
+              "reasons": [
+                "공통 라벨: 데이터, 생활정보, 통계",
+                "본문 연관"
+              ],
               "semantic": 0.108,
               "titleOverlap": 0.125,
               "sharedLabels": [
@@ -937,6 +799,10 @@
               "title": "2026 추석 장보기 할인 총정리｜농축산물·수산물 최대 40% 할인받는 방법",
               "url": "https://wic12.blogspot.com/2026/08/40.html",
               "score": 0.325,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: 생활정보"
+              ],
               "semantic": 0.054,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -976,6 +842,10 @@
               "title": "2030년 한국 여름은 얼마나 더워질까? 2026년 폭염과 기후전망으로 예측해봤다",
               "url": "https://wic12.blogspot.com/2026/08/korea-summer-weather-2030-prediction.html",
               "score": 0.358,
+              "reasons": [
+                "공통 라벨: 데이터, 생활정보, 통계",
+                "본문 연관"
+              ],
               "semantic": 0.108,
               "titleOverlap": 0.125,
               "sharedLabels": [
@@ -989,24 +859,16 @@
               "title": "주말은 왜 이렇게 빨리 끝날까? 48시간을 실제로 계산해봤다",
               "url": "https://wic12.blogspot.com/2026/08/7_01052668583.html",
               "score": 0.323,
+              "reasons": [
+                "공통 라벨: 데이터, 생활정보, 재미있는계산",
+                "본문 연관"
+              ],
               "semantic": 0.123,
               "titleOverlap": 0,
               "sharedLabels": [
                 "데이터",
                 "생활정보",
                 "재미있는계산"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "화장실에서 스마트폰 10분씩 보면 평생 몇 달을 변기에 앉아 있을까?",
-              "url": "https://wic12.blogspot.com/2026/08/toilet-smartphone-10-minutes-lifetime.html",
-              "score": 0.259,
-              "semantic": 0.157,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활정보",
-                "스마트폰"
               ],
               "seriesMatch": false
             }
@@ -1039,6 +901,10 @@
               "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
               "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
               "score": 0.185,
+              "reasons": [
+                "공통 라벨: 생활정보, 재미있는계산",
+                "본문 연관"
+              ],
               "semantic": 0.074,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -1051,19 +917,10 @@
               "title": "지하철 환승 3분 줄이면 1년에 몇 시간 아낄까? 출퇴근 시간 줄이는 방법",
               "url": "https://wic12.blogspot.com/2026/08/3.html",
               "score": 0.182,
-              "semantic": 0.069,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활정보",
-                "재미있는계산"
+              "reasons": [
+                "공통 라벨: 생활정보, 재미있는계산"
               ],
-              "seriesMatch": false
-            },
-            {
-              "title": "주말은 왜 이렇게 빨리 끝날까? 48시간을 실제로 계산해봤다",
-              "url": "https://wic12.blogspot.com/2026/08/7_01052668583.html",
-              "score": 0.179,
-              "semantic": 0.065,
+              "semantic": 0.069,
               "titleOverlap": 0,
               "sharedLabels": [
                 "생활정보",
@@ -1106,6 +963,10 @@
               "title": "알람을 매일 5분 미루면 1년에 얼마나 더 잘까?",
               "url": "https://wic12.blogspot.com/2026/08/alarm-snooze-5-minutes-per-year.html",
               "score": 0.232,
+              "reasons": [
+                "공통 라벨: 생활정보, 시간계산",
+                "본문 연관"
+              ],
               "semantic": 0.135,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -1118,6 +979,10 @@
               "title": "화장실에서 스마트폰 10분씩 보면 평생 몇 달을 변기에 앉아 있을까?",
               "url": "https://wic12.blogspot.com/2026/08/toilet-smartphone-10-minutes-lifetime.html",
               "score": 0.228,
+              "reasons": [
+                "공통 라벨: 생활정보, 시간계산",
+                "본문 연관"
+              ],
               "semantic": 0.129,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -1153,6 +1018,10 @@
               "title": "알람을 매일 5분 미루면 1년에 얼마나 더 잘까?",
               "url": "https://wic12.blogspot.com/2026/08/alarm-snooze-5-minutes-per-year.html",
               "score": 0.277,
+              "reasons": [
+                "공통 라벨: 생활정보, 시간계산",
+                "본문 연관"
+              ],
               "semantic": 0.207,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -1165,6 +1034,10 @@
               "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
               "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
               "score": 0.259,
+              "reasons": [
+                "공통 라벨: 생활정보, 스마트폰",
+                "본문 연관"
+              ],
               "semantic": 0.157,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -1177,6 +1050,10 @@
               "title": "발에서 나오는 땀을 1년 동안 모으면 몇 L나 될까?",
               "url": "https://wic12.blogspot.com/2026/08/how-much-feet-sweat-per-year.html",
               "score": 0.228,
+              "reasons": [
+                "공통 라벨: 생활정보, 시간계산",
+                "본문 연관"
+              ],
               "semantic": 0.129,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -1214,6 +1091,10 @@
               "title": "화장실에서 스마트폰 10분씩 보면 평생 몇 달을 변기에 앉아 있을까?",
               "url": "https://wic12.blogspot.com/2026/08/toilet-smartphone-10-minutes-lifetime.html",
               "score": 0.277,
+              "reasons": [
+                "공통 라벨: 생활정보, 시간계산",
+                "본문 연관"
+              ],
               "semantic": 0.207,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -1226,6 +1107,10 @@
               "title": "발에서 나오는 땀을 1년 동안 모으면 몇 L나 될까?",
               "url": "https://wic12.blogspot.com/2026/08/how-much-feet-sweat-per-year.html",
               "score": 0.232,
+              "reasons": [
+                "공통 라벨: 생활정보, 시간계산",
+                "본문 연관"
+              ],
               "semantic": 0.135,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -1268,22 +1153,14 @@
               "title": "지하철 환승 3분 줄이면 1년에 몇 시간 아낄까? 출퇴근 시간 줄이는 방법",
               "url": "https://wic12.blogspot.com/2026/08/3.html",
               "score": 0.404,
+              "reasons": [
+                "공통 라벨: 생활정보, 지하철, 출퇴근",
+                "본문 연관"
+              ],
               "semantic": 0.191,
               "titleOverlap": 0.143,
               "sharedLabels": [
                 "생활정보",
-                "지하철",
-                "출퇴근"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "만원 지하철에서 휴대폰으로 내 등을 계속 찌르던 여자와 결국 싸웠다",
-              "url": "https://wic12.blogspot.com/2026/08/blog-post.html",
-              "score": 0.291,
-              "semantic": 0.058,
-              "titleOverlap": 0.143,
-              "sharedLabels": [
                 "지하철",
                 "출퇴근"
               ],
@@ -1341,6 +1218,10 @@
               "title": "자동이체가 같은 날 몰리면 뭐부터 빠질까? 잔액이 부족할 때 실제로 생기는 일",
               "url": "https://wic12.blogspot.com/2026/09/multiple-auto-payments-insufficient-balance.html",
               "score": 0.426,
+              "reasons": [
+                "공통 라벨: 생활금융, 자동이체",
+                "본문 연관"
+              ],
               "semantic": 0.338,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -1402,6 +1283,11 @@
               "title": "신용카드 12개월 할부, 3개월 뒤 한꺼번에 갚으면 수수료도 다 내야 할까?",
               "url": "https://wic12.blogspot.com/2026/09/credit-card-installment-early-payment-fee.html",
               "score": 0.363,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: 생활금융, 신용카드",
+                "본문 연관"
+              ],
               "semantic": 0.146,
               "titleOverlap": 0.2,
               "sharedLabels": [
@@ -1444,6 +1330,11 @@
               "title": "Iced Americano in Korea: Why Koreans Drink It Even in Winter",
               "url": "https://wic12.blogspot.com/2026/08/iced-americano-korea.html",
               "score": 0.328,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.241,
               "titleOverlap": 0.286,
               "sharedLabels": [
@@ -1455,6 +1346,11 @@
               "title": "Sun Umbrellas in Korea: Why They’re Everywhere in Summer",
               "url": "https://wic12.blogspot.com/2026/08/sun-umbrellas-korea-summer.html",
               "score": 0.295,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.226,
               "titleOverlap": 0.2,
               "sharedLabels": [
@@ -1500,6 +1396,11 @@
               "title": "Food Delivery in Korea: Why Is It So Fast and Popular?",
               "url": "https://wic12.blogspot.com/2026/08/food-delivery-korea-everyday-life.html",
               "score": 0.365,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.248,
               "titleOverlap": 0.4,
               "sharedLabels": [
@@ -1511,6 +1412,10 @@
               "title": "Iced Americano in Korea: Why Koreans Drink It Even in Winter",
               "url": "https://wic12.blogspot.com/2026/08/iced-americano-korea.html",
               "score": 0.278,
+              "reasons": [
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.213,
               "titleOverlap": 0.167,
               "sharedLabels": [
@@ -1547,21 +1452,14 @@
               "title": "집에서 생활비 줄이는 방법 8가지",
               "url": "https://wic12.blogspot.com/2026/08/8.html",
               "score": 0.21,
+              "reasons": [
+                "공통 라벨: 생활꿀팁, 생활정보",
+                "본문 연관"
+              ],
               "semantic": 0.099,
               "titleOverlap": 0,
               "sharedLabels": [
                 "생활꿀팁",
-                "생활정보"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "퇴근 후 시간을 알차게 보내는 방법 7가지",
-              "url": "https://wic12.blogspot.com/2026/08/7_0993329413.html",
-              "score": 0.153,
-              "semantic": 0.105,
-              "titleOverlap": 0.2,
-              "sharedLabels": [
                 "생활정보"
               ],
               "seriesMatch": false
@@ -1602,6 +1500,11 @@
               "title": "Why Koreans Leave Packages Outside Their Doors: Parcel Delivery Culture in Korea",
               "url": "https://wic12.blogspot.com/2026/08/parcel-delivery-in-korea.html",
               "score": 0.42,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.337,
               "titleOverlap": 0.4,
               "sharedLabels": [
@@ -1613,6 +1516,11 @@
               "title": "Iced Americano in Korea: Why Koreans Drink It Even in Winter",
               "url": "https://wic12.blogspot.com/2026/08/iced-americano-korea.html",
               "score": 0.317,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.262,
               "titleOverlap": 0.2,
               "sharedLabels": [
@@ -1650,6 +1558,11 @@
               "title": "Iced Americano in Korea: Why Koreans Drink It Even in Winter",
               "url": "https://wic12.blogspot.com/2026/08/iced-americano-korea.html",
               "score": 0.363,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.335,
               "titleOverlap": 0.2,
               "sharedLabels": [
@@ -1661,6 +1574,11 @@
               "title": "Why Koreans Leave Packages Outside Their Doors: Parcel Delivery Culture in Korea",
               "url": "https://wic12.blogspot.com/2026/08/parcel-delivery-in-korea.html",
               "score": 0.295,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.226,
               "titleOverlap": 0.2,
               "sharedLabels": [
@@ -1672,6 +1590,11 @@
               "title": "Food Delivery in Korea: Why Is It So Fast and Popular?",
               "url": "https://wic12.blogspot.com/2026/08/food-delivery-korea-everyday-life.html",
               "score": 0.279,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.199,
               "titleOverlap": 0.2,
               "sharedLabels": [
@@ -1706,6 +1629,11 @@
               "title": "Sun Umbrellas in Korea: Why They’re Everywhere in Summer",
               "url": "https://wic12.blogspot.com/2026/08/sun-umbrellas-korea-summer.html",
               "score": 0.363,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.335,
               "titleOverlap": 0.2,
               "sharedLabels": [
@@ -1717,6 +1645,11 @@
               "title": "Why Koreans Leave Packages Outside Their Doors: Parcel Delivery Culture in Korea",
               "url": "https://wic12.blogspot.com/2026/08/parcel-delivery-in-korea.html",
               "score": 0.328,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.241,
               "titleOverlap": 0.286,
               "sharedLabels": [
@@ -1728,6 +1661,11 @@
               "title": "Food Delivery in Korea: Why Is It So Fast and Popular?",
               "url": "https://wic12.blogspot.com/2026/08/food-delivery-korea-everyday-life.html",
               "score": 0.317,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: life in korea",
+                "본문 연관"
+              ],
               "semantic": 0.262,
               "titleOverlap": 0.2,
               "sharedLabels": [
@@ -1800,6 +1738,10 @@
               "title": "2030년 한국 여름은 얼마나 더워질까? 2026년 폭염과 기후전망으로 예측해봤다",
               "url": "https://wic12.blogspot.com/2026/08/korea-summer-weather-2030-prediction.html",
               "score": 0.325,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: 생활정보"
+              ],
               "semantic": 0.054,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -1857,32 +1799,14 @@
               "title": "요즘 직장인들이 스타벅스 대신 2천원 커피를 찾는 이유",
               "url": "https://wic12.blogspot.com/2026/08/2_0900792686.html",
               "score": 0.208,
+              "reasons": [
+                "공통 라벨: 일상정보",
+                "본문 연관"
+              ],
               "semantic": 0.125,
               "titleOverlap": 0,
               "sharedLabels": [
                 "일상정보"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
-              "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
-              "score": 0.181,
-              "semantic": 0.241,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활정보"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "화장실에서 스마트폰 10분씩 보면 평생 몇 달을 변기에 앉아 있을까?",
-              "url": "https://wic12.blogspot.com/2026/08/toilet-smartphone-10-minutes-lifetime.html",
-              "score": 0.178,
-              "semantic": 0.187,
-              "titleOverlap": 0.111,
-              "sharedLabels": [
-                "생활정보"
               ],
               "seriesMatch": false
             }
@@ -1917,6 +1841,11 @@
               "title": "집에서 생활비 줄이는 방법 8가지",
               "url": "https://wic12.blogspot.com/2026/08/8.html",
               "score": 0.3,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: 생활비절약, 생활정보",
+                "본문 연관"
+              ],
               "semantic": 0.147,
               "titleOverlap": 0.25,
               "sharedLabels": [
@@ -1929,6 +1858,10 @@
               "title": "에어컨 껐다 켰다 하면 전기세 더 나올까? 외출할 때는 몇 시간부터 꺼야 할까",
               "url": "https://wic12.blogspot.com/2026/08/air-conditioner-on-off-electricity-bill.html",
               "score": 0.232,
+              "reasons": [
+                "공통 라벨: 생활정보",
+                "본문 연관"
+              ],
               "semantic": 0.279,
               "titleOverlap": 0.1,
               "sharedLabels": [
@@ -1977,6 +1910,10 @@
               "title": "지하철 환승 3분 줄이면 1년에 몇 시간 아낄까? 출퇴근 시간 줄이는 방법",
               "url": "https://wic12.blogspot.com/2026/08/3.html",
               "score": 0.33,
+              "reasons": [
+                "공통 라벨: 생활정보, 지하철, 출퇴근",
+                "본문 연관"
+              ],
               "semantic": 0.136,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -1990,6 +1927,9 @@
               "title": "만원 지하철에서 휴대폰으로 내 등을 계속 찌르던 여자와 결국 싸웠다",
               "url": "https://wic12.blogspot.com/2026/08/blog-post.html",
               "score": 0.285,
+              "reasons": [
+                "공통 라벨: 지하철, 출퇴근"
+              ],
               "semantic": 0.063,
               "titleOverlap": 0.111,
               "sharedLabels": [
@@ -2038,30 +1978,12 @@
               "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
               "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
               "score": 0.204,
+              "reasons": [
+                "공통 라벨: 건강정보",
+                "본문 연관"
+              ],
               "semantic": 0.12,
               "titleOverlap": 0.111,
-              "sharedLabels": [
-                "건강정보"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "러닝 전에 뭘 먹고 얼마나 쉬어야 할까? 초보자가 알아둘 준비 7가지",
-              "url": "https://wic12.blogspot.com/2026/08/7.html",
-              "score": 0.163,
-              "semantic": 0.104,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "건강정보"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "췌장암 초기 증상은? 놓치기 쉬운 신호와 원인·위험요인 총정리",
-              "url": "https://wic12.blogspot.com/2026/08/blog-post_26.html",
-              "score": 0.152,
-              "semantic": 0.086,
-              "titleOverlap": 0,
               "sharedLabels": [
                 "건강정보"
               ],
@@ -2091,41 +2013,7 @@
           "h3": 3,
           "incomingLinks": 0,
           "incomingFrom": [],
-          "recommendations": [
-            {
-              "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
-              "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
-              "score": 0.161,
-              "semantic": 0.1,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "건강정보"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "잠은 많이 잘수록 좋을까? 8시간 자도 피곤한 이유와 적정 수면시간",
-              "url": "https://wic12.blogspot.com/2026/08/blog-post_27.html",
-              "score": 0.152,
-              "semantic": 0.086,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "건강정보"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "다이어트는 식단 90% 운동 10%가 진짜일까? 직접 따져봤다",
-              "url": "https://wic12.blogspot.com/2026/09/diet-90-percent-food-10-percent-exercise.html",
-              "score": 0.148,
-              "semantic": 0.079,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "건강정보"
-              ],
-              "seriesMatch": false
-            }
-          ],
+          "recommendations": [],
           "warnings": [
             "내부링크 없음",
             "고립 글"
@@ -2190,6 +2078,10 @@
               "title": "집에서 생활비 줄이는 방법 8가지",
               "url": "https://wic12.blogspot.com/2026/08/8.html",
               "score": 0.211,
+              "reasons": [
+                "공통 라벨: 생활비절약",
+                "본문 연관"
+              ],
               "semantic": 0.168,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2201,21 +2093,14 @@
               "title": "평생 잠자는 시간은 몇 년일까? 숫자로 보는 재미있는 일상 통계 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_01511384514.html",
               "score": 0.208,
+              "reasons": [
+                "공통 라벨: 일상정보",
+                "본문 연관"
+              ],
               "semantic": 0.125,
               "titleOverlap": 0,
               "sharedLabels": [
                 "일상정보"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "폭염에도 전기요금 걱정 줄이는 에어컨 사용법, 여름철 냉방비 절약 방법 7가지",
-              "url": "https://wic12.blogspot.com/2026/08/7_0857116842.html",
-              "score": 0.157,
-              "semantic": 0.08,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활비절약"
               ],
               "seriesMatch": false
             }
@@ -2251,6 +2136,9 @@
               "title": "지하철에서 매일 30분 서 있으면 1년에 며칠을 서 있을까?",
               "url": "https://wic12.blogspot.com/2026/08/subway-standing-time-per-year.html",
               "score": 0.291,
+              "reasons": [
+                "공통 라벨: 지하철, 출퇴근"
+              ],
               "semantic": 0.058,
               "titleOverlap": 0.143,
               "sharedLabels": [
@@ -2263,6 +2151,9 @@
               "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
               "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
               "score": 0.285,
+              "reasons": [
+                "공통 라벨: 지하철, 출퇴근"
+              ],
               "semantic": 0.063,
               "titleOverlap": 0.111,
               "sharedLabels": [
@@ -2275,6 +2166,9 @@
               "title": "지하철 환승 3분 줄이면 1년에 몇 시간 아낄까? 출퇴근 시간 줄이는 방법",
               "url": "https://wic12.blogspot.com/2026/08/3.html",
               "score": 0.246,
+              "reasons": [
+                "공통 라벨: 지하철, 출퇴근"
+              ],
               "semantic": 0.051,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2341,24 +2235,16 @@
               "title": "청소년은 하루에 스마트폰을 얼마나 볼까? 1년으로 계산하면 약 80일",
               "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html",
               "score": 0.323,
+              "reasons": [
+                "공통 라벨: 데이터, 생활정보, 재미있는계산",
+                "본문 연관"
+              ],
               "semantic": 0.123,
               "titleOverlap": 0,
               "sharedLabels": [
                 "데이터",
                 "생활정보",
                 "재미있는계산"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "퇴근 후 시간을 알차게 보내는 방법 7가지",
-              "url": "https://wic12.blogspot.com/2026/08/7_0993329413.html",
-              "score": 0.237,
-              "semantic": 0.143,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "생활정보",
-                "시간관리"
               ],
               "seriesMatch": false
             }
@@ -2393,6 +2279,11 @@
               "title": "퇴근 후 시간을 알차게 보내는 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0993329413.html",
               "score": 0.581,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: 생활정보, 시간관리, 직장인일상",
+                "본문 연관"
+              ],
               "semantic": 0.327,
               "titleOverlap": 0.4,
               "sharedLabels": [
@@ -2434,6 +2325,11 @@
               "title": "폭염에도 전기요금 걱정 줄이는 에어컨 사용법, 여름철 냉방비 절약 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0857116842.html",
               "score": 0.3,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: 생활비절약, 생활정보",
+                "본문 연관"
+              ],
               "semantic": 0.147,
               "titleOverlap": 0.25,
               "sharedLabels": [
@@ -2474,6 +2370,11 @@
               "title": "아침 시간을 여유롭게 만드는 방법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0774743741.html",
               "score": 0.581,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: 생활정보, 시간관리, 직장인일상",
+                "본문 연관"
+              ],
               "semantic": 0.327,
               "titleOverlap": 0.4,
               "sharedLabels": [
@@ -2520,6 +2421,10 @@
               "title": "다이어트는 식단 90% 운동 10%가 진짜일까? 직접 따져봤다",
               "url": "https://wic12.blogspot.com/2026/09/diet-90-percent-food-10-percent-exercise.html",
               "score": 0.278,
+              "reasons": [
+                "공통 라벨: 건강정보, 운동",
+                "본문 연관"
+              ],
               "semantic": 0.078,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2532,6 +2437,10 @@
               "title": "지하철에서 1시간 서 있으면 다리는 어떻게 될까? 붓는 이유와 덜 피곤하게 서 있는 법",
               "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html",
               "score": 0.213,
+              "reasons": [
+                "공통 라벨: 건강정보, 생활정보",
+                "본문 연관"
+              ],
               "semantic": 0.133,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2569,6 +2478,10 @@
               "title": "지하철에서 매일 30분 서 있으면 1년에 며칠을 서 있을까?",
               "url": "https://wic12.blogspot.com/2026/08/subway-standing-time-per-year.html",
               "score": 0.404,
+              "reasons": [
+                "공통 라벨: 생활정보, 지하철, 출퇴근",
+                "본문 연관"
+              ],
               "semantic": 0.191,
               "titleOverlap": 0.143,
               "sharedLabels": [
@@ -2617,6 +2530,10 @@
               "title": "빨래 냄새 없애는 방법｜세탁해도 쉰내 나는 원인과 해결법 7가지",
               "url": "https://wic12.blogspot.com/2026/08/7_0222392275.html",
               "score": 0.256,
+              "reasons": [
+                "공통 라벨: 생활꿀팁, 생활정보",
+                "본문 연관"
+              ],
               "semantic": 0.173,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2629,6 +2546,10 @@
               "title": "집에서 생활비 줄이는 방법 8가지",
               "url": "https://wic12.blogspot.com/2026/08/8.html",
               "score": 0.208,
+              "reasons": [
+                "공통 라벨: 생활꿀팁, 생활정보",
+                "본문 연관"
+              ],
               "semantic": 0.095,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2652,17 +2573,20 @@
       "totalPosts": 25,
       "warningPosts": 18,
       "isolatedPosts": 13,
-      "recommendationPosts": 18,
+      "recommendationPosts": 17,
       "tuning": {
-        "threshold": 0.226,
-        "weakEvidenceThreshold": 0.306,
-        "noiseThreshold": 0.441,
-        "positiveSamples": 17,
+        "threshold": 0.26,
+        "weakEvidenceThreshold": 0.441,
+        "seriesThreshold": 0.203,
+        "rawPositiveSamples": 17,
+        "trustedPositiveSamples": 16,
+        "rejectedPositiveSamples": 1,
         "candidateSamples": 583,
-        "positiveMedian": 0.42,
-        "positiveAverage": 0.374,
+        "trustedPositiveMedian": 0.427,
+        "trustedPositiveAverage": 0.396,
         "candidateP85": 0.135,
-        "candidateP92": 0.25,
+        "candidateP90": 0.174,
+        "candidateP95": 0.303,
         "candidateP97": 0.441
       },
       "commonLabels": [
@@ -2702,18 +2626,12 @@
               "title": "How Long Would It Take to Walk Around the Entire Earth?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html",
               "score": 0.28,
-              "semantic": 0.171,
-              "titleOverlap": 0.333,
-              "sharedLabels": [
-                "weird math"
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: weird math",
+                "본문 연관"
               ],
-              "seriesMatch": false
-            },
-            {
-              "title": "If Everyone on Earth Screamed at Once, Would It Destroy Anything?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html",
-              "score": 0.254,
-              "semantic": 0.128,
+              "semantic": 0.171,
               "titleOverlap": 0.333,
               "sharedLabels": [
                 "weird math"
@@ -2752,6 +2670,11 @@
               "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
               "score": 0.441,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.174,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2763,6 +2686,11 @@
               "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
               "score": 0.416,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.135,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2829,6 +2757,11 @@
               "title": "Nobody Lab #001: Can You Beat Your Browser at Measuring?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
               "score": 0.457,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.201,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2840,6 +2773,11 @@
               "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
               "score": 0.453,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.194,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2851,6 +2789,11 @@
               "title": "Nobody Lab #002: How Fast Is Your Finger, Really?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html",
               "score": 0.447,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.184,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2890,6 +2833,11 @@
               "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
               "score": 0.705,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: interactive experiment, nobody lab, weird data",
+                "본문 연관"
+              ],
               "semantic": 0.313,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2931,6 +2879,11 @@
               "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
               "score": 0.705,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: interactive experiment, nobody lab, weird data",
+                "본문 연관"
+              ],
               "semantic": 0.313,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -2944,6 +2897,12 @@
               "title": "Nobody Lab #006 — How Small a Button Can You Actually Click?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html",
               "score": 0.648,
+              "reasons": [
+                "같은 시리즈",
+                "제목 연관",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.358,
               "titleOverlap": 0.333,
               "sharedLabels": [
@@ -3014,6 +2973,11 @@
               "title": "Nobody Lab #006 — How Small a Button Can You Actually Click?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html",
               "score": 0.48,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.237,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3025,6 +2989,11 @@
               "title": "Nobody Lab #003: Can You Click the Same Spot Twice?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html",
               "score": 0.475,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.229,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3036,6 +3005,11 @@
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
               "score": 0.447,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.184,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3075,6 +3049,11 @@
               "title": "Nobody Lab #005: Can You Feel Exactly 10 Seconds Without a Clock?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html",
               "score": 0.457,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.201,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3086,6 +3065,11 @@
               "title": "Nobody Lab #002: How Fast Is Your Finger, Really?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html",
               "score": 0.442,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.177,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3097,6 +3081,11 @@
               "title": "Nobody Lab #004: Can Your Brain Learn What 100 Pixels Looks Like?",
               "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html",
               "score": 0.439,
+              "reasons": [
+                "같은 시리즈",
+                "공통 라벨: nobody lab",
+                "본문 연관"
+              ],
               "semantic": 0.171,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3164,6 +3153,11 @@
               "title": "How Does the Sword Box Magic Trick Not Kill the Person Inside?",
               "url": "https://qevnaxori.blogspot.com/2026/09/how-sword-box-magic-trick-works.html",
               "score": 0.733,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: how things work, magic, psychology, stage illusions",
+                "본문 연관"
+              ],
               "semantic": 0.441,
               "titleOverlap": 0.5,
               "sharedLabels": [
@@ -3283,19 +3277,7 @@
               "url": "https://qevnaxori.blogspot.com/2026/09/chances-of-getting-seat-crowded-subway.html"
             }
           ],
-          "recommendations": [
-            {
-              "title": "How Long Would It Take to Count Every Person on Earth?",
-              "url": "https://qevnaxori.blogspot.com/2026/09/how-long-count-every-person-earth.html",
-              "score": 0.254,
-              "semantic": 0.128,
-              "titleOverlap": 0.333,
-              "sharedLabels": [
-                "weird math"
-              ],
-              "seriesMatch": false
-            }
-          ],
+          "recommendations": [],
           "warnings": []
         },
         {
@@ -3328,21 +3310,15 @@
               "title": "How Long Would It Take to Count Every Person on Earth?",
               "url": "https://qevnaxori.blogspot.com/2026/09/how-long-count-every-person-earth.html",
               "score": 0.28,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: weird math",
+                "본문 연관"
+              ],
               "semantic": 0.171,
               "titleOverlap": 0.333,
               "sharedLabels": [
                 "weird math"
-              ],
-              "seriesMatch": false
-            },
-            {
-              "title": "How Many People Would It Take to Drink the Entire Ocean?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html",
-              "score": 0.248,
-              "semantic": 0.192,
-              "titleOverlap": 0.25,
-              "sharedLabels": [
-                "thought experiments"
               ],
               "seriesMatch": false
             }
@@ -3376,6 +3352,10 @@
               "title": "How Long Would It Take to Drink a Swimming Pool With a Straw?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-drink-swimming-pool-with-straw.html",
               "score": 0.29,
+              "reasons": [
+                "공통 라벨: thought experiments, useless math, weird data",
+                "본문 연관"
+              ],
               "semantic": 0.148,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3389,6 +3369,9 @@
               "title": "How Many Pigeons Would It Take to Carry a Human?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-pigeons-to-carry-a-human.html",
               "score": 0.264,
+              "reasons": [
+                "공통 라벨: thought experiments, useless math, weird data"
+              ],
               "semantic": 0.106,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3436,6 +3419,10 @@
               "title": "How Much Money Would You Make If You Got Paid 1 Cent for Every Step?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-much-money-1-cent-per-step.html",
               "score": 0.304,
+              "reasons": [
+                "공통 라벨: thought experiments, useless math, weird data",
+                "본문 연관"
+              ],
               "semantic": 0.17,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3449,20 +3436,11 @@
               "title": "How Long Would Your Hair Be If You Never Cut It for 100 Years?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html",
               "score": 0.289,
-              "semantic": 0.147,
-              "titleOverlap": 0,
-              "sharedLabels": [
-                "thought experiments",
-                "useless math",
-                "weird data"
+              "reasons": [
+                "공통 라벨: thought experiments, useless math, weird data",
+                "본문 연관"
               ],
-              "seriesMatch": false
-            },
-            {
-              "title": "How Many Pigeons Would It Take to Carry a Human?",
-              "url": "https://qevnaxori.blogspot.com/2026/08/how-many-pigeons-to-carry-a-human.html",
-              "score": 0.258,
-              "semantic": 0.096,
+              "semantic": 0.147,
               "titleOverlap": 0,
               "sharedLabels": [
                 "thought experiments",
@@ -3508,6 +3486,10 @@
               "title": "How Many People Would It Take to Drink the Entire Ocean?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html",
               "score": 0.304,
+              "reasons": [
+                "공통 라벨: thought experiments, useless math, weird data",
+                "본문 연관"
+              ],
               "semantic": 0.17,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3521,6 +3503,10 @@
               "title": "How Long Would Your Hair Be If You Never Cut It for 100 Years?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html",
               "score": 0.292,
+              "reasons": [
+                "공통 라벨: thought experiments, useless math, weird data",
+                "본문 연관"
+              ],
               "semantic": 0.151,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3566,6 +3552,11 @@
               "title": "How Many People Would It Take to Drink the Entire Ocean?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html",
               "score": 0.488,
+              "reasons": [
+                "제목 연관",
+                "공통 라벨: thought experiments, useless math, weird data",
+                "본문 연관"
+              ],
               "semantic": 0.355,
               "titleOverlap": 0.25,
               "sharedLabels": [
@@ -3610,6 +3601,10 @@
               "title": "How Much Money Would You Make If You Got Paid 1 Cent for Every Step?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-much-money-1-cent-per-step.html",
               "score": 0.274,
+              "reasons": [
+                "공통 라벨: thought experiments, useless math, weird data",
+                "본문 연관"
+              ],
               "semantic": 0.123,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3623,6 +3618,10 @@
               "title": "How Many Chickens Would It Take to Defeat a T. Rex?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-chickens-to-defeat-t-rex.html",
               "score": 0.267,
+              "reasons": [
+                "공통 라벨: animals, weird data",
+                "본문 연관"
+              ],
               "semantic": 0.144,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3635,6 +3634,9 @@
               "title": "How Long Would Your Hair Be If You Never Cut It for 100 Years?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html",
               "score": 0.264,
+              "reasons": [
+                "공통 라벨: thought experiments, useless math, weird data"
+              ],
               "semantic": 0.106,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3675,6 +3677,10 @@
               "title": "How Many Pigeons Would It Take to Carry a Human?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-pigeons-to-carry-a-human.html",
               "score": 0.267,
+              "reasons": [
+                "공통 라벨: animals, weird data",
+                "본문 연관"
+              ],
               "semantic": 0.144,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3716,6 +3722,10 @@
               "title": "How Many Psychopaths Have You Probably Met? The Statistics Explained",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-psychopaths-have-you-met.html",
               "score": 0.443,
+              "reasons": [
+                "공통 라벨: nobody asked data, personality, weird statistics",
+                "본문 연관"
+              ],
               "semantic": 0.199,
               "titleOverlap": 0,
               "sharedLabels": [
@@ -3758,6 +3768,10 @@
               "title": "How Many of Your Friends Actually Consider You a Friend?",
               "url": "https://qevnaxori.blogspot.com/2026/08/how-many-friends-actually-consider-you-a-friend.html",
               "score": 0.443,
+              "reasons": [
+                "공통 라벨: nobody asked data, personality, weird statistics",
+                "본문 연관"
+              ],
               "semantic": 0.199,
               "titleOverlap": 0,
               "sharedLabels": [
