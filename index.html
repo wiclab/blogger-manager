@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Blogger Manager</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f7fa;
+      color: #1f2937;
+      font-family:
+        -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Noto Sans KR", sans-serif;
+    }
+
+    .wrap {
+      width: min(1200px, calc(100% - 32px));
+      margin: 40px auto;
+    }
+
+    h1 {
+      margin-bottom: 6px;
+    }
+
+    .sub {
+      margin-top: 0;
+      color: #6b7280;
+    }
+
+    .blogs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.04);
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    .numbers {
+      display: flex;
+      gap: 26px;
+      margin-top: 18px;
+    }
+
+    .number strong {
+      display: block;
+      font-size: 26px;
+    }
+
+    .number span {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 24px 0 14px;
+    }
+
+    button {
+      border: 1px solid #d1d5db;
+      background: white;
+      border-radius: 10px;
+      padding: 9px 13px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #f3f4f6;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      background: white;
+      border-radius: 14px;
+      border: 1px solid #e5e7eb;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f9fafb;
+      font-size: 13px;
+    }
+
+    td {
+      font-size: 14px;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .ok {
+      color: #16803b;
+      font-weight: 700;
+    }
+
+    .warn {
+      color: #b45309;
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #fff7ed;
+      color: #9a3412;
+      border-radius: 999px;
+      padding: 3px 7px;
+      margin: 2px;
+      font-size: 11px;
+    }
+
+    #updated {
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <h1>📊 Blogger Manager</h1>
+  <p class="sub">별다알 + Nobody Asked Data 통합 점검</p>
+
+  <div id="updated"></div>
+
+  <div id="blogs" class="blogs"></div>
+
+  <div class="controls">
+    <button onclick="setFilter('all')">전체 글</button>
+    <button onclick="setFilter('warning')">⚠ 경고 글만</button>
+    <button onclick="setFilter('internal')">내부링크 없음</button>
+    <button onclick="setFilter('short')">본문 짧음</button>
+    <button onclick="setFilter('h2')">H2 없음</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>블로그</th>
+          <th>글 제목</th>
+          <th>글자수</th>
+          <th>내부링크</th>
+          <th>외부링크</th>
+          <th>이미지</th>
+          <th>H2</th>
+          <th>점검</th>
+        </tr>
+      </thead>
+
+      <tbody id="posts"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+let REPORT = null;
+let FILTER = "all";
+
+async function loadReport() {
+  const response = await fetch("./data/report.json?v=" + Date.now());
+
+  if (!response.ok) {
+    throw new Error("report.json을 불러오지 못했습니다.");
+  }
+
+  REPORT = await response.json();
+
+  document.getElementById("updated").textContent =
+    "마지막 검사: " +
+    new Date(REPORT.generatedAt).toLocaleString("ko-KR");
+
+  renderBlogs();
+  renderPosts();
+}
+
+function renderBlogs() {
+  const container = document.getElementById("blogs");
+
+  container.innerHTML = REPORT.blogs.map(blog => `
+    <div class="card">
+      <h2>${escapeHtml(blog.name)}</h2>
+
+      <a href="${blog.url}"
+         target="_blank"
+         rel="noopener">
+        블로그 열기 ↗
+      </a>
+
+      <div class="numbers">
+
+        <div class="number">
+          <strong>${blog.totalPosts}</strong>
+          <span>게시글</span>
+        </div>
+
+        <div class="number">
+          <strong>${blog.warningPosts}</strong>
+          <span>경고 글</span>
+        </div>
+
+      </div>
+    </div>
+  `).join("");
+}
+
+function allPosts() {
+  return REPORT.blogs.flatMap(blog =>
+    blog.posts.map(post => ({
+      ...post,
+      blogName: blog.name
+    }))
+  );
+}
+
+function matchesFilter(post) {
+
+  if (FILTER === "warning")
+    return post.warnings.length > 0;
+
+  if (FILTER === "internal")
+    return post.warnings.includes("내부링크 없음");
+
+  if (FILTER === "short")
+    return post.warnings.includes("본문 짧음");
+
+  if (FILTER === "h2")
+    return post.warnings.includes("H2 없음");
+
+  return true;
+}
+
+function renderPosts() {
+
+  const posts = allPosts()
+    .filter(matchesFilter)
+    .sort((a,b) =>
+      new Date(b.updated) - new Date(a.updated)
+    );
+
+  const tbody = document.getElementById("posts");
+
+  tbody.innerHTML = posts.map(post => {
+
+    const warningHtml =
+      post.warnings.length === 0
+
+      ? `<span class="ok">정상</span>`
+
+      : post.warnings.map(w =>
+          `<span class="badge">${escapeHtml(w)}</span>`
+        ).join("");
+
+    return `
+      <tr>
+
+        <td>
+          ${escapeHtml(post.blogName)}
+        </td>
+
+        <td>
+          <a href="${post.url}"
+             target="_blank"
+             rel="noopener">
+            ${escapeHtml(post.title)}
+          </a>
+        </td>
+
+        <td>
+          ${post.textLength.toLocaleString()}
+        </td>
+
+        <td class="${post.internalLinks === 0 ? "warn" : ""}">
+          ${post.internalLinks}
+        </td>
+
+        <td>
+          ${post.externalLinks}
+        </td>
+
+        <td>
+          ${post.images}
+        </td>
+
+        <td class="${post.h2 === 0 ? "warn" : ""}">
+          ${post.h2}
+        </td>
+
+        <td>
+          ${warningHtml}
+        </td>
+
+      </tr>
+    `;
+  }).join("");
+}
+
+function setFilter(filter) {
+  FILTER = filter;
+  renderPosts();
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+loadReport().catch(error => {
+  document.body.innerHTML =
+    "<pre style='padding:30px'>" +
+    escapeHtml(error.message) +
+    "</pre>";
+});
+</script>
+
+</body>
+</html>
