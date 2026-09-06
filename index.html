@@ -90,6 +90,28 @@
       color: #6b7280;
     }
 
+    .tuning-info {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #eee;
+      color: #6b7280;
+      font-size: 12px;
+      line-height: 1.7;
+  }
+
+  .tuning-info strong {
+    color: #374151;
+  }
+
+  .common-label {
+    display: inline-block;
+    margin: 2px 3px 2px 0;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: #f3f4f6;
+    color: #4b5563;
+  }
+
     .controls {
       display: flex;
       gap: 8px;
@@ -389,63 +411,126 @@ async function loadReport() {
 }
 
 function renderBlogs() {
-
   const container =
-    document.getElementById(
-      "blogs"
-    );
+    document.getElementById("blogs");
 
   container.innerHTML =
-    REPORT.blogs.map(blog => `
+    REPORT.blogs.map(blog => {
 
-      <div class="card">
+      const tuning =
+        blog.tuning || {};
 
-        <h2>
-          ${escapeHtml(blog.name)}
-        </h2>
+      const threshold =
+        Math.round(
+          Number(
+            tuning.threshold || 0
+          ) * 100
+        );
 
-        <a
-          href="${safeUrl(blog.url)}"
-          target="_blank"
-          rel="noopener">
-          블로그 열기 ↗
-        </a>
+      const weakThreshold =
+        Math.round(
+          Number(
+            tuning.weakEvidenceThreshold || 0
+          ) * 100
+        );
 
-        <div class="numbers">
+      const trusted =
+        Number(
+          tuning.trustedPositiveSamples || 0
+        );
 
-          <div class="number">
-            <strong>
-              ${number(blog.totalPosts)}
-            </strong>
-            <span>게시글</span>
+      const raw =
+        Number(
+          tuning.rawPositiveSamples || 0
+        );
+
+      const rejected =
+        Number(
+          tuning.rejectedPositiveSamples || 0
+        );
+
+      const commonLabels =
+        (blog.commonLabels || [])
+          .map(item => `
+            <span class="common-label">
+              ${escapeHtml(item.label)}
+              ${item.count}
+            </span>
+          `)
+          .join("");
+
+      return `
+        <div class="card">
+
+          <h2>
+            ${escapeHtml(blog.name)}
+          </h2>
+
+          <a
+            href="${safeUrl(blog.url)}"
+            target="_blank"
+            rel="noopener">
+            블로그 열기 ↗
+          </a>
+
+          <div class="numbers">
+
+            <div class="number">
+              <strong>${number(blog.totalPosts)}</strong>
+              <span>게시글</span>
+            </div>
+
+            <div class="number">
+              <strong>${number(blog.warningPosts)}</strong>
+              <span>경고 글</span>
+            </div>
+
+            <div class="number">
+              <strong>${number(blog.isolatedPosts)}</strong>
+              <span>고립 글</span>
+            </div>
+
+            <div class="number">
+              <strong>${number(blog.recommendationPosts)}</strong>
+              <span>추천 가능</span>
+            </div>
+
           </div>
 
-          <div class="number">
-            <strong>
-              ${number(blog.warningPosts)}
-            </strong>
-            <span>경고 글</span>
-          </div>
+          <div class="tuning-info">
 
-          <div class="number">
-            <strong>
-              ${number(blog.isolatedPosts)}
-            </strong>
-            <span>고립 글</span>
-          </div>
+            <div>
+              🎯 자동 추천 기준
+              <strong>${threshold}%</strong>
+            </div>
 
-          <div class="number">
-            <strong>
-              ${number(blog.recommendationPosts)}
-            </strong>
-            <span>추천 가능</span>
+            <div>
+              🧹 약한 관계 기준
+              <strong>${weakThreshold}%</strong>
+            </div>
+
+            <div>
+              🧠 신뢰 학습
+              <strong>${trusted} / ${raw}</strong>
+              · 제외 ${rejected}
+            </div>
+
+            ${
+              commonLabels
+                ? `
+                  <div style="margin-top:6px">
+                    흔한 라벨<br>
+                    ${commonLabels}
+                  </div>
+                `
+                : ""
+            }
+
           </div>
 
         </div>
-
-      </div>
-
-    `).join("");
+      `;
+    }).join("");
 }
 
 function allPosts() {
