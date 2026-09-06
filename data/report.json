@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-06T05:06:10.747Z",
-  "recommendationMethod": "각 블로그의 기존 내부링크와 전체 후보 점수 분포를 이용해 추천 기준을 실행할 때마다 자동 학습합니다. 많이 사용되는 라벨은 자동으로 가중치가 낮아지고, 제목·희귀 라벨·시리즈 관계와 TF-IDF 본문 유사도를 함께 사용합니다.",
+  "generatedAt": "2026-09-06T05:08:41.834Z",
+  "recommendationMethod": "고정 퍼센트 대신 각 블로그의 기존 내부링크와 전체 게시글 관계 분포를 이용해 추천 기준을 매 실행마다 자동 계산합니다. 제목, TF-IDF 본문 유사도, 라벨 희귀도, 시리즈 관계를 함께 분석하며 흔한 라벨은 자동으로 영향력이 감소합니다.",
   "blogs": [
     {
       "key": "wic",
@@ -13,12 +13,15 @@
       "recommendationPosts": 48,
       "tuning": {
         "threshold": 0.14,
-        "weakEvidenceThreshold": 0.21,
+        "weakEvidenceThreshold": 0.22,
+        "noiseThreshold": 0.22,
         "positiveSamples": 38,
+        "candidateSamples": 2718,
         "positiveMedian": 0.179,
         "positiveAverage": 0.214,
         "candidateP85": 0.071,
-        "candidateP95": 0.157
+        "candidateP92": 0.123,
+        "candidateP97": 0.199
       },
       "commonLabels": [
         {
@@ -2650,13 +2653,16 @@
       "isolatedPosts": 13,
       "recommendationPosts": 18,
       "tuning": {
-        "threshold": 0.234,
-        "weakEvidenceThreshold": 0.304,
+        "threshold": 0.226,
+        "weakEvidenceThreshold": 0.306,
+        "noiseThreshold": 0.441,
         "positiveSamples": 17,
+        "candidateSamples": 583,
         "positiveMedian": 0.42,
         "positiveAverage": 0.374,
         "candidateP85": 0.135,
-        "candidateP95": 0.303
+        "candidateP92": 0.25,
+        "candidateP97": 0.441
       },
       "commonLabels": [
         {
