@@ -11,7 +11,7 @@ if (!API_KEY) {
 const BLOGS = [
   {
     key: "wic",
-    name: "별다알",
+    name: "별셈소",
     url: "https://wic12.blogspot.com/",
     shortTextThreshold: 800,
     defaultThreshold: 0.20,
@@ -675,6 +675,17 @@ function analyzeBlog(
         post.content,
         /<h2\b/gi
       );
+
+    post.h1 =
+      countMatches(
+        post.content,
+        /<h1\b/gi
+      );
+
+    post.imagesWithoutAlt =
+      [...post.content.matchAll(/<img\b[^>]*>/gi)]
+        .filter(([tag]) => !/\balt\s*=\s*(?:"[^"]+"|'[^']+'|[^\s>]+)/i.test(tag))
+        .length;
   }
 
   /* -----------------------------------------------------
@@ -896,6 +907,18 @@ function analyzeBlog(
       );
     }
 
+    if (post.h1 > 0) {
+      warnings.push("본문 H1 사용");
+    }
+
+    if (post.imagesWithoutAlt > 0) {
+      warnings.push("ALT 없는 이미지");
+    }
+
+    if (post.labels.length > 1) {
+      warnings.push("라벨 여러 개");
+    }
+
     if (
       post.internalLinks === 0
     ) {
@@ -1109,6 +1132,12 @@ function normalizePost(
     h2:
       0,
 
+    h1:
+      0,
+
+    imagesWithoutAlt:
+      0,
+
     recommendations:
       [],
 
@@ -1164,6 +1193,12 @@ function toPublicPost(
 
     h2:
       post.h2,
+
+    h1:
+      post.h1,
+
+    imagesWithoutAlt:
+      post.imagesWithoutAlt,
 
     warnings:
       post.warnings,
