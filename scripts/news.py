@@ -63,13 +63,13 @@ def main():
                 print(f'Feed failed: {category}: {type(error).__name__}')
     if not any(groups.values()):
         raise RuntimeError('No fresh headlines received; preserving previous snapshot')
-    # Round robin prevents any one topic from taking all 30 slots.
+    # Round robin prevents any one topic from taking all 200 slots.
     mixed = []
     for i in range(max(map(len, groups.values()), default=0)):
         for category, _ in FEEDS:
             if i < len(groups.get(category, [])):
                 mixed.append(groups[category][i])
-    items = deduplicate(mixed)[:30]
+    items = deduplicate(mixed)[:200]
     payload = dict(generatedAt=now.isoformat(), date=now.astimezone(KST).date().isoformat(), windowHours=24, failedCategories=failures, items=items)
     target = Path('data/news.json')
     target.parent.mkdir(exist_ok=True)
