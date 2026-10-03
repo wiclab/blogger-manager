@@ -49,6 +49,17 @@ def deduplicate(rows):
         selected.append(row)
     return selected
 
+def failed_categories(groups, failures):
+    """Return feed categories that cannot provide a usable snapshot.
+
+    A successful HTTP response is not enough: a feed with no valid, fresh
+    headlines is unusable for this snapshot and must not be mistaken for a
+    healthy category.
+    """
+    failed = set(failures)
+    failed.update(category for category, _ in FEEDS if not groups.get(category))
+    return [category for category, _ in FEEDS if category in failed]
+
 def main():
     now = dt.datetime.now(dt.timezone.utc)
     groups, failures = {}, []
@@ -61,8 +72,14 @@ def main():
             except Exception as error:
                 failures.append(category)
                 print(f'Feed failed: {category}: {type(error).__name__}')
-    if not any(groups.values()):
-        raise RuntimeError('No fresh headlines received; preserving previous snapshot')
+    failed = failed_categories(groups, failures)
+    if failed:
+        counts = ', '.join(f'{category}={len(groups.get(category, []))}' for category, _ in FEEDS)
+        raise RuntimeError(
+            'News collection degraded for '
+            + ', '.join(failed)
+            + f' ({counts}); preserving previous snapshot'
+        )
     # Round robin prevents any one topic from taking all 200 slots.
     mixed = []
     for i in range(max(map(len, groups.values()), default=0)):
