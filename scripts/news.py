@@ -13,6 +13,8 @@ KST = dt.timezone(dt.timedelta(hours=9))
 BASE = 'https://news.google.com/rss'
 PARAMS = '?hl=ko&gl=KR&ceid=KR:ko'
 FEEDS = [('한국', BASE + PARAMS)] + [(name, BASE + '/headlines/section/topic/' + topic + PARAMS) for name, topic in [('해외','WORLD'), ('경제','BUSINESS'), ('기술·AI','TECHNOLOGY'), ('문화','ENTERTAINMENT'), ('생활·건강','HEALTH')]]
+REQUIRED_ITEM_FIELDS = ('title', 'url', 'source', 'publishedAt', 'category')
+FEED_CATEGORIES = {category for category, _ in FEEDS}
 
 def parse_feed(xml, category, now):
     result = []
@@ -48,6 +50,33 @@ def deduplicate(rows):
             continue
         selected.append(row)
     return selected
+
+def validate_items(items):
+    """Reject malformed output before it can replace the last good snapshot."""
+    if not items:
+        raise RuntimeError('News collection produced no items; preserving previous snapshot')
+    for index, item in enumerate(items):
+        if not isinstance(item, dict):
+            raise RuntimeError(f'News item {index} is not an object; preserving previous snapshot')
+        missing = [
+            field for field in REQUIRED_ITEM_FIELDS
+            if not isinstance(item.get(field), str) or not item[field].strip()
+        ]
+        if missing:
+            raise RuntimeError(
+                f'News item {index} missing required fields: {", ".join(missing)}; preserving previous snapshot'
+            )
+        if not item['url'].startswith('https://'):
+            raise RuntimeError(f'News item {index} has an invalid URL; preserving previous snapshot')
+        if item['category'] not in FEED_CATEGORIES:
+            raise RuntimeError(f'News item {index} has an invalid category; preserving previous snapshot')
+        try:
+            dt.datetime.fromisoformat(item['publishedAt'])
+        except ValueError as error:
+            raise RuntimeError(
+                f'News item {index} has an invalid publishedAt; preserving previous snapshot'
+            ) from error
+
 
 def failed_categories(groups, failures):
     """Return feed categories that cannot provide a usable snapshot.
@@ -87,6 +116,7 @@ def main():
             if i < len(groups.get(category, [])):
                 mixed.append(groups[category][i])
     items = deduplicate(mixed)[:200]
+    validate_items(items)
     payload = dict(generatedAt=now.isoformat(), date=now.astimezone(KST).date().isoformat(), windowHours=24, failedCategories=failures, items=items)
     target = Path('data/news.json')
     target.parent.mkdir(exist_ok=True)
