@@ -1,6 +1,6 @@
 import datetime as dt
 import unittest
-from scripts.news import FEEDS, deduplicate, failed_categories, parse_feed
+from scripts.news import FEEDS, deduplicate, failed_categories, parse_feed, validate_items
 class NewsCollectorTests(unittest.TestCase):
     def test_empty_category_is_treated_as_collection_failure(self):
         groups = {category: [{'title': category}] for category, _ in FEEDS}
@@ -35,6 +35,22 @@ class NewsCollectorTests(unittest.TestCase):
         '''
         rows = parse_feed(xml.encode(), '한국', now)
         self.assertEqual([row['title'] for row in rows], ['Fresh'])
+
+    def test_validate_items_rejects_incomplete_output(self):
+        with self.assertRaisesRegex(RuntimeError, 'missing required fields: source'):
+            validate_items([
+                {
+                    'title': 'Headline',
+                    'url': 'https://example.com/news',
+                    'publishedAt': '2026-10-03T04:00:00+00:00',
+                    'category': '한국',
+                },
+            ])
+
+    def test_validate_items_rejects_empty_output(self):
+        with self.assertRaisesRegex(RuntimeError, 'produced no items'):
+            validate_items([])
+
     def test_deduplicate_removes_same_url_and_similar_title(self):
         rows = [
             {'title': 'AI가 만든 뉴스', 'url': 'https://example.com/1'},
