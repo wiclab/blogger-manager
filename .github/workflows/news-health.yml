@@ -1,0 +1,78 @@
+name: News collector health
+on:
+  workflow_run:
+    workflows: ["Collect daily news"]
+    types: [completed]
+  schedule:
+    - cron: '53 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate collector result and snapshot
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          COLLECTOR_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          COLLECTOR_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          python - <<'PY'
+          import datetime as dt
+          import json
+          import os
+          from pathlib import Path
+
+          event = os.environ.get('EVENT_NAME', '')
+          conclusion = os.environ.get('COLLECTOR_CONCLUSION', '')
+          run_id = os.environ.get('COLLECTOR_RUN_ID', '')
+          if event == 'workflow_run' and conclusion != 'success':
+              raise SystemExit(
+                  f'Collect daily news run {run_id or "unknown"} ended with {conclusion or "unknown"}'
+              )
+
+          snapshot = json.loads(Path('data/news.json').read_text(encoding='utf-8'))
+          generated_at = snapshot.get('generatedAt')
+          if not isinstance(generated_at, str):
+              raise SystemExit('news.json has no generatedAt')
+          generated = dt.datetime.fromisoformat(generated_at.replace('Z', '+00:00'))
+          age = (dt.datetime.now(dt.timezone.utc) - generated).total_seconds()
+          if age < -300:
+              raise SystemExit('news.json generatedAt is in the future')
+          if age > 8 * 60 * 60:
+              raise SystemExit(f'news.json is stale: {age / 3600:.1f} hours old')
+          if snapshot.get('failedCategories'):
+              raise SystemExit(f"failedCategories is not empty: {snapshot['failedCategories']}")
+
+          items = snapshot.get('items')
+          required = ('title', 'url', 'source', 'publishedAt', 'category')
+          if not isinstance(items, list) or not items:
+              raise SystemExit('news.json items is empty or not a list')
+          bad = []
+          urls = []
+          for index, item in enumerate(items):
+              if not isinstance(item, dict):
+                  bad.append(f'{index}:not-an-object')
+                  continue
+              missing = [
+                  field for field in required
+                  if not isinstance(item.get(field), str) or not item[field].strip()
+              ]
+              if missing:
+                  bad.append(f'{index}:missing={",".join(missing)}')
+              if isinstance(item.get('url'), str):
+                  urls.append(item['url'])
+          if bad:
+              raise SystemExit('invalid news items: ' + '; '.join(bad[:5]))
+          if len(urls) != len(set(urls)):
+              raise SystemExit('duplicate news URLs detected')
+          print(f'News snapshot healthy: {len(items)} items; age={age / 3600:.1f}h')
+          PY
