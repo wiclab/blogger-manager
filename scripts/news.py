@@ -3,6 +3,7 @@ import concurrent.futures
 import datetime as dt
 import difflib
 import json
+import os
 import re
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -15,6 +16,17 @@ PARAMS = '?hl=ko&gl=KR&ceid=KR:ko'
 FEEDS = [('한국', BASE + PARAMS)] + [(name, BASE + '/headlines/section/topic/' + topic + PARAMS) for name, topic in [('해외','WORLD'), ('경제','BUSINESS'), ('기술·AI','TECHNOLOGY'), ('문화','ENTERTAINMENT'), ('생활·건강','HEALTH')]]
 REQUIRED_ITEM_FIELDS = ('title', 'url', 'source', 'publishedAt', 'category')
 FEED_CATEGORIES = {category for category, _ in FEEDS}
+# A numeric quantity followed by a dangling Korean particle is a strong
+# truncation signal in RSS excerpts (for example, "...3개월에서 1년이").
+TRUNCATED_QUANTITY_ENDING = re.compile(
+    r'\d+(?:년|개월|주|일|시간|분|초|건|명|개|차|회)'
+    r'(?:이|가|은|는|을|를|에|로|와|과|에서|으로|까지|부터)$'
+)
+
+
+def is_likely_truncated_title(title):
+    return bool(TRUNCATED_QUANTITY_ENDING.search(title.rstrip()))
+
 
 def parse_feed(xml, category, now):
     result = []
@@ -32,15 +44,20 @@ def parse_feed(xml, category, now):
         if not title or not link.startswith('https://') or not 0 <= age <= 86400:
             continue
         if source and title.endswith(' - ' + source):
-            title = title[:-len(source)-3]
+            title = title[:-len(source)-3].rstrip()
+        if is_likely_truncated_title(title):
+            print(f'Filtered likely truncated title: {category}: {title}')
+            continue
         result.append(dict(title=title, url=link, source=source, publishedAt=published.isoformat(), category=category))
     return result
+
 
 def collect(feed, now):
     category, url = feed
     request = urllib.request.Request(url, headers={'User-Agent':'BloggerManagerNews/1.0'})
     with urllib.request.urlopen(request, timeout=20) as response:
         return parse_feed(response.read(2_000_000), category, now)
+
 
 def deduplicate(rows):
     selected = []
@@ -50,6 +67,7 @@ def deduplicate(rows):
             continue
         selected.append(row)
     return selected
+
 
 def validate_items(items):
     """Reject malformed output before it can replace the last good snapshot."""
@@ -89,6 +107,38 @@ def failed_categories(groups, failures):
     failed.update(category for category, _ in FEEDS if not groups.get(category))
     return [category for category, _ in FEEDS if category in failed]
 
+
+def previous_urls(path):
+    """Read the prior snapshot URL set; an unreadable baseline is non-fatal."""
+    try:
+        payload = json.loads(path.read_text(encoding='utf-8'))
+        return {
+            item['url'] for item in payload.get('items', [])
+            if isinstance(item, dict) and isinstance(item.get('url'), str)
+        }
+    except (OSError, ValueError, TypeError):
+        return None
+
+
+def write_collection_summary(items, now, new_count, baseline_available):
+    latest = max(dt.datetime.fromisoformat(item['publishedAt']) for item in items)
+    age_minutes = max(0, int((now - latest).total_seconds() // 60))
+    lines = [
+        '## News collection',
+        f'- Headlines saved: {len(items)}',
+        f'- New URLs since prior snapshot: {new_count if baseline_available else "baseline unavailable"}',
+        f'- Latest headline: {latest.isoformat()} ({age_minutes} minutes old)',
+    ]
+    summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
+    if summary_path:
+        with open(summary_path, 'a', encoding='utf-8') as summary:
+            summary.write('\n'.join(lines) + '\n')
+    print(' | '.join(line[2:] for line in lines[1:]))
+    if baseline_available and new_count == 0:
+        warning = 'No new headline URLs compared with the previous snapshot.'
+        print(f'::warning title=No new news items::{warning}')
+
+
 def main():
     now = dt.datetime.now(dt.timezone.utc)
     groups, failures = {}, []
@@ -117,11 +167,14 @@ def main():
                 mixed.append(groups[category][i])
     items = deduplicate(mixed)[:200]
     validate_items(items)
-    payload = dict(generatedAt=now.isoformat(), date=now.astimezone(KST).date().isoformat(), windowHours=24, failedCategories=failures, items=items)
     target = Path('data/news.json')
+    old_urls = previous_urls(target)
+    new_count = len({item['url'] for item in items} - old_urls) if old_urls is not None else 0
+    payload = dict(generatedAt=now.isoformat(), date=now.astimezone(KST).date().isoformat(), windowHours=24, failedCategories=failures, items=items)
     target.parent.mkdir(exist_ok=True)
     target.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    print(f'Collected {len(items)} headlines; failed feeds: {len(failures)}')
+    write_collection_summary(items, now, new_count, old_urls is not None)
+
 
 if __name__ == '__main__':
     main()
