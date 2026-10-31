@@ -31,6 +31,16 @@ class BloggerEditorSmokeTests(unittest.TestCase):
         self.assertRegex(HTML, r'<iframe[^>]+sandbox')
         self.assertNotIn("method:'DELETE'", SCRIPT)
 
+    def test_legacy_r2_upload_ui_removed(self):
+        self.assertNotIn("imageUploadPanel", HTML)
+        self.assertNotIn("editor-image.js", HTML)
+        self.assertNotIn("image-upload-config.js", HTML)
+        self.assertNotIn("draft-test-fill.js", HTML)
+        self.assertNotIn("Cloudflare R2", HTML)
+        self.assertIn("Blogger 공식 편집기", HTML)
+        self.assertIn('id="save"', HTML)
+        self.assertIn('id="publish"', HTML)
+
     def test_permalink_limitations_disclosed(self):
         self.assertIn("퍼머링크", HTML)
         self.assertIn("검색설명", HTML)
