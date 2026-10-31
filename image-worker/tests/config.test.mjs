@@ -4,6 +4,7 @@ import {mkdtempSync, readFileSync, writeFileSync, rmSync} from "node:fs";
 import {tmpdir} from "node:os";
 import {join, resolve} from "node:path";
 import {spawnSync} from "node:child_process";
+import {fileURLToPath} from "node:url";
 
 test("Worker address updates active config, not commented example", () => {
   const dir=mkdtempSync(join(tmpdir(),"bm-r2-config-"));
@@ -14,7 +15,7 @@ test("Worker address updates active config, not commented example", () => {
       'window.BLOGGER_IMAGE_WORKER_URL = "";\n'
     );
     const url="https://byeolsemso-image-worker.chldndlf91.workers.dev";
-    const script=resolve("scripts/set-editor-worker-url.mjs");
+    const script=fileURLToPath(new URL("../scripts/set-editor-worker-url.mjs", import.meta.url));
     const cmd=spawnSync(process.execPath,[script],{cwd:dir,
       env:{...process.env,WORKER_URL:url},encoding:"utf8"});
     assert.equal(cmd.status,0,cmd.stderr);
