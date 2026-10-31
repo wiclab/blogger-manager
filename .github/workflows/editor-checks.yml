@@ -1,0 +1,43 @@
+name: Blogger editor checks
+
+on:
+  pull_request:
+    paths:
+      - "editor.html"
+      - "docs/BLOGGER_EDITOR.md"
+      - "tests/test_editor.py"
+      - ".github/workflows/editor-checks.yml"
+  push:
+    paths:
+      - "editor.html"
+      - "docs/BLOGGER_EDITOR.md"
+      - "tests/test_editor.py"
+      - ".github/workflows/editor-checks.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  editor-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Blogger editor regression tests
+        run: python -m unittest discover -s tests -p test_editor.py -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Blogger embedded script syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          text=Path('editor.html').read_text(encoding='utf-8')
+          scripts=re.findall(r'<script(?:\s+[^>]*)?>([\s\S]*?)</script>',text)
+          for i,script in enumerate(scripts):
+            Path(f'/tmp/editor-inline-{i}.js').write_text(script,encoding='utf-8')
+          PY
+          for script in /tmp/editor-inline-*.js; do node --check "$script"; done
