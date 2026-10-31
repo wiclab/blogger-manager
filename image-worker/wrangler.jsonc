@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "byeolsemso-image-worker",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-31",
+  "vars": {
+    "GOOGLE_CLIENT_ID": "745983224346-2bir36jrfv79g8igk46aocv49o44u50f.apps.googleusercontent.com",
+    "ALLOWED_ORIGIN": "https://wiclab.github.io"
+  },
+  "r2_buckets": [
+    {
+      "binding": "IMAGES",
+      "bucket_name": "byeolsemso-images"
+    }
+  ],
+  "observability": { "enabled": true }
+}
