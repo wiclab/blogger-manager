@@ -1,0 +1,79 @@
+name: Deploy Byeolsemso image uploader
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write # Only used to save the public Worker URL to image-upload-config.js
+
+concurrency:
+  group: deploy-byeolsemso-image-worker
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify required deployment secrets
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          BLOGGER_EMAIL: ${{ secrets.BLOGGER_ADMIN_EMAIL }}
+        run: |
+          if [ -z "$CF_TOKEN" ] || [ -z "$CF_ACCOUNT" ] || [ -z "$BLOGGER_EMAIL" ]; then
+            echo 'Missing secrets: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, BLOGGER_ADMIN_EMAIL' >&2
+            exit 1
+          fi
+      - name: Install image Worker dependencies
+        working-directory: image-worker
+        run: npm install --no-audit --no-fund
+      - name: Test image Worker
+        working-directory: image-worker
+        run: npm test
+      - name: Ensure private R2 bucket exists
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: node image-worker/scripts/ensure-bucket.mjs
+      - name: Deploy separate image Worker
+        id: deploy
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: image-worker
+          command: deploy
+      - name: Set Google admin email as Worker secret
+        working-directory: image-worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          BLOGGER_ADMIN_EMAIL: ${{ secrets.BLOGGER_ADMIN_EMAIL }}
+        run: |
+          printf '%s' "$BLOGGER_ADMIN_EMAIL" | npx wrangler secret put ALLOWED_GOOGLE_EMAIL --name byeolsemso-image-worker
+      - name: Verify deployed image Worker health
+        env:
+          WORKER_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: node image-worker/scripts/verify-deployment.mjs
+      - name: Save verified public Worker URL in Blogger editor
+        env:
+          WORKER_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: |
+          node image-worker/scripts/set-editor-worker-url.mjs
+          if git diff --quiet -- image-upload-config.js; then
+            echo 'Blogger image Worker URL is already up to date.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add image-upload-config.js
+            git commit -m 'chore: connect Blogger editor to deployed R2 image Worker'
+            git push origin HEAD:main
+          fi
