@@ -1,0 +1,31 @@
+name: R2 image uploader checks
+on:
+  pull_request:
+    paths:
+      - "editor.html"
+      - "editor-image.js"
+      - "image-upload-config.js"
+      - "image-worker/**"
+      - ".github/workflows/image-uploader.yml"
+  push:
+    branches: [main]
+    paths:
+      - "editor.html"
+      - "editor-image.js"
+      - "image-upload-config.js"
+      - "image-worker/**"
+      - ".github/workflows/image-uploader.yml"
+jobs:
+  image-uploader-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: JavaScript syntax
+        run: |
+          node --check editor-image.js
+          node --check image-worker/src/index.js
+      - name: Worker and authentication integration tests
+        run: node --test image-worker/tests/*.test.mjs
