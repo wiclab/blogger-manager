@@ -14,7 +14,7 @@ if(!url.hostname.startsWith("byeolsemso-image-worker.")){
 const urlBase=url.origin;
 const file=resolve("image-upload-config.js");
 const content=readFileSync(file,"utf8");
-const pattern=/window\.BLOGGER_IMAGE_WORKER_URL\s*=\s*["'][^"']*["']\s*;/;
+const pattern=/^window\.BLOGGER_IMAGE_WORKER_URL\s*=\s*["'][^"']*["']\s*;/m;
 if (!pattern.test(content)) throw new Error("Missing image Worker URL setting in image-upload-config.js");
 const updated=content.replace(pattern,'window.BLOGGER_IMAGE_WORKER_URL = "'+urlBase+'";');
 writeFileSync(file,updated,"utf8");
