@@ -1,5 +1,36 @@
 # 별셈소 대표이미지 자동 업로드 (Cloudflare R2)
 
+## 가장 쉬운 배포: GitHub Actions 한 번 실행
+
+**코드는 준비됐지만, Cloudflare 계정 비밀값이 없으므로 아직 실제 배포되지 않았습니다.**
+
+Cloudflare 계정에서 [API 토큰](https://dash.cloudflare.com/profile/api-tokens)을 만듭니다.
+`Edit Cloudflare Workers` 템플릿을 선택하거나 계정 단위로 **Workers Scripts Write, Workers R2 Storage Write** 권한을 가진 토큰을 발급하세요. 가능하면 현재 사용하는 Cloudflare 계정으로만 범위를 제한하세요.
+
+[GitHub 저장소 Actions Secrets](https://github.com/wiclab/blogger-manager/settings/secrets/actions)에서 다음 **Repository secrets 세 개**를 직접 등록합니다. 값을 채팅에 보내면 안 됩니다.
+
+| GitHub Secret 이름 | 넣는 값 |
+| --- | --- |
+| `CLOUDFLARE_API_TOKEN` | 위에서 생성한 Cloudflare API 토큰 |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare 계정의 Account ID |
+| `BLOGGER_ADMIN_EMAIL` | Google Blogger 관리자 로그인 이메일 |
+
+이후 [GitHub Actions: Deploy Byeolsemso image uploader](https://github.com/wiclab/blogger-manager/actions/workflows/deploy-image-worker.yml)로 이동해 **Run workflow** → 브랜치 `main` → **Run workflow**를 누르세요.
+
+자동 배포 작업은 아래 단계를 처리하도록 만들어져 있습니다.
+
+1. 이미지 Worker 테스트
+2. R2 버킷 `byeolsemso-images` 확인, 없으면 자동 생성
+3. Cloudflare에 별도 이미지 Worker 배포
+4. Google 관리자 이메일을 Worker 비밀 설정에 등록
+5. Worker의 `/api/health` 응답 검사
+6. 성공 시 GitHub Pages의 `image-upload-config.js`에 검증된 Worker 주소 자동 반영
+
+**중요:** Cloudflare 계정에서 R2 사용이 활성화되어 있어야 하고, Workers.dev 도메인 배포가 가능한 상태여야 합니다. 계정 설정이나 권한이 부족하면 GitHub Actions에서 실패합니다. 이는 무료 제공량을 넘을 때 비용이 발생할 수도 있는 서비스입니다.
+
+토큰은 GitHub Secrets에만 등록하며 공개 저장소에 절대 복사하지 마세요.
+
+
 Blogger 이미지 선택기의 Google 쿠키/로그인 오류 없이, 파일 또는 클립보드 이미지 → WebP 최적화 → R2 업로드 → Blogger 본문 상단 HTML 삽입을 수행합니다.
 
 **현재 상태:** 코드 구현. Cloudflare 실제 배포와 Google 관리자 계정 로그인, Blogger 썸네일 통합 테스트는 아직 진행하지 않았습니다.
