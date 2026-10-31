@@ -295,8 +295,9 @@ async function save() {
       saved=await api(postPath(current.id),{method:'PATCH',body:JSON.stringify(data)});
     }
     fillEditor(saved);
-    statusText(isNew?'새 임시글을 만들었습니다. 발행 전 Blogger 편집기에서 퍼머링크와 검색설명을 설정하세요.':'Blogger에 변경사항을 저장했습니다.','ok');
+    setBusy(false);
     await listPosts(false);
+    statusText(isNew?'새 임시글을 만들었습니다. 발행 전 Blogger 편집기에서 퍼머링크와 검색설명을 설정하세요.':'Blogger에 변경사항을 저장했습니다.','ok');
   }catch(e){statusText('저장 실패: '+e.message,'error');}
   finally{setBusy(false);}
 }
@@ -309,7 +310,7 @@ async function publish() {
     const original=await api(postPath(current.id)+'?view=ADMIN');
     if(snapshot(original)!==loadedSnapshot)throw new Error('다른 곳에서 글이 변경되었습니다. 다시 불러오세요.');
     const saved=await api(postPath(current.id)+'/publish',{method:'POST'});
-    fillEditor(saved);statusText('발행했습니다. 실제 URL을 열어 확인하세요.','ok');await listPosts(false);
+    fillEditor(saved);setBusy(false);await listPosts(false);statusText('발행했습니다. 실제 URL을 열어 확인하세요.','ok');
   }catch(e){statusText('발행 실패: '+e.message,'error');}
   finally{setBusy(false);}
 }
