@@ -25,10 +25,13 @@ jobs:
         with:
           python-version: '3.12'
       - name: Test news collector
+        id: test
         run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Collect RSS headlines
+        id: collect
         run: python scripts/news.py
       - name: Save snapshot
+        id: save
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -37,3 +40,20 @@ jobs:
           git commit -m 'Refresh daily news snapshot'
           git pull --rebase origin main
           git push origin HEAD:main
+      - name: Report collection failure
+        if: failure()
+        env:
+          TEST_OUTCOME: ${{ steps.test.outcome }}
+          COLLECT_OUTCOME: ${{ steps.collect.outcome }}
+          SAVE_OUTCOME: ${{ steps.save.outcome }}
+        run: |
+          {
+            echo "## News collection failed"
+            echo
+            echo "- Test step: ${TEST_OUTCOME}"
+            echo "- Collection step: ${COLLECT_OUTCOME}"
+            echo "- Save step: ${SAVE_OUTCOME}"
+            echo "- Commit: ${GITHUB_SHA}"
+            echo "- Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::error title=News collection failed::Review the failed step and run summary for details."
