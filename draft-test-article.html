@@ -1,0 +1,95 @@
+<style>
+.bss-upload-test{max-width:760px;margin:0 auto;color:#263448;font-family:'Pretendard','Noto Sans KR',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;font-size:16px;line-height:1.95;word-break:keep-all;overflow-wrap:anywhere}
+.bss-upload-test *{box-sizing:border-box;max-width:100%}
+.bss-upload-test .bss-lead{background:linear-gradient(125deg,#eff7ff,#f4f0ff);border:1px solid #d8e7fb;border-radius:17px;padding:23px 23px 18px;margin:22px 0 28px}
+.bss-upload-test .bss-eyebrow{display:inline-block;font-size:12px;letter-spacing:.05em;color:#3863a4;background:#e2edff;font-weight:800;padding:4px 12px;border-radius:50px}
+.bss-upload-test .bss-intro{font-size:18px;font-weight:750;color:#172c48;margin:15px 0}
+.bss-upload-test h2{font-size:22px;font-weight:800;line-height:1.5;color:#193d6b;margin:37px 0 16px;padding:0 0 11px;border-bottom:4px solid #64b7e8}
+.bss-upload-test p{margin:10px 0 17px}
+.bss-upload-test .bss-card{background:#f8fbff;border:1px solid #d9e7f2;padding:17px 19px;border-radius:13px;margin:16px 0}
+.bss-upload-test .bss-green{background:#ecfaf4;border-color:#b8e5ce}
+.bss-upload-test .bss-yellow{background:#fff9ed;border-color:#f1db9b}
+.bss-upload-test ul,.bss-upload-test ol{padding-left:23px;margin:10px 0 18px}
+.bss-upload-test li{margin:8px 0}
+.bss-upload-test table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0;border:1px solid #d9e4ef;border-radius:12px;overflow:hidden;font-size:14.5px}
+.bss-upload-test th,.bss-upload-test td{padding:12px 13px;text-align:left;vertical-align:top;border-bottom:1px solid #e5edf5}
+.bss-upload-test tr:last-child td{border-bottom:0}
+.bss-upload-test th{background:#eef5fe;font-weight:800;color:#294b73}
+.bss-upload-test .bss-faq{border-left:4px solid #8b9bed;padding:5px 0 5px 17px;margin:16px 0 20px}
+.bss-upload-test .bss-small{color:#66768d;font-size:13px}
+.bss-upload-test a{color:#155bc0;text-underline-offset:3px}
+@media(max-width:600px){.bss-upload-test{font-size:15.5px;line-height:1.86}.bss-upload-test h2{font-size:20px}.bss-upload-test .bss-lead{padding:18px 16px}.bss-upload-test th,.bss-upload-test td{padding:10px 8px;font-size:13px}}
+</style>
+<article class="bss-upload-test">
+  <div class="bss-lead">
+    <span class="bss-eyebrow">별셈소 기능 점검용 · 임시글</span>
+    <p class="bss-intro">대표이미지 업로드부터 본문 저장까지, 실제 Blogger에서 제대로 작동하는지 확인하는 글입니다.</p>
+    <p>이번 테스트의 핵심은 단순히 이미지 주소가 만들어지는 것이 아니라 <strong>이미지가 글에 남는지, 모바일에서도 자연스럽게 보이는지, ALT 설명이 유지되는지</strong> 살펴보는 것입니다.</p>
+  </div>
+
+  <h2>1. 이번에 테스트하는 기능</h2>
+  <p>별셈소 Blogger Manager에는 대표이미지를 업로드하면 자동으로 본문 맨 위에 넣어 주는 기능을 추가했습니다. 이미지 파일을 선택하면 브라우저에서 WebP로 최적화하고 Cloudflare R2에 저장한 다음, Blogger 글 본문에 이미지 태그를 삽입합니다.</p>
+  <div class="bss-card bss-green">
+    <strong>이번 테스트에서 확인할 항목</strong>
+    <ul>
+      <li>R2 업로드 후 이미지 주소가 생성되는지</li>
+      <li>본문 맨 위에 대표이미지가 중복 없이 한 장 표시되는지</li>
+      <li>이미지 ALT 설명이 저장 후에도 유지되는지</li>
+      <li>PC와 모바일 모두 이미지가 잘리지 않고 표시되는지</li>
+      <li>저장 후 페이지를 다시 열어도 같은 이미지가 남는지</li>
+    </ul>
+  </div>
+
+  <h2>2. 파일을 업로드하면 무엇이 달라질까?</h2>
+  <p>일반적으로 Blogger 편집기의 이미지 선택기를 이용해 파일을 올립니다. 이번 테스트에서는 Google 이미지 선택기를 거치지 않고 별도의 이미지 저장소에 올려 <strong>이미지 주소를 본문 HTML에서 불러오는 방식</strong>을 사용했습니다.</p>
+  <table>
+    <thead><tr><th>구분</th><th>기존 Blogger 업로드</th><th>새 R2 업로드</th></tr></thead>
+    <tbody>
+      <tr><td><strong>저장 위치</strong></td><td>Google의 Blogger 이미지 서버</td><td>Cloudflare R2</td></tr>
+      <tr><td><strong>이미지 삽입</strong></td><td>Blogger 이미지 선택기</td><td>전용 편집 콘솔에서 자동 삽입</td></tr>
+      <tr><td><strong>이미지 크기</strong></td><td>업로드 파일에 따라 다름</td><td>브라우저에서 WebP 최적화 시도</td></tr>
+      <tr><td><strong>글 저장</strong></td><td>별도 저장 필요</td><td>별도 저장 필요</td></tr>
+    </tbody>
+  </table>
+  <p class="bss-small">참고: WebP는 이미지 형식이며, 파일마다 압축 결과가 다릅니다. 언제나 같은 용량이나 같은 화질이 보장되는 것은 아닙니다.</p>
+
+  <h2>3. 대표이미지 ALT와 모바일 가독성</h2>
+  <p>대표이미지의 <strong>ALT(대체 텍스트)</strong>는 이미지가 보이지 않을 때 내용을 설명하는 문장입니다. 검색엔진과 보조 기술에도 이미지의 의미를 전달할 수 있으므로, 실제 사진·그림의 내용을 짧고 자연스럽게 설명하는 것이 좋습니다.</p>
+  <div class="bss-card">
+    <strong>ALT 예시</strong>
+    <p style="margin:8px 0 0">별셈소 이미지 업로드 테스트를 나타내는 노트북과 클라우드 업로드 일러스트</p>
+  </div>
+  <p>또한 이미지의 최대 너비를 제한하고 가로폭을 100%로 설정하면, 작은 화면에서도 본문 밖으로 튀어나오는 문제를 줄일 수 있습니다. 이번 테스트에서는 이미지가 본문 위에서 가운데 정렬되고 세로 비율이 유지되는지도 함께 확인합니다.</p>
+
+  <h2>4. 저장이 끝난 뒤 확인할 것</h2>
+  <div class="bss-card bss-yellow">
+    <strong>업로드 성공과 Blogger 저장 성공은 서로 다른 단계입니다.</strong>
+    <p style="margin:9px 0 0">R2에 이미지가 업로드됐더라도, 편집 콘솔에서 <strong>저장</strong>을 누르지 않았다면 Blogger 글 자체는 바뀌지 않을 수 있습니다.</p>
+  </div>
+  <ol>
+    <li>이미지 업로드 후 본문 HTML 맨 위에 이미지가 들어왔는지 확인합니다.</li>
+    <li>글을 <strong>임시저장</strong>한 뒤 다시 열어 HTML과 ALT를 확인합니다.</li>
+    <li>미리보기에서 이미지가 표시되는지 확인합니다.</li>
+    <li>필요하다면 실제 Blogger 게시물 화면과 홈 목록 썸네일도 별도로 검사합니다.</li>
+  </ol>
+
+  <h2>5. 자주 묻는 질문</h2>
+  <div class="bss-faq">
+    <strong>Q. R2에 올린 이미지는 Blogger 이미지 서버에 저장되나요?</strong>
+    <p>아니요. 파일은 별도의 R2 저장소에 있고, Blogger 본문은 공개 이미지 주소를 불러옵니다.</p>
+  </div>
+  <div class="bss-faq">
+    <strong>Q. 업로드된 이미지가 보이면 썸네일도 자동으로 나오나요?</strong>
+    <p>반드시 그렇지는 않습니다. Blogger 테마나 피드의 썸네일 추출 방식에 따라 다를 수 있으므로 직접 확인해야 합니다.</p>
+  </div>
+  <div class="bss-faq">
+    <strong>Q. 테스트 글을 지금 공개해도 되나요?</strong>
+    <p>이 글은 기능 점검을 위해 만든 임시글입니다. 검색 유입을 위한 정보성 글이 아니므로, 테스트 후에는 임시글로 보관하거나 삭제하는 편이 적절합니다.</p>
+  </div>
+
+  <div class="bss-card bss-green">
+    <strong>테스트 결과를 기록해 두세요</strong>
+    <p style="margin:8px 0 0">이미지 업로드 · 글 저장 · 새로고침 후 유지 · 모바일 표시 · 목록 썸네일을 각각 확인하면, 이후 별셈소 실전 글에도 같은 방식을 사용할 수 있습니다.</p>
+  </div>
+  <p class="bss-small">공식 참고: <a href="https://developers.cloudflare.com/r2/" target="_blank" rel="noopener noreferrer">Cloudflare R2 안내</a> · <a href="https://developers.google.com/search/docs/appearance/google-images?hl=ko" target="_blank" rel="noopener noreferrer">Google 이미지 검색 권장사항</a></p>
+</article>

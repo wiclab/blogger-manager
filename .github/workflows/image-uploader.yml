@@ -4,6 +4,8 @@ on:
     paths:
       - "editor.html"
       - "editor-image.js"
+      - "draft-test-fill.js"
+      - "draft-test-article.html"
       - "image-upload-config.js"
       - "image-worker/**"
       - ".github/workflows/image-uploader.yml"
@@ -13,6 +15,8 @@ on:
     paths:
       - "editor.html"
       - "editor-image.js"
+      - "draft-test-fill.js"
+      - "draft-test-article.html"
       - "image-upload-config.js"
       - "image-worker/**"
       - ".github/workflows/image-uploader.yml"
@@ -28,6 +32,7 @@ jobs:
       - name: JavaScript syntax
         run: |
           node --check editor-image.js
+          node --check draft-test-fill.js
           node --check image-worker/src/index.js
           node --check image-worker/scripts/ensure-bucket.mjs
           node --check image-worker/scripts/verify-deployment.mjs
