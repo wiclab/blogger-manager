@@ -192,6 +192,26 @@ def validate_state(data: dict) -> dict:
                 or not isinstance(record.get("fingerprint"), str)
                 or not isinstance(record.get("submitted_at"), str)):
             raise ValueError("Indexing state contains an invalid Bing receipt")
+    held = data.get("held_batches", {})
+    if not isinstance(held, dict) or len(held) > 5000:
+        raise ValueError("Indexing held batches are invalid; refusing to submit")
+    seen = set()
+    for batch_id, batch in held.items():
+        if (not isinstance(batch_id, str) or not re.fullmatch(r"[0-9a-f]{32}", batch_id)
+                or not isinstance(batch, dict)
+                or batch.get("status") != "held"
+                or utc_stamp(batch.get("prepared_at", "")) is None
+                or not isinstance(batch.get("entries"), list)
+                or not 1 <= len(batch["entries"]) <= MAX_BING):
+            raise ValueError("Indexing held batch structure is invalid")
+        for item in batch["entries"]:
+            if (not isinstance(item, dict)
+                    or not isinstance(item.get("url"), str)
+                    or canonical(item["url"]) != item["url"]
+                    or not isinstance(item.get("fingerprint"), str)
+                    or item["url"] in seen):
+                raise ValueError("Indexing held receipt is invalid")
+            seen.add(item["url"])
     return data
 
 
@@ -519,4 +539,6 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    # Never run the legacy one-stage pipeline: it cannot durably reserve a batch.
+    print("Use scripts/indexing_safe.py prepare/submit through indexing.yml", file=sys.stderr)
+    sys.exit(2)
