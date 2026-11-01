@@ -43,7 +43,7 @@ jobs:
           from pathlib import Path
           import re
           page = Path("indexing.html").read_text(encoding="utf-8")
-          scripts = re.findall(r"<script(?:\\s+[^>]*)?>([\\s\\S]*?)</script>", page)
+          scripts = re.findall(r"<script(?:\s+[^>]*)?>([\s\S]*?)</script>", page)
           if len(scripts) != 1:
               raise SystemExit("Expected exactly one indexing dashboard script")
           Path("/tmp/byeolsemso-indexing-ui.js").write_text(scripts[0], encoding="utf-8")
