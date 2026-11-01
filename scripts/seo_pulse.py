@@ -287,8 +287,7 @@ def stale_pulse(posts: list[dict], reference: dt.date) -> dict:
         content = title + " " + plaintext(str(post.get("content") or ""))[:60000]
         signals = detect_deadlines(content, year)
         valid = [(date, snippet) for date, snippet in signals
-                 if -7 <= (date - reference).days <= 90
-                 and (date - reference).days <= 7]
+                 if -90 <= (date - reference).days <= 7]
         if not valid:
             continue
         # Expired review signals take precedence over approaching dates.
