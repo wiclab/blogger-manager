@@ -4,7 +4,9 @@ on:
   pull_request:
     paths:
       - "scripts/indexing.py"
+      - "scripts/indexing_safe.py"
       - "tests/test_indexing.py"
+      - "tests/test_indexing_safe.py"
       - "indexing.html"
       - ".github/workflows/indexing.yml"
   workflow_dispatch:
@@ -14,7 +16,9 @@ on:
     branches: [main]
     paths:
       - "scripts/indexing.py"
+      - "scripts/indexing_safe.py"
       - "tests/test_indexing.py"
+      - "tests/test_indexing_safe.py"
       - ".github/workflows/indexing.yml"
 
 permissions:
