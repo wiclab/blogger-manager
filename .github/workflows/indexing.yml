@@ -6,8 +6,6 @@ on:
       - "scripts/indexing.py"
       - "tests/test_indexing.py"
       - "indexing.html"
-      - "data/indexing-state.json"
-      - "data/indexing-state.backup.json"
       - ".github/workflows/indexing.yml"
   workflow_dispatch:
   schedule:
@@ -23,7 +21,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: byeolsemso-indexing
+  group: byeolsemso-indexing-data
   cancel-in-progress: false
 
 jobs:
@@ -33,6 +31,21 @@ jobs:
     steps:
       - name: Checkout revision under test
         uses: actions/checkout@v4
+      - name: Check out protected indexing data branch
+        uses: actions/checkout@v4
+        with:
+          ref: indexing-data
+          path: indexing-data
+          persist-credentials: true
+      - name: Restore receipt state from data branch
+        run: |
+          set -euo pipefail
+          test -s indexing-data/data/indexing-state.json
+          mkdir -p data
+          cp indexing-data/data/indexing-state.json data/indexing-state.json
+          if [ -f indexing-data/data/indexing-dashboard.json ]; then
+            cp indexing-data/data/indexing-dashboard.json data/indexing-dashboard.json
+          fi
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -87,25 +100,28 @@ jobs:
           path: data/indexing-report.json
           if-no-files-found: ignore
           retention-days: 7
-      - name: Persist submission state and safe public dashboard
+      - name: Persist protected state to indexing-data (not main)
         if: github.event_name != 'pull_request' && steps.bing-config.outputs.ready == 'true'
         run: |
           set -euo pipefail
+          test -s data/indexing-state.json
+          test -s data/indexing-dashboard.json
+          mkdir -p indexing-data/data
+          cp data/indexing-state.json indexing-data/data/indexing-state.json
+          cp data/indexing-dashboard.json indexing-data/data/indexing-dashboard.json
+          if [ -f data/indexing-state.backup.json ]; then
+            cp data/indexing-state.backup.json indexing-data/data/indexing-state.backup.json
+          fi
+          cd indexing-data
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ -f data/indexing-state.json ]; then
-            git add data/indexing-state.json
-          fi
-          if [ -f data/indexing-dashboard.json ]; then
-            git add data/indexing-dashboard.json
-          fi
+          git add data/indexing-state.json data/indexing-dashboard.json
           if [ -f data/indexing-state.backup.json ]; then
             git add data/indexing-state.backup.json
           fi
           if git diff --cached --quiet; then
-            echo "No indexing state changes"
+            echo "Protected indexing data unchanged"
             exit 0
           fi
-          git commit -m "Update Byeolsemso Bing submission state and transparent dashboard"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          git commit -m "Update protected Byeolsemso indexing data"
+          git push origin HEAD:indexing-data
