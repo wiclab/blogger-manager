@@ -11,11 +11,12 @@
 - [주제 발굴](https://wiclab.github.io/blogger-manager/write.html)
 - [글 편집](https://wiclab.github.io/blogger-manager/editor.html)
 - [뉴스](https://wiclab.github.io/blogger-manager/news.html)
+- [뉴스 인텔리전스](https://wiclab.github.io/blogger-manager/intelligence.html) — 뉴스 글감, 기존 글 갱신 후보, 조건부 Telegram 알림
 
 - [텔레그램 별셈소 방문 알림 시스템 설정](visitor-alert/README.md) — Cloudflare Worker, 전역 5분 간격, 모바일/PC 구분, GitHub Actions 자동 배포
 
 ## GitHub Actions
-- `news.yml`: 4시간마다 뉴스 수집
+- `news.yml`: 4시간마다 뉴스 수집 → 별셈소 공개 글 제목과 비교 → 규칙 기반 편집 후보 및 조건부 Telegram 요약 알림
 - `news-health.yml`: 뉴스 수집과 스냅샷 유효성 점검
 - `scan.yml`: 1시간마다 Blogger 게시물 품질 검사
 - `editor-checks.yml`: 편집기 회귀 테스트
@@ -25,6 +26,7 @@
 - `visitor-alert.yml`: 방문 알림 Worker 테스트·조건부 배포 (Cloudflare/Telegram Secrets 필요)
 
 ## 문서
+- [뉴스 인텔리전스·Telegram 알림](docs/NEWS_INTELLIGENCE.md)
 - [색인 자동화 설정/운영](docs/INDEXING_AUTOMATION.md)
 - [Bing 성과·오래된 정보 자동 점검](docs/SEO_PULSE.md)
 - [Blogger 편집기](docs/BLOGGER_EDITOR.md)
