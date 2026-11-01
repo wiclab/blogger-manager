@@ -30,6 +30,18 @@ jobs:
           python-version: '3.12'
       - name: Test news collector
         run: python -m unittest discover -s tests -p 'test_news*.py' -v
+      - name: Check News Intelligence dashboard script
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          page = Path("intelligence.html").read_text(encoding="utf-8")
+          scripts = re.findall(r'<script(?:\s+[^>]*)?>([\s\S]*?)</script>', page)
+          if len(scripts) != 1:
+              raise SystemExit("Expected one inline dashboard script")
+          Path("/tmp/news-intelligence-dashboard.js").write_text(scripts[0], encoding="utf-8")
+          PY
+          node --check /tmp/news-intelligence-dashboard.js
       - name: Collect RSS headlines
         run: python scripts/news.py
       - name: Generate editorial leads and optional Telegram digest
