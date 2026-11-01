@@ -52,6 +52,8 @@
 - 텔레그램 장애 알림은 **2회 연속 예약 실행 실패** 또는 **5시간 이상 예약 실행/대시보드 미갱신**, 또는 독립 모니터 자체의 확인 오류에만 보냅니다. 정상적인 Bing 할당량 소진은 장애 알림이 아닙니다.
 - 동일한 진행 중 장애는 24시간 동안 추가 알림을 억제하고, 복구되면 알림을 한 번 보냅니다. 중복 방지 상태 `data/indexing-alert-state.json`은 `indexing-data` 브랜치에 보존되며, 파일이 없어지거나 손상되면 중복 발송 대신 알림을 중지합니다.
 - 텔레그램은 기존 `TELEGRAM_BOT_TOKEN`과 `TELEGRAM_CHAT_ID` Actions Secrets를 재사용합니다. 이 토큰은 소스·데이터 파일·로그에 쓰지 않습니다.
+- 연결 실수신 검증: GitHub Actions의 **Byeolsemso Telegram connection check** 워크플로는 `workflow_dispatch`로 다시 실행할 수 있습니다. 워크플로 파일이 처음 `main`에 추가되는 push에서는 연결 확인 메시지 **한 건**만 전송하며, Bing API와 Blogger에는 요청하지 않습니다. Telegram `sendMessage` 응답의 `ok: true`만 성공으로 인정하고 비밀 토큰·Chat ID·실제 메시지 ID는 로그에 기록하지 않습니다.
+- 전송 테스트는 장애가 발생한 것으로 기록하지 않으며 `indexing-alert-state.json`의 경고 중복 억제 상태도 변경하지 않습니다. 만약 테스트가 실패하면 Actions의 해당 작업에서 비밀 설정 또는 봇 대화 권한을 확인하세요.
 - `indexing-health.yml`의 독립 감시는 해당 워크플로만으로 메시지를 보냅니다. 알림 수신 없이 상태가 경고로 남으면 해당 Actions와 Secrets를 점검하세요.
 
 ## 안전과 실패 대응
