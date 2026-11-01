@@ -25,6 +25,7 @@ SITE = "https://" + HOST + "/"
 BING_ROOT = "https://ssl.bing.com/webmaster/api.svc/json/"
 BLOGGER_ROOT = "https://www.googleapis.com/blogger/v3"
 REPORT = Path("data/seo-pulse.json")
+TITLE_CACHE = Path("data/blog-post-titles.json")
 SEO_TZ = ZoneInfo("Asia/Seoul")
 BLOG_POST_PATH = re.compile(r"^/\d{4}/\d{2}/[^/]+\.html$")
 DATE_JSON = re.compile(r"/Date\((-?\d{10,15})(?:[+-]\d{4})?\)/")
@@ -312,6 +313,29 @@ def stale_pulse(posts: list[dict], reference: dt.date) -> dict:
     }
 
 
+
+def store_public_titles(posts: list[dict]) -> dict:
+    """Cache only publicly available LIVE titles and canonical URLs."""
+    unique = {}
+    for item in posts:
+        url = canonical(str(item.get("url", "")))
+        title = str(item.get("title") or "").strip()[:200]
+        if url and title:
+            unique[url] = title
+    if not unique:
+        raise ValueError("No public titles for title cache")
+    record = {
+        "version": 1, "site": SITE,
+        "updatedAt": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "posts": [{"url": url, "title": title} for url, title in sorted(unique.items())],
+    }
+    TITLE_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    TITLE_CACHE.write_text(
+        json.dumps(record, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8")
+    return record
+
+
 def run() -> dict:
     reference = today_kst()
     prior = {}
@@ -333,6 +357,8 @@ def run() -> dict:
     try:
         if blogger_key:
             posts = blogger_posts(blogger_key)
+            # Persist only public titles, never private search queries or post bodies.
+            store_public_titles(posts)
             result["stale"] = stale_pulse(posts, reference)
             if result["bing"].get("status") == "ok":
                 titles = {canonical(str(p.get("url", ""))): str(p.get("title", ""))[:180]
