@@ -76,7 +76,7 @@ footer{padding:10px 20px 28px;text-align:center;color:#64738a;font-size:12px}
 <div class="kpi"><div class="label">7일 내 날짜 후보</div><div class="num" id="upcomingCount">—</div></div>
 <div class="kpi"><div class="label">자동 수정</div><div class="num">0건</div></div>
 </div>
-<p class="note">이 목록은 **종료되었다고 확정한 결과가 아니야.** 본문에 행사·신청·할인 등과 연결된 날짜가 있는 글을 보여주는 검토 후보야. 지난 날짜를 설명하는 정상적인 글도 포함될 수 있어. 실제 사실 확인 후 필요할 때만 Blogger에서 수정해.</p>
+<p class="note">이 목록은 종료되었다고 확정한 결과가 아니야. 본문에 행사·신청·할인 등과 연결된 날짜가 있는 글을 보여주는 검토 후보야. 지난 날짜를 설명하는 정상적인 글도 포함될 수 있어. 실제 사실 확인 후 필요할 때만 Blogger에서 수정해.</p>
 <div class="controls" style="margin-top:16px">
 <label for="filter">표시:</label>
 <select id="filter"><option value="all">전체</option><option value="expired">지난 날짜</option><option value="upcoming">다가오는 날짜</option></select>
@@ -107,7 +107,7 @@ function renderBing(data){
  let chart=$("chart");chart.replaceChildren();const rows=Array.isArray(data.daily)?data.daily.slice(-28):[];
  if(!rows.length){chart.replaceWith(Object.assign(t("div","아직 Bing 성과 데이터가 없어.","empty"),{id:"chart"}));return renderCandidates(data);}
  const max=Math.max(1,...rows.map(v=>Number(v.clicks)||0));
- for(const row of rows){const wrapper=t("div",undefined,"bar-wrap");let bar=t("div",undefined,"bar");bar.style.height=(Math.max(2,(Number(row.clicks)||0)/max*116))+"px";bar.title=row.date+" · 클릭 "+fmt(row.clicks)+" · 노출 "+fmt(row.impressions);wrapper.append(bar);const lab=t("span",String(row.date||"").slice(5),"bar-label");wrapper.append(lab);chart.append(wrapper);}
+ for(const row of rows){const wrapper=t("div",undefined,"bar-wrap");let bar=t("div",undefined,"bar");bar.style.height=(Math.max(2,(Number(row.clicks)||0)/max*116))+"px";bar.title=row.date+" · 클릭 "+fmt(row.clicks)+" · 노출 "+fmt(row.impressions);wrapper.append(bar);const lab=t("span",(rows.indexOf(row)%5===0||rows.indexOf(row)===rows.length-1)?String(row.date||"").slice(5):"","bar-label");wrapper.append(lab);chart.append(wrapper);}
  renderCandidates(data);
 }
 function renderCandidates(data){const area=$("bingCandidates");area.replaceChildren();let rows=Array.isArray(data.page_review_candidates)?data.page_review_candidates:[];if(!rows.length){area.className="empty";area.textContent="현재 기준에 맞는 개선 후보가 없거나 데이터가 충분하지 않아.";return;}area.className="";for(const item of rows){const url=validUrl(item.url);if(!url)continue;let row=t("div",undefined,"item");row.append(link(url,item.title||url));row.append(t("span",item.reason||"Bing 검색 개선 후보","reason"));area.append(row);}}
