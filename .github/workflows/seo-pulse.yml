@@ -52,31 +52,49 @@ jobs:
           Path("/tmp/seo-pulse-inline.js").write_text(scripts[0], encoding="utf-8")
           PY
           node --check /tmp/seo-pulse-inline.js
+      - name: Check out isolated SEO data branch
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: seo-data
+          path: seo-data
+      - name: Restore SEO report and title cache
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          test -s seo-data/data/seo-pulse.json
+          test -s seo-data/data/blog-post-titles.json
+          cp seo-data/data/seo-pulse.json data/seo-pulse.json
+          cp seo-data/data/blog-post-titles.json data/blog-post-titles.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for path in ("data/seo-pulse.json", "data/blog-post-titles.json"):
+              data = json.loads(Path(path).read_text())
+              if data.get("site") != "https://wic12.blogspot.com/":
+                  raise SystemExit(f"SEO data for wrong site: {path}")
+          PY
       - name: Gather Bing performance and review date-sensitive articles
         if: github.event_name != 'pull_request'
         env:
           BING_API_KEY: ${{ secrets.BING_API_KEY }}
           BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
         run: python scripts/seo_pulse.py
-      - name: Commit public-safe summary, never raw keyword details
+      - name: Commit public-safe SEO data to seo-data only
         if: github.event_name != 'pull_request'
         run: |
           set -euo pipefail
-          if [ ! -f data/seo-pulse.json ]; then
-            echo "::warning::SEO report not generated"
-            exit 0
-          fi
+          test -s data/seo-pulse.json
+          test -s data/blog-post-titles.json
+          cp data/seo-pulse.json seo-data/data/seo-pulse.json
+          cp data/blog-post-titles.json seo-data/data/blog-post-titles.json
+          cd seo-data
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/seo-pulse.json
-          if [ -f data/blog-post-titles.json ]; then git add data/blog-post-titles.json; fi
+          git add data/seo-pulse.json data/blog-post-titles.json
           if git diff --cached --quiet; then
-            echo "No SEO pulse changes"
+            echo "No SEO data changes"
             exit 0
           fi
-          git commit -m "Update Byeolsemso SEO pulse summary"
-          if [ -n "$(git status --porcelain)" ]; then
-            git stash push --include-untracked -m 'Temporary SEO pulse generated files'
-          fi
-          git pull --rebase origin main
-          git push origin HEAD:main
+          git commit -m "Update isolated Byeolsemso SEO report and title cache"
+          git push origin HEAD:seo-data

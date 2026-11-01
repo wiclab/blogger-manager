@@ -135,7 +135,7 @@ function render(){
 async function load(){
   $("reload").disabled=true;$("updated").textContent="최신 분석 보고서를 확인하는 중…";
   try{
-    const response=await fetch("./data/news-intelligence.json?v="+Date.now(),{cache:"no-store"});
+    const response=await fetch("https://raw.githubusercontent.com/wiclab/blogger-manager/news-data/data/news-intelligence.json?v="+Date.now(),{cache:"no-store"});
     if(!response.ok)throw new Error("분석 보고서가 아직 생성되지 않았습니다. GitHub Actions 실행 상태를 확인해 주세요.");
     const payload=await response.json();
     if(!Array.isArray(payload.ideas)||!Array.isArray(payload.updates)||payload.site!=="https://wic12.blogspot.com/")throw new Error("분석 데이터 형식 또는 대상 블로그가 잘못되었습니다.");

@@ -1,5 +1,14 @@
 name: Collect daily news
 on:
+  pull_request:
+    paths:
+      - 'scripts/news.py'
+      - 'scripts/news_intelligence.py'
+      - 'tests/test_news.py'
+      - 'tests/test_news_intelligence.py'
+      - 'news.html'
+      - 'intelligence.html'
+      - '.github/workflows/news.yml'
   workflow_dispatch:
   schedule:
     - cron: '23 */4 * * *'
@@ -42,32 +51,75 @@ jobs:
           Path("/tmp/news-intelligence-dashboard.js").write_text(scripts[0], encoding="utf-8")
           PY
           node --check /tmp/news-intelligence-dashboard.js
+      - name: Check out isolated news state
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: news-data
+          path: news-data
+      - name: Check out isolated SEO title cache
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: seo-data
+          path: seo-data
+          persist-credentials: false
+      - name: Check out indexing summary
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: indexing-data
+          path: indexing-data
+          persist-credentials: false
+      - name: Restore prior news state and auxiliary title/coverage caches
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          for name in news.json news-intelligence.json news-alert-state.json; do
+            test -s "news-data/data/$name"
+            cp "news-data/data/$name" "data/$name"
+          done
+          test -s seo-data/data/blog-post-titles.json
+          cp seo-data/data/blog-post-titles.json data/blog-post-titles.json
+          test -s indexing-data/data/indexing-dashboard.json
+          cp indexing-data/data/indexing-dashboard.json data/indexing-dashboard.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          news = json.loads(Path("data/news.json").read_text())
+          state = json.loads(Path("data/news-alert-state.json").read_text())
+          cache = json.loads(Path("data/blog-post-titles.json").read_text())
+          index = json.loads(Path("data/indexing-dashboard.json").read_text())
+          if not isinstance(news.get("items"), list) or not isinstance(state.get("sent"), list):
+              raise SystemExit("Missing or corrupt news state; refuse to send duplicate alerts")
+          if cache.get("site") != "https://wic12.blogspot.com/" or index.get("site") != "https://wic12.blogspot.com/":
+              raise SystemExit("Unexpected blog in auxiliary cache")
+          PY
       - name: Collect RSS headlines
+        if: github.event_name != 'pull_request'
         run: python scripts/news.py
       - name: Generate editorial leads and optional Telegram digest
+        if: github.event_name != 'pull_request'
         env:
           BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python -m scripts.news_intelligence
-      - name: Save snapshot
+      - name: Save snapshots and alert state on news-data only
+        if: github.event_name != 'pull_request'
         run: |
+          set -euo pipefail
+          for name in news.json news-intelligence.json news-alert-state.json; do
+            test -s "data/$name"
+            cp "data/$name" "news-data/data/$name"
+          done
+          cd news-data
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/news.json data/news-intelligence.json
-          if [ -f data/news-alert-state.json ]; then git add data/news-alert-state.json; fi
+          git add data/news.json data/news-intelligence.json data/news-alert-state.json
           if git diff --cached --quiet; then
-            echo 'News snapshot unchanged; nothing to publish'
+            echo 'News state unchanged'
             exit 0
           fi
-          git commit -m 'Refresh daily news snapshot'
-          # Other tests or generated files must not prevent the scheduled
-          # snapshot from being rebased and pushed.
-          if [ -n "$(git status --porcelain)" ]; then
-            echo '::notice::Stashing unrelated workflow-generated changes before rebase'
-            git status --short
-            git stash push --include-untracked -m 'Temporary news workflow files'
-          fi
-          git pull --rebase origin main
-          git push origin HEAD:main
-          echo 'News snapshot published successfully'
+          git commit -m 'Refresh isolated news snapshots and alert deduplication state'
+          git push origin HEAD:news-data
