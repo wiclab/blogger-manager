@@ -86,6 +86,19 @@ class IndexingHealthTests(unittest.TestCase):
                 self.assertEqual(health.failing_step_category(
                     [{"steps": [{"name": label, "conclusion": "failure"}]}]), expected)
 
+    def test_two_phase_failure_steps_have_actionable_categories(self):
+        categories = {
+            "Prepare protected Bing intent (no POST)": "bing_execution",
+            "Commit reservation BEFORE Bing POST": "state_persistence",
+            "Submit only committed reservation to Bing (one POST)": "bing_execution",
+            "Persist acknowledged receipts (never replay Bing POST)": "state_persistence",
+            "Restore receipt state from data branch": "state_integrity",
+        }
+        for step, category in categories.items():
+            with self.subTest(step=step):
+                self.assertEqual(health.failing_step_category(
+                    [{"steps": [{"name": step, "conclusion": "failure"}]}]), category)
+
     def test_alert_deduplication_recovery_and_cooldown(self):
         state = {"version": 1, "active_signature": None, "last_sent_at": None}
         alert = {"status": "warning", "issue_codes": ["repeated_failure"],
