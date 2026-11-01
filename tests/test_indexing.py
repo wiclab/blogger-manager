@@ -117,6 +117,7 @@ class IndexingTests(unittest.TestCase):
             initial = {"version": 1, "bing": {}, "google": {}, "sitemap_registered": False}
             state_path.write_text(json.dumps(initial), encoding="utf-8")
             with patch.object(indexing, "STATE_PATH", state_path), patch.object(indexing, "REPORT_PATH", report_path), \
+                 patch.object(indexing, "DASHBOARD_PATH", Path(directory) / "dashboard.json"), \
                  patch.object(indexing, "collect_sitemap", return_value={url: "2026-11-01"}), \
                  patch.object(indexing, "collect_atom_updates", return_value={}), \
                  patch.object(indexing, "bing_submit", return_value=[]):
