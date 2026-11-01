@@ -1,14 +1,17 @@
 {
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "checked_at": "2026-11-01T22:30:06+00:00",
+  "checked_at": "2026-11-01T23:09:25+00:00",
   "status": "ok",
   "last_scheduled_run_at": "2026-11-01T19:06:52+00:00",
   "last_scheduled_success_at": "2026-11-01T19:06:52+00:00",
-  "last_any_success_at": "2026-11-01T22:29:47+00:00",
-  "last_dashboard_update_at": "2026-11-01T22:29:55+00:00",
+  "last_any_success_at": "2026-11-01T23:08:08+00:00",
+  "last_dashboard_update_at": "2026-11-01T22:58:40+00:00",
+  "consecutive_schedule_failures": 0,
+  "failure_category": null,
+  "issue_codes": [],
   "expected_interval_hours": 2,
   "warning_after_hours": 5,
   "issues": [],
-  "note": "Scheduled workflow health, not proof of search engine indexing."
+  "note": "Scheduled workflow health, not Bing indexing proof. A quota-exhausted successful run is healthy."
 }
