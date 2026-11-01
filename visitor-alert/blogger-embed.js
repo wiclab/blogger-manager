@@ -1,10 +1,9 @@
-<!-- 별셈소: 테마 HTML의 </body> 앞에 한 번만 삽입. 배포 후 실제 Worker URL로 교체 -->
+<!-- 별셈소 방문 알림: Blogger 테마 HTML의 닫는 body 태그 바로 앞에 한 번만 삽입. Worker 주소 확인 완료 -->
 <script type='text/javascript'>
 //<![CDATA[
 (function(){
   "use strict";
-  var WORKER_URL="https://REPLACE-WITH-YOUR-WORKER.workers.dev";
-  if(WORKER_URL.indexOf("REPLACE-WITH-YOUR-WORKER")!==-1)return;
+  var WORKER_URL="https://byeolsemso-visitor-alert.chldndlf91.workers.dev";
   if(window.top!==window.self || document.prerendering || navigator.webdriver)return;
   if(location.origin!=="https://wic12.blogspot.com")return;
   if(!(/^\/(?:20\d{2}\/\d{2}\/[a-z0-9_.-]+\.html|p\/[a-z0-9_.-]+\.html|search(?:\/label\/[a-z0-9%._-]+)?)$/i.test(location.pathname)||location.pathname==="/"))return;
