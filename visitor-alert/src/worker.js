@@ -1,5 +1,6 @@
 const SITE="https://wic12.blogspot.com";
-const WAIT=300000;
+const RATE_WINDOW_MS=60000;
+const RATE_LIMIT=60;
 const PATH=/^\/(?:20\d{2}\/\d{2}\/[a-z0-9_.-]+\.html|p\/[a-z0-9_.-]+\.html|search(?:\/label\/[a-z0-9%._-]+)?)$/i;
 const BOTS=/bot|crawl|spider|headless|lighthouse|pagespeed|facebookexternalhit|bingpreview|slurp|curl|wget|python-requests|postman/i;
 const headers={"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"};
@@ -32,30 +33,70 @@ export default {
   try{const raw=await req.text();if(raw.length>1500)return reply(413,cors);data=JSON.parse(raw);}catch{return reply(400,cors);}
   if(!data||!validPage(data.page)||!["mobile","desktop"].includes(data.device))return reply(400,cors);
   const payload={page:data.page,title:data.page.startsWith("/search")?"별셈소 목록 페이지":cleanTitle(data.title),device:data.device};
-  const id=env.GATE.idFromName("global-five-minute-cooldown");
+  const id=env.GATE.idFromName("global-visit-alerts");
   const result=await env.GATE.get(id).fetch(new Request("https://internal.invalid/notify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)}));
   return reply(result.ok?204:503,cors);
  }
 };
 export class VisitAlertGate {
- constructor(state,env){this.state=state;this.env=env;this.busy=false;}
+ constructor(state,env){
+  this.state=state;
+  this.env=env;
+  // Serialize sends so simultaneous distinct page opens do not silently disappear.
+  this.queue=Promise.resolve();
+  this.pending=0;
+ }
  async fetch(req){
   if(new URL(req.url).pathname!=="/notify"||req.method!=="POST")return reply(404);
   let d;try{d=await req.json();}catch{return reply(400);}
   if(!validPage(d?.page)||!["mobile","desktop"].includes(d?.device))return reply(400);
-  if(this.busy)return reply(204);
+  // Emergency flood safety only: ordinary visits are never deduplicated or delayed by 5 minutes.
+  if(this.pending>=20)return reply(429);
+  this.pending++;
+  const job=this.queue.then(()=>this.notify(d));
+  this.queue=job.catch(()=>{});
+  try{return await job;}finally{this.pending--;}
+ }
+ async notify(d){
   const now=Date.now();
-  const last=Number(await this.state.storage.get("lastAttemptAt")||0);
-  if(this.busy||now-last<WAIT)return reply(204);
-  this.busy=true;
+  const current=await this.state.storage.get("minuteWindow");
+  const window=current&&now-Number(current.start)>-1&&now-Number(current.start)<RATE_WINDOW_MS
+    ?current:{start:now,count:0};
+  if(window.count>=RATE_LIMIT)return reply(429);
+  // Only aggregate volume is stored. Never store IP, user-agent, cookies, page, title or visitor IDs.
+  await this.state.storage.put("minuteWindow",{start:window.start,count:window.count+1});
+  const kst=new Intl.DateTimeFormat("ko-KR",{
+   timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"
+  }).format(new Date(now));
+  const pageTitle=cleanTitle(d.title);
+  const displayTitle=pageTitle==="별셈소"
+    ?(d.page==="/"? "별셈소 홈":d.page.startsWith("/search")?"별셈소 목록":"별셈소 게시글")
+    :pageTitle;
+  const message=[
+   "🔔 별셈소 방문 감지",
+   "글: "+displayTitle,
+   "기기: "+(d.device==="mobile"?"모바일":"PC"),
+   "시각: "+kst+" (KST)",
+   "👇 방문한 페이지는 아래 버튼을 눌러 열 수 있어요."
+  ].join("\n");
+  // Use a Telegram inline keyboard instead of a long, line-wrapped raw URL.
+  // The target is exactly the current Blogger pathname; no invented slug or query.
+  const payload={
+   chat_id:this.env.TELEGRAM_CHAT_ID,
+   text:message,
+   disable_web_page_preview:true,
+   reply_markup:{inline_keyboard:[[{text:"📖 방문한 글 열기",url:SITE+d.page}]]}
+  };
   try{
-   // Reserve cooldown before the external call, including failed attempts.
-   await this.state.storage.put("lastAttemptAt",now);
-   const kst=new Intl.DateTimeFormat("ko-KR",{timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}).format(new Date(now));
-   const message=["🔔 별셈소 방문 감지","글: "+cleanTitle(d.title),"기기: "+(d.device==="mobile"?"모바일":"PC"),"시각: "+kst+" (KST)","페이지: "+SITE+d.page,"알림 최소 간격: 5분"].join("\n");
-   const res=await fetch("https://api.telegram.org/bot"+this.env.TELEGRAM_BOT_TOKEN+"/sendMessage",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:this.env.TELEGRAM_CHAT_ID,text:message,disable_web_page_preview:true}),signal:AbortSignal.timeout(7000)});
+   const res=await fetch("https://api.telegram.org/bot"+this.env.TELEGRAM_BOT_TOKEN+"/sendMessage",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(payload),
+    signal:AbortSignal.timeout(7000)
+   });
    if(!res.ok)return reply(503);
-   const json=await res.json();return reply(json?.ok===true?204:503);
-  }catch{return reply(503);}finally{this.busy=false;}
+   const json=await res.json();
+   return reply(json?.ok===true?204:503);
+  }catch{return reply(503);}
  }
 }

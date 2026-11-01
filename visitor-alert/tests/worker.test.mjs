@@ -49,33 +49,52 @@ test("rejects query-bearing path and unrecognized device",async()=>{
  assert.equal((await app.fetch(browserReq({data:{page:PAGE+"?secret=1"}}),e.bind)).status,400);
  assert.equal((await app.fetch(browserReq({data:{device:"tablet"}}),e.bind)).status,400);
 });
-test("one Telegram alert per global five minutes, no IP or cookies stored",async()=>{
- const e=env();const sent=[];
- const old=globalThis.fetch;
+test("every individual open sends Telegram immediately, with a clean open-page button",async()=>{
+ const e=env();const sent=[];const old=globalThis.fetch;
  try{
-   globalThis.fetch=async(url,options)=>{
-     sent.push({url,body:JSON.parse(options.body)});
-     return new Response(JSON.stringify({ok:true}),{status:200,headers:{"Content-Type":"application/json"}});
-   };
-   assert.equal((await app.fetch(browserReq(),e.bind)).status,204);
-   assert.equal((await app.fetch(browserReq({data:{title:"두 번째 글",device:"desktop"}}),e.bind)).status,204);
-   assert.equal(sent.length,1);
-   assert.match(sent[0].body.text,/모바일/);
-   assert.doesNotMatch(sent[0].body.text,/secret=|Cookie|IP 주소/);
-   assert.deepEqual([...e.state.keys()],["lastAttemptAt"]);
-   e.state.set("lastAttemptAt",Date.now()-301000);
-   assert.equal((await app.fetch(browserReq({data:{device:"desktop"}}),e.bind)).status,204);
-   assert.equal(sent.length,2);
-   assert.match(sent[1].body.text,/PC/);
+  globalThis.fetch=async(url,options)=>{
+   sent.push({url,body:JSON.parse(options.body)});
+   return new Response(JSON.stringify({ok:true}),{status:200,headers:{"Content-Type":"application/json"}});
+  };
+  assert.equal((await app.fetch(browserReq(),e.bind)).status,204);
+  assert.equal((await app.fetch(browserReq({data:{title:"두 번째 글",device:"desktop"}}),e.bind)).status,204);
+  assert.equal((await app.fetch(browserReq(),e.bind)).status,204);
+  assert.equal(sent.length,3,"no five minute cooldown");
+  assert.match(sent[0].body.text,/모바일/);
+  assert.match(sent[1].body.text,/PC/);
+  assert.doesNotMatch(sent[0].body.text,/https?:\/\/|5분|Cookie|IP 주소/);
+  assert.equal(sent[0].body.reply_markup.inline_keyboard[0][0].url,SITE+PAGE);
+  assert.equal(sent[0].body.reply_markup.inline_keyboard[0][0].text,"📖 방문한 글 열기");
+  assert.deepEqual([...e.state.keys()],["minuteWindow"]);
  }finally{globalThis.fetch=old;}
 });
-test("when Telegram fails, cooldown still prevents notification storms",async()=>{
- const e=env();const old=globalThis.fetch;let calls=0;
+test("simultaneous separate opens each result in a notification",async()=>{
+ const e=env();let count=0;const old=globalThis.fetch;
  try{
-   globalThis.fetch=async()=>{calls++;return new Response("oops",{status:503})};
-   assert.equal((await app.fetch(browserReq(),e.bind)).status,503);
-   assert.equal((await app.fetch(browserReq(),e.bind)).status,204);
-   assert.equal(calls,1);
+  globalThis.fetch=async()=>{count++;return new Response('{"ok":true}',{status:200})};
+  const responses=await Promise.all(Array.from({length:7},()=>app.fetch(browserReq(),e.bind)));
+  assert.deepEqual(responses.map(x=>x.status),Array(7).fill(204));
+  assert.equal(count,7);
+ }finally{globalThis.fetch=old;}
+});
+test("Telegram failure allows another immediate attempt, not a 5 minute wait",async()=>{
+ const e=env();const old=globalThis.fetch;let count=0;
+ try{
+  globalThis.fetch=async()=>{count++;return new Response("error",{status:503})};
+  assert.equal((await app.fetch(browserReq(),e.bind)).status,503);
+  assert.equal((await app.fetch(browserReq(),e.bind)).status,503);
+  assert.equal(count,2);
+ }finally{globalThis.fetch=old;}
+});
+test("large bot-like burst is capped globally at 60 attempts per minute without identity tracking",async()=>{
+ const e=env();const old=globalThis.fetch;let count=0;
+ try{
+  globalThis.fetch=async()=>{count++;return new Response('{"ok":true}',{status:200})};
+  let last;
+  for(let i=0;i<61;i++)last=await app.fetch(browserReq(),e.bind);
+  assert.equal(count,60);
+  assert.equal(last.status,503); // frontend intentionally hides internal rate state
+  assert.equal(e.state.get("minuteWindow").count,60);
  }finally{globalThis.fetch=old;}
 });
 test("invalid payload and missing secrets never contact Telegram",async()=>{
@@ -93,12 +112,10 @@ test("home, static pages, and label views remain allowed without exposing search
    return new Response(JSON.stringify({ok:true}),{status:200,headers:{"Content-Type":"application/json"}});
   };
   assert.equal((await app.fetch(browserReq({data:{page:"/p/about.html",title:"소개"}}),e.bind)).status,204);
-  e.state.set("lastAttemptAt",Date.now()-301000);
   assert.equal((await app.fetch(browserReq({data:{page:"/search",title:"사용자가 검색한 비공개 문장"}}),e.bind)).status,204);
   assert.equal(sent.length,2);
   assert.doesNotMatch(sent[1],/비공개 문장/);
   assert.match(sent[1],/별셈소 목록 페이지/);
-  e.state.set("lastAttemptAt",Date.now()-301000);
   assert.equal((await app.fetch(browserReq({data:{page:"/search/label/%EA%B2%8C%EC%9E%84",title:"검색어"}}),e.bind)).status,204);
   assert.equal(sent.length,3);
  }finally{globalThis.fetch=old;}
@@ -114,5 +131,6 @@ test("Blogger XML template embed uses CDATA and valid JavaScript",async()=>{
  assert.ok(code);
  assert.doesNotThrow(()=>new Script(code));
  assert.match(code,/credentials:"omit"/);
+ assert.match(code,/displayTitle\(\)/);
  assert.doesNotMatch(code,/TELEGRAM_BOT_TOKEN|TELEGRAM_CHAT_ID/);
 });
