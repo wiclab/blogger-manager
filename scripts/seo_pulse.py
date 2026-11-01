@@ -3,7 +3,7 @@
 
 Collect Bing performance privately inside Actions, publish only site totals,
 non-sensitive page review links, and reviewable public post expiry signals.
-Never persist raw search queries, API keys or Blogger post bodies.
+Never persist raw search queries, API keys or full Blogger post bodies.
 """
 from __future__ import annotations
 
@@ -29,7 +29,7 @@ SEO_TZ = ZoneInfo("Asia/Seoul")
 BLOG_POST_PATH = re.compile(r"^/\d{4}/\d{2}/[^/]+\.html$")
 DATE_JSON = re.compile(r"/Date\((-?\d{10,15})(?:[+-]\d{4})?\)/")
 EVENT_TERMS = re.compile(
-    r"행사|특별.?할인|혜택|이벤트|모집|접수|마감|신청|공연|예매|쿠폰|캠페인|기간|"
+    r"행사|할인|특별.?할인|혜택|이벤트|모집|접수|마감|신청|공연|예매|쿠폰|캠페인|기간|"
     r"참여|지원|예약|발매|티켓|추첨|스위스|8강|4강|결승|경기|승부의\s*신|종료",
     re.I,
 )
