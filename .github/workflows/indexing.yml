@@ -5,10 +5,11 @@ on:
     paths:
       - "scripts/indexing.py"
       - "tests/test_indexing.py"
+      - "indexing.html"
       - ".github/workflows/indexing.yml"
   workflow_dispatch:
   schedule:
-    - cron: "13 */2 * * *"
+    - cron: "37 */2 * * *"
   push:
     branches: [main]
     paths:
@@ -66,7 +67,7 @@ jobs:
           path: data/indexing-report.json
           if-no-files-found: ignore
           retention-days: 7
-      - name: Persist only changed submission and inspection state
+      - name: Persist submission state and safe public dashboard
         if: github.event_name != 'pull_request' && steps.bing-config.outputs.ready == 'true'
         run: |
           set -euo pipefail
@@ -75,10 +76,13 @@ jobs:
           if [ -f data/indexing-state.json ]; then
             git add data/indexing-state.json
           fi
+          if [ -f data/indexing-dashboard.json ]; then
+            git add data/indexing-dashboard.json
+          fi
           if git diff --cached --quiet; then
             echo "No indexing state changes"
             exit 0
           fi
-          git commit -m "Update Byeolsemso indexing state"
+          git commit -m "Update Byeolsemso Bing submission state and transparent dashboard"
           git pull --rebase origin main
           git push origin HEAD:main
