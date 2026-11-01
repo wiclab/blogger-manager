@@ -103,3 +103,16 @@ test("home, static pages, and label views remain allowed without exposing search
   assert.equal(sent.length,3);
  }finally{globalThis.fetch=old;}
 });
+
+test("Blogger XML template embed uses CDATA and valid JavaScript",async()=>{
+ const {readFileSync}=await import("node:fs");
+ const {Script}=await import("node:vm");
+ const html=readFileSync(new URL("../blogger-embed.js",import.meta.url),"utf8");
+ assert.match(html,/\/\/<!\[CDATA\[/);
+ assert.match(html,/\/\/\]\]>/);
+ const code=html.match(/<script[^>]*>([\s\S]*?)<\/script>/i)?.[1];
+ assert.ok(code);
+ assert.doesNotThrow(()=>new Script(code));
+ assert.match(code,/credentials:"omit"/);
+ assert.doesNotMatch(code,/TELEGRAM_BOT_TOKEN|TELEGRAM_CHAT_ID/);
+});
