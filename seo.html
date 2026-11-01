@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>별셈소 SEO 관제 · Blogger Manager</title>
+<style>
+:root{color-scheme:light;font-family:system-ui,-apple-system,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;--bg:#f4f7fc;--ink:#17233a;--muted:#627189;--line:#dce4f0;--blue:#245ee4;--card:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.65}
+header{background:#12284d;color:#fff}header .wrap{padding:24px 20px 16px}
+.wrap{max-width:1100px;margin:auto;padding:20px}
+h1{font-size:clamp(22px,4vw,30px);margin:0 0 4px}h2{font-size:19px;margin:0 0 14px}h3{font-size:16px;margin:0 0 6px}
+.sub{color:#d0ddef;margin:0;font-size:14px}.nav{display:flex;gap:7px;flex-wrap:wrap;margin-top:20px}
+.nav a{color:#dce9ff;text-decoration:none;padding:8px 12px;border-radius:10px;background:#ffffff17;font-size:13px}
+.nav a[aria-current=page]{background:#fff;color:#12284d;font-weight:700}
+.layout{display:grid;grid-template-columns:1fr;gap:18px}
+.panel{background:var(--card);padding:22px;border-radius:17px;border:1px solid var(--line);box-shadow:0 2px 10px #1c365508}
+.panel p{margin:4px 0 12px}.meta{font-size:13px;color:var(--muted)}.status{display:inline-flex;gap:6px;align-items:center;background:#e8eef9;color:#204c9a;border-radius:18px;padding:3px 10px;font-size:12px;font-weight:700}
+.status.warn{background:#fff1d6;color:#895300}.status.bad{background:#fce8e8;color:#9b1c1c}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:13px 0}
+.kpi{background:#f2f6ff;border:1px solid #e1e9fa;border-radius:12px;padding:15px}
+.kpi .num{font-size:clamp(19px,2.8vw,27px);font-weight:800;line-height:1.3;overflow-wrap:anywhere}.kpi .label{font-size:12px;color:#63738d}
+.chart{margin-top:20px;display:flex;align-items:flex-end;gap:5px;min-height:145px;border-bottom:1px solid var(--line)}
+.bar-wrap{display:flex;flex-direction:column;flex:1;justify-content:end;align-items:center;min-width:0;gap:5px;height:145px}
+.bar{background:linear-gradient(0deg,#3878ef,#94baff);width:100%;max-width:32px;border-radius:5px 5px 0 0;min-height:2px}
+.bar-label{color:var(--muted);font-size:10px;white-space:nowrap}
+.note{background:#f8fafc;border-left:3px solid #8db2f1;padding:11px 12px;font-size:13px;color:#526278;border-radius:6px}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+input,select,button{font:inherit;border-radius:9px;border:1px solid #cbd6e6;padding:8px 10px;background:#fff;min-width:0}
+input{flex:1;min-width:160px;max-width:320px}button{background:var(--blue);color:#fff;border-color:var(--blue);font-weight:600;cursor:pointer}
+.item{border-top:1px solid var(--line);padding:14px 0;display:grid;gap:4px}
+.item:first-child{border-top:0}
+.item a{color:#1456b3;text-decoration:underline;text-underline-offset:3px;font-weight:700;overflow-wrap:anywhere}
+.item .reason{font-size:13px;color:#596e85}.item .excerpt{font-size:13px;color:#4c5d73;background:#f7f9fd;padding:7px 9px;border-radius:7px;overflow-wrap:anywhere}
+.pill{display:inline-block;vertical-align:middle;border-radius:20px;background:#fff0dc;color:#865100;font-size:11px;padding:2px 8px;font-weight:700;margin-left:7px}
+.pill.expired{background:#feeaea;color:#982e2e}
+.empty{color:#68788e;padding:16px;background:#f7f9fd;border-radius:10px;font-size:14px}
+footer{padding:10px 20px 28px;text-align:center;color:#64738a;font-size:12px}
+@media(min-width:920px){.layout{grid-template-columns:1.05fr .95fr}.full{grid-column:1/-1}}
+@media(max-width:660px){.wrap{padding:14px}.panel{padding:15px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.nav a{font-size:12px;padding:6px 9px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>별셈소 SEO 관제</h1><p class="sub">Bing 검색 성과 + 기한이 지난 정보 검토 · GitHub Actions 자동 업데이트</p>
+<nav class="nav" aria-label="관리자 메뉴"><a href="./">콘텐츠 관리</a><a href="./stats.html">GSC · GA4 통계</a><a aria-current="page" href="./seo.html">Bing · 글 갱신</a><a href="./write.html">주제 발굴</a><a href="./news.html">뉴스</a></nav>
+</div></header>
+<main class="wrap">
+<div class="layout">
+<section class="panel">
+<div class="controls" style="justify-content:space-between"><h2>Bing 검색 실적</h2><span id="bingStatus" class="status">불러오는 중</span></div>
+<p id="bingUpdated" class="meta"></p>
+<div class="cards">
+<div class="kpi"><div class="label">검색 클릭 (최대 28일)</div><div class="num" id="clicks">—</div></div>
+<div class="kpi"><div class="label">검색 노출</div><div class="num" id="impressions">—</div></div>
+<div class="kpi"><div class="label">클릭률</div><div class="num" id="ctr">—</div></div>
+<div class="kpi"><div class="label">낮은 CTR 검색어 수</div><div class="num" id="opportunities">—</div></div>
+</div>
+<div id="chart" class="chart" role="img" aria-label="날짜별 Bing 검색 클릭 막대그래프"></div>
+<p class="note">Bing API 데이터는 업데이트가 늦거나 주간 단위로 묶일 수 있어. 검색어 원문과 글별 세부 실적은 공개 저장소에 보관하지 않아. 자세한 검색어 확인은 <a href="https://www.bing.com/webmasters/" target="_blank" rel="noopener noreferrer">Bing Webmaster Tools</a>에서 할 수 있어.</p>
+</section>
+<section class="panel">
+<h2>개선할 글 후보</h2>
+<p class="meta">최근 Bing 페이지 통계에서 노출이 일정 수준 이상인데 CTR이 낮은 공개 글만 선정해. 페이지별 수치나 검색어 원문은 공개하지 않아.</p>
+<div id="bingCandidates" class="empty">데이터 대기 중</div>
+</section>
+<section class="panel full">
+<div class="controls" style="justify-content:space-between">
+<div><h2>날짜·행사 정보 갱신 점검</h2><p id="staleUpdated" class="meta"></p></div>
+<span id="staleStatus" class="status">불러오는 중</span>
+</div>
+<div class="cards">
+<div class="kpi"><div class="label">공개 글 점검</div><div class="num" id="postCount">—</div></div>
+<div class="kpi"><div class="label">지나간 날짜 후보</div><div class="num" id="expiredCount">—</div></div>
+<div class="kpi"><div class="label">7일 내 날짜 후보</div><div class="num" id="upcomingCount">—</div></div>
+<div class="kpi"><div class="label">자동 수정</div><div class="num">0건</div></div>
+</div>
+<p class="note">이 목록은 **종료되었다고 확정한 결과가 아니야.** 본문에 행사·신청·할인 등과 연결된 날짜가 있는 글을 보여주는 검토 후보야. 지난 날짜를 설명하는 정상적인 글도 포함될 수 있어. 실제 사실 확인 후 필요할 때만 Blogger에서 수정해.</p>
+<div class="controls" style="margin-top:16px">
+<label for="filter">표시:</label>
+<select id="filter"><option value="all">전체</option><option value="expired">지난 날짜</option><option value="upcoming">다가오는 날짜</option></select>
+<label for="term" class="meta">제목 검색</label><input id="term" placeholder="글 제목으로 찾기" aria-label="글 제목 검색">
+<button id="refresh" type="button">새로고침</button>
+</div>
+<div id="staleList" class="empty">데이터 대기 중</div>
+</section>
+</div></main>
+<footer>Blogger Manager · 별셈소 전용 · 읽기 전용 데이터 · 자동 발행·수정 없음</footer>
+<script>
+"use strict";
+let staleItems=[];
+const $=id=>document.getElementById(id);
+const fmt=n=>Number.isFinite(Number(n))?Number(n).toLocaleString("ko-KR"):"—";
+const t=(tag,content,cls)=>{const el=document.createElement(tag);if(content!==undefined)el.textContent=String(content);if(cls)el.className=cls;return el;};
+function localTime(value){if(!value)return "갱신 기록 없음";let d=new Date(value);return Number.isNaN(+d)?"시간 미확인":d.toLocaleString("ko-KR",{timeZone:"Asia/Seoul"});}
+function validUrl(raw){try{const u=new URL(raw);return u.protocol==="https:"&&u.hostname==="wic12.blogspot.com"&&/^\/\d{4}\/\d{2}\/[^/]+\.html$/.test(u.pathname)?u.href:null;}catch{return null;}}
+function status(id,value){$(id).textContent=value==="ok"?"정상":value==="stale"?"이전 데이터":value==="not_configured"?"인증 미설정":"수집 대기";$(id).className="status"+(value==="ok"?"":value==="stale"?" warn":" bad");}
+function link(url,title){let a=t("a",title);a.href=validUrl(url)||"#";a.target="_blank";a.rel="noopener noreferrer";return a;}
+function renderBing(data){
+ status("bingStatus",data.status); $("bingUpdated").textContent="수집: "+localTime(data.updated_at)+" · Bing 제공 28일 구간(데이터 제공 범위 내)";
+ let metrics=data.totals||{};
+ $("clicks").textContent=data.status==="ok"||data.status==="stale"?fmt(metrics.clicks):"—";
+ $("impressions").textContent=data.status==="ok"||data.status==="stale"?fmt(metrics.impressions):"—";
+ $("ctr").textContent=Number.isFinite(Number(metrics.ctr_pct))?Number(metrics.ctr_pct).toFixed(2)+"%":"—";
+ $("opportunities").textContent=fmt(data.low_ctr_query_count);
+ let chart=$("chart");chart.replaceChildren();const rows=Array.isArray(data.daily)?data.daily.slice(-28):[];
+ if(!rows.length){chart.replaceWith(Object.assign(t("div","아직 Bing 성과 데이터가 없어.","empty"),{id:"chart"}));return renderCandidates(data);}
+ const max=Math.max(1,...rows.map(v=>Number(v.clicks)||0));
+ for(const row of rows){const wrapper=t("div",undefined,"bar-wrap");let bar=t("div",undefined,"bar");bar.style.height=(Math.max(2,(Number(row.clicks)||0)/max*116))+"px";bar.title=row.date+" · 클릭 "+fmt(row.clicks)+" · 노출 "+fmt(row.impressions);wrapper.append(bar);const lab=t("span",String(row.date||"").slice(5),"bar-label");wrapper.append(lab);chart.append(wrapper);}
+ renderCandidates(data);
+}
+function renderCandidates(data){const area=$("bingCandidates");area.replaceChildren();let rows=Array.isArray(data.page_review_candidates)?data.page_review_candidates:[];if(!rows.length){area.className="empty";area.textContent="현재 기준에 맞는 개선 후보가 없거나 데이터가 충분하지 않아.";return;}area.className="";for(const item of rows){const url=validUrl(item.url);if(!url)continue;let row=t("div",undefined,"item");row.append(link(url,item.title||url));row.append(t("span",item.reason||"Bing 검색 개선 후보","reason"));area.append(row);}}
+function renderStale(data){status("staleStatus",data.status);$("staleUpdated").textContent="분석: "+localTime(data.updated_at)+" · 자동 수정하지 않음";$("postCount").textContent=fmt(data.checked_posts);$("expiredCount").textContent=fmt(data.expired_count);$("upcomingCount").textContent=fmt(data.upcoming_count);staleItems=Array.isArray(data.items)?data.items:[];renderStaleList();}
+function renderStaleList(){const area=$("staleList");area.replaceChildren();const filter=$("filter").value;const term=$("term").value.trim().toLowerCase();const rows=staleItems.filter(x=>(filter==="all"||x.status===filter)&&String(x.title||"").toLowerCase().includes(term));if(!rows.length){area.className="empty";area.textContent="조건에 맞는 날짜 검토 후보가 없어.";return;}area.className="";for(const item of rows){let url=validUrl(item.url);if(!url)continue;let row=t("article",undefined,"item");let heading=t("div");heading.append(link(url,item.title||url));heading.append(t("span",(item.status==="expired"?"지난 날짜 ":"곧 도래 ")+(item.deadline||""),"pill "+(item.status==="expired"?"expired":"")));row.append(heading);row.append(t("div",item.reason||"기한 점검 필요","reason"));if(item.context)row.append(t("div",item.context,"excerpt"));area.append(row);}}
+async function load(){try{const response=await fetch("./data/seo-pulse.json?ts="+Date.now(),{cache:"no-store"});if(!response.ok)throw Error("HTTP "+response.status);const data=await response.json();if(data.site!=="https://wic12.blogspot.com/")throw Error("다른 블로그 보고서");renderBing(data.bing||{});renderStale(data.stale||{});}catch(error){status("bingStatus","error");status("staleStatus","error");$("bingCandidates").textContent="보고서가 아직 생성되지 않았거나 로드할 수 없어."; $("staleList").textContent="SEO Pulse 자동 실행 후 표시돼. 오류: "+error.message;}}
+$("refresh").addEventListener("click",load);$("filter").addEventListener("change",renderStaleList);$("term").addEventListener("input",renderStaleList);load();
+</script>
+</body>
+</html>
