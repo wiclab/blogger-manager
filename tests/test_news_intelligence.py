@@ -4,7 +4,7 @@ import unittest
 from unittest.mock import patch
 from scripts.news_intelligence import (
     build, canonical, match_posts, news_key, score_item, tokens,
-    reconcile_coverage, focused_news,
+    reconcile_coverage, focused_news, cached_public_posts,
 )
 
 NOW = dt.datetime(2026, 11, 2, 0, 0, tzinfo=dt.timezone.utc)
@@ -82,6 +82,30 @@ class NewsIntelligenceTests(unittest.TestCase):
             coverage, expected = reconcile_coverage(posts, "complete")
         self.assertEqual(coverage, "partial")
         self.assertEqual(expected, 219)
+
+    def test_near_complete_does_not_claim_full_post_coverage(self):
+        posts = [{"url": "https://wic12.blogspot.com/2026/11/example.html",
+                  "title": "이전 게시글"}] * 218
+        with patch("scripts.news_intelligence.expected_post_count", return_value=219):
+            coverage, expected = reconcile_coverage(posts, "complete")
+        self.assertEqual(coverage, "near_complete")
+        self.assertEqual(expected, 219)
+
+    def test_cached_title_index_rejects_other_blog(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / "titles.json"
+            path.write_text(json.dumps({
+                "site": "https://ggpong.blogspot.com/",
+                "updatedAt": NOW.isoformat(),
+                "posts": [{"url": "https://ggpong.blogspot.com/2026/11/a.html",
+                           "title": "타 블로그"}]
+            }))
+            with patch("scripts.news_intelligence.TITLE_CACHE", path), \
+                 patch("scripts.news_intelligence.NOW_UTC", return_value=NOW):
+                self.assertEqual(cached_public_posts(), [])
 
     def test_focused_rss_failure_falls_back_to_existing_news(self):
         with patch("urllib.request.urlopen", side_effect=OSError("offline")):
