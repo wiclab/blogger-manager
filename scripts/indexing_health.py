@@ -41,13 +41,16 @@ def failing_step_category(jobs):
             if step.get("conclusion") != "failure":
                 continue
             name = step.get("name", "").lower()
-            if any(x in name for x in ("receipt", "restore", "state integrity")):
+            if any(x in name for x in ("restore receipt", "saved indexing receipts",
+                                           "state integrity")):
                 return "state_integrity"
             if any(x in name for x in ("compile", "validate", "unit test", "syntax")):
                 return "code_validation"
-            if any(x in name for x in ("persist", "push", "publish")):
+            if any(x in name for x in ("persist", "push", "publish",
+                                           "commit reservation", "acknowledged receipts")):
                 return "state_persistence"
-            if "submit changed" in name:
+            if any(x in name for x in ("submit changed", "submit only committed",
+                                           "prepare protected bing intent")):
                 return "bing_execution"
             if "configuration" in name:
                 return "configuration"
