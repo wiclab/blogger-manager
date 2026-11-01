@@ -16,6 +16,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+      - name: Read latest isolated news snapshot
+        uses: actions/checkout@v4
+        with:
+          ref: news-data
+          path: news-data
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -39,7 +45,7 @@ jobs:
                   f'Collect daily news run {run_id or "unknown"} ended with {conclusion or "unknown"}'
               )
 
-          snapshot = json.loads(Path('data/news.json').read_text(encoding='utf-8'))
+          snapshot = json.loads(Path('news-data/data/news.json').read_text(encoding='utf-8'))
           generated_at = snapshot.get('generatedAt')
           if not isinstance(generated_at, str):
               raise SystemExit('news.json has no generatedAt')
