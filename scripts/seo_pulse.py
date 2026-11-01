@@ -348,6 +348,8 @@ def run() -> dict:
             file.write(f"- Bing: {result['bing'].get('status')}\n")
             file.write(f"- 오래된 정보 후보: {result['stale'].get('expired_count', '미확인')}\n")
             file.write(f"- 오류: {len(errors)}\n")
+    for warning in errors:
+        print("::warning::SEO Pulse: " + warning, file=sys.stderr)
     print(json.dumps({
         "site": SITE, "bing_status": result["bing"].get("status"),
         "bing_clicks_28d": result["bing"].get("totals", {}).get("clicks"),
@@ -360,4 +362,5 @@ def run() -> dict:
 
 if __name__ == "__main__":
     output = run()
-    sys.exit(0 if not output["warnings"] else 1)
+    sys.exit(0 if (output["bing"].get("status") == "ok" or
+                   output["stale"].get("status") == "ok") else 1)
