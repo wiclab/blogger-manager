@@ -1,0 +1,71 @@
+name: Required code integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  code-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Compile all Python source without external services
+        run: python -m compileall -q scripts tests
+      - name: Run offline regression suite
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Validate dashboard inline JavaScript
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          pages = ('indexing.html', 'seo.html', 'news.html', 'intelligence.html')
+          folder = Path('/tmp/blogger-manager-js-check')
+          folder.mkdir(exist_ok=True)
+          for page in pages:
+              scripts = re.findall(r'<script(?:\\s+[^>]*)?>([\\s\\S]*?)</script>', Path(page).read_text(encoding='utf-8'), flags=re.I)
+              if not scripts or not any(script.strip() for script in scripts):
+                  raise SystemExit(f'{page}: expected at least one inline script')
+              for i, script in enumerate(scripts):
+                  (folder / f'{page}-{i}.js').write_text(script, encoding='utf-8')
+          PY
+          for script in /tmp/blogger-manager-js-check/*.js; do
+            node --check "$script"
+          done
+      - name: Verify isolated data routing and absence of old state on main
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          expected = {
+              'news.html': '/news-data/data/news.json',
+              'intelligence.html': '/news-data/data/news-intelligence.json',
+              'seo.html': '/seo-data/data/seo-pulse.json',
+              'indexing.html': '/seo-data/data/seo-pulse.json',
+          }
+          for file, route in expected.items():
+              if route not in Path(file).read_text(encoding='utf-8'):
+                  raise SystemExit(f'{file}: expected data route {route} missing')
+          for file in (
+              'data/news.json', 'data/news-intelligence.json', 'data/news-alert-state.json',
+              'data/seo-pulse.json', 'data/blog-post-titles.json',
+              'data/indexing-state.json', 'data/indexing-dashboard.json',
+              'data/indexing-health.json',
+          ):
+              if Path(file).exists():
+                  raise SystemExit(f'{file}: stale canonical data tracked on code branch')
+          for name in ('news', 'seo-pulse', 'indexing', 'indexing-health'):
+              workflow = Path(f'.github/workflows/{name}.yml').read_text(encoding='utf-8')
+              if 'git push origin HEAD:main' in workflow:
+                  raise SystemExit(f'{name}: automatic push to main is forbidden')
+          PY
