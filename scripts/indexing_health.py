@@ -83,6 +83,8 @@ def assess(runs, dashboard, at=None, failure_kind="unknown"):
     if not recent(last_dashboard, at):
         issues.append("색인 제출 대시보드가 5시간 이상 갱신되지 않았습니다.")
         codes.append("dashboard_stale")
+    if last_scheduled and recent(last_scheduled, at) and not recent(last_success, at):
+        issues.append("예약 실행 기록은 있으나 정상 완료되지 않았습니다.")
     if streak >= 2:
         issues.append(f"예약 실행이 {streak}회 연속 실패했습니다.")
         codes.append("repeated_failure")
