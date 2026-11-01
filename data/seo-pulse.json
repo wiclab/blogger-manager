@@ -23,19 +23,19 @@
       "ctr_pct": 0.0,
       "impressions": 20
     },
-    "updated_at": "2026-11-01T10:05:14+00:00",
+    "updated_at": "2026-11-01T16:07:09+00:00",
     "window": {
-      "from": "2026-10-05",
-      "to": "2026-11-01",
+      "from": "2026-10-06",
+      "to": "2026-11-02",
       "type": "daily API values"
     }
   },
-  "checked_date": "2026-11-01",
+  "checked_date": "2026-11-02",
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
   "stale": {
-    "checked_posts": 218,
-    "expired_count": 10,
+    "checked_posts": 219,
+    "expired_count": 11,
     "items": [
       {
         "context": "금액, 참여 매장, 행사 기간, 구매 한도를 함께 봐야 합니다. 핵심부터 정리하면 농축산물 할인은 2026년 9월 3일부터 9월 23일까지 진행되는 일정이 안내되어 있고, 수",
@@ -121,7 +121,7 @@
         "context": "준, 이 목록에서 다음으로 예정된 공연입니다. 실제 예매 가능 여부는 공식 예매처에서 확인하세요. 2026년 10월 31일~11월 1일 김재환 콘서트 ‘여백:餘白’ 공연장 블",
         "deadline": "2026-11-01",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "upcoming",
+        "status": "expired",
         "title": "2026년 10~12월 주요 콘서트 일정·티켓 가격·공식 예매 안내",
         "url": "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html"
       },
@@ -160,8 +160,8 @@
     ],
     "note": "Potential dates only: context can be historical or already updated. Do not auto-edit posts.",
     "status": "ok",
-    "upcoming_count": 5,
-    "updated_at": "2026-11-01T10:05:16+00:00"
+    "upcoming_count": 4,
+    "updated_at": "2026-11-01T16:07:10+00:00"
   },
   "warnings": []
 }
