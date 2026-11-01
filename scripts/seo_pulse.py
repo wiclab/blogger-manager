@@ -156,7 +156,7 @@ def bing_pulse(key: str, reference: dt.date) -> dict:
         value["clicks"] += int_safe(row.get("Clicks"))
         value["impressions"] += int_safe(row.get("Impressions"))
     trend = sorted(by_day.values(), key=lambda x: x["date"])
-    totals = summary(trend)
+    totals = summary(daily_recent)
 
     # Page stats may use weekly timestamps; use a 56-day window.
     window = reference - dt.timedelta(days=55)
