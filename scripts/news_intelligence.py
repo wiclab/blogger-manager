@@ -23,6 +23,7 @@ BLOG = "https://" + HOST + "/"
 SOURCE = Path("data/news.json")
 REPORT = Path("data/news-intelligence.json")
 ALERT_STATE = Path("data/news-alert-state.json")
+TITLE_CACHE = Path("data/blog-post-titles.json")
 NOW_UTC = lambda: dt.datetime.now(dt.timezone.utc)
 
 TOPIC_TERMS = ("요금", "가격", "수수료", "할인", "지원금", "상품권", "자동이체",
@@ -148,8 +149,31 @@ def fetch_posts_from_atom() -> tuple[list[dict], str]:
             "partial")
 
 
+def cached_public_posts() -> list[dict]:
+    """Reuse fresh SEO-pulse public title cache during Blogger/Atom outages."""
+    try:
+        record = json.loads(TITLE_CACHE.read_text(encoding="utf-8"))
+        timestamp = dt.datetime.fromisoformat(record["updatedAt"].replace("Z", "+00:00"))
+        if record.get("site") != BLOG or (NOW_UTC() - timestamp).total_seconds() > 72 * 3600:
+            return []
+        if timestamp > NOW_UTC() + dt.timedelta(minutes=5):
+            return []
+        items = record.get("posts", [])
+        if not isinstance(items, list) or len(items) > 10000:
+            return []
+        checked = {}
+        for row in items:
+            url = canonical(row.get("url", ""))
+            title = str(row.get("title") or "")[:200]
+            if url and title:
+                checked[url] = title
+        return [{"url": url, "title": title} for url, title in checked.items()]
+    except (OSError, ValueError, TypeError, KeyError):
+        return []
+
+
 def fetch_posts() -> tuple[list[dict], str]:
-    """Prefer the already used Blogger API if configured; fallback to public Atom."""
+    """Try Blogger API, then Atom, then use the public-only title cache."""
     api_key = os.environ.get("BLOGGER_API_KEY", "").strip()
     if api_key:
         try:
@@ -163,12 +187,16 @@ def fetch_posts() -> tuple[list[dict], str]:
         except Exception:
             print("Blogger title API unavailable; trying public Atom feed")
     try:
-        return fetch_posts_from_atom()
+        posts, coverage = fetch_posts_from_atom()
     except Exception as exc:
-        print("Public post titles unavailable; showing unverified leads only:",
+        print("Public post Atom unavailable; trying public title cache:",
               type(exc).__name__)
-        return [], "unavailable"
-
+        posts, coverage = [], "unavailable"
+    saved = cached_public_posts()
+    if len(saved) > len(posts):
+        print("Using latest public title cache for fuller post comparison")
+        return saved, "complete"
+    return posts, coverage
 
 
 def expected_post_count() -> int:
@@ -191,8 +219,8 @@ def reconcile_coverage(posts: list[dict], declared: str) -> tuple[str, int]:
     expected = expected_post_count()
     # Public Atom sometimes exposes fewer titles than the real sitemap.
     # Refuse to label that incomplete comparison as complete.
-    if declared == "complete" and expected and len(posts) < int(expected * .9):
-        return "partial", expected
+    if declared == "complete" and expected and len(posts) < expected:
+        return ("near_complete" if len(posts) >= expected * .95 else "partial"), expected
     return declared, expected
 
 
@@ -326,7 +354,7 @@ def alert(report: dict) -> str:
         sent = []
     recent = {r.get("id") for r in sent if isinstance(r, dict)}
     # Post match coverage must be complete to avoid false "new" recommendations.
-    candidates = report["updates"] + (report["ideas"] if report["postCoverage"] == "complete" else [])
+    candidates = report["updates"] + (report["ideas"] if report["postCoverage"] in {"complete", "near_complete"} else [])
     candidates = [row for row in candidates if row["score"] >= 82 and row["id"] not in recent]
     candidates.sort(key=lambda x: (x not in report["updates"], -x["score"]))
     selected = candidates[:3]
