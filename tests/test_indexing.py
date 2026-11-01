@@ -109,10 +109,11 @@ class IndexingTests(unittest.TestCase):
             state_path = Path(directory) / "state.json"
             report_path = Path(directory) / "report.json"
             url = "https://wic12.blogspot.com/2026/11/a.html"
-            def success(posts, state, key):
+            def success(posts, state, key, diagnostics=None):
                 state["bing"][url] = {"fingerprint": "2026-11-01", "submitted_at": "2026-11-01T00:00:00+00:00"}
                 return [url]
             with patch.object(indexing, "STATE_PATH", state_path), patch.object(indexing, "REPORT_PATH", report_path), \
+                 patch.object(indexing, "DASHBOARD_PATH", Path(directory) / "dashboard.json"), \
                  patch.object(indexing, "collect_sitemap", return_value={url: "2026-11-01"}), \
                  patch.object(indexing, "collect_atom_updates", return_value={}), \
                  patch.object(indexing, "bing_submit", side_effect=success), \
@@ -136,6 +137,73 @@ class IndexingTests(unittest.TestCase):
             self.assertEqual(report["published_posts"], 1)
             self.assertTrue(report_path.exists())
             self.assertFalse(state_path.exists())
+
+
+    def test_fresh_first_and_old_backlog_reserved(self):
+        posts = {}
+        for i in range(1, 90):
+            posts[f"https://wic12.blogspot.com/2026/08/old-{i:03}.html"] = "2026-08-12T10:00:00Z"
+        for i in range(1, 60):
+            posts[f"https://wic12.blogspot.com/2026/11/fresh-{i:03}.html"] = "2026-11-01T12:00:00+09:00"
+        today = indexing.dt.datetime(2026, 11, 1, 13, tzinfo=indexing.dt.timezone.utc)
+        result = indexing.select_bing_candidates(posts, {}, 100, at=today)
+        self.assertEqual(len(result), 100)
+        fresh = [x for x, _ in result if "/fresh-" in x]
+        backlog = [x for x, _ in result if "/old-" in x]
+        self.assertEqual(len(fresh), 30)
+        self.assertEqual(len(backlog), 70)
+        self.assertTrue(all("/fresh-" in x for x,_ in result[:30]))
+
+    def test_timezone_aware_fresh_sorting(self):
+        posts = {
+            "https://wic12.blogspot.com/2026/11/earlier.html":"2026-11-01T19:00:00+09:00",
+            "https://wic12.blogspot.com/2026/11/later.html":"2026-11-01T11:00:00Z",
+        }
+        at = indexing.dt.datetime(2026,11,1,12,tzinfo=indexing.dt.timezone.utc)
+        result = indexing.select_bing_candidates(posts, {}, 2, at=at)
+        self.assertTrue(result[0][0].endswith("/later.html"))
+
+    def test_already_submitted_fingerprint_is_skipped(self):
+        url = "https://wic12.blogspot.com/2026/11/a.html"
+        state = {url: {"fingerprint": "2026-11-01T11:00:00Z"}}
+        self.assertEqual(indexing.select_bing_candidates({url:"2026-11-01T11:00:00Z"},state,100),[])
+        self.assertEqual(len(indexing.select_bing_candidates({url:"2026-11-01T12:00:00Z"},state,100)),1)
+
+    def test_large_batch_respects_quota_and_saves_only_after_success(self):
+        posts={f"https://wic12.blogspot.com/2026/08/p{i:03}.html":"2026-08-01T00:00:00Z" for i in range(130)}
+        state={"bing":{}}
+        calls=[]
+        def fake_request(endpoint, **kwargs):
+            if "GetUserSites" in endpoint:
+                return 200,b'{"d":[{"Url":"https://wic12.blogspot.com/","IsVerified":true}]}'
+            if "GetUrlSubmissionQuota" in endpoint:
+                return 200,b'{"d":{"DailyQuota":77,"MonthlyQuota":400}}'
+            calls.append(kwargs["payload"]["urlList"])
+            return 200,b'{"d":null}'
+        diagnostics={}
+        with patch.object(indexing,"request",fake_request):
+            result=indexing.bing_submit(posts,state,"dummy",diagnostics)
+        self.assertEqual(len(result),77)
+        self.assertEqual(len(state["bing"]),77)
+        self.assertEqual(len(calls[0]),77)
+        self.assertEqual(diagnostics["daily_quota_remaining_before"],77)
+        self.assertFalse(diagnostics["quota_exhausted"])
+
+    def test_dashboard_metrics_are_distinct_and_site_safe(self):
+        posts={"https://wic12.blogspot.com/2026/11/fresh.html":"2026-11-01T13:00:00Z",
+               "https://wic12.blogspot.com/2026/08/old.html":"2026-08-01T00:00:00Z"}
+        state={"bing":{list(posts)[0]:{"fingerprint":"2026-11-01T13:00:00Z","submitted_at":"2026-11-01T13:05:00Z"}},
+               "google":{}}
+        report={"generated_at":"2026-11-01T13:06:00Z","bing_submitted":[list(posts)[0]],
+                "google_inspection_enabled":False,"google_inspected":[],"google_error":None}
+        data=indexing.build_dashboard(posts,state,report,{})
+        self.assertEqual(data["bing_submission"]["tracked_submitted_count"],1)
+        self.assertEqual(data["bing_submission"]["pending_count"],1)
+        self.assertIsNone(data["bing_submission"]["daily_quota_remaining_before"])
+        self.assertFalse(data["google_inspection"]["enabled"])
+        self.assertNotIn("indexed_count",data["bing_submission"])
+        self.assertEqual(data["site"],indexing.SITE)
+        self.assertIn("impressions",data["metric_definitions"])
 
 
 if __name__ == "__main__":
