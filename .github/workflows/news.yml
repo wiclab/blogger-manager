@@ -49,7 +49,7 @@ jobs:
           BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python scripts/news_intelligence.py
+        run: python -m scripts.news_intelligence
       - name: Save snapshot
         run: |
           git config user.name 'github-actions[bot]'
