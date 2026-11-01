@@ -6,6 +6,7 @@
 - [콘텐츠 관리](https://wiclab.github.io/blogger-manager/)
 - [통계](https://wiclab.github.io/blogger-manager/stats.html)
 - [Bing 성과·오래된 정보 점검](https://wiclab.github.io/blogger-manager/seo.html)
+- [Bing 제출·예약 실행·색인·검색 실적 분리 대시보드](https://wiclab.github.io/blogger-manager/indexing.html)
 - [주제 발굴](https://wiclab.github.io/blogger-manager/write.html)
 - [글 편집](https://wiclab.github.io/blogger-manager/editor.html)
 - [뉴스](https://wiclab.github.io/blogger-manager/news.html)
@@ -15,7 +16,8 @@
 - `news-health.yml`: 뉴스 수집과 스냅샷 유효성 점검
 - `scan.yml`: 1시간마다 Blogger 게시물 품질 검사
 - `editor-checks.yml`: 편집기 회귀 테스트
-- `indexing.yml`: 별셈소 전용 Bing 자동 제출, Google Search Console 선택적 색인 점검
+- `indexing.yml`: 별셈소 URL 제출(회당 최대 100개, 실제 API 할당량 우선)과 검색 인덱스 선택 점검, 공개 요약 생성
+- `indexing-health.yml`: 4시간마다 독립적으로 예약 실행 성공과 제출 요약의 갱신 시각 점검 (5시간 초과 시 경고)
 - `seo-pulse.yml`: 매일 Bing 검색 유입 집계 및 지난 행사·신청 날짜 검토
 
 ## 문서
