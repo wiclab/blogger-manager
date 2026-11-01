@@ -21,10 +21,12 @@ HOST = "wic12.blogspot.com"
 SITEMAP = SITE + "sitemap.xml"
 STATE_PATH = Path("data/indexing-state.json")
 REPORT_PATH = Path("data/indexing-report.json")
+DASHBOARD_PATH = Path("data/indexing-dashboard.json")
 POST_RE = re.compile(r"^/\d{4}/\d{2}/[^/]+\.html$")
 BING_API = "https://ssl.bing.com/webmaster/api.svc/json/"
 GSC_INSPECT = "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect"
-MAX_BING = 25
+MAX_BING = 100  # Bing accepts up to 500 per API batch; cap burst volume at 100
+MAX_PRIORITY = 30  # reserve remaining slots for older pending URLs
 MAX_GSC = 6
 HEADERS = {"User-Agent": "ByeolsemsoIndexingBot/1.0 (sitemap monitoring)"}
 
@@ -199,16 +201,58 @@ def bing_verified_site(api_key: str) -> str:
     raise RuntimeError("Bing API account has no verified Byeolsemso site property")
 
 
-def bing_submit(posts: dict[str, str], state: dict, api_key: str) -> list[str]:
+def utc_stamp(raw: str) -> dt.datetime | None:
+    """Parse Blogger Atom/sitemap timestamps without lexicographical timezone bugs."""
+    if not raw:
+        return None
+    try:
+        parsed = dt.datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        return parsed.replace(tzinfo=dt.timezone.utc) if parsed.tzinfo is None else parsed.astimezone(dt.timezone.utc)
+    except ValueError:
+        return None
+
+
+def select_bing_candidates(posts: dict[str, str], saved: dict, limit: int,
+                           at: dt.datetime | None = None) -> list[tuple[str, str]]:
+    """Fresh new/updated posts first; reserve slots for old backlog to avoid starvation."""
+    if limit <= 0:
+        return []
+    at = at or dt.datetime.now(dt.timezone.utc)
+    changed = [(url, stamp) for url, stamp in posts.items()
+               if saved.get(url, {}).get("fingerprint") != (stamp or "unknown")]
+    # A previously submitted URL whose content changed is new work, not initial backlog.
+    recent, backlog = [], []
+    for url, stamp in changed:
+        ts = utc_stamp(stamp)
+        if ts is not None and dt.timedelta(0) <= (at - ts) <= dt.timedelta(days=7):
+            recent.append((url, stamp, ts))
+        else:
+            backlog.append((url, stamp, ts))
+    recent.sort(key=lambda x: (x[2], x[0]), reverse=True)
+    # Oldest pending posts first, with a stable URL fallback if lastmod is unavailable.
+    backlog.sort(key=lambda x: (x[2] or dt.datetime.min.replace(tzinfo=dt.timezone.utc), x[0]))
+    priority_slots = min(MAX_PRIORITY, limit, len(recent))
+    selection = recent[:priority_slots]
+    selection += backlog[:limit-len(selection)]
+    selection += recent[priority_slots:priority_slots + max(0,limit-len(selection))]
+    return [(url, stamp) for url, stamp, _ in selection]
+
+
+def bing_submit(posts: dict[str, str], state: dict, api_key: str,
+                diagnostics: dict | None = None) -> list[str]:
     saved = state["bing"]
     changed = [(url, stamp) for url, stamp in posts.items()
                if saved.get(url, {}).get("fingerprint") != (stamp or "unknown")]
-    changed.sort(key=lambda row: (row[1], row[0]), reverse=True)
+    metrics = diagnostics if diagnostics is not None else {}
+    metrics.update({"daily_quota_remaining_before": None, "monthly_quota_remaining_before": None,
+                    "quota_exhausted": False, "api_verified": False, "selected_count": 0})
     if not changed:
+        metrics["api_verified"] = False
         return []
     if not api_key:
         raise RuntimeError("BING_API_KEY GitHub Actions secret is missing")
     site_property = bing_verified_site(api_key)
+    metrics["api_verified"] = True
     print(f"Bing verified Byeolsemso property: {site_property}")
     key_query = urllib.parse.urlencode({"apikey": api_key})
     quota_url = BING_API + "GetUrlSubmissionQuota?" + urllib.parse.urlencode(
@@ -217,11 +261,17 @@ def bing_submit(posts: dict[str, str], state: dict, api_key: str) -> list[str]:
     quota = json.loads(quota_body).get("d") or {}
     daily = max(0, int(quota.get("DailyQuota", 0)))
     monthly = max(0, int(quota.get("MonthlyQuota", 0)))
+    metrics["daily_quota_remaining_before"] = daily
+    metrics["monthly_quota_remaining_before"] = monthly
     if not daily or not monthly:
+        metrics["quota_exhausted"] = True
         print("Bing API quota exhausted; pending URLs will retry later")
         return []
-    selection = changed[:min(MAX_BING, daily, monthly)]
+    selection = select_bing_candidates(posts, saved, min(MAX_BING, daily, monthly))
+    if not selection:
+        return []
     urls = [url for url, _ in selection]
+    metrics["selected_count"] = len(urls)
     _, response_body = request(BING_API + "SubmitUrlBatch?" + key_query,
                                payload={"siteUrl": site_property, "urlList": urls})
     response_data = json.loads(response_body)
@@ -232,6 +282,58 @@ def bing_submit(posts: dict[str, str], state: dict, api_key: str) -> list[str]:
         saved[url] = {"fingerprint": stamp or "unknown", "submitted_at": submitted_at}
     return urls
 
+
+def build_dashboard(posts: dict[str, str], state: dict, report: dict,
+                    diagnostics: dict) -> dict:
+    """Safe public aggregate: never contains API keys, raw GSC queries or credentials."""
+    saved = state["bing"]
+    pending = [(url, stamp) for url, stamp in posts.items()
+               if saved.get(url, {}).get("fingerprint") != (stamp or "unknown")]
+    # Recent first for display; sitemap timestamps can be absent for older posts.
+    pending.sort(key=lambda row: (utc_stamp(row[1]) or dt.datetime.min.replace(
+        tzinfo=dt.timezone.utc), row[0]), reverse=True)
+    submitted_stamps = [v.get("submitted_at", "") for url, v in saved.items()
+                        if url in posts and isinstance(v, dict) and v.get("submitted_at")]
+    last_submission = max(submitted_stamps) if submitted_stamps else None
+    gsc = state.get("google", {})
+    checks = [v for u, v in gsc.items() if u in posts and isinstance(v, dict)]
+    return {
+        "schema": 1, "site": SITE, "updated_at": report["generated_at"],
+        "automation": {
+            "last_successful_check_at": report["generated_at"],
+            "schedule_expected_interval_hours": 2,
+            "stale_after_hours": 5,
+            "run_state": "ok",
+        },
+        "bing_submission": {
+            "state": "quota_exhausted" if diagnostics.get("quota_exhausted") else "ok",
+            "published_count": len(posts),
+            "tracked_submitted_count": len(posts) - len(pending),
+            "pending_count": len(pending),
+            "submitted_this_run": len(report["bing_submitted"]),
+            "last_successful_submission_at": last_submission,
+            "daily_quota_remaining_before": diagnostics.get("daily_quota_remaining_before"),
+            "monthly_quota_remaining_before": diagnostics.get("monthly_quota_remaining_before"),
+            "per_run_cap": MAX_BING,
+            "recent_pending": [url for url, stamp in pending[:12]],
+            "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
+        },
+        "google_inspection": {
+            "enabled": report["google_inspection_enabled"],
+            "checked_count": len(checks),
+            "pass_count": sum(v.get("verdict") == "PASS" for v in checks),
+            "other_count": sum(v.get("verdict") != "PASS" for v in checks),
+            "checked_this_run": len(report["google_inspected"]),
+            "error": bool(report.get("google_error")),
+            "note": "Partial URL inspection sample, not a site-wide index count. No Google indexing requests.",
+        },
+        "metric_definitions": {
+            "submitted": "Bing API accepted URL-submission request (not indexed)",
+            "indexed": "Search engine index status, not directly available from Bing submission API",
+            "impressions": "Search results display counts provided by Bing Webmaster performance API",
+            "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
+        }
+    }
 
 def google_access_token() -> str | None:
     values = [os.environ.get(name, "") for name in
@@ -300,7 +402,8 @@ def run() -> dict:
             posts[url] = updated
     state = load_state()
     previous = json.dumps(state, sort_keys=True)
-    submitted = bing_submit(posts, state, os.environ.get("BING_API_KEY", ""))
+    diagnostics = {}
+    submitted = bing_submit(posts, state, os.environ.get("BING_API_KEY", ""), diagnostics)
     google_error = None
     try:
         inspected = google_check(posts, state, google_access_token())
@@ -327,6 +430,7 @@ def run() -> dict:
         "note": "Bing submission is not guaranteed indexing. Google only inspects indexed-version status; no indexing request API is used."
     }
     write_json(REPORT_PATH, report)
+    write_json(DASHBOARD_PATH, build_dashboard(posts, state, report, diagnostics))
     return report
 
 
