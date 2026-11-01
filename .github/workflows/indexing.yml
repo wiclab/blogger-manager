@@ -63,13 +63,10 @@ jobs:
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
-      - name: Submit changed posts to Bing; optionally inspect Google index
+      - name: Submit changed Byeolsemso posts to Bing
         if: github.event_name != 'pull_request' && steps.bing-config.outputs.ready == 'true'
         env:
           BING_API_KEY: ${{ secrets.BING_API_KEY }}
-          GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
-          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
-          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
         run: python scripts/indexing.py
       - name: Store report (7 days)
         if: always() && github.event_name != 'pull_request'
