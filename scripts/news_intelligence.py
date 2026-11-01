@@ -368,7 +368,20 @@ def save_json(path: Path, value: dict) -> None:
                     encoding="utf-8")
 
 
-def alert(report: dict) -> str:
+def telegram_send(payload: dict, token: str) -> bool:
+    """Never print the request URL or credentials."""
+    request = urllib.request.Request(
+        "https://api.telegram.org/bot" + token + "/sendMessage",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"}, method="POST")
+    try:
+        with urllib.request.urlopen(request, timeout=12) as response:
+            return json.loads(response.read(10000)).get("ok") is True
+    except (urllib.error.URLError, ValueError, OSError):
+        return False
+
+
+def alert(report: dict, previous: dict | None = None) -> str:
     """One deduplicated Telegram digest per run, max three leads."""
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
@@ -384,6 +397,27 @@ def alert(report: dict) -> str:
     if not isinstance(sent, list):
         sent = []
     recent = {r.get("id") for r in sent if isinstance(r, dict)}
+    previous = previous or {}
+    invalid_alerts = [
+        row for row in (previous.get("ideas", []) + previous.get("updates", []))
+        if row.get("id") in recent and
+        foreign_policy_story(str(row.get("headline", "")), str(row.get("source", "")))
+    ]
+    if invalid_alerts and not history.get("foreign_correction_sent"):
+        correction = {
+            "chat_id": chat_id, "parse_mode": "HTML",
+            "disable_web_page_preview": True,
+            "text": ("<b>⚠️ 별셈소 뉴스 알림 정정</b>\n"
+                     "앞서 보낸 '11월 1일부터 전기요금 2% 인하' 관련 후보는 "
+                     "<b>베트남 전기요금 뉴스</b>입니다. 한국 전기요금 인하 "
+                     "근거로 사용하면 안 됩니다.\n"
+                     "해외 정책 기사는 국내 글감 후보에서 제외하도록 필터를 보강했습니다."),
+        }
+        if telegram_send(correction, token):
+            history["foreign_correction_sent"] = True
+            save_json(ALERT_STATE, {**history, "version": 1, "sent": sent})
+            return "foreign_policy_correction_sent"
+        return "foreign_policy_correction_pending"
     # Post match coverage must be complete to avoid false "new" recommendations.
     candidates = report["updates"] + (report["ideas"] if report["postCoverage"] in {"complete", "near_complete"} else [])
     candidates = [row for row in candidates if row["score"] >= 82 and row["id"] not in recent]
@@ -403,20 +437,11 @@ def alert(report: dict) -> str:
                    "text": "뉴스 인텔리전스 열기",
                    "url": "https://wiclab.github.io/blogger-manager/intelligence.html"
                }]]}}
-    request = urllib.request.Request(
-        "https://api.telegram.org/bot" + token + "/sendMessage",
-        data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json"}, method="POST")
-    try:
-        with urllib.request.urlopen(request, timeout=12) as response:
-            body = json.loads(response.read(10000))
-        if body.get("ok") is not True:
-            return "telegram_error"
-    except (urllib.error.URLError, ValueError, OSError):
+    if not telegram_send(payload, token):
         return "telegram_unavailable"
     stamped = NOW_UTC().isoformat()
     saved = [{"id": row["id"], "at": stamped} for row in selected]
-    save_json(ALERT_STATE, {"version": 1, "sent": (sent + saved)[-150:]})
+    save_json(ALERT_STATE, {**history, "version": 1, "sent": (sent + saved)[-150:]})
     return f"sent_{len(selected)}"
 
 
@@ -432,8 +457,14 @@ def run() -> dict:
     report["primaryNewsCount"] = original_count
     report["focusedNewsCount"] = len(focused)
     report["postExpectedCount"] = expected
+    previous = {}
+    if REPORT.exists():
+        try:
+            previous = json.loads(REPORT.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            pass
     save_json(REPORT, report)
-    result = alert(report)
+    result = alert(report, previous)
     print(json.dumps({"newsCount": report["newsCount"],
                       "postsChecked": report["postsChecked"],
                       "postCoverage": report["postCoverage"],
