@@ -88,6 +88,10 @@ def assess(runs, dashboard, at=None, failure_kind="unknown"):
     if streak >= 2:
         issues.append(f"예약 실행이 {streak}회 연속 실패했습니다.")
         codes.append("repeated_failure")
+    held = dashboard.get("bing_submission", {}).get("held_batches_count", 0)
+    if isinstance(held, int) and held > 0:
+        issues.append(f"Bing 미확정 제출 배치 {held}개가 자동 차단 상태입니다. 수동 대조가 필요합니다.")
+        codes.append("submission_held")
     iso = lambda t: t.isoformat(timespec="seconds") if t else None
     return {"schema": 1, "site": SITE, "checked_at": iso(at),
             "status": "ok" if not issues else "warning",
@@ -131,6 +135,7 @@ def plan_notification(health, previous, at=None):
         "dashboard_stale": "색인 대시보드 5시간 이상 갱신되지 않음",
         "repeated_failure": "예약 실행 연속 2회 이상 실패",
         "monitor_unavailable": "독립 감시 API 또는 보고서 확인 실패",
+        "submission_held": "Bing 제출 미확정 배치가 보존되어 자동 재제출 중단",
     }
     kind = health.get("failure_category")
     kind_labels = {

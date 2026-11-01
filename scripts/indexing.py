@@ -192,6 +192,26 @@ def validate_state(data: dict) -> dict:
                 or not isinstance(record.get("fingerprint"), str)
                 or not isinstance(record.get("submitted_at"), str)):
             raise ValueError("Indexing state contains an invalid Bing receipt")
+    held = data.get("held_batches", {})
+    if not isinstance(held, dict) or len(held) > 5000:
+        raise ValueError("Indexing held batches are invalid; refusing to submit")
+    seen = set()
+    for batch_id, batch in held.items():
+        if (not isinstance(batch_id, str) or not re.fullmatch(r"[0-9a-f]{32}", batch_id)
+                or not isinstance(batch, dict)
+                or batch.get("status") != "held"
+                or utc_stamp(batch.get("prepared_at", "")) is None
+                or not isinstance(batch.get("entries"), list)
+                or not 1 <= len(batch["entries"]) <= MAX_BING):
+            raise ValueError("Indexing held batch structure is invalid")
+        for item in batch["entries"]:
+            if (not isinstance(item, dict)
+                    or not isinstance(item.get("url"), str)
+                    or canonical(item["url"]) != item["url"]
+                    or not isinstance(item.get("fingerprint"), str)
+                    or item["url"] in seen):
+                raise ValueError("Indexing held receipt is invalid")
+            seen.add(item["url"])
     return data
 
 
@@ -400,14 +420,17 @@ def build_dashboard(posts: dict[str, str], state: dict, report: dict,
                     diagnostics: dict) -> dict:
     """Safe public aggregate: never contains API keys, raw GSC queries or credentials."""
     saved = state["bing"]
+    held_urls = {entry["url"] for batch in state.get("held_batches", {}).values()
+                 for entry in batch["entries"]}
+    eligible_posts = {url: stamp for url, stamp in posts.items() if url not in held_urls}
     snapshot_at = utc_stamp(report["generated_at"])
-    queue = pending_queue(posts, saved, at=snapshot_at)
+    queue = pending_queue(eligible_posts, saved, at=snapshot_at)
     pending = [(url, stamp) for url, stamp in posts.items()
                if saved.get(url, {}).get("fingerprint") != (stamp or "unknown")]
     # This is sorted by modified time, NOT time spent waiting in the queue.
     pending.sort(key=lambda row: (utc_stamp(row[1]) or dt.datetime.min.replace(
         tzinfo=dt.timezone.utc), row[0]), reverse=True)
-    preview = select_bing_candidates(posts, saved, MAX_BING, at=snapshot_at)
+    preview = select_bing_candidates(eligible_posts, saved, MAX_BING, at=snapshot_at)
     submitted_stamps = [v.get("submitted_at", "") for url, v in saved.items()
                         if url in posts and isinstance(v, dict) and v.get("submitted_at")]
     last_submission = max(submitted_stamps) if submitted_stamps else None
@@ -424,6 +447,9 @@ def build_dashboard(posts: dict[str, str], state: dict, report: dict,
             "published_count": len(posts),
             "tracked_submitted_count": len(posts) - len(pending),
             "pending_count": len(pending),
+            "blocked_uncertain_count": sum(url in held_urls for url, _ in pending),
+            "eligible_pending_count": sum(url not in held_urls for url, _ in pending),
+            "held_batches_count": len(state.get("held_batches", {})),
             "submitted_this_run": len(report["bing_submitted"]),
             "last_successful_submission_at": last_submission,
             "daily_quota_remaining_before": diagnostics.get("daily_quota_remaining_before"),
@@ -519,4 +545,6 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    # Never run the legacy one-stage pipeline: it cannot durably reserve a batch.
+    print("Use scripts/indexing_safe.py prepare/submit through indexing.yml", file=sys.stderr)
+    sys.exit(2)

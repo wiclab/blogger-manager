@@ -4,7 +4,9 @@ on:
   pull_request:
     paths:
       - "scripts/indexing.py"
+      - "scripts/indexing_safe.py"
       - "tests/test_indexing.py"
+      - "tests/test_indexing_safe.py"
       - "indexing.html"
       - ".github/workflows/indexing.yml"
   workflow_dispatch:
@@ -14,7 +16,9 @@ on:
     branches: [main]
     paths:
       - "scripts/indexing.py"
+      - "scripts/indexing_safe.py"
       - "tests/test_indexing.py"
+      - "tests/test_indexing_safe.py"
       - ".github/workflows/indexing.yml"
 
 permissions:
@@ -88,12 +92,67 @@ jobs:
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
-      - name: Submit changed Byeolsemso posts to Bing
+      - name: Prepare protected Bing intent (no POST)
+        id: prepare
         if: github.event_name != 'pull_request' && steps.bing-config.outputs.ready == 'true'
         env:
           BING_API_KEY: ${{ secrets.BING_API_KEY }}
-        run: python scripts/indexing.py
-      - name: Store report (7 days)
+        run: python -m scripts.indexing_safe prepare
+      - name: Commit reservation BEFORE Bing POST
+        id: reserve
+        if: github.event_name != 'pull_request' && steps.prepare.outcome == 'success'
+        run: |
+          set -euo pipefail
+          test -s data/indexing-plan.json
+          test -s data/indexing-state.json
+          test -s data/indexing-dashboard.json
+          cp data/indexing-state.json indexing-data/data/indexing-state.json
+          cp data/indexing-dashboard.json indexing-data/data/indexing-dashboard.json
+          if [ -s data/indexing-state.backup.json ]; then
+            cp data/indexing-state.backup.json indexing-data/data/indexing-state.backup.json
+          fi
+          cd indexing-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/indexing-state.json data/indexing-dashboard.json
+          if [ -s data/indexing-state.backup.json ]; then
+            git add data/indexing-state.backup.json
+          fi
+          plan=$(python -c 'import json;print(json.load(open("../data/indexing-plan.json"))["action"])')
+          if ! git diff --cached --quiet; then
+            git commit -m "Persist Bing intent before outbound submission"
+            pushed=0
+            for attempt in 1 2 3; do
+              if git push origin HEAD:indexing-data; then pushed=1; break; fi
+              if [ "$attempt" -lt 3 ]; then sleep "$((attempt * 2))"; fi
+            done
+            if [ "$pushed" != 1 ]; then
+              echo "::error::Reservation push failed: refusing Bing POST"
+              exit 1
+            fi
+          elif [ "$plan" = "submit" ]; then
+            echo "::error::Submission plan without durable new reservation"
+            exit 1
+          fi
+          if [ "$plan" = "submit" ]; then
+            local_head=$(git rev-parse HEAD)
+            remote_head=$(git ls-remote origin refs/heads/indexing-data | cut -f1)
+            if [ "$local_head" != "$remote_head" ]; then
+              echo "::error::Reservation not confirmed on remote: refusing Bing POST"
+              exit 1
+            fi
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Submit only committed reservation to Bing (one POST)
+        id: submit
+        if: github.event_name != 'pull_request' && steps.reserve.outputs.ready == 'true'
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+          INDEXING_RESERVATION_COMMITTED: 'true'
+        run: python -m scripts.indexing_safe submit
+      - name: Store safe diagnostic report (7 days)
         if: always() && github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
         with:
@@ -103,38 +162,32 @@ jobs:
             data/indexing-failure.json
           if-no-files-found: ignore
           retention-days: 7
-      - name: Persist protected state to indexing-data (not main)
-        if: github.event_name != 'pull_request' && steps.bing-config.outputs.ready == 'true'
+      - name: Persist acknowledged receipts (never replay Bing POST)
+        if: github.event_name != 'pull_request' && steps.submit.outcome == 'success'
         run: |
           set -euo pipefail
           test -s data/indexing-state.json
           test -s data/indexing-dashboard.json
-          mkdir -p indexing-data/data
           cp data/indexing-state.json indexing-data/data/indexing-state.json
           cp data/indexing-dashboard.json indexing-data/data/indexing-dashboard.json
-          if [ -f data/indexing-state.backup.json ]; then
-            cp data/indexing-state.backup.json indexing-data/data/indexing-state.backup.json
-          fi
+          test -s data/indexing-state.backup.json
+          cp data/indexing-state.backup.json indexing-data/data/indexing-state.backup.json
           cd indexing-data
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/indexing-state.json data/indexing-dashboard.json
-          if [ -f data/indexing-state.backup.json ]; then
-            git add data/indexing-state.backup.json
-          fi
+          git add data/indexing-state.json data/indexing-state.backup.json data/indexing-dashboard.json
           if git diff --cached --quiet; then
-            echo "Protected indexing data unchanged"
-            exit 0
+            echo "::error::Confirmed Bing receipts not written: keeping remote hold"
+            exit 1
           fi
-          git commit -m "Update protected Byeolsemso indexing data"
-          # Retry the same commit only, never the Bing submission POST.
+          git commit -m "Record confirmed Bing batch and clear protected hold"
           for attempt in 1 2 3; do
             if git push origin HEAD:indexing-data; then
-              echo "Protected indexing data persisted"
+              echo "Confirmed receipts persisted"
               exit 0
             fi
-            echo "::warning::State push failed; identical commit retry ($attempt/3)"
+            echo "::warning::Receipt push retry of the exact same commit ($attempt/3)"
             if [ "$attempt" -lt 3 ]; then sleep "$((attempt * 2))"; fi
           done
-          echo "::error::State push failed; receipts need reconciliation before any duplicate batch"
+          echo "::error::Receipt push failed: durable remote hold remains; reconcile manually"
           exit 1
