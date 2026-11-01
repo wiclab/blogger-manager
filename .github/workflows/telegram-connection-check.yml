@@ -1,0 +1,50 @@
+name: Byeolsemso Telegram connection check
+
+# The push hook performs one smoke test upon installing/updating this workflow.
+# Future manual checks are available from Actions > Run workflow.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/telegram-connection-check.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: byeolsemso-telegram-connection-smoke
+  cancel-in-progress: false
+
+jobs:
+  telegram-connection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout source (no indexing tasks)
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify Telegram connection with a single harmless test message
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python - <<'PY'
+          import os
+          from scripts.indexing_health import send_telegram
+          token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+          chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+          if not token or not chat_id:
+              raise SystemExit("Telegram not configured: missing Bot Token or Chat ID secret")
+          message = (
+              "✅ 별셈소 자동화 텔레그램 연결 테스트\n"
+              "GitHub Actions에서 정상 전송을 확인하는 1회 점검 메시지야.\n"
+              "실제 Bing 오류 또는 방문자 알림은 아니야."
+          )
+          if not send_telegram(message, token, chat_id):
+              raise SystemExit("Telegram sendMessage failed or was not acknowledged; verify bot/chat permissions")
+          print("Telegram API confirmed test message. No Bing or Blogger requests made.")
+          PY
