@@ -264,30 +264,62 @@ def utc_stamp(raw: str) -> dt.datetime | None:
         return None
 
 
+def pending_queue(posts: dict[str, str], saved: dict,
+                  at: dt.datetime | None = None) -> dict:
+    """Classify changed public posts without treating submission as indexing."""
+    at = at or dt.datetime.now(dt.timezone.utc)
+    groups = {"recent_new": [], "recent_updated": [], "backlog": []}
+    first_time = updated = no_timestamp = 0
+    for url, stamp in posts.items():
+        if saved.get(url, {}).get("fingerprint") == (stamp or "unknown"):
+            continue
+        previously_submitted = url in saved
+        if previously_submitted:
+            updated += 1
+        else:
+            first_time += 1
+        timestamp = utc_stamp(stamp)
+        if timestamp is None:
+            no_timestamp += 1
+        is_recent = timestamp is not None and dt.timedelta(0) <= (at - timestamp) <= dt.timedelta(days=7)
+        category = ("recent_updated" if previously_submitted else "recent_new") if is_recent else "backlog"
+        groups[category].append((url, stamp, timestamp))
+    for category in ("recent_new", "recent_updated"):
+        groups[category].sort(key=lambda row: (row[2], row[0]), reverse=True)
+    # Older modified timestamps first; unknown timestamps have stable URL order.
+    groups["backlog"].sort(
+        key=lambda row: (row[2] or dt.datetime.min.replace(tzinfo=dt.timezone.utc), row[0]))
+    return {**groups, "first_time": first_time, "updated": updated,
+            "without_timestamp": no_timestamp}
+
+
 def select_bing_candidates(posts: dict[str, str], saved: dict, limit: int,
                            at: dt.datetime | None = None) -> list[tuple[str, str]]:
-    """Fresh new/updated posts first; reserve slots for old backlog to avoid starvation."""
+    """Reserve up to 30 places for recent changes, remaining places for backlog.
+
+    Within recent posts, prefer 70% first submissions and 30% updates when both
+    groups are present. An unused category allocation is offered to the other.
+    The preview and actual Bing submission call use the same deterministic order.
+    """
     if limit <= 0:
         return []
-    at = at or dt.datetime.now(dt.timezone.utc)
-    changed = [(url, stamp) for url, stamp in posts.items()
-               if saved.get(url, {}).get("fingerprint") != (stamp or "unknown")]
-    # A previously submitted URL whose content changed is new work, not initial backlog.
-    recent, backlog = [], []
-    for url, stamp in changed:
-        ts = utc_stamp(stamp)
-        if ts is not None and dt.timedelta(0) <= (at - ts) <= dt.timedelta(days=7):
-            recent.append((url, stamp, ts))
-        else:
-            backlog.append((url, stamp, ts))
-    recent.sort(key=lambda x: (x[2], x[0]), reverse=True)
-    # Oldest pending posts first, with a stable URL fallback if lastmod is unavailable.
-    backlog.sort(key=lambda x: (x[2] or dt.datetime.min.replace(tzinfo=dt.timezone.utc), x[0]))
-    priority_slots = min(MAX_PRIORITY, limit, len(recent))
-    selection = recent[:priority_slots]
-    selection += backlog[:limit-len(selection)]
-    selection += recent[priority_slots:priority_slots + max(0,limit-len(selection))]
-    return [(url, stamp) for url, stamp, _ in selection]
+    groups = pending_queue(posts, saved, at=at)
+    fresh = groups["recent_new"]
+    revised = groups["recent_updated"]
+    backlog = groups["backlog"]
+    priority_count = min(MAX_PRIORITY, limit, len(fresh) + len(revised))
+    fresh_reserved = min(len(fresh), (priority_count * 7 + 9) // 10)
+    revised_reserved = min(len(revised), priority_count - fresh_reserved)
+    # Fill unused update slots with fresh posts, or vice versa.
+    fresh_reserved += min(len(fresh) - fresh_reserved,
+                          priority_count - fresh_reserved - revised_reserved)
+    revised_reserved += min(len(revised) - revised_reserved,
+                            priority_count - fresh_reserved - revised_reserved)
+    selected = fresh[:fresh_reserved] + revised[:revised_reserved]
+    selected += backlog[:max(0, limit - len(selected))]
+    selected += fresh[fresh_reserved:fresh_reserved + max(0, limit - len(selected))]
+    selected += revised[revised_reserved:revised_reserved + max(0, limit - len(selected))]
+    return [(url, stamp) for url, stamp, _ in selected[:limit]]
 
 
 def bing_submit(posts: dict[str, str], state: dict, api_key: str,
@@ -339,11 +371,14 @@ def build_dashboard(posts: dict[str, str], state: dict, report: dict,
                     diagnostics: dict) -> dict:
     """Safe public aggregate: never contains API keys, raw GSC queries or credentials."""
     saved = state["bing"]
+    snapshot_at = utc_stamp(report["generated_at"])
+    queue = pending_queue(posts, saved, at=snapshot_at)
     pending = [(url, stamp) for url, stamp in posts.items()
                if saved.get(url, {}).get("fingerprint") != (stamp or "unknown")]
-    # Recent first for display; sitemap timestamps can be absent for older posts.
+    # This is sorted by modified time, NOT time spent waiting in the queue.
     pending.sort(key=lambda row: (utc_stamp(row[1]) or dt.datetime.min.replace(
         tzinfo=dt.timezone.utc), row[0]), reverse=True)
+    preview = select_bing_candidates(posts, saved, MAX_BING, at=snapshot_at)
     submitted_stamps = [v.get("submitted_at", "") for url, v in saved.items()
                         if url in posts and isinstance(v, dict) and v.get("submitted_at")]
     last_submission = max(submitted_stamps) if submitted_stamps else None
@@ -366,6 +401,23 @@ def build_dashboard(posts: dict[str, str], state: dict, report: dict,
             "monthly_quota_remaining_before": diagnostics.get("monthly_quota_remaining_before"),
             "per_run_cap": MAX_BING,
             "recent_pending": [url for url, stamp in pending[:12]],
+            "queue_summary": {
+                "first_time_pending": queue["first_time"],
+                "changed_since_submission": queue["updated"],
+                "recent_new": len(queue["recent_new"]),
+                "recent_updated": len(queue["recent_updated"]),
+                "older_or_undated": len(queue["backlog"]),
+                "without_modified_timestamp": queue["without_timestamp"],
+                "priority_preview": [
+                    {"url": url,
+                     "reason": ("recent_updated" if url in saved else "recent_new")
+                     if (utc_stamp(stamp) is not None
+                         and dt.timedelta(0) <= snapshot_at - utc_stamp(stamp) <= dt.timedelta(days=7))
+                     else "older_or_undated"}
+                    for url, stamp in preview[:12]
+                ],
+                "preview_note": "Illustrative next batch order, not a confirmed submission or queue wait duration.",
+            },
             "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
         },
         "metric_definitions": {

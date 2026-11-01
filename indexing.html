@@ -51,6 +51,19 @@ a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8p
 <p id="quota" class="muted">Bing API 할당량: 확인 중</p>
 <p class="note"><strong>제출 기록은 색인 완료가 아니야.</strong> Bing에서 URL 접수 요청이 성공했다는 의미이며 실제 크롤링·색인 여부는 별도 확인이 필요해. 수동으로 제출한 이력은 여기 집계에 포함되지 않아.</p>
 </section>
+<section class="panel full">
+<div class="titleline"><h2>제출 대기열 우선순위</h2><span class="badge" id="queue-status">집계 대기</span></div>
+<div class="cards">
+<div class="kpi"><div class="label">첫 제출 대기</div><div class="num" id="queue-first">—</div></div>
+<div class="kpi"><div class="label">수정 후 재제출 대기</div><div class="num" id="queue-edited">—</div></div>
+<div class="kpi"><div class="label">최근 7일 변경</div><div class="num" id="queue-fresh">—</div></div>
+<div class="kpi"><div class="label">이전 변경·날짜 미확인</div><div class="num" id="queue-older">—</div></div>
+</div>
+<p class="note" id="queue-summary">최근 변경 글과 이전 대기 글을 섞어 순차 처리해. API 잔여 할당량이 0이면 제출하지 않아.</p>
+<h3>다음 제출 후보 미리보기</h3>
+<div id="queue-preview" class="muted">대기 목록 확인 중</div>
+<p class="muted">예상 순서일 뿐 실제 제출 성공·검색 색인을 뜻하지 않아. 수정 시각으로 대기 기간을 추정하지 않아.</p>
+</section>
 <section class="panel">
 <div class="titleline"><h2>② 자동 실행 건강 상태</h2><span id="health-status" class="badge">확인 중</span></div>
 <p class="muted" id="last-check">마지막 자동 실행: 확인 중</p>
@@ -75,6 +88,7 @@ a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8p
 <div class="kpi"><div class="label">CTR</div><div class="num" id="ctr">—</div></div>
 </div>
 <p class="muted" id="performance-time">성과 데이터 수집시각 확인 중</p>
+<div class="note" id="performance-analysis">실제 Bing 검색 반응을 확인하고 있어.</div>
 <p class="note">Bing 성과 API의 통계 구간 기준이며, 검색 노출·클릭은 제출된 URL 개수나 색인된 글 개수와 다르며 업데이트 지연이 있을 수 있어.</p>
 <p class="muted"><a href="./seo.html">기존 Bing 검색 실적·오래된 날짜 점검 상세 화면</a></p>
 </section>
@@ -124,6 +138,7 @@ function showSubmissions(data){
  text("submission-time","최근 성공 제출: "+time(a.last_successful_submission_at)+" · 마지막 자동 검사: "+time(data.updated_at)+" · 실행당 최대 "+num(a.per_run_cap)+"개");
  const d=a.daily_quota_remaining_before,m=a.monthly_quota_remaining_before;
  text("quota","API 할당량(마지막 검사 시 제출 전): 일 "+(d==null?"미조회":num(d))+" / 월 "+(m==null?"미조회":num(m)));
+ showQueue(a.queue_summary,a.pending_count);
  const target=el("pending-list");target.replaceChildren();
  const items=Array.isArray(a.recent_pending)?a.recent_pending:[];
  if(!items.length){target.textContent=a.pending_count===0?"현재 제출 대기 URL이 없어.":"대기 URL 상세 목록이 아직 없어.";return;}
@@ -132,6 +147,32 @@ function showSubmissions(data){
   const div=document.createElement("div");div.className="item";
   const anchor=document.createElement("a");anchor.href=url;anchor.target="_blank";anchor.rel="noopener noreferrer";
   anchor.textContent=decodeURIComponent(url.split("/").pop()).replace(/-/g," ");div.append(anchor);target.append(div);
+ }
+}
+function showQueue(queue,pending){
+ const values=queue||{};
+ const known=Number.isInteger(values.first_time_pending)&&Number.isInteger(values.changed_since_submission);
+ text("queue-first",known?num(values.first_time_pending):"—");
+ text("queue-edited",known?num(values.changed_since_submission):"—");
+ text("queue-fresh",Number.isInteger(values.recent_new)?num(values.recent_new+Number(values.recent_updated||0)):"—");
+ text("queue-older",Number.isInteger(values.older_or_undated)?num(values.older_or_undated):"—");
+ badge("queue-status",known?"ok":"warning",known?"대기 분류 완료":"분류 정보 없음");
+ text("queue-summary",known
+   ?"전체 대기 "+num(pending)+"개 중 첫 제출 "+num(values.first_time_pending)+"개, 수정 후 재제출 "+num(values.changed_since_submission)+"개. 최근 변경 글 최대 30개를 우선 배정하고 나머지는 이전 대기 글에 배정해."
+   :"대기열 분류 데이터가 아직 없어. 다음 정상 자동 실행 후 표시돼.");
+ const target=el("queue-preview");target.replaceChildren();
+ const rows=Array.isArray(values.priority_preview)?values.priority_preview:[];
+ if(!rows.length){target.textContent="미리보기가 아직 없거나 제출 대기 글이 없어.";return;}
+ const reasons={recent_new:"최근 신규",recent_updated:"최근 수정",older_or_undated:"이전 변경"};
+ for(const item of rows){
+   const url=canonical(item.url);if(!url)continue;
+   const div=document.createElement("div");div.className="item";
+   const anchor=document.createElement("a");
+   anchor.href=url;anchor.target="_blank";anchor.rel="noopener noreferrer";
+   anchor.textContent=decodeURIComponent(url.split("/").pop()).replace(/-/g," ");
+   const label=document.createElement("span");label.className="muted";
+   label.textContent=" · "+(reasons[item.reason]||"대기");
+   div.append(anchor,label);target.append(div);
  }
 }
 function showHealth(health,submission){
@@ -159,8 +200,23 @@ function showPerformance(data){
  const metrics=p.totals||{};
  text("impressions",p.status==="ok"||p.status==="stale"?num(metrics.impressions):"—");
  text("clicks",p.status==="ok"||p.status==="stale"?num(metrics.clicks):"—");
- text("ctr",Number.isFinite(Number(metrics.ctr_pct))?Number(metrics.ctr_pct).toFixed(2)+"%":"—");
- text("performance-time","성과 확인 시각: "+time(p.updated_at)+" · 제공 구간: "+(p.window?.from||"—")+" ~ "+(p.window?.to||"—"));
+ const usable=p.status==="ok"||p.status==="stale";
+ text("ctr",usable&&metrics.ctr_pct!=null&&Number.isFinite(Number(metrics.ctr_pct))?Number(metrics.ctr_pct).toFixed(2)+"%":"—");
+ const sampleDays=Array.isArray(p.daily)?p.daily.length:0;
+ text("performance-time","성과 확인 시각: "+time(p.updated_at)+" · API 조회 구간: "+(p.window?.from||"—")+" ~ "+(p.window?.to||"—")+" · 제공된 일별 행: "+num(sampleDays)+"개");
+ let advice="Bing 성과 지표가 아직 없어. 제출 기록만으로 색인 여부를 판단하지 마.";
+ if(usable){
+   const impressions=Number(metrics.impressions),clicks=Number(metrics.clicks);
+   if(Number.isFinite(impressions)&&Number.isFinite(clicks)){
+     advice=impressions>=20&&clicks===0
+       ?"관측된 Bing 노출이 "+num(impressions)+"회인데 클릭은 0회야. 노출이 있는 페이지의 제목·검색 설명과 검색 의도를 점검해 볼 만해. 다만 API 제공 범위가 제한될 수 있고 모든 제출 글의 성과를 뜻하지 않아."
+       :impressions>0
+       ?"Bing 검색 노출 "+num(impressions)+"회·클릭 "+num(clicks)+"회가 관측됐어. 제출 URL과 같은 글에서 발생했다는 뜻은 아니며, 글별 개선 후보는 SEO 화면에서 확인해."
+       :"현재 보고서에 표시된 Bing 검색 노출은 0회야. 이는 색인 0개라는 증거가 아니야.";
+   }
+   if(p.status==="stale")advice="이전 수집 데이터 기준이야. "+advice;
+ }
+ text("performance-analysis",advice);
 }
 async function load(){
  text("refreshed","새 보고서를 확인하고 있어.");
@@ -175,6 +231,8 @@ async function load(){
  }else{
   badge("submission-status","bad","자료 없음");badge("indexing-status","warning","자료 없음");
   text("pending-list","색인 제출 자동화의 첫 성공 실행 후 공개 요약이 생성돼.");
+  text("queue-preview","제출 대기열 보고서를 아직 가져오지 못했어.");
+  badge("queue-status","warning","자료 없음");
  }
  if(health.status==="fulfilled"){showHealth(health.value,submission.status==="fulfilled"?submission.value:null);}
  else showHealth(null,null);
