@@ -1,0 +1,67 @@
+name: Byeolsemso Telegram visitor alert deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "visitor-alert/**"
+      - ".github/workflows/visitor-alert.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: byeolsemso-visitor-alert-deploy
+  cancel-in-progress: false
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: JavaScript syntax and security regression tests
+        working-directory: visitor-alert
+        run: |
+          npm run check
+          npm test
+      - name: Check secret readiness without printing credentials
+        id: secrets-check
+        shell: bash
+        env:
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [[ -n "$CF_ACCOUNT" && -n "$CF_TOKEN" && -n "$TG_TOKEN" && -n "$TG_CHAT" ]]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "### Worker deployment not attempted" >> "$GITHUB_STEP_SUMMARY"
+            echo "One or more required Actions Secrets are missing. See visitor-alert/README.md." >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Deploy independent Cloudflare Worker and encrypted Telegram secrets
+        id: deploy
+        if: steps.secrets-check.outputs.ready == 'true'
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: visitor-alert
+          command: deploy
+          secrets: |
+            TELEGRAM_BOT_TOKEN
+            TELEGRAM_CHAT_ID
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      - name: Next installation step
+        if: steps.deploy.outcome == 'success'
+        run: |
+          echo "### Worker deployed" >> "$GITHUB_STEP_SUMMARY"
+          echo "Use the actual Cloudflare deployment URL from this run to configure visitor-alert/blogger-embed.js and add it once to the Blogger theme." >> "$GITHUB_STEP_SUMMARY"
