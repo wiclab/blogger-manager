@@ -143,6 +143,51 @@ class IndexingTests(unittest.TestCase):
         self.assertEqual(len(backlog), 70)
         self.assertTrue(all("/fresh-" in x for x,_ in result[:30]))
 
+    def test_queue_reserves_recent_new_and_updated_with_backlog(self):
+        at = indexing.dt.datetime(2026, 11, 2, 2, tzinfo=indexing.dt.timezone.utc)
+        posts = {}
+        saved = {}
+        for i in range(40):
+            posts[f"https://wic12.blogspot.com/2026/11/new-{i:02}.html"] = "2026-11-01T10:00:00Z"
+        for i in range(25):
+            url = f"https://wic12.blogspot.com/2026/10/edited-{i:02}.html"
+            posts[url] = "2026-11-01T13:00:00Z"
+            saved[url] = {"fingerprint": "old", "submitted_at": "2026-10-01T00:00:00Z"}
+        for i in range(90):
+            posts[f"https://wic12.blogspot.com/2026/08/backlog-{i:02}.html"] = "2026-08-04T10:00:00Z"
+        queue = indexing.pending_queue(posts, saved, at=at)
+        self.assertEqual(queue["first_time"], 130)
+        self.assertEqual(queue["updated"], 25)
+        self.assertEqual(len(queue["recent_new"]), 40)
+        self.assertEqual(len(queue["recent_updated"]), 25)
+        picked = indexing.select_bing_candidates(posts, saved, 100, at=at)
+        self.assertEqual(len(picked), 100)
+        self.assertEqual(sum("/new-" in url for url, _ in picked), 21)
+        self.assertEqual(sum("/edited-" in url for url, _ in picked), 9)
+        self.assertEqual(sum("/backlog-" in url for url, _ in picked), 70)
+
+    def test_queue_no_quota_and_missing_timestamps_are_deterministic(self):
+        at = indexing.dt.datetime(2026, 11, 2, 2, tzinfo=indexing.dt.timezone.utc)
+        posts = {"https://wic12.blogspot.com/2026/08/without.html": "",
+                 "https://wic12.blogspot.com/2026/10/old.html": "2026-10-01T00:00:00Z"}
+        self.assertEqual(indexing.select_bing_candidates(posts, {}, 0, at=at), [])
+        q = indexing.pending_queue(posts, {}, at=at)
+        self.assertEqual(q["without_timestamp"], 1)
+        self.assertEqual(len(q["backlog"]), 2)
+        a = indexing.select_bing_candidates(posts, {}, 2, at=at)
+        self.assertEqual(a, indexing.select_bing_candidates(dict(reversed(list(posts.items()))), {}, 2, at=at))
+
+    def test_queue_updated_post_not_counted_as_new(self):
+        at = indexing.dt.datetime(2026, 11, 2, 2, tzinfo=indexing.dt.timezone.utc)
+        url = "https://wic12.blogspot.com/2026/11/revised.html"
+        saved = {url: {"fingerprint": "before", "submitted_at": "2026-11-01T00:00:00Z"}}
+        posts = {url: "2026-11-01T23:00:00Z"}
+        q = indexing.pending_queue(posts, saved, at=at)
+        self.assertEqual(q["first_time"], 0)
+        self.assertEqual(q["updated"], 1)
+        self.assertEqual(len(q["recent_updated"]), 1)
+        self.assertEqual(indexing.select_bing_candidates(posts, saved, 1, at=at)[0][0], url)
+
     def test_timezone_aware_fresh_sorting(self):
         posts = {
             "https://wic12.blogspot.com/2026/11/earlier.html":"2026-11-01T19:00:00+09:00",
@@ -192,6 +237,13 @@ class IndexingTests(unittest.TestCase):
         self.assertNotIn("indexed_count",data["bing_submission"])
         self.assertEqual(data["site"],indexing.SITE)
         self.assertIn("impressions",data["metric_definitions"])
+        queue = data["bing_submission"]["queue_summary"]
+        self.assertEqual(queue["first_time_pending"], 1)
+        self.assertEqual(queue["changed_since_submission"], 0)
+        self.assertEqual(queue["older_or_undated"], 1)
+        self.assertTrue(queue["priority_preview"][0]["url"].endswith("/old.html"))
+        self.assertNotIn("indexed_count", queue)
+
 
 
     def test_missing_or_corrupt_state_fails_closed(self):
