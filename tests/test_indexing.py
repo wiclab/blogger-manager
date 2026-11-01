@@ -38,8 +38,12 @@ class IndexingTests(unittest.TestCase):
         state = {"bing": {other: {"fingerprint": "old"}}}
         posts = {url: "2026-11-01", other: "old"}
         def fake_request(endpoint, **kwargs):
+            if "GetUserSites" in endpoint:
+                return (200, b'{"d":[{"Url":"http://wic12.blogspot.com/","IsVerified":true}]}')
             if "GetUrlSubmissionQuota" in endpoint:
+                self.assertIn("siteUrl=http%3A%2F%2Fwic12.blogspot.com%2F", endpoint)
                 return (200, b'{"d":{"DailyQuota":100,"MonthlyQuota":100}}')
+            self.assertEqual(kwargs["payload"]["siteUrl"], "http://wic12.blogspot.com/")
             self.assertEqual(kwargs["payload"]["urlList"], [url])
             return (200, b'{"d":null}')
         with patch.object(indexing, "request", fake_request):
@@ -50,9 +54,30 @@ class IndexingTests(unittest.TestCase):
                 indexing.bing_submit({url: "2026-11-02"}, state, "fake-test-key")
         self.assertEqual(state["bing"][url]["fingerprint"], "2026-11-01")
 
+    def test_verified_site_selection_rejects_other_blogs(self):
+        def fake_request(endpoint, **kwargs):
+            return 200, json.dumps({"d": [
+                {"Url": "https://ggpong.blogspot.com/", "IsVerified": True},
+                {"Url": "https://qevnaxori.blogspot.com/", "IsVerified": True},
+                {"Url": "https://wic12.blogspot.com/", "IsVerified": False},
+                {"Url": "http://wic12.blogspot.com/", "IsVerified": True}
+            ]}).encode()
+        with patch.object(indexing, "request", fake_request):
+            self.assertEqual(indexing.bing_verified_site("dummy"), "http://wic12.blogspot.com/")
+
+    def test_bing_no_verified_site_halts_safely(self):
+        with patch.object(indexing, "request", return_value=(
+                200, b'{"d":[{"Url":"https://ggpong.blogspot.com/","IsVerified":true}]}')):
+            with self.assertRaisesRegex(RuntimeError, "no verified Byeolsemso"):
+                indexing.bing_verified_site("dummy")
+
     def test_no_quota_does_not_mark_submitted(self):
         state = {"bing": {}}
-        with patch.object(indexing, "request", return_value=(200, b'{"d":{"DailyQuota":0,"MonthlyQuota":0}}')):
+        def fake_request(endpoint, **kwargs):
+            if "GetUserSites" in endpoint:
+                return 200, b'{"d":[{"Url":"https://wic12.blogspot.com/","IsVerified":true}]}'
+            return 200, b'{"d":{"DailyQuota":0,"MonthlyQuota":0}}'
+        with patch.object(indexing, "request", side_effect=fake_request):
             self.assertEqual(indexing.bing_submit(
                 {"https://wic12.blogspot.com/2026/11/a.html": "2026-11-01"}, state, "demo"), [])
         self.assertEqual(state["bing"], {})
