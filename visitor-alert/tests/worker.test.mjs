@@ -84,3 +84,22 @@ test("invalid payload and missing secrets never contact Telegram",async()=>{
  const req=new Request("https://visits.example.workers.dev/view",{method:"POST",headers:{"Origin":SITE,"Referer":SITE+"/","User-Agent":"Mozilla/5.0 Safari/605.1","Content-Type":"application/json"},body:"not json"});
  assert.equal((await app.fetch(req,e.bind)).status,400);
 });
+
+test("home, static pages, and label views remain allowed without exposing search text",async()=>{
+ const e=env();const sent=[];const old=globalThis.fetch;
+ try{
+  globalThis.fetch=async(url,opts)=>{
+   sent.push(JSON.parse(opts.body).text);
+   return new Response(JSON.stringify({ok:true}),{status:200,headers:{"Content-Type":"application/json"}});
+  };
+  assert.equal((await app.fetch(browserReq({data:{page:"/p/about.html",title:"소개"}}),e.bind)).status,204);
+  e.state.set("lastAttemptAt",Date.now()-301000);
+  assert.equal((await app.fetch(browserReq({data:{page:"/search",title:"사용자가 검색한 비공개 문장"}}),e.bind)).status,204);
+  assert.equal(sent.length,2);
+  assert.doesNotMatch(sent[1],/비공개 문장/);
+  assert.match(sent[1],/별셈소 목록 페이지/);
+  e.state.set("lastAttemptAt",Date.now()-301000);
+  assert.equal((await app.fetch(browserReq({data:{page:"/search/label/%EA%B2%8C%EC%9E%84",title:"검색어"}}),e.bind)).status,204);
+  assert.equal(sent.length,3);
+ }finally{globalThis.fetch=old;}
+});
