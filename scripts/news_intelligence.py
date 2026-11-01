@@ -36,6 +36,31 @@ CHANGE_TERMS = ("변경", "개편", "인상", "인하", "조정", "확대", "축
                 "연장", "마감", "종료", "시행", "폐지", "적용", "출시", "발표")
 UTILITY_TERMS = ("방법", "기준", "비교", "계산", "얼마", "사용", "지급",
                  "대상", "절약", "확인", "신청", "조건", "기간", "언제")
+FOREIGN_CONTEXT = ("베트남", "vietnam", "vnd", "하노이", "호치민",
+                   "응우옌", "베트남미디어")
+KOREAN_SOURCE_HINTS = ("뉴스", "신문", "일보", "경제", "비즈", "투데이",
+                       "저널", "연합", "KBS", "MBC", "SBS", "YTN", "JTBC",
+                       "인벤", "게임메카", "게임조선", "디스이즈게임",
+                       "전자신문", "ZDNet", "아이뉴스", "헤럴드")
+DOMESTIC_POLICY_TERMS = ("전기", "요금", "지원금", "세금", "연말정산",
+                         "상품권", "교통비", "연금", "대출", "자동이체")
+
+
+def foreign_policy_story(title: str, source: str) -> bool:
+    combined = (title + " " + source).lower()
+    return (any(x in combined for x in FOREIGN_CONTEXT) and
+            any(x in title for x in DOMESTIC_POLICY_TERMS))
+
+
+def trusted_focused_source(item: dict) -> bool:
+    """Curated Korean news sources only for Korea-focused policy RSS searches."""
+    source = str(item.get("source") or "")
+    title = str(item.get("title") or "")
+    if not source or foreign_policy_story(title, source):
+        return False
+    return any(x.lower() in source.lower() for x in KOREAN_SOURCE_HINTS)
+
+
 AVOID_TERMS = ("사망", "살해", "성폭력", "피살", "강간", "자살", "실종",
                "도박", "폭행", "살인", "체포", "대선", "총선", "탄핵",
                "유세", "지지율", "전쟁", "교전", "미사일", "종목추천",
@@ -91,7 +116,7 @@ def focused_news(now: dt.datetime) -> list[dict]:
                 output.extend(future.result())
             except Exception:
                 print("One focused news search is unavailable")
-    return output
+    return [x for x in output if trusted_focused_source(x)]
 
 
 
@@ -233,7 +258,7 @@ def reconcile_coverage(posts: list[dict], declared: str) -> tuple[str, int]:
 def score_item(item: dict) -> tuple[int, list[str]]:
     title = str(item.get("title", ""))
     category = str(item.get("category", ""))
-    if not title or any(term in title for term in AVOID_TERMS):
+    if not title or foreign_policy_story(title, str(item.get("source") or "")) or any(term in title for term in AVOID_TERMS):
         return 0, ["편집 제외 주제"]
     score = {"생활·건강": 49, "경제": 49, "기술·AI": 40,
              "한국": 39, "문화": 29, "해외": 22}.get(category, 25)
