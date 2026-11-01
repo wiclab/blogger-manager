@@ -61,14 +61,11 @@ a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8p
 <p class="muted"><a href="https://github.com/wiclab/blogger-manager/actions/workflows/indexing.yml" target="_blank" rel="noopener noreferrer">Bing 제출 Actions</a> · <a href="https://github.com/wiclab/blogger-manager/actions/workflows/indexing-health.yml" target="_blank" rel="noopener noreferrer">독립 감시 Actions</a></p>
 </section>
 <section class="panel">
-<div class="titleline"><h2>③ 검색엔진 색인 상태</h2><span id="indexing-status" class="badge">확인 중</span></div>
-<div class="cards" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-<div class="kpi"><div class="label">Bing 실제 색인 글 수</div><div class="num" id="bing-indexed">미확인</div></div>
-<div class="kpi"><div class="label">Google URL 점검 중 색인 PASS</div><div class="num" id="google-pass">—</div></div>
-</div>
-<p id="gsc-inspection" class="muted"></p>
-<p class="note">Bing URL 제출 API는 실제 색인 글 수를 반환하지 않아. Google URL Inspection도 점검한 일부 URL의 상태만 보여주며 전체 글의 색인률로 환산할 수 없어.</p>
-<p class="muted"><a href="https://www.bing.com/webmasters/" target="_blank" rel="noopener noreferrer">Bing Webmaster Tools에서 실제 색인 확인</a> · <a href="https://search.google.com/search-console/" target="_blank" rel="noopener noreferrer">Google Search Console</a></p>
+<div class="titleline"><h2>③ 실제 Bing 검색 색인</h2><span id="indexing-status" class="badge">확인 중</span></div>
+<div class="cards" style="grid-template-columns:minmax(0,1fr)">
+<div class="kpi"><div class="label">Bing 실제 색인 글 수</div><div class="num" id="bing-indexed">미확인</div></div></div>
+<p class="note">Bing 제출 API의 접수 기록과 실제 검색 색인은 별개야. 실제 색인 수는 이 API에서 확인되지 않으므로 미확인으로 표시해.</p>
+<p class="muted"><a href="https://www.bing.com/webmasters/" target="_blank" rel="noopener noreferrer">Bing Webmaster Tools에서 실제 색인 확인</a></p>
 </section>
 <section class="panel">
 <div class="titleline"><h2>④ Bing 검색 노출·클릭</h2><span id="performance-status" class="badge">확인 중</span></div>
@@ -148,13 +145,9 @@ function showHealth(health,submission){
  const parts=Array.isArray(health.issues)?health.issues:[];
  text("health-details",stale?"독립 감시 결과 자체가 오래됐어. Actions를 확인해.":parts.length?parts.join(" / "):"최근 예약 실행과 대시보드 갱신 모두 정상적으로 확인됨.");
 }
-function showInspection(data){
- const a=data.google_inspection||{};
- const sample=a.checked_count||0;
- badge("indexing-status",a.enabled?"ok":"warning",a.enabled?"Google 일부 URL 점검":"Google 점검 미설정");
+function showInspection(){
+ badge("indexing-status","warning","별도 확인 필요");
  text("bing-indexed","미확인");
- text("google-pass",a.enabled?num(a.pass_count)+" / "+num(sample):"미설정");
- text("gsc-inspection",a.enabled?"전체 글이 아닌 점검 표본 "+num(sample)+"개(이번 실행 "+num(a.checked_this_run)+"개).": "GitHub에서 Google Search Console 선택 인증이 설정되지 않았거나 사용하지 않는 상태야.");
 }
 function showPerformance(data){
  const p=data.bing||{};
