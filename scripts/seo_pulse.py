@@ -331,8 +331,19 @@ def run() -> dict:
         errors.append(f"Bing API: {type(error).__name__}: {error}")
         result["bing"] = {**prior.get("bing", {}), "status": "stale"}
     try:
-        result["stale"] = stale_pulse(blogger_posts(blogger_key), reference) if blogger_key else {
-            "status": "not_configured"}
+        if blogger_key:
+            posts = blogger_posts(blogger_key)
+            result["stale"] = stale_pulse(posts, reference)
+            if result["bing"].get("status") == "ok":
+                titles = {canonical(str(p.get("url", ""))): str(p.get("title", ""))[:180]
+                          for p in posts}
+                candidates = result["bing"]["page_review_candidates"]
+                result["bing"]["page_review_candidates"] = [
+                    {**p, "title": titles[p["url"]]}
+                    for p in candidates if p["url"] in titles
+                ]
+        else:
+            result["stale"] = {"status": "not_configured"}
     except Exception as error:
         errors.append(f"Blogger: {type(error).__name__}: {error}")
         result["stale"] = {**prior.get("stale", {}), "status": "stale"}
