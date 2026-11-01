@@ -359,7 +359,7 @@ def main() -> int:
                 "## Byeolsemso indexing\n"
                 f"- Published posts: {report['published_posts']}\n"
                 f"- Bing submitted this run: {len(report['bing_submitted'])}\n"
-                f"- Bing pending: {report['bing_pending']}\n"
+                f"- Bing pending: {report['bing_pending']}\n")
         return 0
     except Exception as exc:
         # Avoid printing exception URLs that could contain credentials.
