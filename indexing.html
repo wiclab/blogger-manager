@@ -31,13 +31,10 @@ h1{font-size:clamp(22px,4vw,29px);margin:0}h2{font-size:19px;margin:0 0 9px}h3{f
 a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8px 20px 30px}
 @media(max-width:720px){.wrap{padding:13px}.header{padding:18px 13px}.layout{grid-template-columns:1fr}.full{grid-column:1}.panel{padding:15px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.nav a{padding:6px 9px;font-size:12px}}
 </style>
+<link rel="stylesheet" href="./assets/manager-header.css">
 </head>
 <body>
-<header><div class="wrap header">
-<h1>별셈소 Bing 제출 현황</h1>
-<p class="sub">URL 제출 기록 · 자동 실행 감시 · 검색 색인 상태 · 검색 성과를 서로 구분해 표시합니다.</p>
-<nav class="nav" aria-label="관리자 메뉴"><a href="./">콘텐츠 관리</a><a href="./seo.html">Bing 성과·글 갱신</a><a aria-current="page" href="./indexing.html">색인 제출 현황</a><a href="./stats.html">GSC · GA4 통계</a><a href="./write.html">주제 발굴</a><a href="./news.html">뉴스</a></nav>
-</div></header>
+<header class="bm-hero"><div class="bm-wrap"><h1 class="bm-title">별셈소 Bing 제출 현황</h1><p class="bm-sub">URL 제출 · 자동 실행 감시 · 색인 확인 · 검색 실적</p><nav class="bm-nav" aria-label="관리자 메뉴"><a href="./">콘텐츠 관리</a><a href="./seo.html">Bing · 글 갱신</a><a href="./indexing.html" aria-current="page">색인 제출 현황</a><a href="./write.html">주제 발굴</a><a href="./editor.html">글 편집·발행</a><a href="./news.html">뉴스</a></nav></div></header>
 <main class="wrap">
 <div class="actions"><span id="refreshed" class="muted">보고서 불러오는 중</span><button id="refresh" type="button" class="button">새로고침</button></div>
 <div class="layout" style="margin-top:13px">

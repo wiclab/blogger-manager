@@ -4,9 +4,10 @@
 
 ## 실행 중인 GitHub Pages 화면
 - [콘텐츠 관리](https://wiclab.github.io/blogger-manager/)
-- [통계](https://wiclab.github.io/blogger-manager/stats.html)
 - [Bing 성과·오래된 정보 점검](https://wiclab.github.io/blogger-manager/seo.html)
 - [Bing 제출·예약 실행·색인·검색 실적 분리 대시보드](https://wiclab.github.io/blogger-manager/indexing.html)
+
+공통 상단 메뉴는 Bing SEO 화면의 남색 헤더 디자인으로 통일되었습니다. 사용하지 않는 GSC·GA4 전용 통계 화면은 제거했으며 주제 발굴 기능은 유지됩니다.
 - [주제 발굴](https://wiclab.github.io/blogger-manager/write.html)
 - [글 편집](https://wiclab.github.io/blogger-manager/editor.html)
 - [뉴스](https://wiclab.github.io/blogger-manager/news.html)
