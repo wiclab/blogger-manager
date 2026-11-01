@@ -121,7 +121,8 @@ def plan_notification(health, previous, at=None):
     current = previous.get("active_signature")
     if signature is None:
         return ("recovered", "✅ 별셈소 Bing 자동화가 정상 상태로 복구됐어.") if current else (None, None)
-    if signature == current:
+    if current:
+        # Treat evolving warning codes as the same active incident; prevent spam.
         last = parse_time(previous.get("last_sent_at"))
         if last and dt.timedelta(0) <= at - last < dt.timedelta(hours=ALERT_COOLDOWN_HOURS):
             return None, None
