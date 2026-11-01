@@ -1,6 +1,6 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-01T22:40:02+00:00",
+    "last_successful_check_at": "2026-11-01T22:58:40+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
@@ -13,6 +13,65 @@
     "pending_count": 121,
     "per_run_cap": 100,
     "published_count": 219,
+    "queue_summary": {
+      "changed_since_submission": 0,
+      "first_time_pending": 121,
+      "older_or_undated": 109,
+      "preview_note": "Illustrative next batch order, not a confirmed submission or queue wait duration.",
+      "priority_preview": [
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/10/steam-standard-deluxe-bundle-edition-guide.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/10/blog-post_26.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/10/energy-voucher-bill-deduction-2026.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/10/salted-cabbage-20kg-kimjang-amount-guide.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/10/2026-black-friday-overseas-shopping-customs-checklist.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/10/epe-obesity-drug-price-insurance-2026.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/10/steam-game-not-launching-refund-check.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/10/2026-energy-voucher-winter-application-guide.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/10/hybrid-car-12v-battery-reset-jump-start-guide.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://wic12.blogspot.com/2026/10/2027-suneung-day-commute-traffic-guide.html"
+        }
+      ],
+      "recent_new": 12,
+      "recent_updated": 0,
+      "without_modified_timestamp": 0
+    },
     "recent_pending": [
       "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html",
       "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html",
@@ -39,5 +98,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-01T22:40:02+00:00"
+  "updated_at": "2026-11-01T22:58:40+00:00"
 }
