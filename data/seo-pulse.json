@@ -17,7 +17,7 @@
     "page_review_candidates": [],
     "query_rows_analyzed": 8,
     "site_property": "https://wic12.blogspot.com/",
-    "status": "ok",
+    "status": "stale",
     "totals": {
       "clicks": 0,
       "ctr_pct": 0.0,
@@ -161,7 +161,9 @@
     "note": "Potential dates only: context can be historical or already updated. Do not auto-edit posts.",
     "status": "ok",
     "upcoming_count": 4,
-    "updated_at": "2026-11-01T16:07:10+00:00"
+    "updated_at": "2026-11-01T21:50:16+00:00"
   },
-  "warnings": []
+  "warnings": [
+    "Bing API: RuntimeError: Remote API HTTP 503"
+  ]
 }
