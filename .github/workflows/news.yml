@@ -75,6 +75,7 @@ jobs:
         if: github.event_name != 'pull_request'
         run: |
           set -euo pipefail
+          mkdir -p data
           for name in news.json news-intelligence.json news-alert-state.json; do
             test -s "news-data/data/$name"
             cp "news-data/data/$name" "data/$name"

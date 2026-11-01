@@ -68,4 +68,8 @@ jobs:
               workflow = Path(f'.github/workflows/{name}.yml').read_text(encoding='utf-8')
               if 'git push origin HEAD:main' in workflow:
                   raise SystemExit(f'{name}: automatic push to main is forbidden')
+          for name in ('news', 'seo-pulse'):
+              workflow = Path(f'.github/workflows/{name}.yml').read_text(encoding='utf-8')
+              if 'mkdir -p data' not in workflow:
+                  raise SystemExit(f'{name}: missing staging directory initialization')
           PY
