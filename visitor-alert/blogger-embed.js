@@ -1,5 +1,6 @@
 <!-- 별셈소: 테마 HTML의 </body> 앞에 한 번만 삽입. 배포 후 실제 Worker URL로 교체 -->
-<script>
+<script type='text/javascript'>
+//<![CDATA[
 (function(){
   "use strict";
   var WORKER_URL="https://REPLACE-WITH-YOUR-WORKER.workers.dev";
@@ -22,4 +23,5 @@
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",send,{once:true});
   else send();
 })();
+//]]>
 </script>
