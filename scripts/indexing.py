@@ -9,6 +9,8 @@ import datetime as dt
 import json
 import os
 import re
+import tempfile
+import time
 import sys
 import urllib.error
 import urllib.parse
@@ -60,37 +62,51 @@ def child_text(element: ET.Element, name: str) -> str:
 
 def request(url: str, *, payload: dict | None = None, headers: dict | None = None,
             method: str | None = None) -> tuple[int, bytes]:
+    """Retry transient failures only for safe reads. Never auto-retry Bing batch POSTs.
+
+    A timed-out submission may have been accepted despite a lost response.
+    Replaying that POST immediately could consume quota or duplicate receipts.
+    """
     data = None if payload is None else json.dumps(payload).encode("utf-8")
     request_headers = {**HEADERS, **(headers or {})}
     if data is not None:
         request_headers["Content-Type"] = "application/json; charset=utf-8"
     req = urllib.request.Request(url, data=data, headers=request_headers, method=method)
-    try:
-        with urllib.request.urlopen(req, timeout=25) as response:
-            body = response.read(8_000_001)
-            if len(body) > 8_000_000:
-                raise RuntimeError("Response too large")
-            return response.status, body
-    except urllib.error.HTTPError as exc:
-        # Do not print URLs containing API keys or OAuth credentials.
-        # Bing errors are JSON with a short diagnostic code; whitelist only known values.
-        category = ""
-        if urllib.parse.urlsplit(url).hostname == "ssl.bing.com":
-            try:
-                fault = json.loads(exc.read(2048))
-                code = fault.get("ErrorCode")
-                message = fault.get("Message")
-                allowed = {"InvalidApiKey", "InvalidSiteUrl", "SiteNotVerified", "ThrottleHost",
-                           "AccessDenied", "SiteNotFound", "Unauthorized", "UnknownError"}
-                if message in allowed:
-                    category = " (" + message + ")"
-                elif isinstance(code, int):
-                    category = " (Bing ErrorCode " + str(code) + ")"
-            except (ValueError, TypeError, AttributeError):
-                pass
-        raise RuntimeError(f"Remote API returned HTTP {exc.code}{category}") from None
-    except urllib.error.URLError as exc:
-        raise RuntimeError(f"Remote connection failed: {exc.reason}") from None
+    safe_read = data is None and method in (None, "GET")
+    attempts = 3 if safe_read else 1
+    for attempt in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=25) as response:
+                body = response.read(8_000_001)
+                if len(body) > 8_000_000:
+                    raise RuntimeError("Response too large")
+                return response.status, body
+        except urllib.error.HTTPError as exc:
+            if safe_read and exc.code in {429, 500, 502, 503, 504} and attempt < attempts - 1:
+                time.sleep(2 ** attempt)
+                continue
+            # Do not print URLs or raw responses containing credentials.
+            category = ""
+            if urllib.parse.urlsplit(url).hostname == "ssl.bing.com":
+                try:
+                    fault = json.loads(exc.read(2048))
+                    code = fault.get("ErrorCode")
+                    message = fault.get("Message")
+                    allowed = {"InvalidApiKey", "InvalidSiteUrl", "SiteNotVerified", "ThrottleHost",
+                               "AccessDenied", "SiteNotFound", "Unauthorized", "UnknownError"}
+                    if message in allowed:
+                        category = " (" + message + ")"
+                    elif isinstance(code, int):
+                        category = " (Bing ErrorCode " + str(code) + ")"
+                except (ValueError, TypeError, AttributeError):
+                    pass
+            raise RuntimeError(f"Remote API returned HTTP {exc.code}{category}") from None
+        except urllib.error.URLError:
+            if safe_read and attempt < attempts - 1:
+                time.sleep(2 ** attempt)
+                continue
+            raise RuntimeError("Remote connection failed") from None
+    raise AssertionError("Unreachable retry state")
 
 
 def parse_sitemap(body: bytes) -> tuple[str, list[tuple[str, str]]]:
@@ -161,18 +177,56 @@ def collect_atom_updates() -> dict[str, str]:
     return updates
 
 
-def load_state() -> dict:
-    if not STATE_PATH.exists():
-        return {"version": 1, "bing": {}, "google": {}, "sitemap_registered": False}
-    data = json.loads(STATE_PATH.read_text(encoding="utf-8"))
-    if data.get("version") != 1 or not isinstance(data.get("bing"), dict) or not isinstance(data.get("google"), dict):
-        raise ValueError("State file is invalid; refusing to re-submit everything")
+def validate_state(data: dict) -> dict:
+    """Fail closed rather than silently treating missing/corrupt receipts as new work."""
+    if not isinstance(data, dict) or data.get("version") != 1:
+        raise ValueError("Indexing state version is invalid; refusing to re-submit")
+    if not isinstance(data.get("bing"), dict) or not isinstance(data.get("google"), dict):
+        raise ValueError("Indexing state structure is invalid; refusing to re-submit")
+    if len(data["bing"]) > 5000:
+        raise ValueError("Indexing state has unexpectedly many submissions")
+    for url, record in data["bing"].items():
+        if (not isinstance(url, str) or canonical(url) != url
+                or not isinstance(record, dict)
+                or not isinstance(record.get("fingerprint"), str)
+                or not isinstance(record.get("submitted_at"), str)):
+            raise ValueError("Indexing state contains an invalid Bing receipt")
     return data
 
 
+def load_state() -> dict:
+    if not STATE_PATH.is_file():
+        raise RuntimeError("Indexing state is missing; refusing to re-submit all URLs")
+    return validate_state(json.loads(STATE_PATH.read_text(encoding="utf-8")))
+
+
 def write_json(path: Path, data: dict) -> None:
+    """Replace JSON atomically; never expose a partially written state file."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile("w", encoding="utf-8",
+                                         dir=path.parent, prefix=path.name + ".",
+                                         suffix=".tmp", delete=False) as handle:
+            temporary = Path(handle.name)
+            handle.write(json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
+def persist_state(previous: dict, updated: dict) -> None:
+    """Keep an immediately prior valid snapshot and reject any receipt deletion."""
+    validate_state(previous)
+    validate_state(updated)
+    if not set(previous["bing"]).issubset(updated["bing"]):
+        raise ValueError("Indexing state would drop previous Bing receipts")
+    backup = STATE_PATH.with_name("indexing-state.backup.json")
+    write_json(backup, previous)
+    write_json(STATE_PATH, updated)
 
 
 def bing_verified_site(api_key: str) -> str:
@@ -330,11 +384,11 @@ def run() -> dict:
         if url in posts:
             posts[url] = updated
     state = load_state()
-    previous = json.dumps(state, sort_keys=True)
+    previous = json.loads(json.dumps(state))
     diagnostics = {}
     submitted = bing_submit(posts, state, os.environ.get("BING_API_KEY", ""), diagnostics)
-    if json.dumps(state, sort_keys=True) != previous:
-        write_json(STATE_PATH, state)
+    if state != previous:
+        persist_state(previous, state)
     report = {
         "generated_at": now(),
         "site": SITE,
