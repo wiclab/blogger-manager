@@ -27,6 +27,8 @@ jobs:
   seo-pulse:
     runs-on: ubuntu-latest
     timeout-minutes: 12
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -65,10 +67,14 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/seo-pulse.json
+          if [ -f data/blog-post-titles.json ]; then git add data/blog-post-titles.json; fi
           if git diff --cached --quiet; then
             echo "No SEO pulse changes"
             exit 0
           fi
           git commit -m "Update Byeolsemso SEO pulse summary"
+          if [ -n "$(git status --porcelain)" ]; then
+            git stash push --include-untracked -m 'Temporary SEO pulse generated files'
+          fi
           git pull --rebase origin main
           git push origin HEAD:main
