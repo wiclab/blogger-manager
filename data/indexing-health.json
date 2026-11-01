@@ -1,16 +1,17 @@
 {
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "checked_at": "2026-11-01T12:51:06+00:00",
+  "checked_at": "2026-11-01T18:27:21+00:00",
   "status": "warning",
   "last_scheduled_run_at": null,
   "last_scheduled_success_at": null,
-  "last_any_success_at": "2026-11-01T12:48:56+00:00",
-  "last_dashboard_update_at": "2026-11-01T12:49:02+00:00",
+  "last_any_success_at": "2026-11-01T13:11:43+00:00",
+  "last_dashboard_update_at": "2026-11-01T13:11:51+00:00",
   "expected_interval_hours": 2,
   "warning_after_hours": 5,
   "issues": [
-    "최근 5시간 내 성공한 예약 실행이 없습니다. Actions에서 schedule 활성화를 확인하세요."
+    "최근 5시간 내 성공한 예약 실행이 없습니다. Actions에서 schedule 활성화를 확인하세요.",
+    "Bing 제출 대시보드 자료가 5시간 이상 갱신되지 않았습니다."
   ],
   "note": "Scheduled workflow health, not proof of search engine indexing."
 }
