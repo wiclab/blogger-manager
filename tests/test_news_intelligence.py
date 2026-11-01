@@ -4,6 +4,7 @@ import unittest
 from unittest.mock import patch
 from scripts.news_intelligence import (
     build, canonical, match_posts, news_key, score_item, tokens,
+    reconcile_coverage, focused_news,
 )
 
 NOW = dt.datetime(2026, 11, 2, 0, 0, tzinfo=dt.timezone.utc)
@@ -73,6 +74,18 @@ class NewsIntelligenceTests(unittest.TestCase):
         snap["failedCategories"] = []
         with self.assertRaises(ValueError):
             build(snap, [], "complete", NOW + dt.timedelta(hours=13))
+
+    def test_public_post_count_mismatch_is_not_claimed_complete(self):
+        posts = [{"url": "https://wic12.blogspot.com/2026/11/example.html",
+                  "title": "이전 게시글"}] * 116
+        with patch("scripts.news_intelligence.expected_post_count", return_value=219):
+            coverage, expected = reconcile_coverage(posts, "complete")
+        self.assertEqual(coverage, "partial")
+        self.assertEqual(expected, 219)
+
+    def test_focused_rss_failure_falls_back_to_existing_news(self):
+        with patch("urllib.request.urlopen", side_effect=OSError("offline")):
+            self.assertEqual(focused_news(NOW), [])
 
     def test_story_key_ignores_punctuation(self):
         first = article("온누리상품권 할인 기간 연장!")
