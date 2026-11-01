@@ -60,8 +60,18 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      - name: Next installation step
+      - name: Confirm Worker responds on its deployed URL
         if: steps.deploy.outcome == 'success'
+        env:
+          WORKER_URL: ${{ steps.deploy.outputs.deployment-url }}
         run: |
+          set -euo pipefail
+          if [[ -z "$WORKER_URL" || "$WORKER_URL" != https://* ]]; then
+            echo "::warning::Worker deployed, but the action returned no HTTPS endpoint. Check Wrangler deployment output."
+            exit 0
+          fi
           echo "### Worker deployed" >> "$GITHUB_STEP_SUMMARY"
-          echo "Use the actual Cloudflare deployment URL from this run to configure visitor-alert/blogger-embed.js and add it once to the Blogger theme." >> "$GITHUB_STEP_SUMMARY"
+          echo "Deployment URL: $WORKER_URL" >> "$GITHUB_STEP_SUMMARY"
+          curl -fsSL --max-time 15 --retry 2 "$WORKER_URL/health" | python -c 'import json,sys; value=json.load(sys.stdin); assert value.get("status")=="ok" and value.get("site")=="https://wic12.blogspot.com", "Unexpected Worker response"'
+          echo "Health endpoint: verified" >> "$GITHUB_STEP_SUMMARY"
+          echo "Next: insert visitor-alert/blogger-embed.js into the Blogger theme with this exact URL." >> "$GITHUB_STEP_SUMMARY"
