@@ -6,6 +6,8 @@ on:
       - "scripts/indexing.py"
       - "tests/test_indexing.py"
       - "indexing.html"
+      - "data/indexing-state.json"
+      - "data/indexing-state.backup.json"
       - ".github/workflows/indexing.yml"
   workflow_dispatch:
   schedule:
@@ -35,8 +37,17 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Compile Python before running any external API steps
+        run: python -m compileall -q scripts tests
       - name: Validate code without external API requests
         run: python -m unittest discover -s tests -p "test_*.py" -v
+      - name: Check saved indexing receipts without external API calls
+        run: |
+          python - <<'PY'
+          from scripts.indexing import load_state
+          state = load_state()
+          print(f"Protected Bing receipts: {len(state['bing'])}")
+          PY
       - name: Validate public indexing dashboard JavaScript and structure
         run: |
           python - <<'PY'
@@ -87,6 +98,9 @@ jobs:
           fi
           if [ -f data/indexing-dashboard.json ]; then
             git add data/indexing-dashboard.json
+          fi
+          if [ -f data/indexing-state.backup.json ]; then
+            git add data/indexing-state.backup.json
           fi
           if git diff --cached --quiet; then
             echo "No indexing state changes"

@@ -1,5 +1,7 @@
 import importlib.util
+import io
 import json
+import urllib.error
 import tempfile
 import unittest
 from pathlib import Path
@@ -92,6 +94,9 @@ class IndexingTests(unittest.TestCase):
             state_path = Path(directory) / "state.json"
             report_path = Path(directory) / "report.json"
             url = "https://wic12.blogspot.com/2026/11/a.html"
+            state_path.write_text(json.dumps({
+                "version": 1, "bing": {}, "google": {}, "sitemap_registered": False
+            }), encoding="utf-8")
             def success(posts, state, key, diagnostics=None):
                 state["bing"][url] = {"fingerprint": "2026-11-01", "submitted_at": "2026-11-01T00:00:00+00:00"}
                 return [url]
@@ -109,6 +114,8 @@ class IndexingTests(unittest.TestCase):
             state_path = Path(directory) / "state.json"
             report_path = Path(directory) / "report.json"
             url = "https://wic12.blogspot.com/2026/11/a.html"
+            initial = {"version": 1, "bing": {}, "google": {}, "sitemap_registered": False}
+            state_path.write_text(json.dumps(initial), encoding="utf-8")
             with patch.object(indexing, "STATE_PATH", state_path), patch.object(indexing, "REPORT_PATH", report_path), \
                  patch.object(indexing, "collect_sitemap", return_value={url: "2026-11-01"}), \
                  patch.object(indexing, "collect_atom_updates", return_value={}), \
@@ -116,7 +123,8 @@ class IndexingTests(unittest.TestCase):
                 report = indexing.run()
             self.assertEqual(report["published_posts"], 1)
             self.assertTrue(report_path.exists())
-            self.assertFalse(state_path.exists())
+            self.assertEqual(json.loads(state_path.read_text()), initial)
+            self.assertFalse(state_path.with_name("indexing-state.backup.json").exists())
 
 
     def test_fresh_first_and_old_backlog_reserved(self):
@@ -183,6 +191,80 @@ class IndexingTests(unittest.TestCase):
         self.assertNotIn("indexed_count",data["bing_submission"])
         self.assertEqual(data["site"],indexing.SITE)
         self.assertIn("impressions",data["metric_definitions"])
+
+
+    def test_missing_or_corrupt_state_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            state_path = Path(directory) / "indexing-state.json"
+            with patch.object(indexing, "STATE_PATH", state_path):
+                with self.assertRaisesRegex(RuntimeError, "missing"):
+                    indexing.load_state()
+                state_path.write_text('{"version":1,"bing":{"bad":{}},"google":{}}',
+                                      encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, "invalid Bing receipt"):
+                    indexing.load_state()
+                state_path.write_text('{"version":1,"bing":{},"google":{}}', encoding="utf-8")
+                self.assertEqual(indexing.load_state()["bing"], {})
+
+    def test_state_backup_preserves_previous_receipts(self):
+        first = "https://wic12.blogspot.com/2026/11/first.html"
+        second = "https://wic12.blogspot.com/2026/11/second.html"
+        old = {"version": 1, "bing": {
+            first: {"fingerprint": "old", "submitted_at": "2026-11-01T00:00:00Z"}
+        }, "google": {}, "sitemap_registered": False}
+        new = json.loads(json.dumps(old))
+        new["bing"][second] = {"fingerprint": "new", "submitted_at": "2026-11-02T00:00:00Z"}
+        with tempfile.TemporaryDirectory() as directory:
+            state_path = Path(directory) / "indexing-state.json"
+            state_path.write_text(json.dumps(old), encoding="utf-8")
+            with patch.object(indexing, "STATE_PATH", state_path):
+                indexing.persist_state(old, new)
+                self.assertEqual(json.loads(state_path.read_text()), new)
+                self.assertEqual(json.loads(
+                    state_path.with_name("indexing-state.backup.json").read_text()), old)
+                with self.assertRaisesRegex(ValueError, "drop previous"):
+                    indexing.persist_state(new, old)
+                self.assertEqual(json.loads(state_path.read_text()), new)
+
+    def test_transient_api_get_retries_with_bounded_backoff(self):
+        url = "https://ssl.bing.com/webmaster/api.svc/json/GetUserSites?apikey=secret"
+        def error():
+            return urllib.error.HTTPError(url, 503, "busy", None, io.BytesIO(b""))
+        class Reply:
+            status = 200
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                return False
+            def read(self, maximum):
+                return b'{"d":[]}'
+        with patch.object(indexing.urllib.request, "urlopen",
+                          side_effect=[error(), error(), Reply()]) as open_url:
+            with patch.object(indexing.time, "sleep") as sleep:
+                self.assertEqual(indexing.request(url), (200, b'{"d":[]}'))
+        self.assertEqual(open_url.call_count, 3)
+        self.assertEqual([call.args[0] for call in sleep.call_args_list], [1, 2])
+
+    def test_bing_post_never_auto_retries_ambiguous_result(self):
+        url = "https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=secret"
+        error = urllib.error.HTTPError(url, 503, "busy", None, io.BytesIO(b""))
+        with patch.object(indexing.urllib.request, "urlopen", side_effect=error) as open_url:
+            with patch.object(indexing.time, "sleep") as sleep:
+                with self.assertRaisesRegex(RuntimeError, "HTTP 503") as caught:
+                    indexing.request(url, payload={"urlList": ["https://wic12.blogspot.com/2026/11/a.html"]})
+        self.assertEqual(open_url.call_count, 1)
+        sleep.assert_not_called()
+        self.assertNotIn("secret", str(caught.exception))
+
+    def test_auth_failure_is_not_retried(self):
+        url = "https://ssl.bing.com/webmaster/api.svc/json/GetUserSites?apikey=secret"
+        error = urllib.error.HTTPError(url, 401, "unauthorized", None, io.BytesIO(b""))
+        with patch.object(indexing.urllib.request, "urlopen", side_effect=error) as open_url:
+            with patch.object(indexing.time, "sleep") as sleep:
+                with self.assertRaisesRegex(RuntimeError, "HTTP 401"):
+                    indexing.request(url)
+        self.assertEqual(open_url.call_count, 1)
+        sleep.assert_not_called()
 
 
 if __name__ == "__main__":
