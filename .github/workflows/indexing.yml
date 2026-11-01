@@ -1,0 +1,65 @@
+name: Byeolsemso indexing automation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "13 */2 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/indexing.py"
+      - "tests/test_indexing.py"
+      - ".github/workflows/indexing.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: byeolsemso-indexing
+  cancel-in-progress: false
+
+jobs:
+  indexing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate code without external API requests
+        run: python -m unittest discover -s tests -p "test_*.py" -v
+      - name: Submit changed posts to Bing; optionally inspect Google index
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+          GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+        run: python scripts/indexing.py
+      - name: Store report (7 days)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: indexing-report-${{ github.run_id }}
+          path: data/indexing-report.json
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Persist only changed submission and inspection state
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -f data/indexing-state.json ]; then
+            git add data/indexing-state.json
+          fi
+          if git diff --cached --quiet; then
+            echo "No indexing state changes"
+            exit 0
+          fi
+          git commit -m "Update Byeolsemso indexing state"
+          git pull --rebase origin main
+          git push origin HEAD:main
