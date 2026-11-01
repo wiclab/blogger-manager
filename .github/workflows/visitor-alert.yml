@@ -72,6 +72,21 @@ jobs:
           fi
           echo "### Worker deployed" >> "$GITHUB_STEP_SUMMARY"
           echo "Deployment URL: $WORKER_URL" >> "$GITHUB_STEP_SUMMARY"
-          curl -fsSL --max-time 15 --retry 2 "$WORKER_URL/health" | python -c 'import json,sys; value=json.load(sys.stdin); assert value.get("status")=="ok" and value.get("site")=="https://wic12.blogspot.com", "Unexpected Worker response"'
+          # workers.dev routes can take a little time to become available after first deploy.
+          good=0
+          for attempt in 1 2 3 4 5 6 7 8; do
+            http_code=$(curl --silent --show-error --location --max-time 12 --output /tmp/byeolsemso-health.json --write-out '%{http_code}' "$WORKER_URL/health" || true)
+            if [[ "$http_code" == "200" ]] && python -c 'import json; v=json.load(open("/tmp/byeolsemso-health.json")); assert v.get("status")=="ok" and v.get("site")=="https://wic12.blogspot.com"' 2>/dev/null; then
+              good=1
+              break
+            fi
+            echo "Worker endpoint not ready (attempt $attempt, HTTP $http_code)"
+            sleep 6
+          done
+          if [[ "$good" != "1" ]]; then
+            echo "::error::Worker deployed but the /health URL did not return the expected response after multiple checks."
+            echo "Health endpoint: NOT VERIFIED" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
           echo "Health endpoint: verified" >> "$GITHUB_STEP_SUMMARY"
           echo "Next: insert visitor-alert/blogger-embed.js into the Blogger theme with this exact URL." >> "$GITHUB_STEP_SUMMARY"
