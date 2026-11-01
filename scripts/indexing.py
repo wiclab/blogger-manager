@@ -260,7 +260,14 @@ def run() -> dict:
     state = load_state()
     previous = json.dumps(state, sort_keys=True)
     submitted = bing_submit(posts, state, os.environ.get("BING_API_KEY", ""))
-    inspected = google_check(posts, state, google_access_token())
+    google_error = None
+    try:
+        inspected = google_check(posts, state, google_access_token())
+    except Exception as exc:
+        # Optional Google failure must not discard a successful Bing submission.
+        inspected = []
+        google_error = f"{type(exc).__name__}: {exc}"
+        print(f"::warning::Optional Google inspection failed: {google_error}", file=sys.stderr)
     if json.dumps(state, sort_keys=True) != previous:
         write_json(STATE_PATH, state)
     unindexed = [url for url, details in state["google"].items()
@@ -274,6 +281,7 @@ def run() -> dict:
                             for url, stamp in posts.items()),
         "google_inspected": inspected,
         "google_inspection_enabled": bool(os.environ.get("GSC_REFRESH_TOKEN")),
+        "google_error": google_error,
         "google_needs_review": unindexed,
         "note": "Bing submission is not guaranteed indexing. Google only inspects indexed-version status; no indexing request API is used."
     }
@@ -293,7 +301,8 @@ def main() -> int:
                 f"- Bing submitted this run: {len(report['bing_submitted'])}\n"
                 f"- Bing pending: {report['bing_pending']}\n"
                 f"- Google inspected: {len(report['google_inspected'])}\n"
-                f"- Google flagged for review: {len(report['google_needs_review'])}\n")
+                f"- Google flagged for review: {len(report['google_needs_review'])}\n"
+                f"- Google error: {report['google_error'] or 'none'}\n")
         return 0
     except Exception as exc:
         # Avoid printing exception URLs that could contain credentials.
