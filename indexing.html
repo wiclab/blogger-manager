@@ -105,7 +105,7 @@ function canonical(raw){
 const INDEXING_DATA_BASE="https://raw.githubusercontent.com/wiclab/blogger-manager/indexing-data/data/";
 async function readJSON(file){
  const fromDataBranch=file==="indexing-dashboard.json"||file==="indexing-health.json";
- const source=fromDataBranch?INDEXING_DATA_BASE+file:"./data/"+file;
+ const source=fromDataBranch?INDEXING_DATA_BASE+file:file==="seo-pulse.json"?"https://raw.githubusercontent.com/wiclab/blogger-manager/seo-data/data/seo-pulse.json":"./data/"+file;
  const response=await fetch(source+"?t="+Date.now(),{cache:"no-store"});
  if(!response.ok)throw Error(file+" HTTP "+response.status);
  return await response.json();
