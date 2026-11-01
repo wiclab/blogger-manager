@@ -1,6 +1,11 @@
 name: Byeolsemso indexing schedule watchdog
 
 on:
+  pull_request:
+    paths:
+      - "scripts/indexing_health.py"
+      - "tests/test_indexing_health.py"
+      - ".github/workflows/indexing-health.yml"
   workflow_dispatch:
   schedule:
     - cron: "23 1,5,9,13,17,21 * * *"
@@ -16,7 +21,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: byeolsemso-indexing-watchdog
+  group: byeolsemso-indexing-data
   cancel-in-progress: false
 
 jobs:
@@ -24,10 +29,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Checkout
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Checkout indexing data branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: indexing-data
+          path: indexing-data
+      - name: Restore current dashboard for watchdog
+        run: |
+          set -euo pipefail
+          test -s indexing-data/data/indexing-dashboard.json
+          mkdir -p data
+          cp indexing-data/data/indexing-dashboard.json data/indexing-dashboard.json
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -36,18 +50,20 @@ jobs:
         run: python -m unittest discover -s tests -p "test_indexing_health.py" -v
       - name: Verify scheduled indexing runs and freshness
         id: monitor
+        if: github.event_name != 'pull_request'
         env:
           GH_HEALTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/indexing_health.py
       - name: Publish non-sensitive health result even on warning
-        if: always()
+        if: always() && github.event_name != 'pull_request'
         run: |
           set -euo pipefail
           if [ ! -f data/indexing-health.json ]; then exit 0; fi
+          cp data/indexing-health.json indexing-data/data/indexing-health.json
+          cd indexing-data
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/indexing-health.json
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Record Bing indexing schedule health'
-          git pull --rebase origin main
-          git push origin HEAD:main
+          git commit -m 'Record protected Bing indexing schedule health'
+          git push origin HEAD:indexing-data
