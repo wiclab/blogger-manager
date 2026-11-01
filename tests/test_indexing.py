@@ -79,6 +79,24 @@ class IndexingTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 indexing.collect_sitemap()
 
+    def test_google_failure_does_not_discard_bing_success(self):
+        with tempfile.TemporaryDirectory() as directory:
+            state_path = Path(directory) / "state.json"
+            report_path = Path(directory) / "report.json"
+            url = "https://wic12.blogspot.com/2026/11/a.html"
+            def success(posts, state, key):
+                state["bing"][url] = {"fingerprint": "2026-11-01", "submitted_at": "2026-11-01T00:00:00+00:00"}
+                return [url]
+            with patch.object(indexing, "STATE_PATH", state_path), patch.object(indexing, "REPORT_PATH", report_path), \
+                 patch.object(indexing, "collect_sitemap", return_value={url: "2026-11-01"}), \
+                 patch.object(indexing, "collect_atom_updates", return_value={}), \
+                 patch.object(indexing, "bing_submit", side_effect=success), \
+                 patch.object(indexing, "google_access_token", side_effect=RuntimeError("OAuth test error")):
+                report = indexing.run()
+            self.assertEqual(report["bing_submitted"], [url])
+            self.assertIn("OAuth test error", report["google_error"])
+            self.assertEqual(json.loads(state_path.read_text())["bing"][url]["fingerprint"], "2026-11-01")
+
     def test_persists_state_only_if_changed(self):
         with tempfile.TemporaryDirectory() as directory:
             state_path = Path(directory) / "state.json"
