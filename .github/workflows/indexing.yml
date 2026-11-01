@@ -84,6 +84,7 @@ jobs:
             echo "::warning::BING_API_KEY secret is not configured; no URLs submitted."
             echo "## Byeolsemso indexing" >> "$GITHUB_STEP_SUMMARY"
             echo "- Not started: BING_API_KEY repository secret is missing." >> "$GITHUB_STEP_SUMMARY"
+            exit 1
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
@@ -97,7 +98,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: indexing-report-${{ github.run_id }}
-          path: data/indexing-report.json
+          path: |
+            data/indexing-report.json
+            data/indexing-failure.json
           if-no-files-found: ignore
           retention-days: 7
       - name: Persist protected state to indexing-data (not main)
@@ -124,4 +127,14 @@ jobs:
             exit 0
           fi
           git commit -m "Update protected Byeolsemso indexing data"
-          git push origin HEAD:indexing-data
+          # Retry the same commit only, never the Bing submission POST.
+          for attempt in 1 2 3; do
+            if git push origin HEAD:indexing-data; then
+              echo "Protected indexing data persisted"
+              exit 0
+            fi
+            echo "::warning::State push failed; identical commit retry ($attempt/3)"
+            if [ "$attempt" -lt 3 ]; then sleep "$((attempt * 2))"; fi
+          done
+          echo "::error::State push failed; receipts need reconciliation before any duplicate batch"
+          exit 1
