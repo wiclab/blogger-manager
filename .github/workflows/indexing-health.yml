@@ -1,0 +1,53 @@
+name: Byeolsemso indexing schedule watchdog
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 1,5,9,13,17,21 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/indexing_health.py"
+      - "tests/test_indexing_health.py"
+      - ".github/workflows/indexing-health.yml"
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: byeolsemso-indexing-watchdog
+  cancel-in-progress: false
+
+jobs:
+  check-schedule:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run watchdog unit tests
+        run: python -m unittest discover -s tests -p "test_indexing_health.py" -v
+      - name: Verify scheduled indexing runs and freshness
+        id: monitor
+        env:
+          GH_HEALTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/indexing_health.py
+      - name: Publish non-sensitive health result even on warning
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ ! -f data/indexing-health.json ]; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/indexing-health.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Record Bing indexing schedule health'
+          git pull --rebase origin main
+          git push origin HEAD:main
