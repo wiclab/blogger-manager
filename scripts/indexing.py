@@ -512,9 +512,9 @@ def main() -> int:
         summary = os.environ.get("GITHUB_STEP_SUMMARY")
         if summary:
             with open(summary, "a", encoding="utf-8") as file:
-                file.write("## Byeolsemso indexing failure\\n"
-                           + "- Category: " + category + "\\n"
-                           + "- POST retry: blocked\\n")
+                file.write("## Byeolsemso indexing failure\n"
+                           + "- Category: " + category + "\n"
+                           + "- POST retry: blocked\n")
         return 1
 
 
