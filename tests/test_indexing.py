@@ -73,6 +73,34 @@ class IndexingTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "no verified Byeolsemso"):
                 indexing.bing_verified_site("dummy")
 
+    def test_safe_failure_classification_never_outputs_secrets(self):
+        self.assertEqual(indexing.classify_failure(
+            indexing.SubmissionOutcomeUnknown("uncertain")), "submission_outcome_unknown")
+        self.assertEqual(indexing.classify_failure(
+            RuntimeError("Remote API returned HTTP 429")), "read_rate_limited")
+        self.assertEqual(indexing.classify_failure(
+            RuntimeError("Remote API returned HTTP 401")), "authentication")
+        self.assertEqual(indexing.classify_failure(
+            RuntimeError("Indexing state is missing; refusing to re-submit all URLs")),
+            "state_integrity")
+
+    def test_ambiguous_bing_post_is_never_replayed(self):
+        url = "https://wic12.blogspot.com/2026/11/a.html"
+        state = {"bing": {}}
+        calls = []
+        def fake_request(endpoint, **kwargs):
+            if "GetUserSites" in endpoint:
+                return 200, b'{"d":[{"Url":"https://wic12.blogspot.com/","IsVerified":true}]}'
+            if "GetUrlSubmissionQuota" in endpoint:
+                return 200, b'{"d":{"DailyQuota":55,"MonthlyQuota":1000}}'
+            calls.append(kwargs["payload"]["urlList"])
+            raise RuntimeError("Remote connection failed")
+        with patch.object(indexing, "request", fake_request):
+            with self.assertRaises(indexing.SubmissionOutcomeUnknown):
+                indexing.bing_submit({url:"2026-11-02T00:00:00Z"},state,"fake-test-key")
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(state["bing"], {})
+
     def test_no_quota_does_not_mark_submitted(self):
         state = {"bing": {}}
         def fake_request(endpoint, **kwargs):

@@ -38,6 +38,18 @@
 - 공통 `Required code integrity / code-integrity` 체크는 모든 PR에서 전체 Python 회귀 테스트, 정적 JavaScript 구문, 데이터 경로 분리 및 `main`으로의 자동 저장 재발을 검사합니다.
 - `Protect main` Ruleset은 사용자가 2026-11-02에 필수 PR 및 `code-integrity` 상태 검사, 강제 푸시·삭제 차단을 활성화했습니다. 필수 리뷰 수는 0명이며 설정 변경 시 GitHub Rulesets에서 다시 확인해야 합니다.
 
+## 실패 분류 · 안전 복구 · 텔레그램 장애 알림
+
+- 조회 전용 GET(Blogger 사이트맵·Atom, Bing 계정/할당량)은 HTTP 429/일시적 5xx/연결 오류에 1초·2초 간격으로 최대 3회 시도합니다. 인증 오류(401/403)와 JSON·상태 파일 손상은 자동 재시도하지 않습니다.
+- Bing `SubmitUrlBatch` POST는 결과가 불명확할 때 **한 번도 자동 재호출하지 않습니다.** 성공 수신 전까지 제출 기록도 늘리지 않습니다. 다음 예약 실행에서 Bing 할당량과 저장 상태를 다시 확인하지만, 미확정 POST의 실제 수신 여부는 반드시 운영자가 필요 시 점검해야 합니다.
+- GitHub 색인 데이터 저장과 독립 감시 데이터 저장은 같은 커밋 `git push`만 최대 3번 재시도합니다. 강제 푸시, 상태 덮어쓰기, 새 API 제출은 재시도 과정에 없습니다. 원격 브랜치가 변경되어 비-FF 거절되면 중단합니다.
+- 제출 실패 시 민감 정보를 제거한 `data/indexing-failure.json` 분류 보고서를 7일 Actions artifact에 보존하며 API 키·상세 오류 URL·URL 목록은 저장하지 않습니다.
+- 감시는 예약 실행 연속 실패 횟수, 최근 성공 실행, 대시보드 갱신 시각을 따로 확인합니다. GitHub Actions 실패 단계명만으로 코드 검사·상태 무결성·인증·Bing 제출·Git 저장 실패 등 범주를 나눕니다.
+- 텔레그램 장애 알림은 **2회 연속 예약 실행 실패** 또는 **5시간 이상 예약 실행/대시보드 미갱신**, 또는 독립 모니터 자체의 확인 오류에만 보냅니다. 정상적인 Bing 할당량 소진은 장애 알림이 아닙니다.
+- 동일한 진행 중 장애는 24시간 동안 추가 알림을 억제하고, 복구되면 알림을 한 번 보냅니다. 중복 방지 상태 `data/indexing-alert-state.json`은 `indexing-data` 브랜치에 보존되며, 파일이 없어지거나 손상되면 중복 발송 대신 알림을 중지합니다.
+- 텔레그램은 기존 `TELEGRAM_BOT_TOKEN`과 `TELEGRAM_CHAT_ID` Actions Secrets를 재사용합니다. 이 토큰은 소스·데이터 파일·로그에 쓰지 않습니다.
+- `indexing-health.yml`의 독립 감시는 해당 워크플로만으로 메시지를 보냅니다. 알림 수신 없이 상태가 경고로 남으면 해당 Actions와 Secrets를 점검하세요.
+
 ## 안전과 실패 대응
 
 - 비밀키 `BING_API_KEY`는 GitHub Actions Secrets에만 유지하세요. 소스 코드나 공개 보고서에 저장하지 않습니다.
