@@ -1,6 +1,6 @@
 const SITE="https://wic12.blogspot.com";
 const WAIT=300000;
-const PATH=/^\/20\d{2}\/\d{2}\/[a-z0-9_.-]+\.html$/i;
+const PATH=/^\/(?:20\d{2}\/\d{2}\/[a-z0-9_.-]+\.html|p\/[a-z0-9_.-]+\.html|search(?:\/label\/[a-z0-9%._-]+)?)$/i;
 const BOTS=/bot|crawl|spider|headless|lighthouse|pagespeed|facebookexternalhit|bingpreview|slurp|curl|wget|python-requests|postman/i;
 const headers={"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"};
 const reply=(status=204,extra={})=>new Response(null,{status,headers:{...headers,...extra}});
@@ -31,7 +31,7 @@ export default {
   let data;
   try{const raw=await req.text();if(raw.length>1500)return reply(413,cors);data=JSON.parse(raw);}catch{return reply(400,cors);}
   if(!data||!validPage(data.page)||!["mobile","desktop"].includes(data.device))return reply(400,cors);
-  const payload={page:data.page,title:cleanTitle(data.title),device:data.device};
+  const payload={page:data.page,title:data.page.startsWith("/search")?"별셈소 목록 페이지":cleanTitle(data.title),device:data.device};
   const id=env.GATE.idFromName("global-five-minute-cooldown");
   const result=await env.GATE.get(id).fetch(new Request("https://internal.invalid/notify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)}));
   return reply(result.ok?204:503,cors);
