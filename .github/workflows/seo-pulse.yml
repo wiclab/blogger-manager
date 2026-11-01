@@ -62,6 +62,7 @@ jobs:
         if: github.event_name != 'pull_request'
         run: |
           set -euo pipefail
+          mkdir -p data
           test -s seo-data/data/seo-pulse.json
           test -s seo-data/data/blog-post-titles.json
           cp seo-data/data/seo-pulse.json data/seo-pulse.json
