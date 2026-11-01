@@ -5,6 +5,7 @@
 ## 실행 중인 GitHub Pages 화면
 - [콘텐츠 관리](https://wiclab.github.io/blogger-manager/)
 - [통계](https://wiclab.github.io/blogger-manager/stats.html)
+- [Bing 성과·오래된 정보 점검](https://wiclab.github.io/blogger-manager/seo.html)
 - [주제 발굴](https://wiclab.github.io/blogger-manager/write.html)
 - [글 편집](https://wiclab.github.io/blogger-manager/editor.html)
 - [뉴스](https://wiclab.github.io/blogger-manager/news.html)
@@ -15,9 +16,11 @@
 - `scan.yml`: 1시간마다 Blogger 게시물 품질 검사
 - `editor-checks.yml`: 편집기 회귀 테스트
 - `indexing.yml`: 별셈소 전용 Bing 자동 제출, Google Search Console 선택적 색인 점검
+- `seo-pulse.yml`: 매일 Bing 검색 유입 집계 및 지난 행사·신청 날짜 검토
 
 ## 문서
 - [색인 자동화 설정/운영](docs/INDEXING_AUTOMATION.md)
+- [Bing 성과·오래된 정보 자동 점검](docs/SEO_PULSE.md)
 - [Blogger 편집기](docs/BLOGGER_EDITOR.md)
 - [이전 R2 이미지 사용 중단 주의사항](docs/R2_RETIREMENT.md)
 
