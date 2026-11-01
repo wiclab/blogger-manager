@@ -7,6 +7,8 @@ on:
     branches: [main]
     paths:
       - 'scripts/news.py'
+      - 'scripts/news_intelligence.py'
+      - 'tests/test_news_intelligence.py'
       - '.github/workflows/news.yml'
 permissions:
   contents: write
@@ -16,7 +18,9 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,14 +29,21 @@ jobs:
         with:
           python-version: '3.12'
       - name: Test news collector
-        run: python -m unittest discover -s tests -p 'test_news.py' -v
+        run: python -m unittest discover -s tests -p 'test_news*.py' -v
       - name: Collect RSS headlines
         run: python scripts/news.py
+      - name: Generate editorial leads and optional Telegram digest
+        env:
+          BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/news_intelligence.py
       - name: Save snapshot
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/news.json
+          git add data/news.json data/news-intelligence.json
+          if [ -f data/news-alert-state.json ]; then git add data/news-alert-state.json; fi
           if git diff --cached --quiet; then
             echo 'News snapshot unchanged; nothing to publish'
             exit 0
