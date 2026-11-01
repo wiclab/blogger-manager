@@ -51,6 +51,24 @@ class NewsIntelligenceTests(unittest.TestCase):
         self.assertTrue(trusted_focused_source(article(
             "한국 전기요금 적용 기준 변경", "경제") | {"source": "연합뉴스"}))
 
+    def test_prior_known_invalid_alert_is_corrected_after_report_rotation(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / "state.json"
+            path.write_text(json.dumps({"sent": [{"id": "6519d6d7141b9055c90feed0",
+                                                 "at": NOW.isoformat()}]}))
+            with patch("scripts.news_intelligence.ALERT_STATE", path), \
+                 patch("scripts.news_intelligence.telegram_send", return_value=True) as sent, \
+                 patch.dict("os.environ", {"TELEGRAM_BOT_TOKEN": "fake",
+                                          "TELEGRAM_CHAT_ID": "fake"}):
+                status = alert({"updates": [], "ideas": [],
+                                "postCoverage": "complete"}, {})
+            self.assertEqual(status, "foreign_policy_correction_sent")
+            self.assertEqual(sent.call_count, 1)
+            self.assertTrue(json.loads(path.read_text())["foreign_correction_sent"])
+
     def test_prior_foreign_telegram_alert_gets_one_correction(self):
         import json
         import tempfile
