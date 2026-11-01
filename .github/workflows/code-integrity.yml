@@ -34,7 +34,7 @@ jobs:
           folder = Path('/tmp/blogger-manager-js-check')
           folder.mkdir(exist_ok=True)
           for page in pages:
-              scripts = re.findall(r'<script(?:\\s+[^>]*)?>([\\s\\S]*?)</script>', Path(page).read_text(encoding='utf-8'), flags=re.I)
+              scripts = re.findall(r'<script(?:\s+[^>]*)?>([\s\S]*?)</script>', Path(page).read_text(encoding='utf-8'), flags=re.I)
               if not scripts or not any(script.strip() for script in scripts):
                   raise SystemExit(f'{page}: expected at least one inline script')
               for i, script in enumerate(scripts):
