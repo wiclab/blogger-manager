@@ -5,6 +5,7 @@ No private article bodies, credentials, visitor data, or search terms are persis
 """
 from __future__ import annotations
 
+import concurrent.futures
 import datetime as dt
 import hashlib
 import html
@@ -47,6 +48,44 @@ STOP = {"2026", "2027", "오늘", "최근", "올해", "내년", "한국", "국�
 POST_PATH = re.compile(r"^/\d{4}/\d{2}/[^/]+\.html$")
 TOKENS = re.compile(r"[가-힣a-zA-Z0-9]{2,}")
 AT = "{http://www.w3.org/2005/Atom}"
+
+FOCUSED_SEARCHES = (
+    ("온누리상품권 OR 정부지원금 OR 소비쿠폰", "경제"),
+    ("전기요금 OR 난방비 OR 가스요금", "경제"),
+    ("KTX OR 지하철요금 OR 버스요금", "한국"),
+    ("연말정산 OR 연금저축 OR 세액공제", "경제"),
+    ("스팀할인 OR 닌텐도게임 OR 게임구독", "문화"),
+    ("카드환불 OR 자동이체 OR 통신요금", "경제"),
+)
+
+
+def focused_news(now: dt.datetime) -> list[dict]:
+    """Optional fresh editorial search RSS; failures never block the base collector."""
+    from scripts.news import BASE, PARAMS, parse_feed
+
+    def query_search(entry: tuple[str, str]) -> list[dict]:
+        query, category = entry
+        url = BASE + "/search?" + urllib.parse.urlencode({
+            "q": query, "hl": "ko", "gl": "KR", "ceid": "KR:ko"
+        })
+        req = urllib.request.Request(
+            url, headers={"User-Agent": "ByeolsemsoNewsIntelligence/1.0"})
+        with urllib.request.urlopen(req, timeout=12) as response:
+            contents = response.read(2_000_001)
+        if len(contents) > 2_000_000:
+            raise ValueError("Focused RSS response too large")
+        return parse_feed(contents, category, now)[:15]
+
+    output = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+        futures = [pool.submit(query_search, query) for query in FOCUSED_SEARCHES]
+        for future in futures:
+            try:
+                output.extend(future.result())
+            except Exception:
+                print("One focused news search is unavailable")
+    return output
+
 
 
 def canonical(url: str) -> str | None:
@@ -129,6 +168,32 @@ def fetch_posts() -> tuple[list[dict], str]:
         print("Public post titles unavailable; showing unverified leads only:",
               type(exc).__name__)
         return [], "unavailable"
+
+
+
+def expected_post_count() -> int:
+    """Cross-check a public sitemap-derived count from the existing indexer."""
+    path = Path("data/indexing-dashboard.json")
+    try:
+        record = json.loads(path.read_text(encoding="utf-8"))
+        updated = dt.datetime.fromisoformat(record["updated_at"].replace("Z", "+00:00"))
+        if abs((NOW_UTC() - updated).total_seconds()) > 7 * 86400:
+            return 0
+        if record.get("site") != BLOG:
+            return 0
+        count = record.get("bing_submission", {}).get("published_count", 0)
+        return int(count) if 0 < int(count) <= 10000 else 0
+    except (OSError, ValueError, KeyError, TypeError):
+        return 0
+
+
+def reconcile_coverage(posts: list[dict], declared: str) -> tuple[str, int]:
+    expected = expected_post_count()
+    # Public Atom sometimes exposes fewer titles than the real sitemap.
+    # Refuse to label that incomplete comparison as complete.
+    if declared == "complete" and expected and len(posts) < int(expected * .9):
+        return "partial", expected
+    return declared, expected
 
 
 def score_item(item: dict) -> tuple[int, list[str]]:
@@ -232,6 +297,7 @@ def build(snapshot: dict, posts: list[dict], coverage: str, now: dt.datetime) ->
     return {"version": 1, "site": BLOG, "generatedAt": now.isoformat(),
             "newsGeneratedAt": generated.isoformat(), "newsCount": len(items),
             "postsChecked": len(posts), "postCoverage": coverage,
+            "postExpectedCount": expected_post_count(),
             "scoring": "규칙 기반 편집 우선순위, 검색량/검색순위/사실 검증 결과가 아님",
             "ideas": ideas[:40], "updates": updates[:30],
             "note": "검토용 제안. 기사나 공공 정책의 내용은 공식 원문으로 다시 확인하세요. 자동 수정·발행하지 않습니다."}
@@ -299,7 +365,14 @@ def run() -> dict:
     snapshot = json.loads(SOURCE.read_text(encoding="utf-8"))
     now = NOW_UTC()
     posts, coverage = fetch_posts()
+    coverage, expected = reconcile_coverage(posts, coverage)
+    focused = focused_news(now)
+    original_count = len(snapshot.get("items", []))
+    snapshot["items"] = (snapshot["items"] + focused)
     report = build(snapshot, posts, coverage, now)
+    report["primaryNewsCount"] = original_count
+    report["focusedNewsCount"] = len(focused)
+    report["postExpectedCount"] = expected
     save_json(REPORT, report)
     result = alert(report)
     print(json.dumps({"newsCount": report["newsCount"],
