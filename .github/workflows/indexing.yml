@@ -1,6 +1,11 @@
 name: Byeolsemso indexing automation
 
 on:
+  pull_request:
+    paths:
+      - "scripts/indexing.py"
+      - "tests/test_indexing.py"
+      - ".github/workflows/indexing.yml"
   workflow_dispatch:
   schedule:
     - cron: "13 */2 * * *"
@@ -23,10 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout main
+      - name: Checkout revision under test
         uses: actions/checkout@v4
-        with:
-          ref: main
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -34,6 +37,7 @@ jobs:
       - name: Validate code without external API requests
         run: python -m unittest discover -s tests -p "test_*.py" -v
       - name: Submit changed posts to Bing; optionally inspect Google index
+        if: github.event_name != 'pull_request'
         env:
           BING_API_KEY: ${{ secrets.BING_API_KEY }}
           GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
@@ -41,7 +45,7 @@ jobs:
           GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
         run: python scripts/indexing.py
       - name: Store report (7 days)
-        if: always()
+        if: always() && github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
         with:
           name: indexing-report-${{ github.run_id }}
@@ -49,6 +53,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
       - name: Persist only changed submission and inspection state
+        if: github.event_name != 'pull_request'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
