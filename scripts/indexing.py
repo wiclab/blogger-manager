@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Low-cost Blogger -> Bing URL submission and optional GSC inspection.
+"""Blogger public post discovery -> Bing URL submission. No Google API requests.
 
 Only the verified Byeolsemso blog is eligible. No Google Indexing API calls.
 """
@@ -24,10 +24,8 @@ REPORT_PATH = Path("data/indexing-report.json")
 DASHBOARD_PATH = Path("data/indexing-dashboard.json")
 POST_RE = re.compile(r"^/\d{4}/\d{2}/[^/]+\.html$")
 BING_API = "https://ssl.bing.com/webmaster/api.svc/json/"
-GSC_INSPECT = "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect"
 MAX_BING = 100  # Bing accepts up to 500 per API batch; cap burst volume at 100
 MAX_PRIORITY = 30  # reserve remaining slots for older pending URLs
-MAX_GSC = 6
 HEADERS = {"User-Agent": "ByeolsemsoIndexingBot/1.0 (sitemap monitoring)"}
 
 
@@ -295,8 +293,6 @@ def build_dashboard(posts: dict[str, str], state: dict, report: dict,
     submitted_stamps = [v.get("submitted_at", "") for url, v in saved.items()
                         if url in posts and isinstance(v, dict) and v.get("submitted_at")]
     last_submission = max(submitted_stamps) if submitted_stamps else None
-    gsc = state.get("google", {})
-    checks = [v for u, v in gsc.items() if u in posts and isinstance(v, dict)]
     return {
         "schema": 1, "site": SITE, "updated_at": report["generated_at"],
         "automation": {
@@ -318,15 +314,6 @@ def build_dashboard(posts: dict[str, str], state: dict, report: dict,
             "recent_pending": [url for url, stamp in pending[:12]],
             "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
         },
-        "google_inspection": {
-            "enabled": report["google_inspection_enabled"],
-            "checked_count": len(checks),
-            "pass_count": sum(v.get("verdict") == "PASS" for v in checks),
-            "other_count": sum(v.get("verdict") != "PASS" for v in checks),
-            "checked_this_run": len(report["google_inspected"]),
-            "error": bool(report.get("google_error")),
-            "note": "Partial URL inspection sample, not a site-wide index count. No Google indexing requests.",
-        },
         "metric_definitions": {
             "submitted": "Bing API accepted URL-submission request (not indexed)",
             "indexed": "Search engine index status, not directly available from Bing submission API",
@@ -334,64 +321,6 @@ def build_dashboard(posts: dict[str, str], state: dict, report: dict,
             "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
         }
     }
-
-def google_access_token() -> str | None:
-    values = [os.environ.get(name, "") for name in
-              ("GSC_CLIENT_ID", "GSC_CLIENT_SECRET", "GSC_REFRESH_TOKEN")]
-    if not any(values):
-        return None
-    if not all(values):
-        raise RuntimeError("Only some GSC OAuth secrets are configured")
-    form = urllib.parse.urlencode({
-        "client_id": values[0], "client_secret": values[1],
-        "refresh_token": values[2], "grant_type": "refresh_token"
-    }).encode("utf-8")
-    req = urllib.request.Request("https://oauth2.googleapis.com/token", data=form,
-                                 headers={"Content-Type": "application/x-www-form-urlencoded"})
-    try:
-        with urllib.request.urlopen(req, timeout=25) as response:
-            return json.load(response)["access_token"]
-    except (urllib.error.HTTPError, urllib.error.URLError, KeyError):
-        raise RuntimeError("Google OAuth refresh failed; check GSC credentials") from None
-
-
-def google_check(posts: dict[str, str], state: dict, token: str | None) -> list[str]:
-    if not token:
-        return []
-    headers = {"Authorization": "Bearer " + token}
-    site_enc = urllib.parse.quote(SITE, safe="")
-    sitemap_enc = urllib.parse.quote(SITEMAP, safe="")
-    sitemap_api = f"https://www.googleapis.com/webmasters/v3/sites/{site_enc}/sitemaps/{sitemap_enc}"
-    if not state.get("sitemap_registered"):
-        # PUT is idempotent. It registers the existing Blogger sitemap only once.
-        request(sitemap_api, headers=headers, method="PUT")
-        state["sitemap_registered"] = True
-
-    checked = []
-    cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=7)
-    candidates = sorted(posts.items(), key=lambda row: (row[1], row[0]), reverse=True)
-    for url, _ in candidates:
-        previous = state["google"].get(url, {})
-        old = previous.get("checked_at", "")
-        try:
-            if old and dt.datetime.fromisoformat(old) >= cutoff:
-                continue
-        except ValueError:
-            pass
-        if len(checked) >= MAX_GSC:
-            break
-        _, response = request(GSC_INSPECT, headers=headers,
-                              payload={"inspectionUrl": url, "siteUrl": SITE, "languageCode": "ko-KR"})
-        info = json.loads(response).get("inspectionResult", {}).get("indexStatusResult", {})
-        state["google"][url] = {
-            "checked_at": now(),
-            "verdict": info.get("verdict", "UNKNOWN"),
-            "coverage": info.get("coverageState", "UNKNOWN"),
-            "last_crawl": info.get("lastCrawlTime", ""),
-            "indexing_state": info.get("indexingState", "")
-        }
-        checked.append(url)
-    return checked
 
 
 def run() -> dict:
@@ -404,18 +333,8 @@ def run() -> dict:
     previous = json.dumps(state, sort_keys=True)
     diagnostics = {}
     submitted = bing_submit(posts, state, os.environ.get("BING_API_KEY", ""), diagnostics)
-    google_error = None
-    try:
-        inspected = google_check(posts, state, google_access_token())
-    except Exception as exc:
-        # Optional Google failure must not discard a successful Bing submission.
-        inspected = []
-        google_error = f"{type(exc).__name__}: {exc}"
-        print(f"::warning::Optional Google inspection failed: {google_error}", file=sys.stderr)
     if json.dumps(state, sort_keys=True) != previous:
         write_json(STATE_PATH, state)
-    unindexed = [url for url, details in state["google"].items()
-                 if url in posts and details.get("verdict") not in {"PASS"}]
     report = {
         "generated_at": now(),
         "site": SITE,
@@ -423,11 +342,7 @@ def run() -> dict:
         "bing_submitted": submitted,
         "bing_pending": sum(state["bing"].get(url, {}).get("fingerprint") != (stamp or "unknown")
                             for url, stamp in posts.items()),
-        "google_inspected": inspected,
-        "google_inspection_enabled": bool(os.environ.get("GSC_REFRESH_TOKEN")),
-        "google_error": google_error,
-        "google_needs_review": unindexed,
-        "note": "Bing submission is not guaranteed indexing. Google only inspects indexed-version status; no indexing request API is used."
+        "note": "Bing URL submission does not guarantee search engine indexing."
     }
     write_json(REPORT_PATH, report)
     write_json(DASHBOARD_PATH, build_dashboard(posts, state, report, diagnostics))
@@ -445,9 +360,6 @@ def main() -> int:
                 f"- Published posts: {report['published_posts']}\n"
                 f"- Bing submitted this run: {len(report['bing_submitted'])}\n"
                 f"- Bing pending: {report['bing_pending']}\n"
-                f"- Google inspected: {len(report['google_inspected'])}\n"
-                f"- Google flagged for review: {len(report['google_needs_review'])}\n"
-                f"- Google error: {report['google_error'] or 'none'}\n")
         return 0
     except Exception as exc:
         # Avoid printing exception URLs that could contain credentials.
