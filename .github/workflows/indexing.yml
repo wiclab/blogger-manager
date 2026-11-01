@@ -36,8 +36,22 @@ jobs:
           python-version: "3.12"
       - name: Validate code without external API requests
         run: python -m unittest discover -s tests -p "test_*.py" -v
-      - name: Submit changed posts to Bing; optionally inspect Google index
+      - name: Check Bing API configuration
+        id: bing-config
         if: github.event_name != 'pull_request'
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+        run: |
+          if [ -z "${BING_API_KEY:-}" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::BING_API_KEY secret is not configured; no URLs submitted."
+            echo "## Byeolsemso indexing" >> "$GITHUB_STEP_SUMMARY"
+            echo "- Not started: BING_API_KEY repository secret is missing." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Submit changed posts to Bing; optionally inspect Google index
+        if: github.event_name != 'pull_request' && steps.bing-config.outputs.ready == 'true'
         env:
           BING_API_KEY: ${{ secrets.BING_API_KEY }}
           GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
@@ -53,7 +67,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
       - name: Persist only changed submission and inspection state
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && steps.bing-config.outputs.ready == 'true'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
