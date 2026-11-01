@@ -24,6 +24,7 @@ SITEMAP = SITE + "sitemap.xml"
 STATE_PATH = Path("data/indexing-state.json")
 REPORT_PATH = Path("data/indexing-report.json")
 DASHBOARD_PATH = Path("data/indexing-dashboard.json")
+FAILURE_PATH = Path("data/indexing-failure.json")
 POST_RE = re.compile(r"^/\d{4}/\d{2}/[^/]+\.html$")
 BING_API = "https://ssl.bing.com/webmaster/api.svc/json/"
 MAX_BING = 100  # Bing accepts up to 500 per API batch; cap burst volume at 100
@@ -322,6 +323,29 @@ def select_bing_candidates(posts: dict[str, str], saved: dict, limit: int,
     return [(url, stamp) for url, stamp, _ in selected[:limit]]
 
 
+class SubmissionOutcomeUnknown(RuntimeError):
+    """Never automatically replay a POST when Bing's receipt is uncertain."""
+
+
+def classify_failure(exc: Exception) -> str:
+    """Public error categories only; never print raw URLs or API credentials."""
+    if isinstance(exc, SubmissionOutcomeUnknown):
+        return "submission_outcome_unknown"
+    detail = str(exc)
+    if any(word in detail for word in ("state is missing", "state version", "state structure",
+                                       "invalid Bing receipt", "drop previous")):
+        return "state_integrity"
+    if any(word in detail for word in ("no verified Byeolsemso", "BING_API_KEY",
+                                       "HTTP 401", "HTTP 403", "InvalidApiKey",
+                                       "Unauthorized", "AccessDenied")):
+        return "authentication"
+    if "HTTP 429" in detail or "ThrottleHost" in detail:
+        return "read_rate_limited"
+    if "HTTP 50" in detail or "HTTP 52" in detail or "connection failed" in detail.lower():
+        return "transient_read_failure"
+    return "validation_or_unexpected"
+
+
 def bing_submit(posts: dict[str, str], state: dict, api_key: str,
                 diagnostics: dict | None = None) -> list[str]:
     saved = state["bing"]
@@ -356,11 +380,16 @@ def bing_submit(posts: dict[str, str], state: dict, api_key: str,
         return []
     urls = [url for url, _ in selection]
     metrics["selected_count"] = len(urls)
-    _, response_body = request(BING_API + "SubmitUrlBatch?" + key_query,
-                               payload={"siteUrl": site_property, "urlList": urls})
-    response_data = json.loads(response_body)
+    try:
+        _, response_body = request(BING_API + "SubmitUrlBatch?" + key_query,
+                                   payload={"siteUrl": site_property, "urlList": urls})
+        response_data = json.loads(response_body)
+    except (RuntimeError, ValueError, urllib.error.URLError) as exc:
+        raise SubmissionOutcomeUnknown(
+            "Bing submission outcome uncertain; no automatic POST replay") from None
     if not isinstance(response_data, dict) or response_data.get("d", "unexpected") is not None:
-        raise RuntimeError("Bing submission returned an unexpected response")
+        raise SubmissionOutcomeUnknown(
+            "Bing submission response unrecognized; no automatic POST replay")
     submitted_at = now()
     for url, stamp in selection:
         saved[url] = {"fingerprint": stamp or "unknown", "submitted_at": submitted_at}
@@ -468,8 +497,24 @@ def main() -> int:
                 f"- Bing pending: {report['bing_pending']}\n")
         return 0
     except Exception as exc:
-        # Avoid printing exception URLs that could contain credentials.
-        print(f"Indexing job failed: {type(exc).__name__}: {exc}", file=sys.stderr)
+        # Keep failure evidence safe for Actions artifacts; no raw exception,
+        # endpoint URL, key, or URL list is ever serialized or printed.
+        category = classify_failure(exc)
+        evidence = {"site": SITE, "generated_at": now(),
+                    "category": category, "failure_class": type(exc).__name__,
+                    "submitted_this_run": "not_confirmed",
+                    "automatic_post_retry": False}
+        try:
+            write_json(FAILURE_PATH, evidence)
+        except OSError:
+            pass
+        print("::error::Byeolsemso indexing failed: " + category, file=sys.stderr)
+        summary = os.environ.get("GITHUB_STEP_SUMMARY")
+        if summary:
+            with open(summary, "a", encoding="utf-8") as file:
+                file.write("## Byeolsemso indexing failure\\n"
+                           + "- Category: " + category + "\\n"
+                           + "- POST retry: blocked\\n")
         return 1
 
 
