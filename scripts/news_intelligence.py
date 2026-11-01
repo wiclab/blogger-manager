@@ -44,6 +44,13 @@ KOREAN_SOURCE_HINTS = ("뉴스", "신문", "일보", "경제", "비즈", "투데
                        "전자신문", "ZDNet", "아이뉴스", "헤럴드")
 DOMESTIC_POLICY_TERMS = ("전기", "요금", "지원금", "세금", "연말정산",
                          "상품권", "교통비", "연금", "대출", "자동이체")
+# One-time safety migration for mistaken Vietnam electricity recommendations
+# already sent before source-country filtering was introduced. Public hashes only.
+PREVIOUS_FOREIGN_ALERT_IDS = {
+    "6519d6d7141b9055c90feed0", "7b69fbfc91e7b4025727ea26",
+    "1b4bcba5925e33850c9274cf", "6cdb9502b2d94716c17a494e",
+    "8c104f584ac29132903ea7dc",
+}
 
 
 def foreign_policy_story(title: str, source: str) -> bool:
@@ -403,7 +410,7 @@ def alert(report: dict, previous: dict | None = None) -> str:
         if row.get("id") in recent and
         foreign_policy_story(str(row.get("headline", "")), str(row.get("source", "")))
     ]
-    if invalid_alerts and not history.get("foreign_correction_sent"):
+    if (invalid_alerts or recent.intersection(PREVIOUS_FOREIGN_ALERT_IDS)) and not history.get("foreign_correction_sent"):
         correction = {
             "chat_id": chat_id, "parse_mode": "HTML",
             "disable_web_page_preview": True,
