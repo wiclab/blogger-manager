@@ -88,6 +88,7 @@ class SeoPulseTests(unittest.TestCase):
             path = Path(d) / "pulse.json"
             path.write_text(json.dumps({"bing": {"status": "ok", "totals": {"clicks": 8}}}))
             with patch.object(seo, "REPORT", path), \
+                 patch.object(seo, "TITLE_CACHE", Path(d) / "titles.json"), \
                  patch.object(seo, "bing_pulse", side_effect=RuntimeError("simulated")), \
                  patch.object(seo, "blogger_posts", return_value=[
                      {"url": "https://wic12.blogspot.com/2026/11/a.html",
@@ -99,6 +100,10 @@ class SeoPulseTests(unittest.TestCase):
             self.assertEqual(report["bing"]["totals"]["clicks"], 8)
             self.assertEqual(report["stale"]["expired_count"], 1)
             self.assertEqual(json.loads(path.read_text())["bing"]["totals"]["clicks"], 8)
+            titles = json.loads((Path(d) / "titles.json").read_text())
+            self.assertEqual(titles["site"], seo.SITE)
+            self.assertEqual(len(titles["posts"]), 1)
+            self.assertNotIn("content", str(titles))
 
 
 if __name__ == "__main__":
