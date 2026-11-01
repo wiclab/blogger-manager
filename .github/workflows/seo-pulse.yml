@@ -9,11 +9,13 @@ on:
     paths:
       - "scripts/seo_pulse.py"
       - "tests/test_seo_pulse.py"
+      - "seo.html"
       - ".github/workflows/seo-pulse.yml"
   pull_request:
     paths:
       - "scripts/seo_pulse.py"
       - "tests/test_seo_pulse.py"
+      - "seo.html"
       - ".github/workflows/seo-pulse.yml"
 
 permissions:
@@ -45,9 +47,9 @@ jobs:
           import re
           page = Path("seo.html").read_text(encoding="utf-8")
           scripts = re.findall(r"<script(?:\s+[^>]*)?>([\s\S]*?)</script>", page)
-          if not scripts:
-              raise SystemExit("seo.html has no script")
-          Path("/tmp/seo-pulse-inline.js").write_text("\n".join(scripts), encoding="utf-8")
+          if len(scripts) != 1 or not scripts[0].strip():
+              raise SystemExit(f"Expected one non-empty inline script in seo.html; found {len(scripts)}")
+          Path("/tmp/seo-pulse-inline.js").write_text(scripts[0], encoding="utf-8")
           PY
           node --check /tmp/seo-pulse-inline.js
       - name: Gather Bing performance and review date-sensitive articles
