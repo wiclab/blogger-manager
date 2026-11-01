@@ -6,6 +6,8 @@ on:
       - "editor.html"
       - "docs/BLOGGER_EDITOR.md"
       - "tests/test_editor.py"
+      - "tests/test_indexing.py"
+      - "scripts/indexing.py"
       - ".github/workflows/editor-checks.yml"
   push:
     paths:
@@ -25,8 +27,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Blogger editor regression tests
-        run: python -m unittest discover -s tests -p test_editor.py -v
+      - name: Blogger editor and indexing regression tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
