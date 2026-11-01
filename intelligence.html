@@ -144,9 +144,10 @@ async function load(){
     $("ideaCount").textContent=payload.ideas.length;
     $("updateCount").textContent=payload.updates.length;
     $("postCount").textContent=payload.postsChecked;
-    const coverage=payload.postCoverage==="complete"?"기존 글 목록 비교 완료":payload.postCoverage==="partial"?"기존 글 목록 일부 비교": "기존 글 목록을 확인하지 못함";
+    const matched=payload.postsChecked+(payload.postExpectedCount?" / 약 "+payload.postExpectedCount:"");
+    const coverage=payload.postCoverage==="complete"?"공개 글 제목 비교 완료 ("+matched+")":payload.postCoverage==="near_complete"?"공개 글 제목 대부분 비교 ("+matched+", 일부 누락 가능)":payload.postCoverage==="partial"?"공개 글 제목 일부만 비교 ("+matched+")":"기존 글 목록을 확인하지 못함";
     const stale=(Date.now()-Date.parse(payload.generatedAt)>9*3600000);
-    $("updated").textContent="마지막 분석 "+formatDate(payload.generatedAt)+" KST · "+coverage+(stale?" · 보고서 갱신 지연":"");
+    $("updated").textContent="마지막 분석 "+formatDate(payload.generatedAt)+" KST · "+coverage+(payload.focusedNewsCount?" · 맞춤 검색 뉴스 "+payload.focusedNewsCount+"건 포함":"")+(stale?" · 보고서 갱신 지연":"");
     render();
   }catch(error){$("updated").textContent=error.message;if(!data)$("list").replaceChildren(element("p","empty","분석 결과가 없습니다. GitHub Actions의 뉴스 인텔리전스 실행 기록을 확인하세요."));}
   finally{$("reload").disabled=false;}
