@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>뉴스 인텔리전스 · Blogger Manager</title>
+<link rel="stylesheet" href="./assets/manager-header.css">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f6fa;color:#202c3d;font:15px/1.65 system-ui,-apple-system,"Noto Sans KR",sans-serif}
+a{color:#1b4cac;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1100px;margin:26px auto 60px;padding:0 16px}
+.panel,.story{background:#fff;border:1px solid #e0e7f0;border-radius:17px;box-shadow:0 2px 12px #15284408}
+.panel{padding:20px;margin-bottom:18px}
+.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.stat{background:#f2f5fb;padding:14px;border-radius:13px;min-width:0}
+.stat small{display:block;color:#59677c}.stat strong{display:block;font-size:24px;color:#12284d}
+.meta,.note,.hint{font-size:13px;color:#626f80}
+.note{margin:8px 0 0}.warning{background:#fff8e8;color:#76510c;border-left:4px solid #e5a93e;border-radius:9px;padding:12px 14px;margin:14px 0}
+.toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:18px 0}
+button,input,select{font:inherit;border:1px solid #d9e1ec;border-radius:10px;background:#fff;color:#22334a;padding:9px 12px}
+button{cursor:pointer;font-weight:700}button[disabled]{opacity:.6;cursor:wait}
+button.active,.primary{background:#12284d;color:white;border-color:#12284d}
+#search{flex:1;min-width:180px}#list{display:grid;gap:14px}
+.story{padding:20px;min-width:0}
+.story h2{font-size:19px;line-height:1.48;margin:9px 0;overflow-wrap:anywhere}
+.tags,.actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.tag{display:inline-block;background:#edf3fe;color:#234b85;padding:4px 9px;border-radius:999px;font-size:12px}
+.tag.review{background:#fff0da;color:#81520c}
+.score{margin-left:auto;font-weight:850;color:#193f70;font-size:17px}
+.story p{margin:10px 0}.reasons{font-size:13px;color:#4e5e74;margin:8px 0}
+.actions{margin-top:14px}.actions a,.actions button{font-size:13px;padding:7px 11px;border:1px solid #dbe4f0;border-radius:9px;background:#fff}
+.actions a{font-weight:700}
+.related{margin-top:13px;padding:11px 13px;background:#f6f8fc;border-radius:10px;font-size:13px;overflow-wrap:anywhere}
+.related a{display:inline-block;margin:4px 12px 0 0}
+#notice{min-height:27px;color:#18604f}
+.empty{padding:34px;text-align:center;border:1px dashed #cbd7e4;border-radius:13px;color:#626f80}
+footer{font-size:12px;color:#647084;line-height:1.75;margin-top:24px}
+@media(max-width:680px){.summary{grid-template-columns:repeat(2,minmax(0,1fr))}.story{padding:16px}.story h2{font-size:17px}.panel{padding:15px}.score{font-size:15px}}
+</style>
+</head>
+<body>
+<header class="bm-hero"><div class="bm-wrap"><h1 class="bm-title">별셈소 뉴스 인텔리전스</h1><p class="bm-sub">수집 뉴스 → 신규 글감 · 기존 글 갱신 검토 · 텔레그램 우선순위</p><nav class="bm-nav" aria-label="관리자 메뉴"><a href="./">콘텐츠 관리</a><a href="./seo.html">Bing · 글 갱신</a><a href="./indexing.html">색인 제출 현황</a><a href="./write.html">주제 발굴</a><a href="./editor.html">글 편집·발행</a><a href="./news.html">뉴스</a><a href="./intelligence.html" aria-current="page">뉴스 인텔리전스</a></nav></div></header>
+<main class="wrap">
+<section class="panel">
+  <div class="summary" aria-label="뉴스 분석 집계">
+    <div class="stat"><small>분석 뉴스</small><strong id="newsCount">—</strong></div>
+    <div class="stat"><small>글감 후보</small><strong id="ideaCount">—</strong></div>
+    <div class="stat"><small>갱신 검토</small><strong id="updateCount">—</strong></div>
+    <div class="stat"><small>비교한 글</small><strong id="postCount">—</strong></div>
+  </div>
+  <p id="updated" class="meta">분석 데이터를 불러오는 중입니다.</p>
+  <div class="warning"><strong>먼저 확인하세요.</strong> 추천 점수는 검색량이나 SEO 성공 확률이 아닌 편집 우선순위입니다. 뉴스 제목은 사실 확인 자료가 아닙니다. 실제 제도 변경·신청 마감·금액은 공식 기관 자료로 검증해야 합니다. 블로그 게시물은 자동 수정하거나 발행하지 않습니다.</div>
+  <div class="tags"><a href="./news.html">원본 뉴스 목록 보기</a><a href="./seo.html">기존 글 날짜 점검 보기</a><button type="button" id="reload">최신 보고서 다시 조회</button></div>
+</section>
+<section class="toolbar" aria-label="추천 후보 검색·필터">
+  <button type="button" id="ideas" class="active" aria-pressed="true">신규 글감</button>
+  <button type="button" id="updates" aria-pressed="false">기존 글 갱신</button>
+  <input type="search" id="search" placeholder="주제·언론사 검색" aria-label="주제·언론사 검색">
+  <select id="category" aria-label="뉴스 분야">
+    <option value="">모든 분야</option><option>한국</option><option>해외</option>
+    <option>경제</option><option>기술·AI</option><option>문화</option><option>생활·건강</option>
+  </select>
+  <select id="minimum" aria-label="최소 추천점수"><option value="65">65점 이상</option><option value="75">75점 이상</option><option value="85">85점 이상</option></select>
+</section>
+<div id="notice" role="status" aria-live="polite"></div>
+<section id="list" aria-label="검토 후보 목록"><p class="empty">데이터를 불러오는 중입니다.</p></section>
+<footer>데이터는 공개 RSS 헤드라인과 별셈소 공개 게시물 제목으로만 계산합니다. 제목이 비슷해도 본문·정책 내용이 같다고 판단하지 않습니다. Blogger 공개 목록이 불완전하면 신규 글과 중복되지 않는다는 보장은 없습니다. 다른 블로그의 글은 검색하거나 변경하지 않습니다. <a href="https://github.com/wiclab/blogger-manager/blob/main/docs/NEWS_INTELLIGENCE.md" target="_blank" rel="noopener noreferrer">동작 원리·점수·알림 안내</a></footer>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+let data=null, mode="ideas";
+const formatDate=s=>{const d=new Date(s);return Number.isFinite(d.getTime())?d.toLocaleString("ko-KR",{timeZone:"Asia/Seoul",year:"numeric",month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"}):"시각 불명";};
+function trustedLink(raw){
+  try{const u=new URL(raw);if(u.protocol==="https:"||u.protocol==="http:")return u.href;}catch(e){}
+  return "";
+}
+function element(tag,cls,text){const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node;}
+function anchor(text,url){const a=element("a",null,text);a.href=trustedLink(url)||"#";a.target="_blank";a.rel="noopener noreferrer";return a;}
+function setMode(next){
+  mode=next;
+  for(const value of ["ideas","updates"]){$(value).classList.toggle("active",value===next);$(value).setAttribute("aria-pressed",String(value===next));}
+  render();
+}
+async function copy(text){
+  try{await navigator.clipboard.writeText(text);$("notice").textContent="검토용 작업 요청을 복사했어요.";}
+  catch(e){$("notice").replaceChildren(element("span",null,"클립보드를 사용할 수 없어 아래 문구를 직접 복사하세요."));const ta=element("textarea");ta.style.width="100%";ta.rows=7;ta.value=text;$("notice").append(ta);ta.select();}
+}
+function workPrompt(row,isUpdate){
+  const matching=(row.relatedPosts||[]).map(p=>"- "+p.title+" ("+p.url+")").join("\n")||"관련 기존 글 미확인";
+  return [
+    "별셈소(https://wic12.blogspot.com/) 전용 검토 작업입니다. 다른 블로그는 건드리지 마세요.",
+    isUpdate?"기존 글에 실제 변경사항이 있는지 검증하고 수정안만 준비해줘. 자동 게시하지 마세요.":"신규 정보성 글감으로 적절한지 조사하고, 기존 글 중복 여부를 먼저 확인해줘. 자동 게시하지 마세요.",
+    "헤드라인: "+row.headline,
+    "기사 링크: "+row.url,
+    "관련 기존 글:\n"+matching,
+    "우선 라이엇·정부·공공기관·기업 등 해당 사안의 공식 최신 원문을 찾아 교차검증해줘. 기사 제목만으로 사실을 확정하지 마.",
+    "근거 확인 후: 제목, 퍼머링크, 검색설명, 라벨 1개, 근거 URL, 정보성 HTML 본문, 내부링크 후보를 제안해줘.",
+    "본문 H1 금지, 모바일 가로 스크롤 금지, 보기 좋은 H2 구분선과 가독성 유지."
+  ].join("\n\n");
+}
+function render(){
+  const host=$("list");host.replaceChildren();if(!data)return;
+  const rows=(data[mode]||[]).filter(row=>row.score>=Number($("minimum").value) &&
+    (!$("category").value||row.category===$("category").value) &&
+    (row.headline+" "+row.source+" "+(row.relatedPosts||[]).map(p=>p.title).join(" ")).toLowerCase().includes($("search").value.trim().toLowerCase()));
+  $("notice").textContent=rows.length+"개 검토 후보 표시 · "+(mode==="updates"?"기존 글과 관련성 확인 필요":"기존 글 중복 여부 최종 확인 필요");
+  if(!rows.length){host.append(element("p","empty","조건에 맞는 후보가 없어요. 필터를 변경하거나 다음 뉴스 수집을 확인하세요."));return;}
+  for(const row of rows){
+    const card=element("article","story");
+    const badges=element("div","tags");
+    const tag=element("span","tag",row.category);
+    const type=element("span","tag "+(mode==="updates"?"review":""),mode==="updates"?"갱신 검토":"글감 추천");
+    const score=element("span","score",row.score+"점");
+    badges.append(tag,type,score);
+    card.append(badges,element("h2",null,row.headline));
+    card.append(element("div","meta",(row.source||"언론사 미상")+" · "+formatDate(row.publishedAt)+" KST"));
+    card.append(element("p","",row.reason||"추가 확인 필요"));
+    if(row.reasons&&row.reasons.length)card.append(element("p","reasons",row.reasons.join(" · ")));
+    const matches=row.relatedPosts||[];
+    if(matches.length){
+      const related=element("div","related");
+      related.append(element("strong",null,"관련 별셈소 게시글 · 제목 유사도 기반 (자동 수정 없음)"));
+      for(const post of matches){related.append(anchor(post.title,post.url));}
+      card.append(related);
+    }
+    const actions=element("div","actions");actions.append(anchor("뉴스 원문 열기",row.url));
+    const cp=element("button",null,"검토 요청 복사");cp.type="button";cp.onclick=()=>copy(workPrompt(row,mode==="updates"));
+    actions.append(cp);card.append(actions);host.append(card);
+  }
+}
+async function load(){
+  $("reload").disabled=true;$("updated").textContent="최신 분석 보고서를 확인하는 중…";
+  try{
+    const response=await fetch("./data/news-intelligence.json?v="+Date.now(),{cache:"no-store"});
+    if(!response.ok)throw new Error("분석 보고서가 아직 생성되지 않았습니다. GitHub Actions 실행 상태를 확인해 주세요.");
+    const payload=await response.json();
+    if(!Array.isArray(payload.ideas)||!Array.isArray(payload.updates)||payload.site!=="https://wic12.blogspot.com/")throw new Error("분석 데이터 형식 또는 대상 블로그가 잘못되었습니다.");
+    data=payload;
+    $("newsCount").textContent=payload.newsCount;
+    $("ideaCount").textContent=payload.ideas.length;
+    $("updateCount").textContent=payload.updates.length;
+    $("postCount").textContent=payload.postsChecked;
+    const coverage=payload.postCoverage==="complete"?"기존 글 목록 비교 완료":payload.postCoverage==="partial"?"기존 글 목록 일부 비교": "기존 글 목록을 확인하지 못함";
+    const stale=(Date.now()-Date.parse(payload.generatedAt)>9*3600000);
+    $("updated").textContent="마지막 분석 "+formatDate(payload.generatedAt)+" KST · "+coverage+(stale?" · 보고서 갱신 지연":"");
+    render();
+  }catch(error){$("updated").textContent=error.message;if(!data)$("list").replaceChildren(element("p","empty","분석 결과가 없습니다. GitHub Actions의 뉴스 인텔리전스 실행 기록을 확인하세요."));}
+  finally{$("reload").disabled=false;}
+}
+$("reload").addEventListener("click",load);
+$("ideas").addEventListener("click",()=>setMode("ideas"));
+$("updates").addEventListener("click",()=>setMode("updates"));
+for(const id of ["search","category","minimum"])$(id).addEventListener(id==="search"?"input":"change",render);
+load();
+</script>
+</body>
+</html>
