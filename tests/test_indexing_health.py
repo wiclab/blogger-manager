@@ -32,6 +32,19 @@ class IndexingHealthTests(unittest.TestCase):
     def test_wrong_blog_fails_closed(self):
         with self.assertRaises(ValueError):
             health.assess([],{"site":"https://ggpong.blogspot.com/"},AT)
+    def test_durable_hold_requires_reconciliation_and_sends_alert(self):
+        runs = [{"event":"schedule","conclusion":"success",
+                 "created_at":"2026-11-01T12:37:00Z"}]
+        dashboard = {"site": health.SITE, "updated_at":"2026-11-01T13:30:00Z",
+                     "bing_submission":{"held_batches_count":1}}
+        result = health.assess(runs, dashboard, AT)
+        self.assertEqual(result["status"], "warning")
+        self.assertIn("submission_held", result["issue_codes"])
+        state = {"version":1,"active_signature":None,"last_sent_at":None}
+        kind, message = health.plan_notification(result, state, AT)
+        self.assertEqual(kind, "warning")
+        self.assertIn("미확정", message)
+
     def test_bing_quota_zero_is_a_healthy_success(self):
         at = AT
         r = health.assess([{"event": "schedule", "conclusion": "success",
