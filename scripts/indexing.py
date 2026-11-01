@@ -73,7 +73,22 @@ def request(url: str, *, payload: dict | None = None, headers: dict | None = Non
             return response.status, body
     except urllib.error.HTTPError as exc:
         # Do not print URLs containing API keys or OAuth credentials.
-        raise RuntimeError(f"Remote API returned HTTP {exc.code}") from None
+        # Bing errors are JSON with a short diagnostic code; whitelist only known values.
+        category = ""
+        if urllib.parse.urlsplit(url).hostname == "ssl.bing.com":
+            try:
+                fault = json.loads(exc.read(2048))
+                code = fault.get("ErrorCode")
+                message = fault.get("Message")
+                allowed = {"InvalidApiKey", "InvalidSiteUrl", "SiteNotVerified", "ThrottleHost",
+                           "AccessDenied", "SiteNotFound", "Unauthorized", "UnknownError"}
+                if message in allowed:
+                    category = " (" + message + ")"
+                elif isinstance(code, int):
+                    category = " (Bing ErrorCode " + str(code) + ")"
+            except (ValueError, TypeError, AttributeError):
+                pass
+        raise RuntimeError(f"Remote API returned HTTP {exc.code}{category}") from None
     except urllib.error.URLError as exc:
         raise RuntimeError(f"Remote connection failed: {exc.reason}") from None
 
@@ -160,6 +175,30 @@ def write_json(path: Path, data: dict) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def bing_verified_site(api_key: str) -> str:
+    """Use the exact verified Bing property, including its registered scheme."""
+    _, body = request(BING_API + "GetUserSites?" + urllib.parse.urlencode({"apikey": api_key}))
+    sites = json.loads(body).get("d")
+    if not isinstance(sites, list):
+        raise RuntimeError("Bing GetUserSites returned an unexpected response")
+    for entry in sites:
+        if not isinstance(entry, dict) or entry.get("IsVerified") is not True:
+            continue
+        url = entry.get("Url", "")
+        if not isinstance(url, str):
+            continue
+        try:
+            parts = urllib.parse.urlsplit(url)
+            if (parts.scheme in {"http", "https"} and parts.hostname == HOST
+                    and parts.path in {"", "/"} and not parts.query
+                    and not parts.fragment and parts.port is None
+                    and parts.username is None and parts.password is None):
+                return url
+        except ValueError:
+            continue
+    raise RuntimeError("Bing API account has no verified Byeolsemso site property")
+
+
 def bing_submit(posts: dict[str, str], state: dict, api_key: str) -> list[str]:
     saved = state["bing"]
     changed = [(url, stamp) for url, stamp in posts.items()
@@ -169,9 +208,11 @@ def bing_submit(posts: dict[str, str], state: dict, api_key: str) -> list[str]:
         return []
     if not api_key:
         raise RuntimeError("BING_API_KEY GitHub Actions secret is missing")
+    site_property = bing_verified_site(api_key)
+    print(f"Bing verified Byeolsemso property: {site_property}")
     key_query = urllib.parse.urlencode({"apikey": api_key})
     quota_url = BING_API + "GetUrlSubmissionQuota?" + urllib.parse.urlencode(
-        {"siteUrl": SITE, "apikey": api_key})
+        {"siteUrl": site_property, "apikey": api_key})
     _, quota_body = request(quota_url)
     quota = json.loads(quota_body).get("d") or {}
     daily = max(0, int(quota.get("DailyQuota", 0)))
@@ -182,7 +223,7 @@ def bing_submit(posts: dict[str, str], state: dict, api_key: str) -> list[str]:
     selection = changed[:min(MAX_BING, daily, monthly)]
     urls = [url for url, _ in selection]
     _, response_body = request(BING_API + "SubmitUrlBatch?" + key_query,
-                               payload={"siteUrl": SITE, "urlList": urls})
+                               payload={"siteUrl": site_property, "urlList": urls})
     response_data = json.loads(response_body)
     if not isinstance(response_data, dict) or response_data.get("d", "unexpected") is not None:
         raise RuntimeError("Bing submission returned an unexpected response")
