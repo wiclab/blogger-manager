@@ -5,6 +5,7 @@ from unittest.mock import patch
 from scripts.news_intelligence import (
     build, canonical, match_posts, news_key, score_item, tokens,
     reconcile_coverage, focused_news, cached_public_posts,
+    foreign_policy_story, trusted_focused_source, alert,
 )
 
 NOW = dt.datetime(2026, 11, 2, 0, 0, tzinfo=dt.timezone.utc)
@@ -40,6 +41,39 @@ class NewsIntelligenceTests(unittest.TestCase):
         matches = match_posts("디지털 온누리상품권 할인 기간 연장", posts)
         self.assertEqual(matches[0]["title"], posts[0]["title"])
         self.assertFalse(match_posts("불꽃놀이가 시작됐다", posts))
+
+    def test_vietnam_electricity_news_cannot_be_a_korean_policy_lead(self):
+        item = article("11월 1일 전기요금 2% 인하")
+        item["source"] = "Vietnam.vn"
+        self.assertTrue(foreign_policy_story(item["title"], item["source"]))
+        self.assertEqual(score_item(item)[0], 0)
+        self.assertFalse(trusted_focused_source(item))
+        self.assertTrue(trusted_focused_source(article(
+            "한국 전기요금 적용 기준 변경", "경제") | {"source": "연합뉴스"}))
+
+    def test_prior_foreign_telegram_alert_gets_one_correction(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        invalid = {
+            "id": "foreign-alert", "headline": "11월 전기요금 2% 인하",
+            "source": "Vietnam.vn", "score": 90,
+        }
+        current = {"updates": [], "ideas": [], "postCoverage": "complete"}
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / "state.json"
+            path.write_text(json.dumps({"sent": [{"id": "foreign-alert",
+                                                 "at": NOW.isoformat()}]}))
+            with patch("scripts.news_intelligence.ALERT_STATE", path), \
+                 patch("scripts.news_intelligence.telegram_send", return_value=True) as send, \
+                 patch.dict("os.environ", {"TELEGRAM_BOT_TOKEN": "fake",
+                                          "TELEGRAM_CHAT_ID": "fake"}):
+                status = alert(current, {"ideas": [invalid], "updates": []})
+                status2 = alert(current, {"ideas": [invalid], "updates": []})
+            self.assertEqual(status, "foreign_policy_correction_sent")
+            self.assertEqual(status2, "no_new_high_priority_leads")
+            self.assertEqual(send.call_count, 1)
+            self.assertTrue(json.loads(path.read_text())["foreign_correction_sent"])
 
     def test_score_policy_and_exclusion(self):
         self.assertGreaterEqual(score_item(article("온누리상품권 할인 기간 연장"))[0], 80)
