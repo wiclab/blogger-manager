@@ -12,6 +12,7 @@ import html
 import json
 import os
 import re
+import sys
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -49,6 +50,11 @@ STOP = {"2026", "2027", "오늘", "최근", "올해", "내년", "한국", "국�
 POST_PATH = re.compile(r"^/\d{4}/\d{2}/[^/]+\.html$")
 TOKENS = re.compile(r"[가-힣a-zA-Z0-9]{2,}")
 AT = "{http://www.w3.org/2005/Atom}"
+
+# Works both as `python scripts/news_intelligence.py` and as a tested import.
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 FOCUSED_SEARCHES = (
     ("온누리상품권 OR 정부지원금 OR 소비쿠폰", "경제"),
