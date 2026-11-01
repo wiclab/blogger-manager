@@ -37,6 +37,18 @@ jobs:
           python-version: "3.12"
       - name: Validate code without external API requests
         run: python -m unittest discover -s tests -p "test_*.py" -v
+      - name: Validate public indexing dashboard JavaScript and structure
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          page = Path("indexing.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script(?:\\s+[^>]*)?>([\\s\\S]*?)</script>", page)
+          if len(scripts) != 1:
+              raise SystemExit("Expected exactly one indexing dashboard script")
+          Path("/tmp/byeolsemso-indexing-ui.js").write_text(scripts[0], encoding="utf-8")
+          PY
+          node --check /tmp/byeolsemso-indexing-ui.js
       - name: Check Bing API configuration
         id: bing-config
         if: github.event_name != 'pull_request'
