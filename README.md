@@ -17,7 +17,7 @@
 - `news-health.yml`: 뉴스 수집과 스냅샷 유효성 점검
 - `scan.yml`: 1시간마다 Blogger 게시물 품질 검사
 - `editor-checks.yml`: 편집기 회귀 테스트
-- `indexing.yml`: 별셈소 URL 제출(회당 최대 100개, 실제 API 할당량 우선)과 검색 인덱스 선택 점검, 공개 요약 생성
+- `indexing.yml`: 별셈소 Bing 전용 제출(회당 최대 100개, 실제 API 할당량 우선)과 제출 요약 생성. 미사용 GSC 검사 기능 제거
 - `indexing-health.yml`: 4시간마다 독립적으로 예약 실행 성공과 제출 요약의 갱신 시각 점검 (5시간 초과 시 경고)
 - `seo-pulse.yml`: 매일 Bing 검색 유입 집계 및 지난 행사·신청 날짜 검토
 
