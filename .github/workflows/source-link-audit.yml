@@ -1,0 +1,150 @@
+name: Byeolsemso official source link audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "13 1 * * 2" # Tuesday 10:13 KST (GitHub may delay)
+  push:
+    branches: [main]
+    paths:
+      - "scripts/source_link_audit.py"
+      - "tests/test_source_link_audit.py"
+      - "sources.html"
+      - ".github/workflows/source-link-audit.yml"
+  pull_request:
+    paths:
+      - "scripts/source_link_audit.py"
+      - "tests/test_source_link_audit.py"
+      - "sources.html"
+      - ".github/workflows/source-link-audit.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: byeolsemso-source-link-audit
+  cancel-in-progress: false
+
+jobs:
+  source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout revision being tested
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Offline source-link safety tests
+        run: |
+          python -m compileall -q scripts/source_link_audit.py tests/test_source_link_audit.py
+          python -m unittest discover -s tests -p "test_source_link_audit.py" -v
+      - name: Check source dashboard JavaScript
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s = Path("sources.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script[^>]*>(.*?)</script>", s, flags=re.S)
+          if len(scripts) != 1 or not scripts[0].strip():
+              raise SystemExit("Expected one inline source-dashboard script")
+          Path("/tmp/source-link-dashboard.js").write_text(scripts[0], encoding="utf-8")
+          PY
+          node --check /tmp/source-link-dashboard.js
+      - name: Checkout existing public report branch
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: link-data
+          path: link-data
+          persist-credentials: true
+      - name: Restore previous verified source audit
+        if: github.event_name != 'pull_request'
+        run: |
+          if [ -f link-data/data/source-link-health.json ]; then
+            mkdir -p data
+            cp link-data/data/source-link-health.json data/previous-source-link-health.json
+          fi
+      - name: Require Blogger public content key
+        if: github.event_name != 'pull_request'
+        env:
+          BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
+        run: |
+          if [ -z "${BLOGGER_API_KEY:-}" ]; then
+            echo "::error::Blogger API key unavailable; no source checks performed."
+            exit 1
+          fi
+      - name: Scan selected allowlisted official references (read-only)
+        if: github.event_name != 'pull_request'
+        env:
+          BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
+        run: python -m scripts.source_link_audit
+      - name: Publish complete public-safe report to link-data branch
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("data/source-link-health.json").read_text(encoding="utf-8"))
+          if (data.get("site") != "https://wic12.blogspot.com/"
+              or data.get("schema") != 1
+              or not isinstance(data.get("rows"), list)
+              or len(data["rows"]) != data.get("official_url_total")):
+              raise SystemExit("Incomplete/wrong-site audit; refusing publication")
+          PY
+          mkdir -p link-data/data
+          cp data/source-link-health.json link-data/data/source-link-health.json
+          cd link-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/source-link-health.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update official source reference link health report"
+            for attempt in 1 2 3; do
+              if git push origin HEAD:link-data; then exit 0; fi
+              git fetch origin link-data
+              git rebase origin/link-data
+            done
+            echo "::error::Report push failed; latest published report unchanged."
+            exit 1
+          fi
+      - name: Summarize checked source links
+        if: github.event_name != 'pull_request'
+        run: |
+          python - <<'PY'
+          import os,json
+          from pathlib import Path
+          data=json.loads(Path("data/source-link-health.json").read_text(encoding="utf-8"))
+          lines=[
+            "## 별셈소 공식 출처 링크 점검",
+            "- 검사한 공개 글: "+str(data["live_posts_checked"]),
+            "- 확인 가능한 공식 출처: "+str(data["official_url_total"]),
+            "- 이번 실행에서 직접 검사: "+str(data["sample_this_run"]),
+            "- 404·410 수동 검토 후보: "+str(data["review_missing_count"]),
+            "- 결과가 불확실한 링크: "+str(data["inconclusive_count"]),
+            "- 미검사: "+str(data["not_checked_count"]),
+            "",
+            "※ 404·410은 HEAD+GET 모두 일치해도 실제 링크 교체 전 수동 확인해야 합니다. 403·리디렉션은 오류 확정이 아닙니다.",
+            "",
+            "[관리자에서 보기](https://wiclab.github.io/blogger-manager/sources.html)",
+          ]
+          for row in data["rows"]:
+            if row["state"]=="review_missing":
+              lines.extend(["", "- 검토 URL: "+row["url"],
+                            "  - 연결 글: "+", ".join(row["sources"][:3])])
+          if os.getenv("GITHUB_STEP_SUMMARY"):
+            with open(os.environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as out:
+              out.write("\n".join(lines)+"\n")
+          PY
+      - name: Save audit artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: byeolsemso-official-source-links-${{ github.run_id }}
+          path: data/source-link-health.json
+          retention-days: 21
+          if-no-files-found: error
