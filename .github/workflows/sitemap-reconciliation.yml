@@ -1,0 +1,151 @@
+name: Byeolsemso Blogger sitemap reconciliation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "31 1 * * *" # Daily 10:31 KST; GitHub may delay
+  push:
+    branches: [main]
+    paths:
+      - "scripts/sitemap_reconciliation.py"
+      - "tests/test_sitemap_reconciliation.py"
+      - ".github/workflows/sitemap-reconciliation.yml"
+  pull_request:
+    paths:
+      - "scripts/sitemap_reconciliation.py"
+      - "tests/test_sitemap_reconciliation.py"
+      - "indexing.html"
+      - ".github/workflows/sitemap-reconciliation.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: byeolsemso-sitemap-reconciliation
+  cancel-in-progress: false
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run read-only reconciliation regression tests
+        run: |
+          python -m compileall -q scripts/sitemap_reconciliation.py tests/test_sitemap_reconciliation.py
+          python -m unittest discover -s tests -p "test_sitemap_reconciliation.py" -v
+      - name: Validate indexing dashboard JavaScript
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          page = Path("indexing.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script[^>]*>(.*?)</script>", page, flags=re.S)
+          if len(scripts) != 1:
+              raise SystemExit("Expected one inline indexing dashboard script")
+          Path("/tmp/sitemap-indexing.js").write_text(scripts[0], encoding="utf-8")
+          PY
+          node --check /tmp/sitemap-indexing.js
+      - name: Checkout public report branch
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: link-data
+          path: link-data
+          persist-credentials: true
+      - name: Restore prior verified result
+        if: github.event_name != 'pull_request'
+        run: |
+          if [ -s link-data/data/sitemap-reconciliation.json ]; then
+            mkdir -p data
+            cp link-data/data/sitemap-reconciliation.json data/previous-sitemap-reconciliation.json
+          fi
+      - name: Require scoped Blogger API key
+        if: github.event_name != 'pull_request'
+        env:
+          BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
+        run: |
+          if [ -z "${BLOGGER_API_KEY:-}" ]; then
+            echo "::error::Read-only Blogger API key is unavailable."
+            exit 1
+          fi
+      - name: Compare all current LIVE posts and published sitemap URLs
+        if: github.event_name != 'pull_request'
+        env:
+          BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
+        run: python -m scripts.sitemap_reconciliation
+      - name: Publish validated, public-safe difference report
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          d = json.loads(Path("data/sitemap-reconciliation.json").read_text(encoding="utf-8"))
+          if (d.get("schema") != 1 or d.get("site") != "https://wic12.blogspot.com/"
+              or not isinstance(d.get("rows"), list)
+              or not isinstance(d.get("live_count"), int)
+              or not isinstance(d.get("sitemap_count"), int)
+              or d.get("live_count") <= 0 or d.get("sitemap_count") <= 0
+              or len(d["rows"]) != d.get("live_not_in_sitemap_count", 0)+d.get("sitemap_not_live_count", 0)):
+              raise SystemExit("Incomplete or invalid sitemap report; no publication.")
+          PY
+          mkdir -p link-data/data
+          cp data/sitemap-reconciliation.json link-data/data/sitemap-reconciliation.json
+          cd link-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/sitemap-reconciliation.json
+          if git diff --cached --quiet; then
+            echo "Report unchanged"
+            exit 0
+          fi
+          git commit -m "Refresh Byeolsemso LIVE/sitemap comparison"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:link-data; then exit 0; fi
+            git fetch origin link-data
+            git rebase origin/link-data
+          done
+          echo "::error::Could not safely publish sitemap report."
+          exit 1
+      - name: Explain findings without asserting Google indexing status
+        if: github.event_name != 'pull_request'
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          r=json.loads(Path("data/sitemap-reconciliation.json").read_text(encoding="utf-8"))
+          lines=[
+            "## 별셈소 Blogger 공개 글 ↔ 사이트맵 대조",
+            "- Blogger 공개 글: "+str(r["live_count"]),
+            "- 사이트맵 게시글: "+str(r["sitemap_count"]),
+            "- 일치: "+str(r["matched_count"]),
+            "- Blogger에는 있지만 사이트맵에는 없음: "+str(r["live_not_in_sitemap_count"]),
+            "- 사이트맵에는 있지만 현재 LIVE가 아님: "+str(r["sitemap_not_live_count"]),
+            "- 48시간 이내 신규 글: "+str(r["new_publication_count"]),
+            "- 2회 이상 동일 차이 관측: "+str(r["repeat_review_count"]),
+            "",
+            "**주의:** 단일 시점 차이 또는 사이트맵 누락만으로 Google 색인 장애를 단정하지 않습니다.",
+            "[검사 화면](https://wiclab.github.io/blogger-manager/indexing.html)",
+          ]
+          for d in r["rows"][:15]:
+            lines.append("- "+d["category"]+" ("+d["priority"]+"): "+d["url"])
+          if os.getenv("GITHUB_STEP_SUMMARY"):
+            with open(os.environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as f:
+              f.write("\n".join(lines)+"\n")
+          PY
+      - name: Attach complete discrepancy report
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: byeolsemso-sitemap-reconciliation-${{ github.run_id }}
+          path: data/sitemap-reconciliation.json
+          if-no-files-found: error
+          retention-days: 21

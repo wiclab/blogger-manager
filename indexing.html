@@ -86,6 +86,32 @@ a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8p
   <p class="muted"><a href="https://github.com/wiclab/blogger-manager/actions/workflows/internal-link-audit.yml" target="_blank" rel="noopener noreferrer">검사 실행 기록·수동 실행</a> · 자동 갱신: 매주 월요일 오전 10:17(KST)</p>
   <p class="muted">공식 출처가 끊겼는지도 확인하려면 <a href="./sources.html">공식 출처 링크 점검 대시보드</a>에서 확인해.</p>
 </section>
+<section class="panel full" aria-labelledby="sitemap-title">
+  <div class="titleline"><h2 id="sitemap-title">Blogger 공개 글 · 사이트맵 대조</h2><span class="badge" id="sitemap-status">대조 결과 확인 중</span></div>
+  <p class="muted" id="sitemap-time">Blogger 공개 글과 sitemap.xml을 비교한 최신 결과를 불러오고 있어.</p>
+  <div class="cards">
+    <div class="kpi"><div class="label">Blogger 공개 글</div><div class="num" id="sitemap-live">—</div></div>
+    <div class="kpi"><div class="label">사이트맵 게시글</div><div class="num" id="sitemap-count">—</div></div>
+    <div class="kpi"><div class="label">공개 글 중 사이트맵 누락</div><div class="num" id="sitemap-absent">—</div></div>
+    <div class="kpi"><div class="label">사이트맵에만 있는 주소</div><div class="num" id="sitemap-extra">—</div></div>
+  </div>
+  <p class="note">두 자료를 실제로 가져온 시점의 <strong>URL 목록만 비교</strong>해. 사이트맵에 없다고 Google 색인에서 빠졌다는 증거는 아니야. 발행 48시간 이내 글과 첫 관측은 확정 오류로 보지 않고, 같은 차이가 반복되는지 확인해. 글이나 사이트맵을 자동 수정하지 않아.</p>
+  <div class="link-controls">
+    <label for="sitemap-search">제목·URL 검색<input id="sitemap-search" type="search" placeholder="예: 자동이체" autocomplete="off"></label>
+    <label for="sitemap-filter">검토 구분<select id="sitemap-filter">
+      <option value="all">전체 차이</option>
+      <option value="repeat_review">2회 이상 관측</option>
+      <option value="first_observation">처음 발견</option>
+      <option value="new_publication">발행 48시간 이내</option>
+      <option value="live_not_in_sitemap">공개 글인데 사이트맵에 없음</option>
+      <option value="sitemap_not_live">사이트맵에만 있음</option>
+    </select></label>
+  </div>
+  <p id="sitemap-found" class="muted" role="status" aria-live="polite">아직 비교 결과를 불러오지 못했어.</p>
+  <div id="sitemap-list"></div>
+  <div class="link-pages"><button class="button" id="sitemap-prev" type="button" disabled>이전 10개</button><span id="sitemap-page" class="muted">—</span><button class="button" id="sitemap-next" type="button" disabled>다음 10개</button></div>
+  <p class="muted"><a href="https://github.com/wiclab/blogger-manager/actions/workflows/sitemap-reconciliation.yml" target="_blank" rel="noopener noreferrer">사이트맵 검사 기록·수동 실행</a> · 매일 10:31(KST) 예약 점검</p>
+</section>
 <section class="panel full">
 <div class="titleline"><h2>① Bing API URL 제출 기록</h2><span id="submission-status" class="badge">확인 중</span></div>
 <div class="cards">
@@ -167,9 +193,10 @@ function canonical(raw){
 }
 const INDEXING_DATA_BASE="https://raw.githubusercontent.com/wiclab/blogger-manager/indexing-data/data/";
 const LINK_DATA_URL="https://raw.githubusercontent.com/wiclab/blogger-manager/link-data/data/internal-link-audit.json";
+const SITEMAP_DATA_URL="https://raw.githubusercontent.com/wiclab/blogger-manager/link-data/data/sitemap-reconciliation.json";
 async function readJSON(file){
  const fromDataBranch=file==="indexing-dashboard.json"||file==="indexing-health.json";
- const source=file==="internal-link-audit.json"?LINK_DATA_URL:fromDataBranch?INDEXING_DATA_BASE+file:file==="seo-pulse.json"?"https://raw.githubusercontent.com/wiclab/blogger-manager/seo-data/data/seo-pulse.json":"./data/"+file;
+ const source=file==="sitemap-reconciliation.json"?SITEMAP_DATA_URL:file==="internal-link-audit.json"?LINK_DATA_URL:fromDataBranch?INDEXING_DATA_BASE+file:file==="seo-pulse.json"?"https://raw.githubusercontent.com/wiclab/blogger-manager/seo-data/data/seo-pulse.json":"./data/"+file;
  const response=await fetch(source+"?t="+Date.now(),{cache:"no-store"});
  if(!response.ok)throw Error(file+" HTTP "+response.status);
  return await response.json();
@@ -352,6 +379,81 @@ for(const name of ["link-search","link-filter","link-sort"]){
 }
 el("link-prev").addEventListener("click",()=>{if(linkPage>0){linkPage--;renderLinkRows();}});
 el("link-next").addEventListener("click",()=>{if((linkPage+1)*PAGE_LINKS<linkAuditRows.length){linkPage++;renderLinkRows();}});
+let sitemapRows=[],sitemapPage=0,sitemapReady=false;
+const SITEMAP_PAGE_SIZE=10;
+function renderSitemapRows(){
+ const root=el("sitemap-list");root.replaceChildren();
+ if(!sitemapReady){root.textContent="사이트맵 대조 결과를 읽지 못했어. GitHub Actions를 확인해.";return;}
+ const q=el("sitemap-search").value.trim().toLocaleLowerCase("ko");
+ const filter=el("sitemap-filter").value;
+ const rows=sitemapRows.filter(x=>{
+  if(filter!=="all"&&x.priority!==filter&&x.category!==filter)return false;
+  return !q||(String(x.title||"")+" "+String(x.url)).toLocaleLowerCase("ko").includes(q);
+ });
+ const pages=Math.max(1,Math.ceil(rows.length/SITEMAP_PAGE_SIZE));
+ sitemapPage=Math.min(sitemapPage,pages-1);
+ text("sitemap-found","표시할 차이 "+num(rows.length)+"개 · 자동 수정 없음");
+ text("sitemap-page",(sitemapPage+1)+" / "+pages+"페이지");
+ el("sitemap-prev").disabled=sitemapPage===0;
+ el("sitemap-next").disabled=sitemapPage>=pages-1;
+ if(!rows.length){root.textContent="현재 선택한 조건에서 발견된 차이가 없어.";return;}
+ const classifications={
+  live_not_in_sitemap:"Blogger 공개 글 · 사이트맵 목록에 없음",
+  sitemap_not_live:"사이트맵에는 있으나 Blogger LIVE 목록에 없음"
+ };
+ const priorities={
+  repeat_review:"2회 이상 같은 차이 관측 · 재확인 권장",
+  new_publication:"발행 48시간 이내 · 반영 대기 가능",
+  first_observation:"첫 관측 · 다음 점검과 대조"
+ };
+ for(const x of rows.slice(sitemapPage*SITEMAP_PAGE_SIZE,(sitemapPage+1)*SITEMAP_PAGE_SIZE)){
+  const u=canonical(x.url);if(!u)continue;
+  const div=document.createElement("div");div.className="item";
+  const a=linkSafeAnchor(u,x.title||u);
+  div.append(a);
+  const tag=document.createElement("div");tag.className="muted";
+  tag.textContent=(classifications[x.category]||"불일치")+" · "+(priorities[x.priority]||"검토 후보")+
+   " · 연속 관측 "+num(x.consecutive_observations)+"회";
+  div.append(tag);
+  root.append(div);
+ }
+}
+function showSitemapReconciliation(d){
+ if(d?.site!=="https://wic12.blogspot.com/"||d.schema!==1||!Array.isArray(d.rows)
+    ||!Number.isInteger(d.live_count)||d.live_count<=0||!Number.isInteger(d.sitemap_count)||d.sitemap_count<=0
+    ||d.rows.length>5000)throw Error("Wrong or incomplete reconciliation report");
+ const rows=d.rows.filter(x=>canonical(x.url)&&
+    ["live_not_in_sitemap","sitemap_not_live"].includes(x.category)&&
+    ["repeat_review","new_publication","first_observation"].includes(x.priority));
+ if(rows.length!==d.rows.length||
+    d.live_not_in_sitemap_count+d.sitemap_not_live_count!==rows.length)throw Error("Invalid discrepancies");
+ sitemapRows=rows;sitemapReady=true;sitemapPage=0;
+ text("sitemap-live",num(d.live_count));
+ text("sitemap-count",num(d.sitemap_count));
+ text("sitemap-absent",num(d.live_not_in_sitemap_count));
+ text("sitemap-extra",num(d.sitemap_not_live_count));
+ const age=Date.now()-new Date(d.checked_at).getTime();
+ const stale=!Number.isFinite(age)||age<0||age>48*3600*1000;
+ const repeat=Number(d.repeat_review_count||0);
+ badge("sitemap-status",stale||repeat?"warning":"ok",
+   stale?"검사 결과 갱신 지연":repeat?"같은 차이 반복 관측":rows.length?"차이 추가 관찰 중":"두 목록 일치");
+ text("sitemap-time","최근 비교: "+time(d.checked_at)+" · 목록 일치 "+num(d.matched_count)+"개 · 2회 이상 차이 "+num(repeat)+"개");
+ renderSitemapRows();
+}
+function resetSitemap(){
+ sitemapReady=false;sitemapRows=[];sitemapPage=0;
+ badge("sitemap-status","warning","검사 데이터 없음");
+ text("sitemap-time","Blogger·사이트맵 비교를 완료하지 못했어. GitHub 실행 기록을 확인해.");
+ for(const id of ["sitemap-live","sitemap-count","sitemap-absent","sitemap-extra"])text(id,"—");
+ text("sitemap-found","비교 데이터가 없어. 오류를 확인해.");
+ el("sitemap-list").textContent="현재 대조 결과를 표시할 수 없어.";
+ text("sitemap-page","—");el("sitemap-prev").disabled=true;el("sitemap-next").disabled=true;
+}
+for(const id of ["sitemap-search","sitemap-filter"]){
+ el(id).addEventListener(id==="sitemap-search"?"input":"change",()=>{sitemapPage=0;renderSitemapRows();});
+}
+el("sitemap-prev").addEventListener("click",()=>{if(sitemapPage>0){sitemapPage--;renderSitemapRows();}});
+el("sitemap-next").addEventListener("click",()=>{sitemapPage++;renderSitemapRows();});
 function showSubmissions(data){
  const a=data.bing_submission||{};
  text("published",num(a.published_count));text("submitted",num(a.tracked_submitted_count));
@@ -454,9 +556,13 @@ async function load(){
   readJSON("indexing-dashboard.json"),
   readJSON("indexing-health.json"),
   readJSON("seo-pulse.json"),
-  readJSON("internal-link-audit.json")
+  readJSON("internal-link-audit.json"),
+  readJSON("sitemap-reconciliation.json")
  ]);
- const [submission,health,performance,linkReport]=results;
+ const [submission,health,performance,linkReport,sitemapReport]=results;
+ if(sitemapReport.status==="fulfilled"){
+  try{showSitemapReconciliation(sitemapReport.value);}catch{resetSitemap();}
+ }else resetSitemap();
  if(linkReport.status==="fulfilled"){
   try{showLinkAudit(linkReport.value);}catch{resetLinkAudit();}
  }else resetLinkAudit();
