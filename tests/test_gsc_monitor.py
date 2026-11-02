@@ -70,6 +70,61 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(result["sample"]["counts"]["not_indexed"], 20)
         self.assertTrue(result["sample_only"])
 
+    def test_google_challenge_redirect_is_not_followed_or_site_error(self):
+        original = g.SITE + "2026/09/test.html"
+        challenge = "https://www.google.com/sorry/index?continue=private"
+        class FakeOpener:
+            def __init__(self):
+                self.requests = []
+            def open(self, req, timeout):
+                self.requests.append(req.full_url)
+                raise g.urllib.error.HTTPError(
+                    req.full_url, 302, "Redirect", {"Location": challenge}, None)
+        opener = FakeOpener()
+        with mock.patch.object(g.urllib.request, "build_opener", return_value=opener):
+            result = g.http_chain(original)
+        self.assertEqual(opener.requests, [original])
+        self.assertEqual(result["result"], "inconclusive")
+        self.assertEqual(result["reason"], "google_challenge_not_followed")
+        self.assertEqual(result["redirects"], 1)
+
+    def test_all_unverifiable_http_probes_degrade_only_monitor_status(self):
+        posts = [g.SITE + "2026/09/" + str(i) + ".html" for i in range(5)]
+        sample = {"verdict": "NEUTRAL", "pageFetchState": "SUCCESSFUL"}
+        with (mock.patch.object(g, "credentials_from_secret", return_value="secret"),
+              mock.patch.object(g, "read_sitemap", return_value=posts),
+              mock.patch.object(g, "inspect", return_value=sample),
+              mock.patch.object(g, "http_chain", return_value={
+                  "result": "inconclusive", "reason": "google_challenge_not_followed",
+                  "redirects": 1})):
+            report = g.collect(dt.date(2026, 11, 2))
+        self.assertEqual(report["status"], "partial")
+        self.assertEqual(report["http"]["probe_quality"], "unverifiable")
+        self.assertEqual(report["http"]["reason_counts"]["google_challenge_not_followed"], 5)
+        self.assertEqual(report["http"]["redirect_problem"], 0)
+        self.assertEqual(report["sample"]["inspection_errors"], 0)
+        self.assertEqual(report["sample"]["counts"]["not_indexed"], 5)
+        self.assertIn("http_probe_unverifiable", report["alerts"])
+        self.assertNotIn(posts[0], g.json.dumps(report))
+
+    def test_mixed_http_probes_do_not_mask_valid_inspections(self):
+        posts = [g.SITE + "2026/09/" + str(i) + ".html" for i in range(2)]
+        checks = iter([
+            {"result": "inconclusive", "reason": "out_of_scope_target_not_followed",
+             "redirects": 1},
+            {"result": "ok", "reason": "normal_blogger_mobile_redirect",
+             "canonical_ok": True, "noindex": False, "redirects": 1}
+        ])
+        with (mock.patch.object(g, "credentials_from_secret", return_value="secret"),
+              mock.patch.object(g, "read_sitemap", return_value=posts),
+              mock.patch.object(g, "inspect", return_value={
+                  "verdict": "NEUTRAL", "pageFetchState": "SUCCESSFUL"}),
+              mock.patch.object(g, "http_chain", side_effect=lambda _: next(checks))):
+            report = g.collect(dt.date(2026, 11, 2))
+        self.assertEqual(report["status"], "ok")
+        self.assertEqual(report["http"]["probe_quality"], "partial")
+        self.assertNotIn("http_probe_unverifiable", report["alerts"])
+
     def test_access_denial_fails_fast_and_keeps_error_code(self):
         url = g.SITE + "2026/09/test.html"
         with (mock.patch.object(g, "credentials_from_secret", return_value="fake"),
