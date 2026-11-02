@@ -10,6 +10,7 @@ on:
       - "scripts/internal_link_audit.py"
       - "tests/test_internal_link_audit.py"
       - ".github/workflows/internal-link-audit.yml"
+      - "indexing.html"
   pull_request:
     paths:
       - "scripts/internal_link_audit.py"
@@ -26,6 +27,8 @@ concurrency:
 jobs:
   audit:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     timeout-minutes: 10
     steps:
       - name: Check out version under test
@@ -38,6 +41,25 @@ jobs:
         run: |
           python -m compileall -q scripts/internal_link_audit.py tests/test_internal_link_audit.py
           python -m unittest discover -s tests -p "test_internal_link_audit.py" -v
+      - name: Validate Bing dashboard JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          page = Path("indexing.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script[^>]*>(.*?)</script>", page, flags=re.S)
+          if len(scripts) != 1:
+              raise SystemExit("Expected exactly one indexing dashboard script")
+          Path("/tmp/byeolsemso-indexing.js").write_text(scripts[0], encoding="utf-8")
+          PY
+          node --check /tmp/byeolsemso-indexing.js
+      - name: Checkout isolated internal-link report branch
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: link-data
+          path: link-data
+          persist-credentials: true
       - name: Require read-only Blogger API key
         if: github.event_name != 'pull_request'
         env:
@@ -52,6 +74,32 @@ jobs:
         env:
           BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
         run: python -m scripts.internal_link_audit
+      - name: Publish read-only report for Blogger Manager
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          test -s data/internal-link-audit.json
+          mkdir -p link-data/data
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path("data/internal-link-audit.json").read_text(encoding="utf-8"))
+          if (report.get("site") != "https://wic12.blogspot.com/"
+                  or report.get("schema") != 1
+                  or not isinstance(report.get("link_opportunities", {}).get("candidates"), list)):
+              raise SystemExit("Invalid or incomplete internal-link report; refusing publication")
+          PY
+          cp data/internal-link-audit.json link-data/data/internal-link-audit.json
+          cd link-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/internal-link-audit.json
+          if git diff --cached --quiet; then
+            echo "Internal-link report unchanged"
+          else
+            git commit -m "Update public-safe internal-link audit dashboard data"
+            git push origin HEAD:link-data
+          fi
       - name: Summarize review candidates
         if: github.event_name != 'pull_request'
         run: |

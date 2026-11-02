@@ -166,11 +166,11 @@ class InternalLinkAuditTests(unittest.TestCase):
             self.assertEqual(item["suggestions_found"], 0)
 
     def test_opportunities_limit_is_explicit(self):
-        posts = [{"url": a.SITE + f"2026/09/{n}.html", "title": f"글 {n}", "content": ""} for n in range(105)]
+        posts = [{"url": a.SITE + f"2026/09/{n}.html", "title": f"글 {n}", "content": ""} for n in range(505)]
         report = a.audit(posts)
-        self.assertEqual(report["link_opportunities"]["candidate_total"], 105)
+        self.assertEqual(report["link_opportunities"]["candidate_total"], 505)
         self.assertTrue(report["link_opportunities"]["candidates_truncated"])
-        self.assertEqual(len(report["link_opportunities"]["candidates"]), 100)
+        self.assertEqual(len(report["link_opportunities"]["candidates"]), 500)
 
     def test_html_parser_ignores_text_and_image_sources(self):
         html = '<img src="/2026/09/fake.html"><code>&lt;a href="/2026/09/fake.html"&gt;</code>'

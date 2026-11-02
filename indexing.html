@@ -29,6 +29,25 @@ h1{font-size:clamp(22px,4vw,29px);margin:0}h2{font-size:19px;margin:0 0 9px}h3{f
 .actions{display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center;gap:10px;margin-top:9px}
 .button{background:#245ee4;color:white;border:0;border-radius:9px;font:inherit;padding:8px 15px;cursor:pointer}
 a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8px 20px 30px}
+.link-controls{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 12px;align-items:end}
+.link-controls label{display:flex;flex-direction:column;gap:5px;font-weight:650;font-size:13px;color:var(--muted);flex:1 1 190px}
+.link-controls input,.link-controls select{width:100%;min-height:42px;border:1px solid #cbd6e6;border-radius:10px;padding:9px 11px;font:inherit;color:var(--text);background:#fff}
+.link-controls input:focus-visible,.link-controls select:focus-visible{outline:3px solid #98baff;outline-offset:1px}
+.link-results{display:grid;gap:11px}
+.link-result{background:#f8faff;border:1px solid #e1e9f7;border-radius:12px;padding:14px;min-width:0}
+.link-result-head{display:flex;align-items:flex-start;gap:12px;justify-content:space-between}
+.link-result h3{font-size:15px;line-height:1.48;margin:0 0 5px;overflow-wrap:anywhere}
+.link-result h3 a{color:#175aa9}
+.link-result .kicker{font-size:12px;color:var(--muted)}
+.link-recommend{margin-top:12px;padding:11px 12px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:13px}
+.link-recommend p{margin:0 0 6px}
+.link-recommend ul{padding-left:20px;margin:0}.link-recommend li{margin:6px 0;overflow-wrap:anywhere}
+.link-pages{display:flex;gap:10px;justify-content:center;align-items:center;margin:15px 0}
+.link-pages button:disabled{background:#e3eaf4;color:#7c8da5;cursor:not-allowed}
+.link-missing{padding:14px 16px;border-radius:12px;border:1px solid var(--line);margin-top:12px}
+.link-missing summary{cursor:pointer;color:#2456a9;font-weight:650}
+.link-missing .item{font-size:13px}
+
 @media(max-width:720px){.wrap{padding:13px}.header{padding:18px 13px}.layout{grid-template-columns:1fr}.full{grid-column:1}.panel{padding:15px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.nav a{padding:6px 9px;font-size:12px}}
 </style>
 <link rel="stylesheet" href="./assets/manager-header.css">
@@ -39,10 +58,26 @@ a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8p
 <div class="actions"><span id="refreshed" class="muted">보고서 불러오는 중</span><button id="refresh" type="button" class="button">새로고침</button></div>
 <div class="layout" style="margin-top:13px">
 <section class="panel full" aria-labelledby="link-gap-title">
-  <div class="titleline"><h2 id="link-gap-title">내부링크 사각지대 자동 점검</h2><span class="badge">매주 자동 검사</span></div>
-  <p>다른 공개 글 <strong>본문에서 연결되지 않은 글(0개)</strong>과 연결이 1개뿐인 글을 찾아. 제목·주제가 충분히 겹치는 기존 글이 있으면 내부링크 추가를 검토할 후보로 함께 보여줘.</p>
-  <p class="note">게시글 본문 링크만 계산하고 메뉴·라벨·사이트맵은 제외해. 유입 링크가 0개여도 Google이 방문할 수 있으며, 색인 누락의 확정 원인은 아니야. 자동으로 본문을 수정하거나 링크를 삽입하지 않아.</p>
-  <p><a href="https://github.com/wiclab/blogger-manager/actions/workflows/internal-link-audit.yml" target="_blank" rel="noopener noreferrer">최신 검사 실행과 링크 보강 후보 확인</a> · <a href="https://github.com/wiclab/blogger-manager/actions/workflows/internal-link-audit.yml" target="_blank" rel="noopener noreferrer">검사 수동 실행</a></p>
+  <div class="titleline"><h2 id="link-gap-title">내부링크 사각지대 · 보강 후보</h2><span id="link-status" class="badge">검사 결과 불러오는 중</span></div>
+  <p class="muted" id="link-time">정기 검사 결과를 확인하고 있어.</p>
+  <div class="cards">
+    <div class="kpi"><div class="label">검사한 공개 글</div><div class="num" id="link-total">—</div></div>
+    <div class="kpi"><div class="label">본문 유입 링크 0개</div><div class="num" id="link-zero">—</div></div>
+    <div class="kpi"><div class="label">본문 유입 링크 1개</div><div class="num" id="link-one">—</div></div>
+    <div class="kpi"><div class="label">공개 목록에 없는 링크 대상</div><div class="num" id="link-missing-count">—</div></div>
+  </div>
+  <p class="note">다른 글 <strong>본문의 링크만</strong> 계산해. 메뉴·홈·라벨·사이트맵 링크는 제외하므로 0개라도 Google 색인 실패나 고아 페이지가 확정되는 것은 아니야. 추천은 검토용이고 글을 자동 수정하지 않아.</p>
+  <div class="link-controls">
+    <label for="link-search">글 검색<input id="link-search" type="search" placeholder="제목·주소 검색" autocomplete="off"></label>
+    <label for="link-filter">본문 유입 링크<select id="link-filter"><option value="zero">0개인 글</option><option value="one">1개인 글</option><option value="all">0~1개 전체</option><option value="suggested">연결 추천이 있는 글</option></select></label>
+    <label for="link-sort">정렬<select id="link-sort"><option value="recommended">추천 후보 우선</option><option value="oldest">오래된 발행 글부터</option><option value="newest">최근 발행 글부터</option></select></label>
+  </div>
+  <p id="link-results-count" class="muted" role="status" aria-live="polite">검사 목록 확인 중</p>
+  <div id="link-results" class="link-results">검사 목록 확인 중</div>
+  <div class="link-pages"><button id="link-prev" class="button" type="button" disabled>이전 10개</button><span id="link-page-info" class="muted">—</span><button id="link-next" class="button" type="button" disabled>다음 10개</button></div>
+  <details class="link-missing"><summary>공개 글 목록에 없는 링크 대상 확인 <span id="link-missing-label"></span></summary><div id="link-missing-list">검사 결과를 불러오는 중</div></details>
+  <p class="muted">연결 추천은 제목의 구체적인 공통 주제어 등을 이용한 후보야. 본문 문맥이 맞을 때만 연결해.</p>
+  <p class="muted"><a href="https://github.com/wiclab/blogger-manager/actions/workflows/internal-link-audit.yml" target="_blank" rel="noopener noreferrer">검사 실행 기록·수동 실행</a> · 자동 갱신: 매주 월요일 오전 10:17(KST)</p>
 </section>
 <section class="panel full">
 <div class="titleline"><h2>① Bing API URL 제출 기록</h2><span id="submission-status" class="badge">확인 중</span></div>
@@ -111,7 +146,7 @@ a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8p
 const el=id=>document.getElementById(id);
 function text(id,v){el(id).textContent=String(v);}
 function num(v){return Number.isFinite(Number(v))?Number(v).toLocaleString("ko-KR"):"—";}
-function time(v){if(!v)return "기록 없음";const d=new Date(v);return Number.isFinite(+d)?"시간 확인 불가":d.toLocaleString("ko-KR",{timeZone:"Asia/Seoul"});}
+function time(v){if(!v)return "기록 없음";const d=new Date(v);return Number.isFinite(+d)?d.toLocaleString("ko-KR",{timeZone:"Asia/Seoul"}):"시간 확인 불가";}
 function badge(id,value,label){
  const node=el(id);node.textContent=label;
  node.className="badge"+(value==="ok"?" good":value==="warning"||value==="quota_exhausted"?" warn":" bad");
@@ -124,13 +159,142 @@ function canonical(raw){
  }catch{return null;}
 }
 const INDEXING_DATA_BASE="https://raw.githubusercontent.com/wiclab/blogger-manager/indexing-data/data/";
+const LINK_DATA_URL="https://raw.githubusercontent.com/wiclab/blogger-manager/link-data/data/internal-link-audit.json";
 async function readJSON(file){
  const fromDataBranch=file==="indexing-dashboard.json"||file==="indexing-health.json";
- const source=fromDataBranch?INDEXING_DATA_BASE+file:file==="seo-pulse.json"?"https://raw.githubusercontent.com/wiclab/blogger-manager/seo-data/data/seo-pulse.json":"./data/"+file;
+ const source=file==="internal-link-audit.json"?LINK_DATA_URL:fromDataBranch?INDEXING_DATA_BASE+file:file==="seo-pulse.json"?"https://raw.githubusercontent.com/wiclab/blogger-manager/seo-data/data/seo-pulse.json":"./data/"+file;
  const response=await fetch(source+"?t="+Date.now(),{cache:"no-store"});
  if(!response.ok)throw Error(file+" HTTP "+response.status);
  return await response.json();
 }
+let linkAuditRows=[];
+let linkPage=0;
+let linkAuditReady=false;
+const PAGE_LINKS=10;
+function linkSafeAnchor(raw,label){
+ const url=canonical(raw);
+ if(!url)return document.createTextNode(String(label||"유효하지 않은 주소"));
+ const a=document.createElement("a");a.href=url;
+ a.target="_blank";a.rel="noopener noreferrer";a.textContent=String(label||url);
+ return a;
+}
+function renderLinkRows(){
+ const target=el("link-results");target.replaceChildren();
+ if(!linkAuditReady){target.textContent="검사 보고서를 아직 불러오지 못했어.";return;}
+ const q=el("link-search").value.trim().toLocaleLowerCase("ko");
+ const filter=el("link-filter").value;
+ const order=el("link-sort").value;
+ let rows=linkAuditRows.filter(x=>{
+  const inbound=x.inbound_from_other_posts;
+  if(filter==="zero"&&inbound!==0)return false;
+  if(filter==="one"&&inbound!==1)return false;
+  if(filter==="suggested"&&!x.suggestions_found)return false;
+  return !q||(String(x.title||"")+" "+String(x.url||"")).toLocaleLowerCase("ko").includes(q);
+ });
+ rows.sort((a,b)=>{
+  if(order==="recommended"){
+   const aS=Math.min(3,Number(a.suggestions_found)||0),bS=Math.min(3,Number(b.suggestions_found)||0);
+   if(aS!==bS)return bS-aS;
+   if(a.inbound_from_other_posts!==b.inbound_from_other_posts)return a.inbound_from_other_posts-b.inbound_from_other_posts;
+  }
+  const aa=a.published||"9999",bb=b.published||"9999";
+  if(aa!==bb)return order==="newest"?(aa>bb?-1:1):(aa<bb?-1:1);
+  return String(a.url).localeCompare(String(b.url));
+ });
+ const pages=Math.max(1,Math.ceil(rows.length/PAGE_LINKS));linkPage=Math.max(0,Math.min(linkPage,pages-1));
+ text("link-results-count","조건에 맞는 글 "+num(rows.length)+"개 · 추천은 본문 문맥 확인 후 적용");
+ text("link-page-info",(linkPage+1)+" / "+pages+"페이지");
+ el("link-prev").disabled=linkPage===0;
+ el("link-next").disabled=linkPage>=pages-1;
+ if(!rows.length){target.textContent="조건에 맞는 글이 없어. 검색어나 필터를 바꿔봐.";return;}
+ for(const item of rows.slice(linkPage*PAGE_LINKS,(linkPage+1)*PAGE_LINKS)){
+  if(!canonical(item.url))continue;
+  const outer=document.createElement("article");outer.className="link-result";
+  const top=document.createElement("div");top.className="link-result-head";
+  const heading=document.createElement("div");heading.style.minWidth="0";
+  const h=document.createElement("h3");h.append(linkSafeAnchor(item.url,item.title||"제목 없음"));heading.append(h);
+  const info=document.createElement("div");info.className="kicker";
+  info.textContent="발행 "+(item.published?time(item.published):"날짜 미확인");
+  heading.append(info);
+  const pill=document.createElement("span");pill.className="badge"+(item.inbound_from_other_posts===0?" warn":"");
+  pill.textContent="본문 유입 "+num(item.inbound_from_other_posts)+"개";
+  top.append(heading,pill);outer.append(top);
+  const rec=document.createElement("div");rec.className="link-recommend";
+  const lead=document.createElement("p");const strong=document.createElement("strong");
+  strong.textContent="연결 검토할 기존 글";
+  lead.append(strong);rec.append(lead);
+  const candidates=Array.isArray(item.suggested_sources)?item.suggested_sources:[];
+  if(!candidates.length){
+   const empty=document.createElement("p");empty.className="muted";
+   empty.textContent="확실하게 관련된 제목 후보가 없어. 관련 없는 글에 억지로 연결하지 않는 게 좋아.";
+   rec.append(empty);
+  }else{
+   const list=document.createElement("ul");
+   for(const src of candidates){
+    if(!canonical(src.source))continue;
+    const li=document.createElement("li");li.append(linkSafeAnchor(src.source,src.source_title||"기존 게시글"));
+    if(Array.isArray(src.shared_terms)&&src.shared_terms.length){
+     const tag=document.createElement("span");tag.className="muted";
+     tag.textContent=" · 공통 키워드: "+src.shared_terms.join(", ");li.append(tag);
+    }
+    list.append(li);
+   }
+   rec.append(list);
+  }
+  outer.append(rec);target.append(outer);
+ }
+}
+function showLinkAudit(data){
+ if(data.site!=="https://wic12.blogspot.com/"||data.schema!==1
+    ||!data.link_opportunities||!Array.isArray(data.link_opportunities.candidates)){
+  throw Error("잘못된 블로그 또는 보고서 구조");
+ }
+ const info=data.link_opportunities;
+ const expected=Number(info.candidate_total);
+ const rows=info.candidates.filter(x=>(x.inbound_from_other_posts===0||x.inbound_from_other_posts===1)&&canonical(x.url));
+ if(!Number.isInteger(expected)||expected<0||rows.length>expected||rows.length>5000)throw Error("잘못된 후보 집계");
+ linkAuditRows=rows;linkAuditReady=true;
+ text("link-total",num(data.live_posts_checked));
+ text("link-zero",num(info.zero_body_inbound_count));
+ text("link-one",num(info.one_body_inbound_count));
+ text("link-missing-count",num(data.unlisted_target_count));
+ const elapsed=Date.now()-new Date(data.checked_at).getTime();
+ const stale=!Number.isFinite(elapsed)||elapsed<0||elapsed>8*24*3600*1000;
+ badge("link-status",stale||rows.length<expected?"warning":"ok",
+   stale?"검사 결과 오래됨":rows.length<expected?"일부 목록만 보임":"최근 검사 완료");
+ text("link-time","최근 검사: "+time(data.checked_at)+" · 목록 "+num(rows.length)+"/"+num(expected)+"개");
+ const missing=el("link-missing-list");missing.replaceChildren();
+ const issues=Array.isArray(data.findings)?data.findings:[];
+ text("link-missing-label",issues.length?"("+num(data.unlisted_target_count)+"개)":"(없음)");
+ if(!issues.length){missing.textContent="현재 공개 목록에서 누락된 링크 대상은 발견되지 않았어.";}
+ for(const issue of issues){
+  const d=document.createElement("div");d.className="item";
+  d.append(linkSafeAnchor(issue.target,issue.target));
+  const caption=document.createElement("div");caption.className="muted";
+  caption.textContent="현재 공개 글 목록에 없으나 실제 404 여부는 미확인 · 연결된 출발 글 "+num(issue.source_count)+"개";
+  d.append(caption);
+  for(const source of (Array.isArray(issue.sources)?issue.sources:[])){
+   const p=document.createElement("div");p.append("연결한 글: ",linkSafeAnchor(source,source));d.append(p);
+  }
+  missing.append(d);
+ }
+ renderLinkRows();
+}
+function resetLinkAudit(){
+ linkAuditReady=false;linkAuditRows=[];linkPage=0;
+ badge("link-status","warning","보고서 확인 불가");
+ text("link-time","자동화 보고서를 읽지 못했어. GitHub 실행 기록을 확인해.");
+ for(const id of ["link-total","link-zero","link-one","link-missing-count"])text(id,"—");
+ text("link-results-count","현재 검사 데이터를 표시할 수 없어.");
+ text("link-page-info","—");el("link-prev").disabled=true;el("link-next").disabled=true;
+ el("link-missing-list").textContent="검사 보고서를 불러오면 표시돼.";
+ el("link-results").textContent="검사 기록 확인 중 문제가 발생했어. 자동 수집 실행 기록을 확인해.";
+}
+for(const name of ["link-search","link-filter","link-sort"]){
+ el(name).addEventListener(name==="link-search"?"input":"change",()=>{linkPage=0;renderLinkRows();});
+}
+el("link-prev").addEventListener("click",()=>{if(linkPage>0){linkPage--;renderLinkRows();}});
+el("link-next").addEventListener("click",()=>{if((linkPage+1)*PAGE_LINKS<linkAuditRows.length){linkPage++;renderLinkRows();}});
 function showSubmissions(data){
  const a=data.bing_submission||{};
  text("published",num(a.published_count));text("submitted",num(a.tracked_submitted_count));
@@ -232,9 +396,13 @@ async function load(){
  const results=await Promise.allSettled([
   readJSON("indexing-dashboard.json"),
   readJSON("indexing-health.json"),
-  readJSON("seo-pulse.json")
+  readJSON("seo-pulse.json"),
+  readJSON("internal-link-audit.json")
  ]);
- const [submission,health,performance]=results;
+ const [submission,health,performance,linkReport]=results;
+ if(linkReport.status==="fulfilled"){
+  try{showLinkAudit(linkReport.value);}catch{resetLinkAudit();}
+ }else resetLinkAudit();
  if(submission.status==="fulfilled" && submission.value.site==="https://wic12.blogspot.com/"){
   showSubmissions(submission.value);showInspection(submission.value);
  }else{
