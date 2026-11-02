@@ -83,6 +83,7 @@ class InternalLinkAuditTests(unittest.TestCase):
         with mock.patch.object(a, "get_json", side_effect=fake_get):
             data = a.fetch_live_posts("secret-key")
         self.assertEqual(len(data), 2)
+        self.assertEqual(data[0]["blog_id"], "1659014803305858421")
         self.assertEqual(a.audit(data)["unlisted_target_count"], 0)
         self.assertEqual(len(calls), 3)
         self.assertEqual(calls[1][1]["status"], "LIVE")
@@ -97,6 +98,34 @@ class InternalLinkAuditTests(unittest.TestCase):
         with mock.patch.object(a, "get_json", side_effect=fake_get):
             with self.assertRaisesRegex(RuntimeError, "PAGINATION_INVALID"):
                 a.fetch_live_posts("secret-key")
+
+    def test_official_blogger_editor_url_only_when_post_identifiers_are_verified(self):
+        valid = {"url": a.SITE + "2026/10/sample.html",
+                 "blog_id": "1659014803305858421",
+                 "post_id": "9098581934010072421"}
+        self.assertEqual(
+            a.blogger_edit_url(valid),
+            "https://www.blogger.com/blog/post/edit/1659014803305858421/9098581934010072421",
+        )
+        for values in [
+            {**valid, "post_id": ""},
+            {**valid, "post_id": "../../another"},
+            {**valid, "blog_id": "wic12"},
+            {**valid, "url": "https://ggpong.blogspot.com/2026/10/sample.html"},
+        ]:
+            self.assertIsNone(a.blogger_edit_url(values))
+
+    def test_suggested_source_can_link_directly_to_official_editor(self):
+        target = {"url": a.SITE + "2026/09/power-strip.html",
+                  "title": "멀티탭 과부하 전기", "content": "",
+                  "blog_id": "1659014803305858421", "post_id": "100"}
+        source = {"url": a.SITE + "2026/09/fire-safety.html",
+                  "title": "멀티탭 과부하 화재", "content": "",
+                  "blog_id": "1659014803305858421", "post_id": "200"}
+        rows = a.audit([target, source])["link_opportunities"]["candidates"]
+        tgt = next(x for x in rows if x["url"] == target["url"])
+        self.assertEqual(tgt["suggested_sources"][0]["source_edit_url"],
+                         "https://www.blogger.com/blog/post/edit/1659014803305858421/200")
 
     def test_body_inbound_counts_ignore_self_and_duplicate_links(self):
         a_url = a.SITE + "2026/09/a.html"
