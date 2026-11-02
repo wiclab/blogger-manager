@@ -26,6 +26,21 @@ a{color:#2158ab}a:focus-visible{outline:3px solid #f59e0b}
 .bar>span{height:100%;display:block}.bar .yes{background:#0d9488}.bar .no{background:#f59e0b}.bar .unknown{background:#94a3b8}
 .actions{display:flex;gap:16px;flex-wrap:wrap;font-size:.9rem}
 @media(max-width:650px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:15px}th,td{padding:7px 4px}header{padding:23px 16px}}
+
+.private-controls{display:flex;flex-wrap:wrap;align-items:end;gap:10px;margin:12px 0}
+.private-controls label{display:block;min-width:170px;flex:1}
+.private-controls input,.private-controls select{font:inherit;max-width:100%;width:100%;padding:11px;border:1px solid var(--line);border-radius:8px;background:white;margin-top:3px}
+.private-controls button{font:inherit;border:0;border-radius:8px;background:var(--navy);color:#fff;padding:11px 18px;cursor:pointer}
+.private-controls button:disabled{opacity:.6;cursor:not-allowed}
+.private-controls .secondary{background:#e8edf5;color:var(--ink)}
+#private-findings{display:none;margin-top:12px}
+#private-findings[aria-hidden="false"]{display:block}
+#private-findings td{word-break:break-word;vertical-align:top}
+.private-url{font-size:.83rem;word-break:break-all}
+.private-details{font-size:.84rem;color:var(--muted)}
+.private-details summary{cursor:pointer;color:#2158ab}
+.private-details pre{white-space:pre-wrap;word-break:break-word;font:inherit;color:var(--ink)}
+.private-priority{font-weight:700}
 </style>
 </head>
 <body>
@@ -61,6 +76,33 @@ a{color:#2158ab}a:focus-visible{outline:3px solid #f59e0b}
  </div>
  <p class="muted">HTTP 검사는 Android 사용자 에이전트를 사용한 접근성 검사야. 실제 Googlebot IP를 사용한 요청이나 실시간 색인 검사는 아니야.</p>
  <p id="httpdetails" class="muted"></p>
+</section>
+<section class="panel" id="private-panel">
+ <h2>URL별 상세 원인 분석 <span class="status">암호화된 개인 기록</span></h2>
+ <p class="muted">기존 공개 화면에는 없는 글별 색인 상태·가져오기 결과·Google 선택 canonical·마지막 크롤링·<code>?m=1</code> 비교를 확인해. 상세 데이터는 공개 저장소에 암호화되어 저장되며, 아래 암호는 이 기기에서 복호화하는 데에만 사용돼.</p>
+ <form id="private-unlock-form" autocomplete="off" class="private-controls">
+  <label for="private-passphrase"><strong>상세 진단 잠금 해제 암호</strong><input id="private-passphrase" type="password" required minlength="20" autocomplete="off" spellcheck="false" placeholder="GitHub Secret에 설정한 별도 암호"></label>
+  <button id="private-unlock" type="submit">잠금 해제</button>
+  <button id="private-lock" type="button" class="secondary">기록 닫기</button>
+ </form>
+ <p id="private-message" class="muted" role="status">암호화된 기록이 아직 없다면, GitHub Secret 설정 후 자동 수집을 한 번 실행해야 해.</p>
+ <div id="private-findings" aria-hidden="true">
+  <div class="private-controls">
+   <label for="private-filter"><strong>문제 유형 필터</strong><select id="private-filter">
+     <option value="priority">우선 검사 대상</option>
+     <option value="fetch">GSC 가져오기 문제</option>
+     <option value="mobile">원본 / 모바일 GSC 기록 차이</option>
+     <option value="nonindexed">미색인</option>
+     <option value="all">전체 기록</option>
+   </select></label>
+  </div>
+  <p id="private-count" class="muted"></p>
+  <div style="overflow-x:auto"><table>
+   <thead><tr><th>글 URL</th><th>우선순위</th><th>색인 / 가져오기</th><th>크롤링</th><th>상세 정보</th></tr></thead>
+   <tbody id="private-list"></tbody>
+  </table></div>
+  <p class="muted">이 수치는 같은 글의 마지막 검사 기록을 보여 줘. 이전 상태와 비교하려면 상세 정보에 표시되는 검사 날짜를 함께 확인해. 모바일 기록 차이만으로 색인 오류를 단정할 수 없어.</p>
+ </div>
 </section>
 <section class="panel">
  <h2>최근 실행 이력</h2>
@@ -111,6 +153,112 @@ function render(data){
   set("notes","GitHub Secrets에 GSC_SERVICE_ACCOUNT_JSON을 등록하고 GSC_MONITOR_ENABLED 변수를 true로 설정한 후 첫 실행이 성공해야 표시돼.");
  }
 })();
+
+/* Encrypted GSC URL-level report. Passphrase never leaves this browser tab. */
+const PRIVATE_DATA="https://raw.githubusercontent.com/wiclab/blogger-manager/gsc-data/data/gsc-details.enc.json";
+const PRIVATE_AAD="byeolsemso-gsc-private-v1|https://wic12.blogspot.com/";
+let privateReport=null;
+const base64bytes=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function decryptPrivateDocument(sealed,passphrase){
+ if(!sealed||sealed.schema!==1||sealed.site!=="https://wic12.blogspot.com/"||
+    sealed.algorithm!=="PBKDF2-SHA256/AES-256-GCM"||sealed.iterations!==600000)
+    throw Error("암호화 파일 형식이 맞지 않아");
+ if(!crypto?.subtle)throw Error("안전한 HTTPS 환경에서만 잠금을 풀 수 있어");
+ const source=await crypto.subtle.importKey("raw",new TextEncoder().encode(passphrase),
+   "PBKDF2",false,["deriveKey"]);
+ const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:base64bytes(sealed.salt),
+   iterations:sealed.iterations,hash:"SHA-256"},source,{name:"AES-GCM",length:256},false,["decrypt"]);
+ const plaintext=await crypto.subtle.decrypt({name:"AES-GCM",iv:base64bytes(sealed.nonce),
+   additionalData:new TextEncoder().encode(PRIVATE_AAD),tagLength:128},
+   key,base64bytes(sealed.ciphertext));
+ const obj=JSON.parse(new TextDecoder().decode(plaintext));
+ if(obj.schema!==1||obj.site!=="https://wic12.blogspot.com/"||!Array.isArray(obj.records))
+   throw Error("복호화된 자료가 올바르지 않아");
+ return obj;
+}
+function safeBlogUrl(s){
+ try{const u=new URL(s);return u.protocol==="https:"&&u.hostname==="wic12.blogspot.com"&&
+  !u.username&&!u.password&&!u.hash&&u.search===""&&(/^\/\d{4}\/\d{2}\/[^/]+\.html$/.test(u.pathname)||u.pathname==="/p/blog-page.html")}
+ catch{return false}
+}
+function latestObservation(row){const a=row.observations;return Array.isArray(a)&&a.length?a[a.length-1]:null}
+function fieldLine(label,val){return label+": "+(val==null||val===""?"기록 없음":String(val))}
+function renderPrivate(){
+ const body=$("private-list");body.replaceChildren();if(!privateReport)return;
+ const filter=$("private-filter").value;
+ let rows=privateReport.records.filter(r=>safeBlogUrl(r.url)&&latestObservation(r));
+ rows=rows.filter(r=>{
+  const o=latestObservation(r),g=o.original||{};
+  if(filter==="priority")return r.priority<=2;
+  if(filter==="fetch")return r.reason==="SAVED_GSC_FETCH_PROBLEM"||
+    (g.pageFetchState&&g.pageFetchState!=="SUCCESSFUL"&&g.pageFetchState!=="PAGE_FETCH_STATE_UNSPECIFIED");
+  if(filter==="mobile")return o.mobile_difference===true;
+  if(filter==="nonindexed")return g.verdict!=="PASS";
+  return true;
+ });
+ rows.sort((a,b)=>(a.priority||9)-(b.priority||9)||
+  (b.last_checked||"").localeCompare(a.last_checked||""));
+ set("private-count",rows.length+"개 글 · 저장된 전체 기록 "+privateReport.records.length+"개 · 최종 수집 "+stamp(privateReport.updated_at));
+ for(const r of rows.slice(0,100)){
+  const latest=latestObservation(r),g=latest.original||{},tr=document.createElement("tr");
+  const cell=(value)=>{const td=document.createElement("td");td.textContent=String(value);tr.append(td);return td};
+  const td=document.createElement("td"),a=document.createElement("a");a.href=r.url;a.target="_blank";a.rel="noopener noreferrer";
+  a.className="private-url";a.textContent=r.url.replace("https://wic12.blogspot.com/","/");
+  td.append(a);tr.append(td);
+  cell(r.priority===1?"높음":r.priority===2?"확인 필요":"일반").className="private-priority";
+  cell((g.verdict||"미확인")+" / "+(g.pageFetchState||"가져오기 기록 없음"));
+  cell(g.lastCrawlTime?stamp(g.lastCrawlTime):"기록 없음");
+  const extra=document.createElement("td"),box=document.createElement("details");box.className="private-details";
+  const caption=document.createElement("summary");caption.textContent="자세히";box.append(caption);
+  const pre=document.createElement("pre");
+  const describe=(record,prefix)=>[
+   fieldLine(prefix+"색인 판정",record?.verdict),
+   fieldLine(prefix+"커버리지",record?.coverageState),
+   fieldLine(prefix+"가져오기 결과",record?.pageFetchState),
+   fieldLine(prefix+"크롤링 종류",record?.crawledAs),
+   fieldLine(prefix+"마지막 크롤링",record?.lastCrawlTime),
+   fieldLine(prefix+"robots",record?.robotsTxtState),
+   fieldLine(prefix+"indexing",record?.indexingState),
+   fieldLine(prefix+"사용자 canonical",record?.userCanonical),
+   fieldLine(prefix+"Google canonical",record?.googleCanonical)
+  ].join("\n");
+  const history=(r.observations||[]).map(o=>o.date+": "+(o.original?.verdict||"미확인")+
+   " / "+(o.original?.pageFetchState||"기록 없음")).join("\n");
+  pre.textContent="진단 분류: "+r.reason+"\n모바일 기록 차이: "+(latest.mobile_difference?"있음":"없음/미검사")+
+   "\n현재 HTTP 결과: "+(latest.http?.result||"미검사")+"\n\n"+describe(g,"원본 ")+"\n\n"+
+   (latest.mobile?describe(latest.mobile,"?m=1 "):"모바일 GSC 미검사")+
+   "\n\n이전 검사 기록:\n"+history;
+  box.append(pre);extra.append(box);tr.append(extra);body.append(tr);
+ }
+ if(rows.length>100){const tr=document.createElement("tr"),td=document.createElement("td");
+  td.colSpan=5;td.textContent="처음 100개만 표시해. 필터를 좁혀서 확인해.";tr.append(td);body.append(tr);}
+}
+$("private-unlock-form").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const input=$("private-passphrase"),passphrase=input.value,btn=$("private-unlock");input.value="";
+ btn.disabled=true;set("private-message","암호화된 기록을 확인하고 있어...");
+ try{
+  if(passphrase.length<20)throw Error("암호는 20자 이상이어야 해");
+  const response=await fetch(PRIVATE_DATA+"?t="+Date.now(),{cache:"no-store"});
+  if(response.status===404)throw Error("암호화된 기록이 아직 없어. GitHub Secret 설정 후 실행해 줘");
+  if(!response.ok)throw Error("암호화된 자료를 가져오지 못했어 ("+response.status+")");
+  const sealed=await response.json();
+  privateReport=await decryptPrivateDocument(sealed,passphrase);
+  $("private-findings").setAttribute("aria-hidden","false");
+  set("private-message","잠금 해제 완료 · 이 화면에서만 복호화했어. 브라우저를 닫으면 기록은 사라져.");
+  renderPrivate();
+ }catch(error){
+  privateReport=null;$("private-findings").setAttribute("aria-hidden","true");
+  set("private-message",error.name==="OperationError"?"암호가 맞지 않거나 암호화 자료가 손상됐어.":error.message||"잠금 해제 실패");
+ }finally{btn.disabled=false;}
+});
+$("private-lock").addEventListener("click",()=>{
+ privateReport=null;$("private-findings").setAttribute("aria-hidden","true");
+ $("private-list").replaceChildren();$("private-passphrase").value="";
+ set("private-message","화면의 복호화된 기록을 닫았어.");
+});
+$("private-filter").addEventListener("change",renderPrivate);
+
 </script>
 </body>
 </html>
