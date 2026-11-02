@@ -260,7 +260,17 @@ def http_chain(url: str, max_hops: int = 4) -> dict:
         except ValueError:
             safe = False
         if not safe:
-            return finish("inconclusive", "out_of_scope_target_not_followed")
+            # Never follow redirects outside this blog. Classify a Google
+            # verification interstitial without exposing its full URL publicly.
+            reason = "out_of_scope_target_not_followed"
+            try:
+                target = urllib.parse.urlsplit(current)
+                if (target.hostname in ("www.google.com", "google.com")
+                        and target.path.startswith("/sorry/")):
+                    reason = "google_challenge_not_followed"
+            except ValueError:
+                pass
+            return finish("inconclusive", reason)
         seen.add(current)
         req = urllib.request.Request(current, headers={"User-Agent": ANDROID_UA})
         try:
@@ -397,6 +407,13 @@ def collect(day: dt.date, previous: dict | None = None,
                     "canonical_mismatch": sum(c["result"] == "ok" and
                                               not c["canonical_ok"] for c in checks),
                     "noindex": sum(bool(c.get("noindex")) for c in checks)}
+    # No usable HTTP result is a monitoring-coverage gap, not proof the
+    # Blogger page is blocked for verified Googlebot crawlers.
+    unverifiable = sum(c["result"] in ("inconclusive", "network_error")
+                       for c in checks)
+    http_summary["probe_quality"] = (
+        "unverifiable" if checks and unverifiable == len(checks)
+        else "partial" if unverifiable else "complete")
     from collections import Counter
     http_summary["reason_counts"] = dict(Counter(c.get("reason", "legacy_unknown") for c in checks))
     legacy_checks = [c for u, c in zip(http_urls, checks) if u in (legacy_http_urls or [])]
@@ -404,6 +421,7 @@ def collect(day: dt.date, previous: dict | None = None,
     http_summary["previous_anomaly_results"] = dict(Counter(c.get("reason", "legacy_unknown") for c in legacy_checks))
     time = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
     alerts = sorted(x for x, hit in (
+        ("http_probe_unverifiable", http_summary["probe_quality"] == "unverifiable"),
         ("http_redirect", http_summary["redirect_problem"] > 0),
         ("http_canonical", http_summary["canonical_mismatch"] > 0),
         ("http_noindex", http_summary["noindex"] > 0),
@@ -417,7 +435,8 @@ def collect(day: dt.date, previous: dict | None = None,
                if isinstance(x, dict) and x.get("date") != entry["date"]][-29:]
     history.append(entry)
     return {"schema": 1, "site": SITE, "updated_at": time, "status":
-            "partial" if errors else "ok", "sample_only": True,
+            "partial" if errors or http_summary["probe_quality"] == "unverifiable" else "ok",
+            "sample_only": True,
             "sample": {"eligible_urls": len(all_urls), "inspected_original": len(outcomes),
                        "mobile_gsc_compared": mobile_checked,
                        "mobile_status_differences": mobile_differences,
@@ -435,6 +454,9 @@ def notify_on_new_alerts(current: dict, previous: dict) -> None:
     if not (token and chat and new):
         return
     msg = "⚠️ 별셈소 GSC 관제: 새 이상 징후\n" + ", ".join(sorted(new))
+    if "http_probe_unverifiable" in new:
+        msg += ("\n일반 HTTP 검사가 모두 판정 불가였습니다. "
+                "관제 수집 환경 문제 가능성이 있으며 Googlebot 색인 장애 확정은 아닙니다.")
     data = urllib.parse.urlencode({"chat_id": chat, "text": msg}).encode()
     url = "https://api.telegram.org/bot" + token + "/sendMessage"
     try:
