@@ -52,7 +52,7 @@ def get_bytes(url: str, limit: int = 3_000_000) -> bytes:
         return response.read(limit + 1)[:limit]
 
 
-def read_sitemap() -> list[str]:
+def read_sitemap(modified_sink: dict | None = None) -> list[str]:
     pending, seen, posts = [SITEMAP], set(), set()
     while pending:
         url = pending.pop(0)
@@ -68,6 +68,11 @@ def read_sitemap() -> list[str]:
         if kind == "sitemapindex":
             pending.extend(x for x in locs if is_blog_url(x, allow_query=True))
         elif kind == "urlset":
+            if modified_sink is not None:
+                for node in root:
+                    fields = {e.tag.rsplit("}", 1)[-1]: (e.text or "").strip() for e in node}
+                    if is_blog_url(fields.get("loc", "")) and fields.get("lastmod"):
+                        modified_sink[fields["loc"]] = fields["lastmod"]
             posts.update(x for x in locs if is_blog_url(x) and
                          (re.match(r"^https://wic12\.blogspot\.com/\d{4}/\d{2}/[^/]+\.html$", x)
                           or x == PUBLIC_PAGE))
@@ -245,8 +250,17 @@ def http_chain(url: str, max_hops: int = 4) -> dict:
     for hop in range(max_hops + 1):
         if current in seen:
             return finish("bad_redirect", "redirect_loop")
-        if not is_blog_url(current, allow_query=True):
-            return finish("bad_redirect", "out_of_scope_target_not_followed")
+        # Public GET probes may follow same-host HTTP/HTTPS. This never relaxes
+        # the HTTPS-only GSC inspection or credential destination restrictions.
+        try:
+            target = urllib.parse.urlsplit(current)
+            safe = (target.scheme in ("http", "https") and target.hostname == HOST
+                    and target.port is None and not target.username and not target.password
+                    and not target.fragment)
+        except ValueError:
+            safe = False
+        if not safe:
+            return finish("inconclusive", "out_of_scope_target_not_followed")
         seen.add(current)
         req = urllib.request.Request(current, headers={"User-Agent": ANDROID_UA})
         try:
@@ -294,7 +308,8 @@ def collect(day: dt.date, previous: dict | None = None,
             focus_urls: list[str] | None = None,
             legacy_http_urls: list[str] | None = None) -> dict:
     token = credentials_from_secret()
-    all_urls = read_sitemap()
+    modified_dates = {}
+    all_urls = read_sitemap(modified_dates)
     focused = list(dict.fromkeys(focus_urls or []))[:15]
     if any(not is_blog_url(u) for u in focused):
         raise RuntimeError("GSC_FOCUS_INVALID: outside allowed blog")
@@ -316,6 +331,7 @@ def collect(day: dt.date, previous: dict | None = None,
              "GSC permission denied", "GSC API quota")
     for index, url in enumerate(urls):
         entry = {"url": url, "original": {}, "mobile": None, "http": None,
+                 "modified_at": modified_dates.get(url), "modified_source": "sitemap_lastmod",
                  "inspection_source": "gsc_saved_url_inspection_api", "errors": {}}
         variants = ("original", "mobile") if url in focused or index < MAX_MOBILE_INSPECTIONS else ("original",)
         for variant in variants:
@@ -375,8 +391,9 @@ def collect(day: dt.date, previous: dict | None = None,
                 detail_sink.append({"url": url, "original": {}, "mobile": None,
                                     "http": check, "inspection_source": "not_inspected_this_run"})
     http_summary = {"checked": len(checks), "ok": sum(c["result"] == "ok" for c in checks),
+                    "inconclusive": sum(c["result"] == "inconclusive" for c in checks),
                     "redirect_problem": sum(c["result"] == "bad_redirect" for c in checks),
-                    "other_error": sum(c["result"] not in ("ok", "bad_redirect") for c in checks),
+                    "other_error": sum(c["result"] not in ("ok", "bad_redirect", "inconclusive") for c in checks),
                     "canonical_mismatch": sum(c["result"] == "ok" and
                                               not c["canonical_ok"] for c in checks),
                     "noindex": sum(bool(c.get("noindex")) for c in checks)}
@@ -453,9 +470,13 @@ def main() -> int:
                       [r["url"] for r in (previous_details or {}).get("records", [])])
                       if detail_passphrase else None)
     from scripts import gsc_diagnostics
-    legacy_http_urls = [r["url"] for r in (previous_details or {}).get("records", [])
-                        if (r.get("observations") or [{}])[-1].get("http", {}) and
-                        (r.get("observations") or [{}])[-1]["http"].get("result") == "bad_redirect"][:6]
+    legacy_http_urls = list((previous_details or {}).get("legacy_http_targets", []))
+    if not legacy_http_urls:
+        candidates = (previous_details or {}).get("records", [])
+        persisted = [r["url"] for r in candidates if r.get("previous_http_anomaly")]
+        current_bad = [r["url"] for r in candidates
+                       if ((r.get("observations") or [{}])[-1].get("http") or {}).get("result") == "bad_redirect"]
+        legacy_http_urls = list(dict.fromkeys(persisted + current_bad))[:6]
     selected_focus = list(dict.fromkeys(legacy_http_urls + (selected_focus or [])))[:6]
     result = collect(dt.datetime.now(dt.timezone.utc).date(), previous,
                      detail_sink=details, priority_urls=selected_focus,
@@ -465,6 +486,7 @@ def main() -> int:
     if detail_passphrase:
         next_details = gsc_private.merge(previous_details, details, result["updated_at"],
                                         gsc_diagnostics.crawl_evidence_from_secret())
+        next_details["legacy_http_targets"] = legacy_http_urls
         tracked = [r for r in next_details["records"] if r["url"] in gsc_diagnostics.FOCUS_URLS]
         result["tracking"] = {"focus_target": 15, "focus_recorded": len(tracked),
             "crawl_stats_evidence_loaded": len(next_details.get("crawl_evidence", [])),

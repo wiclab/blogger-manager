@@ -140,7 +140,7 @@ function render(data){
  set("mobile",count(s.mobile_gsc_compared));set("different",count(s.mobile_status_differences));
  set("httpok",count(h.ok));set("redirect",count(h.redirect_problem));
  set("details","대상 URL "+count(s.eligible_urls)+"개 중 이번 표본 "+count(s.inspected_original)+"개 · 검사 실패 "+count(s.inspection_errors)+"건 · 가져오기 문제 "+count(c.fetch_problem)+"건 · robots 차단 "+count(c.robots_blocked)+"건 · noindex "+count(c.noindex)+"건");
- set("httpdetails","일반 HTTP 검사 "+count(h.checked)+"개 · canonical 차이 "+count(h.canonical_mismatch)+"개 · HTTP/네트워크 오류 "+count(h.other_error)+"개 · 과거 이동 이상 재검사 "+count(h.previous_anomalies_rechecked)+"개 · 정상 모바일 이동 "+count(h.reason_counts?.normal_blogger_mobile_redirect)+"개");
+ set("httpdetails","일반 HTTP 검사 "+count(h.checked)+"개 · canonical 차이 "+count(h.canonical_mismatch)+"개 · HTTP/네트워크 오류 "+count(h.other_error)+"개 · 검사 범위 밖 중단 "+count(h.inconclusive)+"개 · 과거 이동 이상 재검사 "+count(h.previous_anomalies_rechecked)+"개 · 정상 모바일 이동 "+count(h.reason_counts?.normal_blogger_mobile_redirect)+"개");
  const total=(c.indexed||0)+(c.not_indexed||0)+(c.unknown||0);
  const bar=$("coverage");bar.replaceChildren();if(total){for(const [klass,v] of [["yes",c.indexed],["no",c.not_indexed],["unknown",c.unknown]]){const span=document.createElement("span");span.className=klass;span.style.width=((v||0)/total*100)+"%";bar.append(span)}}
  const body=$("history");body.replaceChildren();
@@ -191,7 +191,7 @@ function safeBlogUrl(s){
 }
 function latestObservation(row){const a=row.observations;return Array.isArray(a)&&a.length?a[a.length-1]:null}
 function fieldLine(label,val){return label+": "+(val==null||val===""?"기록 없음":String(val))}
-function reasonLabel(reason){return ({CURRENT_HTTP_ERROR:"현재 일반 HTTP 이상",INDEXING_DIRECTIVE_OR_ROBOTS:"색인 지시문 관측",SAVED_GSC_FETCH_PROBLEM:"저장된 Google 가져오기 실패",CURRENT_CANONICAL_DIFFERENCE:"일반 HTTP canonical 차이",GSC_ORIGINAL_MOBILE_DIFFERENCE:"원본/모바일 저장 기록 차이",NOT_INDEXED_CAUSE_UNCONFIRMED:"미색인",INDEXED_SNAPSHOT:"저장된 색인 확인"})[reason]||"관측 정보 부족"}
+function reasonLabel(reason){return ({HTTP_PROBE_INCONCLUSIVE:"일반 HTTP 검사 미완료",CURRENT_HTTP_ERROR:"현재 일반 HTTP 이상",INDEXING_DIRECTIVE_OR_ROBOTS:"색인 지시문 관측",SAVED_GSC_FETCH_PROBLEM:"저장된 Google 가져오기 실패",CURRENT_CANONICAL_DIFFERENCE:"일반 HTTP canonical 차이",GSC_ORIGINAL_MOBILE_DIFFERENCE:"원본/모바일 저장 기록 차이",NOT_INDEXED_CAUSE_UNCONFIRMED:"미색인",INDEXED_SNAPSHOT:"저장된 색인 확인"})[reason]||"관측 정보 부족"}
 function evidenceMismatch(r){
  const o=latestObservation(r),found=[...(o?.crawl_stats_mismatches||[])];
  for(const e of localCrawlEvidence){
@@ -265,7 +265,7 @@ function renderPrivate(){
   const history=(r.observations||[]).map(o=>o.date+": "+(o.original?.verdict||"미확인")+
    " / "+(o.original?.pageFetchState||"기록 없음")).join("\n");
   pre.textContent="진단 분류: "+reasonLabel(r.reason)+"\n모바일 기록 차이: "+(latest.mobile_difference?"있음":"없음/미검사")+
-   "\n현재 일반 HTTP 결과 (실제 Googlebot 아님): "+(latest.http?.result||"미검사")+" / "+(latest.http?.reason||"과거 상세 미수집")+"\nHTTP 검사시각: "+(latest.http?.checked_at||"기록 없음")+"\n이동 횟수: "+(latest.http?.redirects??"미확인")+" / 최종 응답: "+(latest.http?.final_status??"미확인")+"\n최종 URL: "+(latest.http?.final_url||"미확인")+"\n경로:\n"+(latest.http?.chain||[]).map(h=>h.url+" → "+(h.status??"응답 없음")+" / Location: "+(h.location||"없음")).join("\n")+"\n최신 수정일: "+(latest.recrawl?.modified_at||"미확인")+"\n수정 후 재수집: "+JSON.stringify(latest.recrawl?.variants||{})+"\n색인 전환 / 단순 가져오기 회복: "+JSON.stringify(latest.transitions||{})+"\n크롤링 통계 불일치: "+(evidenceMismatch(r).length?JSON.stringify(evidenceMismatch(r)):"제공 증거에서 확인 안 됨 / 미비교")+"\n이전 대비 필드 차이:\n"+JSON.stringify(latest.changes||[],null,2)+"\n동일 날짜 포함 변경 이력:\n"+JSON.stringify(r.events||[],null,2)+"\n검사 실패: "+JSON.stringify(latest.errors||{})+"\n\n"+describe(g,"원본 ")+"\n\n"+
+   "\n현재 일반 HTTP 결과 (실제 Googlebot 아님): "+(latest.http?.result||"미검사")+" / "+(latest.http?.reason||"과거 상세 미수집")+"\nHTTP 검사시각: "+(latest.http?.checked_at||"기록 없음")+"\n이동 횟수: "+(latest.http?.redirects??"미확인")+" / 최종 응답: "+(latest.http?.final_status??"미확인")+"\n최종 URL: "+(latest.http?.final_url||"미확인")+"\n경로:\n"+(latest.http?.chain||[]).map(h=>h.url+" → "+(h.status??"응답 없음")+" / Location: "+(h.location||"없음")).join("\n")+"\n최신 수정일: "+(latest.recrawl?.modified_at||"미확인")+" / 출처: "+(latest.recrawl?.modified_source||"미확인")+"\n수정 후 재수집: "+JSON.stringify(latest.recrawl?.variants||{})+"\n색인 전환 / 단순 가져오기 회복: "+JSON.stringify(latest.transitions||{})+"\n크롤링 통계 불일치: "+(evidenceMismatch(r).length?JSON.stringify(evidenceMismatch(r)):"제공 증거에서 확인 안 됨 / 미비교")+"\n이전 대비 필드 차이:\n"+JSON.stringify(latest.changes||[],null,2)+"\n동일 날짜 포함 변경 이력:\n"+JSON.stringify(r.events||[],null,2)+"\n검사 실패: "+JSON.stringify(latest.errors||{})+"\n\n"+describe(g,"원본 ")+"\n\n"+
    (latest.mobile?describe(latest.mobile,"?m=1 "):"모바일 GSC 미검사")+
    "\n\n이전 검사 기록:\n"+history;
   box.append(pre);extra.append(box);tr.append(extra);body.append(tr);
