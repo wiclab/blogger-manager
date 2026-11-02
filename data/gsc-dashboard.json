@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-02T10:02:22+00:00",
+  "updated_at": "2026-11-02T10:13:44+00:00",
   "status": "ok",
   "sample_only": true,
   "sample": {
     "eligible_urls": 221,
     "inspected_original": 26,
     "mobile_gsc_compared": 15,
-    "mobile_status_differences": 14,
+    "mobile_status_differences": 12,
     "inspection_errors": 0,
     "counts": {
       "indexed": 0,
@@ -23,7 +23,8 @@
   "http": {
     "checked": 20,
     "ok": 0,
-    "redirect_problem": 20,
+    "inconclusive": 20,
+    "redirect_problem": 0,
     "other_error": 0,
     "canonical_mismatch": 0,
     "noindex": 0,
@@ -35,9 +36,7 @@
       "out_of_scope_target_not_followed": 6
     }
   },
-  "alerts": [
-    "http_redirect"
-  ],
+  "alerts": [],
   "history": [
     {
       "date": "2026-11-02",
@@ -45,7 +44,7 @@
       "indexed": 0,
       "not_indexed": 26,
       "fetch_problem": 12,
-      "http_redirect_problem": 20
+      "http_redirect_problem": 0
     }
   ],
   "note": "Sample inspection only; not the total number of indexed pages. GSC API is saved-index status, not a live crawl or indexing request. HTTP mobile probes simulate an Android browser, not verified Googlebot.",
@@ -54,7 +53,7 @@
     "focus_recorded": 15,
     "crawl_stats_evidence_loaded": 0,
     "crawl_stats_mismatches": 0,
-    "modified_dates_known": 0,
+    "modified_dates_known": 15,
     "successful_recrawls_after_modification": 0
   }
 }
