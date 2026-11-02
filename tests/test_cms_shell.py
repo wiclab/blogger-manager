@@ -22,6 +22,30 @@ class CMSShellTests(unittest.TestCase):
   self.assertIn("getComputedStyle(app).display",src)
   self.assertIn("MutationObserver(syncAuth)",src)
   self.assertNotIn("access_token",src)
+ def test_shell_mounts_outside_editor_grid_and_safely_hides_mobile_menu(self):
+  src=(ROOT/"assets/cms-shell.js").read_text(encoding="utf-8")
+  css=(ROOT/"assets/cms-shell.css").read_text(encoding="utf-8")
+  self.assertIn("host=document.body",src)
+  self.assertIn("isLoginGated",src)
+  self.assertIn("aside.inert=!active",src)
+  self.assertIn("aria-hidden",src)
+  self.assertIn("mobile.addEventListener('change',syncAuth)",src)
+  self.assertIn("body:not(.cms-enabled) .cms-sidebar",css)
+ def test_editor_does_not_publish_unsaved_changes(self):
+  page=(ROOT/"editor.html").read_text(encoding="utf-8")
+  script=page.split("<script>\n'use strict';",1)[1]
+  publish=script.split("async function publish() {",1)[1].split("$('login').addEventListener",1)[0]
+  self.assertIn("function hasUnsavedChanges()",script)
+  self.assertIn("function confirmDiscard()",script)
+  self.assertIn("if(hasUnsavedChanges())",publish)
+  self.assertLess(publish.index("if(hasUnsavedChanges())"),publish.index("if(!confirm("))
+  self.assertIn("window.addEventListener('beforeunload'",script)
+  self.assertIn("if(!confirmDiscard())return;",script)
+ def test_gsc_problems_surface_as_work_items(self):
+  page=(ROOT/"dashboard.html").read_text(encoding="utf-8")
+  self.assertIn("Google 미색인 표본 검토",page)
+  self.assertIn("Google 관제 데이터 갱신 지연",page)
+  self.assertIn("c.not_indexed>0",page)
  def test_public_readonly_dashboard(self):
   page=(ROOT/"dashboard.html").read_text(encoding="utf-8")
   self.assertIn('name="robots" content="noindex,nofollow"',page)
