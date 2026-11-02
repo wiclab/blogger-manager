@@ -178,7 +178,7 @@ async function decryptPrivateDocument(sealed,passphrase){
 }
 function safeBlogUrl(s){
  try{const u=new URL(s);return u.protocol==="https:"&&u.hostname==="wic12.blogspot.com"&&
-  !u.username&&!u.password&&!u.hash&&u.search===""&&/^\/\d{4}\/\d{2}\/[^/]+\.html$/.test(u.pathname)}
+  !u.username&&!u.password&&!u.hash&&u.search===""&&(/^\/\d{4}\/\d{2}\/[^/]+\.html$/.test(u.pathname)||u.pathname==="/p/blog-page.html")}
  catch{return false}
 }
 function latestObservation(row){const a=row.observations;return Array.isArray(a)&&a.length?a[a.length-1]:null}
