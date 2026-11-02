@@ -184,8 +184,7 @@ def opportunities(posts: list[dict], incoming: dict[str, set[str]],
                            if len(term) >= 3 and frequency[term] <= 4]
             if not distinctive:
                 continue
-            if len(common) < 2 and not overlap and not any(
-                    frequency[term] == 2 for term in distinctive):
+            if len(common) < 2 and not overlap:
                 continue
             suggestions.append({
                 "source": source,
