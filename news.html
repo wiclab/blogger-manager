@@ -91,5 +91,7 @@ async function load(){
  catch(error){$('status').textContent=error.message+(snapshot?' 이전에 조회한 목록을 유지합니다.':'');}finally{$('load').disabled=false;}
 }
 $('more').onclick=()=>{shown+=30;render();};$('load').onclick=load;$('category').onchange=()=>{if(snapshot){shown=30;render();}};$('search').oninput=()=>{if(snapshot)render();};$('copyAll').onclick=()=>copyText(visible().map((x,i)=>(i+1)+'. '+x.title+'\n'+x.source+' · '+date(x.publishedAt)+'\n'+x.url).join('\n\n'));
-</script><script src="./assets/cms-shell.js" defer></script>
-</body></html>
+
+/* Load the shared CMS navigation without adding another static script tag. */
+(function(){var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
+</script></body></html>

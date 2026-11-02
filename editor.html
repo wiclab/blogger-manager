@@ -336,7 +336,9 @@ $('reload').addEventListener('click',()=>current&&openPost(current.id));
 $('copyHtml').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('html').value);statusText('본문 HTML을 복사했습니다.','ok');}catch(e){statusText('복사 실패: '+e.message,'error');}});
 setButtons();
 })();
+
+/* Load the shared CMS navigation without adding another static script tag. */
+(function(){var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
 </script>
-<script src="./assets/cms-shell.js" defer></script>
 </body>
 </html>

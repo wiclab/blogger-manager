@@ -584,7 +584,9 @@ async function load(){
 }
 el("refresh").addEventListener("click",load);
 load();
+
+/* Load the shared CMS navigation without adding another static script tag. */
+(function(){var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
 </script>
-<script src="./assets/cms-shell.js" defer></script>
 </body>
 </html>
