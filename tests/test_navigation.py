@@ -5,10 +5,10 @@ import unittest
 
 ROOT = Path(__file__).parents[1]
 PAGES = {"index.html": "./", "seo.html": "./seo.html",
-         "indexing.html": "./indexing.html", "gsc.html": "./gsc.html", "write.html": "./write.html",
+         "indexing.html": "./indexing.html", "gsc.html": "./gsc.html", "sources.html": "./sources.html", "write.html": "./write.html",
          "editor.html": "./editor.html", "news.html": "./news.html",
          "intelligence.html": "./intelligence.html"}
-LINKS = ["./", "./seo.html", "./indexing.html", "./gsc.html", "./write.html", "./editor.html", "./news.html", "./intelligence.html"]
+LINKS = ["./", "./seo.html", "./indexing.html", "./gsc.html", "./sources.html", "./write.html", "./editor.html", "./news.html", "./intelligence.html"]
 
 class NavigationTests(unittest.TestCase):
     def test_single_common_header_and_single_active_page(self):
