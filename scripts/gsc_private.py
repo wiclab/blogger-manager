@@ -17,7 +17,7 @@ AAD = b"byeolsemso-gsc-private-v1|https://wic12.blogspot.com/"
 ITERATIONS = 600_000
 MAX_RECORDS = 500
 MAX_OBSERVATIONS = 8
-MAX_PLAINTEXT_SIZE = 1_500_000
+MAX_PLAINTEXT_SIZE = 4_000_000
 
 
 def check_passphrase(passphrase: str) -> None:
