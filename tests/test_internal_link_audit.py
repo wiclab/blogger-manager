@@ -150,6 +150,21 @@ class InternalLinkAuditTests(unittest.TestCase):
         result = a.audit(posts)
         self.assertEqual(result["link_opportunities"]["candidates"][0]["suggestions_found"], 0)
 
+    def test_generic_question_word_overlap_does_not_recommend_unrelated_posts(self):
+        posts = [
+            {"url": a.SITE + "2026/09/rental.html",
+             "title": "정수기 렌탈 18개월 쓰고 해지하면 얼마일까?", "content": ""},
+            {"url": a.SITE + "2026/09/gym.html",
+             "title": "헬스장 6개월 쓰고 해지하면 환불 얼마일까?", "content": ""},
+            {"url": a.SITE + "2026/09/soju.html",
+             "title": "소주 한 병 마신 다음 12시간 자면 운전해도 될까?", "content": ""},
+            {"url": a.SITE + "2026/09/food.html",
+             "title": "과일 사서 2시간 이동해도 될까?", "content": ""},
+        ]
+        result = a.audit(posts)
+        for item in result["link_opportunities"]["candidates"]:
+            self.assertEqual(item["suggestions_found"], 0)
+
     def test_opportunities_limit_is_explicit(self):
         posts = [{"url": a.SITE + f"2026/09/{n}.html", "title": f"글 {n}", "content": ""} for n in range(105)]
         report = a.audit(posts)
