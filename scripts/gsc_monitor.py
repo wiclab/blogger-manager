@@ -145,6 +145,42 @@ def credentials_from_secret():
         raise RuntimeError("GSC_TOKEN_EMPTY: token endpoint returned no access token")
     return creds.token
 
+def google_api_access_error(error: urllib.error.HTTPError) -> str:
+    """Return a safe fixed error category, never a raw Google error message."""
+    code = error.code
+    reasons = set()
+    message = ""
+    try:
+        payload = json.loads(error.read(16_384).decode("utf-8"))
+        info = payload.get("error", {})
+        if isinstance(info, dict):
+            message = str(info.get("message", "")).lower()
+            for item in (info.get("errors") or []) + (info.get("details") or []):
+                if isinstance(item, dict):
+                    reasons.add(str(item.get("reason", "")).lower())
+            reasons.add(str(info.get("status", "")).lower())
+    except (ValueError, TypeError, UnicodeDecodeError, AttributeError):
+        pass
+    if ("service_disabled" in reasons or "accessnotconfigured" in reasons
+            or "api has not been used in project" in message
+            or ("search console api" in message and "disabled" in message)):
+        return "GSC_API_DISABLED: enable Google Search Console API in the JSON key project"
+    if ("user does not have sufficient permission for site" in message
+            or "not a verified owner of this property" in message):
+        return "GSC_PROPERTY_PERMISSION: check exact site property and account access"
+    if ("access_token_scope_insufficient" in reasons or
+            "insufficient authentication scopes" in message):
+        return "GSC_AUTH_SCOPE: Google rejected the read-only scope"
+    if code == 401:
+        return "GSC_ACCESS_401: access token rejected by Search Console API"
+    if code == 403:
+        return ("GSC_ACCESS_403: verify API enabled, exact GSC property and "
+                "service account permissions")
+    if code == 429:
+        return "GSC_API_QUOTA_429: rate or daily quota exceeded"
+    return "GSC_API_HTTP_" + str(code)
+
+
 def inspect(url: str, token: str) -> dict:
     if not is_blog_url(url, allow_query=True):
         raise ValueError("Inspection URL outside Byeolsemso")
@@ -158,11 +194,7 @@ def inspect(url: str, token: str) -> dict:
         with urllib.request.urlopen(req, timeout=22) as response:
             result = json.load(response)
     except urllib.error.HTTPError as error:
-        if error.code in (401, 403):
-            raise RuntimeError("GSC permission denied (401/403)") from None
-        if error.code == 429:
-            raise RuntimeError("GSC API quota or rate limit (429)") from None
-        raise RuntimeError("GSC API HTTP " + str(error.code)) from None
+        raise RuntimeError(google_api_access_error(error)) from None
     except (urllib.error.URLError, TimeoutError, ValueError):
         raise RuntimeError("GSC API connection or response failed") from None
     data = result.get("inspectionResult", {}).get("indexStatusResult")
