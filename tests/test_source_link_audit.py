@@ -105,6 +105,22 @@ class SourceLinkAuditTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "another blog"):
                     a.previous_rows()
 
+    def test_unchecked_official_urls_are_checked_before_prior_urls(self):
+        urls = [f"https://www.gov.kr/p/{i}" for i in range(4)]
+        posts = [{"url": a.SITE + "2026/09/a.html",
+                  "content": "".join(f'<a href="{u}">ref</a>' for u in urls)}]
+        prior = {urls[0]: {"state": "ok", "checked_at": "2026-10-30T00:00:00+00:00",
+                           "head_code": 200, "get_code": None}}
+        checked = []
+        def probe(u):
+            checked.append(u)
+            return {"state": "ok", "head_code": 200, "get_code": None}
+        report = a.build_report(posts, prior, probe=probe, limit=2,
+                    now=dt.datetime(2026, 11, 2, tzinfo=dt.timezone.utc))
+        self.assertEqual(set(checked), set(urls[1:3]))
+        self.assertEqual(report["not_checked_count"], 1)
+        self.assertEqual(report["checked_distinct"], 3)
+
     def test_report_sample_limit_is_explicit(self):
         posts = [{"url": a.SITE + "2026/09/a.html",
                   "content": "".join(
