@@ -1,17 +1,17 @@
 {
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "checked_at": "2026-11-02T13:12:12+00:00",
+  "checked_at": "2026-11-02T14:54:07+00:00",
   "status": "review_required",
-  "live_posts_checked": 220,
-  "post_links_checked": 449,
-  "links_to_live_posts": 448,
+  "live_posts_checked": 221,
+  "post_links_checked": 451,
+  "links_to_live_posts": 450,
   "unlisted_target_count": 1,
   "affected_source_count": 1,
   "link_opportunities": {
     "zero_body_inbound_count": 65,
-    "one_body_inbound_count": 62,
-    "candidate_total": 127,
+    "one_body_inbound_count": 63,
+    "candidate_total": 128,
     "candidates_truncated": false,
     "candidates": [
       {
@@ -90,14 +90,6 @@
         "url": "https://wic12.blogspot.com/2026/09/atm-cash-not-taken-refund.html",
         "title": "ATM에서 돈을 안 가져가면 자동으로 다시 입금될까?",
         "published": "2026-09-07T10:57:06+09:00",
-        "inbound_from_other_posts": 0,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/09/google-nuclear-power-20-years-ai-electricity.html",
-        "title": "구글이 원전의 절반을 20년 동안 쓰면 전기가 얼마나 될까? 계산해봤습니다",
-        "published": "2026-09-10T08:55:12+09:00",
         "inbound_from_other_posts": 0,
         "suggested_sources": [],
         "suggestions_found": 0
@@ -560,6 +552,14 @@
         "suggestions_found": 0
       },
       {
+        "url": "https://wic12.blogspot.com/2026/11/heat-pump-electricity-tariff-2026-jeju-ess.html",
+        "title": "히트펌프 전기요금 누진제 피할 수 있나? 2026 선택 요금 3가지·제주 개선 논의",
+        "published": "2026-11-02T23:29:28+09:00",
+        "inbound_from_other_posts": 0,
+        "suggested_sources": [],
+        "suggestions_found": 0
+      },
+      {
         "url": "https://wic12.blogspot.com/2026/08/3.html",
         "title": "매일 3분 줄이는 출퇴근 지하철 동선 최적화 방법",
         "published": "2026-08-23T21:11:35+09:00",
@@ -631,6 +631,14 @@
         "url": "https://wic12.blogspot.com/2026/09/ai-chatgpt-question-electricity-use.html",
         "title": "AI에게 질문 한 번 하면 전기를 얼마나 쓸까? 직접 계산해봤습니다",
         "published": "2026-09-09T10:22:54+09:00",
+        "inbound_from_other_posts": 1,
+        "suggested_sources": [],
+        "suggestions_found": 0
+      },
+      {
+        "url": "https://wic12.blogspot.com/2026/09/google-nuclear-power-20-years-ai-electricity.html",
+        "title": "구글이 원전의 절반을 20년 동안 쓰면 전기가 얼마나 될까? 계산해봤습니다",
+        "published": "2026-09-10T08:55:12+09:00",
         "inbound_from_other_posts": 1,
         "suggested_sources": [],
         "suggestions_found": 0
