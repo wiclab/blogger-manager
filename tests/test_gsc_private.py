@@ -1,5 +1,6 @@
 """Offline security and functional tests of encrypted GSC URL-level reports."""
 import datetime as dt
+import importlib.util
 import json
 import unittest
 from unittest import mock
@@ -20,6 +21,7 @@ def observation(url, verdict="NEUTRAL", fetch="SUCCESSFUL", mobile=None, http=No
 
 
 class PrivateReportTests(unittest.TestCase):
+    @unittest.skipUnless(importlib.util.find_spec("cryptography"), "crypto dependency checked in GSC-specific workflow")
     def test_encryption_round_trip_does_not_expose_url(self):
         url = monitor.SITE + "2026/08/private-test.html"
         plain = priv.merge(None, [observation(url, fetch="SERVER_ERROR")], "2026-11-02T07:30:00+00:00")
@@ -31,6 +33,7 @@ class PrivateReportTests(unittest.TestCase):
         self.assertEqual(plain, priv.decrypt(sealed, PASS))
         self.assertEqual(sealed["algorithm"], "PBKDF2-SHA256/AES-256-GCM")
 
+    @unittest.skipUnless(importlib.util.find_spec("cryptography"), "crypto dependency checked in GSC-specific workflow")
     def test_wrong_password_fails_closed(self):
         plain = priv.merge(None, [observation(monitor.SITE + "2026/08/test.html")],
                            "2026-11-02T07:30:00+00:00")
@@ -38,6 +41,7 @@ class PrivateReportTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "GSC_DETAIL_DECRYPT_FAILED"):
             priv.decrypt(encrypted, "an-unrelated-and-incorrect-password")
 
+    @unittest.skipUnless(importlib.util.find_spec("cryptography"), "crypto dependency checked in GSC-specific workflow")
     def test_new_ciphertext_has_new_salt_nonce(self):
         plain = {"schema": 1, "site": monitor.SITE, "records": []}
         a,b = priv.encrypt(plain, PASS),priv.encrypt(plain, PASS)
