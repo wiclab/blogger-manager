@@ -151,6 +151,20 @@ function setButtons() {
   $('more').disabled=!token || busy || !nextPageToken;
   $('logout').disabled=!token || busy;
 }
+function hasUnsavedChanges() {
+  const title=$('title').value.trim();
+  const content=$('html').value.trim();
+  const labels=[...new Set($('labels').value.split(',').map(s=>s.trim()).filter(Boolean))];
+  if(!current)return !!(title||content||labels.length);
+  const previous=Array.isArray(current.labels)?current.labels:[];
+  return title!==String(current.title||'').trim() ||
+    content!==String(current.content||'').trim() ||
+    JSON.stringify(labels)!==JSON.stringify(previous);
+}
+function confirmDiscard() {
+  return !hasUnsavedChanges() ||
+    window.confirm('저장하지 않은 변경사항이 있습니다. 이 작업을 계속하면 수정 내용이 사라집니다. 계속할까요?');
+}
 function resetEditor() {
   current=null; loadedSnapshot=null;
   $('title').value='';$('labels').value='';$('html').value='';
@@ -222,8 +236,9 @@ async function listPosts(loadMore) {
     statusText('목록을 불러왔습니다. 글을 선택하면 실제 원본 HTML을 가져옵니다.','ok');
   } catch(e){statusText(e.message,'error');}finally{setBusy(false);}
 }
-async function openPost(id) {
-  if(busy)return;
+async function openPost(id,forceReload) {
+  if(busy || (!forceReload&&current&&String(current.id)===String(id)))return;
+  if(!forceReload&&!confirmDiscard())return;
   setBusy(true);statusText('원문을 가져오는 중...');
   try {
     const data=await api(postPath(id)+'?view=ADMIN');
@@ -269,7 +284,7 @@ async function login() {
   tokenClient.requestAccessToken({prompt:token?'':'consent'});
 }
 async function logout() {
-  if(busy)return;
+  if(busy||!confirmDiscard())return;
   const previous=token;token='';expiresAt=0;blogId='';current=null;items=[];nextPageToken=null;
   $('app').classList.add('hide');$('account').textContent='미연결';
   $('login').textContent='Google 계정으로 Blogger 연결';
@@ -309,6 +324,7 @@ async function save() {
 }
 async function publish() {
   if(!current || current.status!=='draft'||busy)return;
+  if(hasUnsavedChanges()){statusText('저장하지 않은 변경사항이 있습니다. 먼저 「저장」을 눌러 최신 원고를 저장하세요. 발행은 실행되지 않았습니다.','error');return;}
   if(!confirm('발행 전 Blogger 편집기에서 맞춤 퍼머링크, 검색설명, 대표이미지를 확인했나요?\n\n확인을 누르면 이 임시글이 즉시 공개됩니다.'))return;
   if(!confirm('최종 확인: 「'+(current.title||'제목 없음')+'」을 지금 공개 발행할까요?'))return;
   setBusy(true);statusText('발행 직전 서버 상태 확인 중...');
@@ -322,18 +338,23 @@ async function publish() {
 }
 $('login').addEventListener('click',login);
 $('logout').addEventListener('click',logout);
-$('blogs').addEventListener('change',async e=>{blogId=e.target.value;items=[];nextPageToken=null;resetEditor();await listPosts(false);});
+$('blogs').addEventListener('change',async e=>{if(!confirmDiscard()){e.target.value=blogId;return;}blogId=e.target.value;items=[];nextPageToken=null;resetEditor();await listPosts(false);});
 $('postStatus').addEventListener('change',()=>{items=[];nextPageToken=null;listPosts(false);});
 $('query').addEventListener('input',drawPosts);
 $('refreshPosts').addEventListener('click',()=>{nextPageToken=null;listPosts(false);});
 $('more').addEventListener('click',()=>listPosts(true));
-$('newPost').addEventListener('click',()=>{resetEditor();statusText('새 임시글을 작성하고 「저장」을 누르세요.','ok');});
+$('newPost').addEventListener('click',()=>{if(!confirmDiscard())return;resetEditor();statusText('새 임시글을 작성하고 「저장」을 누르세요.','ok');});
 $('sourceTab').addEventListener('click',showSource);
 $('previewTab').addEventListener('click',showPreview);
 $('save').addEventListener('click',save);
 $('publish').addEventListener('click',publish);
-$('reload').addEventListener('click',()=>current&&openPost(current.id));
+$('reload').addEventListener('click',()=>{if(!current||busy||!confirmDiscard())return;openPost(current.id,true);});
 $('copyHtml').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('html').value);statusText('본문 HTML을 복사했습니다.','ok');}catch(e){statusText('복사 실패: '+e.message,'error');}});
+window.addEventListener('beforeunload',event=>{
+  if(!hasUnsavedChanges())return;
+  event.preventDefault();
+  event.returnValue='';
+});
 setButtons();
 })();
 
