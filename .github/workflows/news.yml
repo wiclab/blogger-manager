@@ -17,7 +17,9 @@ on:
     paths:
       - 'scripts/news.py'
       - 'scripts/news_intelligence.py'
+      - 'tests/test_news.py'
       - 'tests/test_news_intelligence.py'
+      - 'news.html'
       - '.github/workflows/news.yml'
 permissions:
   contents: write
@@ -32,8 +34,6 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -51,6 +51,21 @@ jobs:
           Path("/tmp/news-intelligence-dashboard.js").write_text(scripts[0], encoding="utf-8")
           PY
           node --check /tmp/news-intelligence-dashboard.js
+      - name: Check news collection quality panel JavaScript
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          page = Path("news.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script[^>]*>(.*?)</script>", page, flags=re.S)
+          if len(scripts) != 1:
+              raise SystemExit("Expected one inline news dashboard script")
+          Path("/tmp/news-dashboard.js").write_text(scripts[0], encoding="utf-8")
+          for required in ("quality-stats", "quality-categories", "renderQuality"):
+              if required not in page:
+                  raise SystemExit("News quality dashboard controls missing: " + required)
+          PY
+          node --check /tmp/news-dashboard.js
       - name: Check out isolated news state
         if: github.event_name != 'pull_request'
         uses: actions/checkout@v4
