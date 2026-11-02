@@ -60,6 +60,7 @@ jobs:
           import os
           from pathlib import Path
           report = json.loads(Path("data/internal-link-audit.json").read_text(encoding="utf-8"))
+          from html import escape
           lines = [
             "## 별셈소 내부링크 점검 (수정 없음)",
             "- 공개 글 검사: " + str(report["live_posts_checked"]),
@@ -76,6 +77,32 @@ jobs:
             lines.append("  - 출발 글 수: " + str(entry["source_count"]))
             for source in entry["sources"][:3]:
               lines.append("  - 출발 글: " + source)
+          gap = report.get("link_opportunities", {})
+          lines.extend([
+            "",
+            "### 본문 내부링크 사각지대",
+            "- 다른 공개 글 본문에서 유입 링크가 0개인 글: " + str(gap.get("zero_body_inbound_count", "미검사")),
+            "- 본문 유입 링크가 1개뿐인 글: " + str(gap.get("one_body_inbound_count", "미검사")),
+            "- 탐색에 우선 검토할 글 (최대 12개):",
+          ])
+          for entry in gap.get("candidates", [])[:12]:
+            title = escape(str(entry.get("title") or "제목 없음"), quote=True)
+            url = escape(entry["url"], quote=True)
+            lines.append("- <a href=\"" + url + "\">" + title + "</a>"
+                         + " (본문 유입 링크 " + str(entry["inbound_from_other_posts"]) + "개)")
+            for candidate in entry.get("suggested_sources", [])[:2]:
+              src_title = escape(str(candidate["source_title"]), quote=True)
+              src_url = escape(candidate["source"], quote=True)
+              shared = ", ".join(escape(str(t), quote=True) for t in candidate.get("shared_terms", []))
+              lines.append("  - 관련성 확인 후보: <a href=\"" + src_url + "\">"
+                           + src_title + "</a> (공통 제목 키워드: " + shared + ")")
+          lines.extend([
+            "",
+            "※ 이 수치는 오직 다른 게시글 본문의 a 링크만 계산합니다. "
+            "메뉴·라벨·사이트맵을 통한 발견은 포함하지 않으므로 "
+            "Google 색인 문제나 실제 고아 페이지로 단정하면 안 됩니다.",
+            "※ 제목/라벨 기반 링크 제안은 자동 삽입하지 않고 수동 판단을 위한 후보입니다.",
+          ])
           summary = os.environ.get("GITHUB_STEP_SUMMARY")
           if summary:
             with open(summary, "a", encoding="utf-8") as output:

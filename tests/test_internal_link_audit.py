@@ -98,6 +98,65 @@ class InternalLinkAuditTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "PAGINATION_INVALID"):
                 a.fetch_live_posts("secret-key")
 
+    def test_body_inbound_counts_ignore_self_and_duplicate_links(self):
+        a_url = a.SITE + "2026/09/a.html"
+        b_url = a.SITE + "2026/09/b.html"
+        c_url = a.SITE + "2026/09/c.html"
+        posts = [
+            {**post("2026/09/a.html",
+                    '<a href="/2026/09/a.html">self</a>'
+                    '<a href="/2026/09/b.html?m=1">B</a>'
+                    '<a href="/2026/09/b.html">B repeated</a>'),
+             "title": "멀티탭 전기요금 계산", "labels": ["생활정보"]},
+            {**post("2026/09/b.html", ""), "title": "멀티탭 전기요금 절약", "labels": ["생활정보"]},
+            {**post("2026/09/c.html", ""), "title": "가전 전기요금 절약", "labels": ["생활정보"]},
+        ]
+        result = a.audit(posts)
+        self.assertEqual(result["post_links_checked"], 3)
+        opportunities = result["link_opportunities"]
+        self.assertEqual(opportunities["zero_body_inbound_count"], 2)
+        self.assertEqual(opportunities["one_body_inbound_count"], 1)
+        by_url = {x["url"]: x for x in opportunities["candidates"]}
+        self.assertEqual(by_url[a_url]["inbound_from_other_posts"], 0)
+        self.assertEqual(by_url[b_url]["inbound_from_other_posts"], 1)
+        self.assertEqual(by_url[c_url]["inbound_from_other_posts"], 0)
+        self.assertNotIn(a_url, [x["source"] for x in by_url[a_url]["suggested_sources"]])
+        self.assertNotIn(b_url, [x["source"] for x in by_url[b_url]["suggested_sources"]])
+
+    def test_suggestions_require_meaningful_overlap_and_no_existing_link(self):
+        t = a.SITE + "2026/09/power-strip.html"
+        s = a.SITE + "2026/09/power-safety.html"
+        bad = a.SITE + "2026/09/unrelated.html"
+        posts = [
+            {"url": t, "title": "멀티탭 과부하 안전", "labels": ["생활정보", "전기"],
+             "published": "2026-09-01T12:00:00Z", "content": ""},
+            {"url": s, "title": "멀티탭 과부하 화재", "labels": ["전기"],
+             "content": ""},
+            {"url": bad, "title": "멀티탭 관리 요령", "labels": ["생활정보"],
+             "content": ""},
+        ]
+        result = a.audit(posts)
+        target = next(x for x in result["link_opportunities"]["candidates"] if x["url"] == t)
+        self.assertEqual(target["suggestions_found"], 1)
+        self.assertEqual(target["suggested_sources"][0]["source"], s)
+        self.assertEqual(target["suggested_sources"][0]["shared_terms"], ["과부하", "멀티탭"])
+        self.assertNotIn(bad, str(target["suggested_sources"]))
+
+    def test_only_one_title_word_and_generic_label_is_insufficient(self):
+        posts = [
+            {"url": a.SITE + "2026/09/a.html", "title": "전기요금 비교", "labels": ["생활정보"], "content": ""},
+            {"url": a.SITE + "2026/09/b.html", "title": "전기요금 할인", "labels": ["생활정보"], "content": ""}
+        ]
+        result = a.audit(posts)
+        self.assertEqual(result["link_opportunities"]["candidates"][0]["suggestions_found"], 0)
+
+    def test_opportunities_limit_is_explicit(self):
+        posts = [{"url": a.SITE + f"2026/09/{n}.html", "title": f"글 {n}", "content": ""} for n in range(105)]
+        report = a.audit(posts)
+        self.assertEqual(report["link_opportunities"]["candidate_total"], 105)
+        self.assertTrue(report["link_opportunities"]["candidates_truncated"])
+        self.assertEqual(len(report["link_opportunities"]["candidates"]), 100)
+
     def test_html_parser_ignores_text_and_image_sources(self):
         html = '<img src="/2026/09/fake.html"><code>&lt;a href="/2026/09/fake.html"&gt;</code>'
         self.assertEqual(a.audit([post("2026/09/a.html", html)])["post_links_checked"], 0)
