@@ -78,6 +78,29 @@ class MonitorTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "No successful"):
                 g.collect(dt.date(2026, 11, 2))
 
+    def test_bad_json_error_is_safe_and_specific(self):
+        with mock.patch.dict(g.os.environ,
+                             {"GSC_SERVICE_ACCOUNT_JSON": "{not JSON}"}):
+            with self.assertRaisesRegex(RuntimeError, "GSC_SECRET_INVALID_JSON"):
+                g.credentials_from_secret()
+
+    def test_wrong_secret_type_is_rejected(self):
+        with mock.patch.dict(g.os.environ,
+                             {"GSC_SERVICE_ACCOUNT_JSON": '{"type":"authorized_user"}'}):
+            with self.assertRaisesRegex(RuntimeError, "GSC_SECRET_WRONG_TYPE"):
+                g.credentials_from_secret()
+
+    def test_escaped_private_key_is_identified_without_leaking(self):
+        credential = {"type": "service_account", "client_email":
+                      "test@example.iam.gserviceaccount.com",
+                      "private_key": "-----BEGIN PRIVATE KEY-----\\nABC\\n-----END PRIVATE KEY-----",
+                      "private_key_id": "test", "token_uri":
+                      "https://oauth2.googleapis.com/token"}
+        with mock.patch.dict(g.os.environ,
+                             {"GSC_SERVICE_ACCOUNT_JSON": g.json.dumps(credential)}):
+            with self.assertRaisesRegex(RuntimeError, "GSC_SECRET_ESCAPED_KEY"):
+                g.credentials_from_secret()
+
     def test_missing_credentials_fail_closed(self):
         with mock.patch.dict(g.os.environ, {}, clear=True):
             with self.assertRaisesRegex(RuntimeError, "not configured"):

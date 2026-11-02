@@ -88,23 +88,62 @@ def rotate(posts: list[str], day: dt.date, count: int = MAX_INSPECTIONS) -> list
 
 
 def credentials_from_secret():
+    """Get short-lived Google token with only non-sensitive error categories."""
     raw = os.environ.get("GSC_SERVICE_ACCOUNT_JSON", "")
     if not raw:
-        raise RuntimeError("GSC_SERVICE_ACCOUNT_JSON is not configured")
+        raise RuntimeError("GSC_SECRET_MISSING: GSC_SERVICE_ACCOUNT_JSON is not configured")
+    try:
+        info = json.loads(raw)
+    except json.JSONDecodeError:
+        raise RuntimeError("GSC_SECRET_INVALID_JSON: paste the entire original JSON file") from None
+    if not isinstance(info, dict) or info.get("type") != "service_account":
+        raise RuntimeError("GSC_SECRET_WRONG_TYPE: a service_account JSON key is required")
+    for field in ("client_email", "private_key", "private_key_id", "token_uri"):
+        if not isinstance(info.get(field), str) or not info[field].strip():
+            raise RuntimeError("GSC_SECRET_MISSING_FIELD: " + field) from None
+    if not info["client_email"].endswith(".iam.gserviceaccount.com"):
+        raise RuntimeError("GSC_SECRET_INVALID_ACCOUNT_EMAIL: check JSON client_email")
+    if info["token_uri"] != "https://oauth2.googleapis.com/token":
+        raise RuntimeError("GSC_SECRET_UNEXPECTED_TOKEN_ENDPOINT: use the original Google JSON key")
+    if "\\n" in info["private_key"] and "\n" not in info["private_key"]:
+        raise RuntimeError("GSC_SECRET_ESCAPED_KEY: keep JSON newline escaping unchanged")
+    if not info["private_key"].startswith("-----BEGIN PRIVATE KEY-----"):
+        raise RuntimeError("GSC_SECRET_INVALID_PRIVATE_KEY: use the original downloaded JSON")
     try:
         from google.oauth2 import service_account
         from google.auth.transport.requests import Request
-        info = json.loads(raw)
-        if info.get("type") != "service_account":
-            raise ValueError("Service account JSON required")
+        from google.auth.exceptions import RefreshError, TransportError
+    except ImportError:
+        raise RuntimeError("GSC_DEPENDENCY_MISSING: install google-auth") from None
+    try:
         creds = service_account.Credentials.from_service_account_info(
             info, scopes=[SCOPE])
+    except (ValueError, TypeError):
+        raise RuntimeError("GSC_SECRET_KEY_PARSE_ERROR: copied JSON key is invalid") from None
+    try:
         creds.refresh(Request())
-        return creds.token
-    except Exception:
-        # Never display credential material, a raw Google response or the token.
-        raise RuntimeError("GSC authentication failed; check service-account access") from None
-
+    except RefreshError as exc:
+        # Do NOT log raw response, JWT, access token, private key, or account email.
+        detail = str(exc).lower()
+        if "invalid_grant" in detail or "invalid jwt signature" in detail:
+            raise RuntimeError(
+                "GSC_TOKEN_REJECTED_INVALID_GRANT: check JSON key is active, "
+                "belongs to the service account, and is copied without changes") from None
+        if "unauthorized_client" in detail or "invalid_client" in detail:
+            raise RuntimeError(
+                "GSC_TOKEN_CLIENT_REJECTED: verify service account/key is active") from None
+        if "invalid_scope" in detail:
+            raise RuntimeError("GSC_TOKEN_SCOPE_REJECTED: verify Google API configuration") from None
+        raise RuntimeError(
+            "GSC_TOKEN_REJECTED_OTHER: Google rejected the credential, "
+            "check service-account key state") from None
+    except TransportError:
+        raise RuntimeError("GSC_TOKEN_NETWORK_ERROR: Google token endpoint unavailable") from None
+    except (ValueError, TypeError):
+        raise RuntimeError("GSC_TOKEN_OTHER_ERROR: failed to process Google token") from None
+    if not creds.token:
+        raise RuntimeError("GSC_TOKEN_EMPTY: token endpoint returned no access token")
+    return creds.token
 
 def inspect(url: str, token: str) -> dict:
     if not is_blog_url(url, allow_query=True):
