@@ -28,6 +28,7 @@ body.cms-enabled .bm-hero .bm-nav{display:none!important}
 .cms-topbar a.cms-topbar-primary,.cms-topbar a.cms-topbar-primary:visited{background:#2553c5;border-color:#2553c5;color:#fff}
 .cms-menu-toggle{display:none;align-items:center;justify-content:center;width:39px;height:39px;border:1px solid #d7e2f1;border-radius:10px;background:#fff;color:#18263c;font-size:20px;cursor:pointer}
 .cms-overlay{display:none}
+body:not(.cms-enabled) .cms-sidebar,body:not(.cms-enabled) .cms-topbar,body:not(.cms-enabled) .cms-overlay{display:none!important}
 body.cms-enabled .wrap{max-width:1240px}
 body.cms-enabled main{min-width:0}
 .cms-sidebar a:focus-visible,.cms-topbar a:focus-visible,.cms-menu-toggle:focus-visible{outline:3px solid #79aaff;outline-offset:2px}

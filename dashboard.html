@@ -118,6 +118,8 @@ async function load(){
   const d=data.gsc,s=d.sample||{},c=s.counts||{};
   metric('gsc',c.not_indexed,'검사 '+fmt(s.inspected_original)+'개 URL 중 · 전체 사이트 통계 아님',when(d.updated_at));
   if(d.status!=='ok'||(Array.isArray(d.alerts)&&d.alerts.length))addTask('Google 색인 관제 알림','표본 검사 상태 또는 경고를 확인해','./gsc.html');
+  if(Number.isInteger(c.not_indexed)&&c.not_indexed>0)addTask('Google 미색인 표본 검토','최근 표본 '+fmt(s.inspected_original)+'개 중 미색인 '+fmt(c.not_indexed)+'개 · 전체 공개 글 수치 아님','./gsc.html');
+  if(old(d.updated_at,30))addTask('Google 관제 데이터 갱신 지연','최근 검사 '+when(d.updated_at)+' · 새 조회 결과 확인','./gsc.html');
  }else metric('gsc',null,'GSC 표본 데이터를 읽지 못했어','확인 불가');
  if(data.indexing){
   const d=data.indexing,b=d.bing_submission||{};
