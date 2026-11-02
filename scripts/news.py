@@ -42,14 +42,43 @@ def collect(feed, now):
     with urllib.request.urlopen(request, timeout=20) as response:
         return parse_feed(response.read(2_000_000), category, now)
 
+MATERIAL_CONTRASTS = (
+    ('인상', '인하'), ('확대', '축소'), ('시작', '종료'),
+    ('승인', '거절'), ('합격', '탈락'), ('유지', '폐지'),
+    ('증가', '감소'), ('가능', '불가능'),
+)
+NUMBERS = re.compile(r'\d+(?:[.,]\d+)*%?')
+
+
+def materially_different(first, second):
+    """Protect titles where amounts, dates or contrasting outcomes differ."""
+    a, b = str(first).lower(), str(second).lower()
+    if NUMBERS.findall(a) != NUMBERS.findall(b):
+        return True
+    for left, right in MATERIAL_CONTRASTS:
+        if ((left in a and right in b and right not in a)
+                or (right in a and left in b and left not in a)):
+            return True
+    return False
+
+
 def deduplicate(rows):
     selected = []
     for row in rows:
         key = re.sub(r'[^\w]', '', row['title'].lower())
-        if any(row['url'] == x['url'] or difflib.SequenceMatcher(None, key, re.sub(r'[^\w]', '', x['title'].lower())).ratio() >= .78 for x in selected):
+        if any(
+            row['url'] == existing['url'] or (
+                not materially_different(row['title'], existing['title'])
+                and difflib.SequenceMatcher(
+                    None, key, re.sub(r'[^\w]', '', existing['title'].lower())
+                ).ratio() >= .78
+            )
+            for existing in selected
+        ):
             continue
         selected.append(row)
     return selected
+
 
 def validate_items(items):
     """Reject malformed output before it can replace the last good snapshot."""
@@ -89,6 +118,38 @@ def failed_categories(groups, failures):
     failed.update(category for category, _ in FEEDS if not groups.get(category))
     return [category for category, _ in FEEDS if category in failed]
 
+def quality_report(groups, deduped, selected):
+    """Public-only metrics describing what entered and left the news collector."""
+    categories = {}
+    for category, _ in FEEDS:
+        raw = groups.get(category, [])
+        kept = [row for row in selected if row['category'] == category]
+        dates = [row['publishedAt'] for row in raw]
+        categories[category] = {
+            'fetched': len(raw),
+            'displayed': len(kept),
+            'uniqueSources': len({row['source'] for row in kept}),
+            'newestPublishedAt': max(dates) if dates else None,
+        }
+    sources = {}
+    for row in selected:
+        sources[row['source']] = sources.get(row['source'], 0) + 1
+    return {
+        'version': 1,
+        'rawFetched': sum(len(rows) for rows in groups.values()),
+        'uniqueAfterDedup': len(deduped),
+        'published': len(selected),
+        'removedAsDuplicate': sum(len(rows) for rows in groups.values()) - len(deduped),
+        'truncatedAtCap': len(deduped) - len(selected),
+        'distinctSources': len(sources),
+        'topSourceCount': max(sources.values(), default=0),
+        'categories': categories,
+        'note': 'RSS headline counts only; source diversity is not independent fact verification. '
+                'Duplicate similarity is approximate; monetary, date and outcome differences '
+                'are conservatively preserved.',
+    }
+
+
 def main():
     now = dt.datetime.now(dt.timezone.utc)
     groups, failures = {}, []
@@ -115,9 +176,11 @@ def main():
         for category, _ in FEEDS:
             if i < len(groups.get(category, [])):
                 mixed.append(groups[category][i])
-    items = deduplicate(mixed)[:200]
+    deduped = deduplicate(mixed)
+    items = deduped[:200]
     validate_items(items)
-    payload = dict(generatedAt=now.isoformat(), date=now.astimezone(KST).date().isoformat(), windowHours=24, failedCategories=failures, items=items)
+    quality = quality_report(groups, deduped, items)
+    payload = dict(generatedAt=now.isoformat(), date=now.astimezone(KST).date().isoformat(), windowHours=24, failedCategories=failures, quality=quality, items=items)
     target = Path('data/news.json')
     target.parent.mkdir(exist_ok=True)
     target.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
