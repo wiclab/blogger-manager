@@ -902,6 +902,7 @@
 
   </style>
 <link rel="stylesheet" href="./assets/manager-header.css">
+<link rel="stylesheet" href="./assets/cms-shell.css">
 </head>
 
 <body>
@@ -3809,6 +3810,9 @@ window.addEventListener(
   }
 );
 
+
+/* Load the shared CMS navigation without adding another static script tag. */
+(function(){if(!document.head)return;var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
 </script>
 
 </body>

@@ -1,0 +1,36 @@
+/* CMS navigation layer. The individual dashboard styles and behavior are unchanged. */
+:root{--cms-navy:#101e34;--cms-border:#e2e8f0;--cms-muted:#64748b;--cms-primary:#315fd4}
+body.cms-enabled{padding-left:252px!important;min-width:0!important}
+body.cms-enabled .bm-hero{background:#fff!important;color:#17243b!important;border-bottom:1px solid var(--cms-border)!important;box-shadow:none!important}
+body.cms-enabled .bm-hero .bm-wrap{max-width:1240px!important;padding:20px 24px!important}
+body.cms-enabled .bm-hero .bm-title{color:#17243b!important;font-size:clamp(20px,2.5vw,26px)!important}
+body.cms-enabled .bm-hero .bm-sub{color:var(--cms-muted)!important;font-size:13px!important}
+body.cms-enabled .bm-hero .bm-nav{display:none!important}
+.cms-sidebar,.cms-topbar,.cms-overlay{font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;box-sizing:border-box}
+.cms-sidebar *,.cms-topbar *{box-sizing:border-box}
+.cms-sidebar{position:fixed;z-index:9991;left:0;top:0;bottom:0;width:252px;background:var(--cms-navy);color:#e2e8f0;display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;box-shadow:4px 0 22px #0a172a0a}
+.cms-brand{display:flex;align-items:center;gap:11px;padding:27px 19px 24px;color:#fff!important;text-decoration:none!important}
+.cms-brand-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:#457cf4;color:white;font-size:21px;font-weight:900;flex-shrink:0}
+.cms-brand strong{display:block;font-size:16px;letter-spacing:-.02em}
+.cms-brand small{display:block;font-size:11px;color:#9db0ca;margin-top:2px}
+.cms-nav-group{padding:9px 12px 13px}
+.cms-nav-title{padding:5px 12px 8px;color:#8196b1;font-size:11px;font-weight:800;letter-spacing:.06em}
+.cms-nav-link,.cms-nav-link:visited{display:flex;align-items:center;gap:11px;min-height:42px;padding:10px 12px;margin:2px 0;border-radius:11px;text-decoration:none!important;color:#c4d1e4!important;font-size:13px;font-weight:650;line-height:1.4;transition:background .15s,color .15s}
+.cms-nav-link:hover,.cms-nav-link:focus-visible{background:#ffffff17!important;color:#fff!important}
+.cms-nav-link[aria-current="page"]{color:#fff!important;background:#315fd4!important;box-shadow:inset 3px 0 0 #9fc3ff}
+.cms-nav-icon{width:21px;text-align:center;flex:0 0 21px;font-size:17px}
+.cms-sidebar-foot{margin-top:auto;padding:18px 23px 24px;border-top:1px solid #ffffff16;color:#92a6be;font-size:11px;line-height:1.7}
+.cms-topbar{position:relative;z-index:980;background:#fff;min-height:62px;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--cms-border)}
+.cms-topbar-left,.cms-topbar-right{display:flex;align-items:center;gap:11px;min-width:0}
+.cms-topbar-title{font-size:14px;font-weight:800;color:#18263c}
+.cms-topbar-caption{font-size:12px;color:var(--cms-muted)}
+.cms-topbar a,.cms-topbar a:visited{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:7px 12px;border:1px solid #d7e2f1;border-radius:10px;color:#234ea1;text-decoration:none;font-size:12px;font-weight:800;white-space:nowrap}
+.cms-topbar a.cms-topbar-primary,.cms-topbar a.cms-topbar-primary:visited{background:#2553c5;border-color:#2553c5;color:#fff}
+.cms-menu-toggle{display:none;align-items:center;justify-content:center;width:39px;height:39px;border:1px solid #d7e2f1;border-radius:10px;background:#fff;color:#18263c;font-size:20px;cursor:pointer}
+.cms-overlay{display:none}
+body.cms-enabled .wrap{max-width:1240px}
+body.cms-enabled main{min-width:0}
+.cms-sidebar a:focus-visible,.cms-topbar a:focus-visible,.cms-menu-toggle:focus-visible{outline:3px solid #79aaff;outline-offset:2px}
+@media(max-width:1080px){body.cms-enabled{padding-left:0!important}.cms-sidebar{transform:translateX(-105%);transition:transform .2s ease;box-shadow:6px 0 28px #09172b38}body.cms-drawer-open .cms-sidebar{transform:translateX(0)}.cms-menu-toggle{display:inline-flex}.cms-overlay{position:fixed;inset:0;z-index:9990;background:#0e192c90}body.cms-drawer-open .cms-overlay{display:block}body.cms-drawer-open{overflow:hidden}}
+@media(max-width:640px){.cms-topbar{padding:9px 13px;min-height:58px}.cms-topbar-caption{display:none}.cms-topbar-right a:not(.cms-topbar-primary){display:none}.cms-topbar a{padding:7px 10px}body.cms-enabled .bm-hero .bm-wrap{padding:16px!important}}
+@media(prefers-reduced-motion:reduce){.cms-sidebar{transition:none}}

@@ -41,6 +41,7 @@ footer{padding:10px 20px 28px;text-align:center;color:#64738a;font-size:12px}
 @media(max-width:660px){.wrap{padding:14px}.panel{padding:15px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.nav a{font-size:12px;padding:6px 9px}}
 </style>
 <link rel="stylesheet" href="./assets/manager-header.css">
+<link rel="stylesheet" href="./assets/cms-shell.css">
 </head>
 <body>
 <header class="bm-hero"><div class="bm-wrap"><h1 class="bm-title">별셈소 SEO 관제</h1><p class="bm-sub">Bing 검색 성과와 기한이 지난 정보 점검 · 자동 업데이트</p><nav class="bm-nav" aria-label="관리자 메뉴"><a href="./">콘텐츠 관리</a><a href="./seo.html" aria-current="page">Bing · 글 갱신</a><a href="./indexing.html">색인 제출 현황</a><a href="./gsc.html">Google 색인 관제</a><a href="./sources.html">출처 링크 점검</a><a href="./write.html">주제 발굴</a><a href="./editor.html">글 편집·발행</a><a href="./news.html">뉴스</a><a href="./intelligence.html">뉴스 인텔리전스</a></nav></div></header>
@@ -113,6 +114,9 @@ function renderStale(data){status("staleStatus",data.status);$("staleUpdated").t
 function renderStaleList(){const area=$("staleList");area.replaceChildren();const filter=$("filter").value;const term=$("term").value.trim().toLowerCase();const rows=staleItems.filter(x=>(filter==="all"||x.status===filter)&&String(x.title||"").toLowerCase().includes(term));if(!rows.length){area.className="empty";area.textContent="조건에 맞는 날짜 검토 후보가 없어.";return;}area.className="";for(const item of rows){let url=validUrl(item.url);if(!url)continue;let row=t("article",undefined,"item");let heading=t("div");heading.append(link(url,item.title||url));heading.append(t("span",(item.status==="expired"?"지난 날짜 ":"곧 도래 ")+(item.deadline||""),"pill "+(item.status==="expired"?"expired":"")));row.append(heading);row.append(t("div",item.reason||"기한 점검 필요","reason"));if(item.context)row.append(t("div",item.context,"excerpt"));area.append(row);}}
 async function load(){try{const response=await fetch("https://raw.githubusercontent.com/wiclab/blogger-manager/seo-data/data/seo-pulse.json?ts="+Date.now(),{cache:"no-store"});if(!response.ok)throw Error("HTTP "+response.status);const data=await response.json();if(data.site!=="https://wic12.blogspot.com/")throw Error("다른 블로그 보고서");renderBing(data.bing||{});renderStale(data.stale||{});}catch(error){status("bingStatus","error");status("staleStatus","error");$("bingCandidates").textContent="보고서가 아직 생성되지 않았거나 로드할 수 없어."; $("staleList").textContent="SEO Pulse 자동 실행 후 표시돼. 오류: "+error.message;}}
 $("refresh").addEventListener("click",load);$("filter").addEventListener("change",renderStaleList);$("term").addEventListener("input",renderStaleList);load();
+
+/* Load the shared CMS navigation without adding another static script tag. */
+(function(){if(!document.head)return;var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
 </script>
 </body>
 </html>

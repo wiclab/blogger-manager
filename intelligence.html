@@ -40,6 +40,7 @@ button.active,.primary{background:#12284d;color:white;border-color:#12284d}
 footer{font-size:12px;color:#647084;line-height:1.75;margin-top:24px}
 @media(max-width:680px){.summary{grid-template-columns:repeat(2,minmax(0,1fr))}.story{padding:16px}.story h2{font-size:17px}.panel{padding:15px}.score{font-size:15px}}
 </style>
+<link rel="stylesheet" href="./assets/cms-shell.css">
 </head>
 <body>
 <header class="bm-hero"><div class="bm-wrap"><h1 class="bm-title">별셈소 뉴스 인텔리전스</h1><p class="bm-sub">수집 뉴스 → 신규 글감 · 기존 글 갱신 검토 · 텔레그램 우선순위</p><nav class="bm-nav" aria-label="관리자 메뉴"><a href="./">콘텐츠 관리</a><a href="./seo.html">Bing · 글 갱신</a><a href="./indexing.html">색인 제출 현황</a><a href="./gsc.html">Google 색인 관제</a><a href="./sources.html">출처 링크 점검</a><a href="./write.html">주제 발굴</a><a href="./editor.html">글 편집·발행</a><a href="./news.html">뉴스</a><a href="./intelligence.html" aria-current="page">뉴스 인텔리전스</a></nav></div></header>
@@ -157,6 +158,9 @@ $("ideas").addEventListener("click",()=>setMode("ideas"));
 $("updates").addEventListener("click",()=>setMode("updates"));
 for(const id of ["search","category","minimum"])$(id).addEventListener(id==="search"?"input":"change",render);
 load();
+
+/* Load the shared CMS navigation without adding another static script tag. */
+(function(){if(!document.head)return;var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
 </script>
 </body>
 </html>
