@@ -9,7 +9,7 @@ var groups=[
 function el(tag,cls,text){var x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x;}
 function init(){
  if(document.querySelector('.cms-sidebar'))return;
- var app=document.getElementById('app'),host=app||document.body;
+ var app=document.getElementById('app'),isLoginGated=!!(app&&app.tagName==='MAIN'),host=document.body;
  var current=location.pathname.split('/').pop()||'index.html',title='운영 대시보드';
  var overlay=el('div','cms-overlay');overlay.id='cms-overlay';document.body.appendChild(overlay);
  var aside=el('aside','cms-sidebar');aside.id='cms-sidebar';aside.setAttribute('aria-label','CMS 전체 메뉴');
@@ -37,8 +37,17 @@ function init(){
  var editor=el('a','cms-topbar-primary','+ 글 작성');editor.href='./editor.html';right.append(site,editor);
  bar.append(left,right);
  host.insertBefore(aside,host.firstChild);host.insertBefore(bar,aside.nextSibling);
- function close(back){document.body.classList.remove('cms-drawer-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','관리 메뉴 열기');if(back)toggle.focus();}
- function open(){document.body.classList.add('cms-drawer-open');toggle.setAttribute('aria-expanded','true');toggle.setAttribute('aria-label','관리 메뉴 닫기');(aside.querySelector('[aria-current="page"]')||aside.querySelector('a')).focus();}
+ var mobile=window.matchMedia('(max-width:1080px)');
+ function syncDrawer(){
+  var expanded=mobile.matches&&document.body.classList.contains('cms-drawer-open');
+  var active=document.body.classList.contains('cms-enabled')&&(!mobile.matches||expanded);
+  aside.inert=!active;
+  aside.setAttribute('aria-hidden',String(!active));
+  toggle.setAttribute('aria-expanded',String(expanded));
+  toggle.setAttribute('aria-label',expanded?'관리 메뉴 닫기':'관리 메뉴 열기');
+ }
+ function close(back){document.body.classList.remove('cms-drawer-open');syncDrawer();if(back&&mobile.matches)toggle.focus();}
+ function open(){if(!document.body.classList.contains('cms-enabled'))return;document.body.classList.add('cms-drawer-open');syncDrawer();(aside.querySelector('[aria-current="page"]')||aside.querySelector('a')).focus();}
  toggle.addEventListener('click',function(){if(document.body.classList.contains('cms-drawer-open'))close(true);else open();});
  overlay.addEventListener('click',function(){close(true);});
  aside.addEventListener('click',function(e){if(e.target.closest('a'))close(false);});
@@ -50,8 +59,15 @@ function init(){
    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
   }
  });
- function syncAuth(){var shown=!app||getComputedStyle(app).display!=='none';document.body.classList.toggle('cms-enabled',shown);if(!shown)close(false);}
- if(app)new MutationObserver(syncAuth).observe(app,{attributes:true,attributeFilter:['style','class','hidden']});
+ function syncAuth(){
+  var shown=!isLoginGated||getComputedStyle(app).display!=='none';
+  document.body.classList.toggle('cms-enabled',shown);
+  if(!shown||!mobile.matches)close(false);
+  syncDrawer();
+ }
+ if(isLoginGated)new MutationObserver(syncAuth).observe(app,{attributes:true,attributeFilter:['style','class','hidden']});
+ if(mobile.addEventListener)mobile.addEventListener('change',syncAuth);
+ else if(mobile.addListener)mobile.addListener(syncAuth);
  syncAuth();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
