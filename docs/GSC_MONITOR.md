@@ -12,6 +12,7 @@
 - GitHub 저장소가 공개 상태이므로 집계 수치와 **암호문 자체**는 누구나 열 수 있다. 상세 기록을 복호화하려면 별도의 강력한 암호가 필요하다.
 - **색인 요청·재요청·Blogger 수정·사이트맵 제출을 하지 않는다.** Google Indexing API는 일반 Blogger 게시글 색인 요청 수단이 아니다.
 - 결과는 전체 블로그 색인 수가 아닌 **당일 표본의 검사 결과**다.
+- **점검 품질 경고(2026-11-02 보완)**: 일반 HTTP 점검이 전부 `inconclusive` 또는 네트워크 오류면, GSC 저장 검사 결과가 성공했더라도 관제의 전체 상태를 `partial`로 표시한다. `http.probe_quality=unverifiable`과 별도 경고 `http_probe_unverifiable`을 공개 집계에 기록한다. Google `/sorry/` 확인 페이지로 이동한 경우 `google_challenge_not_followed`로 따로 집계하되 Googlebot의 접근 장애나 Blogger 원인으로 단정하지 않는다. 외부 도메인으로 이동하거나 외부 페이지를 검사하지 않는다. 일부 HTTP 결과만 판정 불가이면 `probe_quality=partial`, 모든 결과를 확보했으면 `complete`이며, 이때 GSC 검사 결과가 정상이라면 전체 상태는 정상으로 유지한다.
 - GSC URL Inspection API는 저장된 색인 상태를 반환하며 **실시간 테스트가 아니다**. 표본의 원본과 ?m=1에 다른 기록이 있어도 그 자체로 오류라는 뜻은 아니다.
 
 ## 최초 연결 (본인 계정에서 한 번만)
