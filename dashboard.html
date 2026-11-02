@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="color-scheme" content="light">
+<title>운영 대시보드 · Blogger Manager</title>
+<link rel="stylesheet" href="./assets/manager-header.css">
+<link rel="stylesheet" href="./assets/cms-shell.css">
+<script src="./assets/cms-shell.js" defer></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7fc;color:#18263c;font:15px/1.65 system-ui,-apple-system,"Noto Sans KR",sans-serif}
+a{color:#2459bd;text-decoration:none}a:hover{text-decoration:underline}
+.cms-dashboard{max-width:1240px;margin:0 auto;padding:34px 24px 70px}
+.dashboard-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:24px}
+.eyebrow{font-size:12px;letter-spacing:.07em;font-weight:800;color:#315fd4}
+h1{font-size:clamp(26px,4vw,36px);letter-spacing:-.035em;line-height:1.35;margin:6px 0 8px}
+h2{font-size:18px;margin:0 0 14px}p{margin:6px 0;color:#53637a}
+.hero-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.button{font:inherit;border:1px solid #d8e2f0;border-radius:11px;background:#fff;color:#234c8f;padding:10px 15px;font-weight:750;cursor:pointer;min-height:42px;display:inline-flex;align-items:center}
+.button.primary{background:#315fd4;border-color:#315fd4;color:white}.button:disabled{opacity:.6;cursor:wait}
+.sync{font-size:12px;color:#66758b;margin:4px 0 20px;min-height:22px}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:30px}
+.metric{background:#fff;border:1px solid #e0e8f3;border-radius:17px;padding:20px;box-shadow:0 4px 20px #152a4c07;min-width:0}
+.metric small{display:block;color:#63738b;font-size:13px;font-weight:650}
+.metric strong{display:block;font-size:clamp(26px,3.6vw,36px);line-height:1.25;color:#142645;margin:12px 0 8px;font-variant-numeric:tabular-nums}
+.metric p{font-size:12px;line-height:1.6;min-height:38px;overflow-wrap:anywhere}
+.metric a{font-size:12px;font-weight:750}
+.metric .source{border-top:1px solid #edf1f7;padding-top:10px;margin-top:14px;color:#6f7f94;font-size:11px}
+.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:18px}
+.panel{background:#fff;border:1px solid #e0e8f3;border-radius:17px;padding:22px;min-width:0;box-shadow:0 4px 20px #152a4c07}
+.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-bottom:6px}
+.priority-list{display:grid;gap:10px;margin-top:16px}
+.priority-item{padding:13px 15px;background:#f6f8fc;border:1px solid #e6ecf5;border-radius:12px}
+.priority-item strong{display:block;font-size:14px}.priority-item p{font-size:12px;margin:4px 0 6px}
+.quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.quick a{padding:15px;border:1px solid #e0e8f3;border-radius:12px;background:#f8faff;color:#243d6b;font-size:13px;font-weight:750;min-width:0}
+.quick a:hover{background:#eef4ff;text-decoration:none}
+.footnote{font-size:12px;line-height:1.8;margin-top:23px;color:#6c7c90}
+@media(max-width:900px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:1fr}}
+@media(max-width:570px){.cms-dashboard{padding:23px 15px 55px}.metrics{grid-template-columns:1fr;gap:10px}.metric{padding:16px}.panel{padding:17px}.quick{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="cms-dashboard" id="dashboard">
+<div class="dashboard-hero">
+ <div><div class="eyebrow">BYEOLSEMSO / OVERVIEW</div><h1>운영 대시보드</h1><p>글 관리, 뉴스 글감, 검색·색인, 자동화 상태를 한곳에서 확인해.</p></div>
+ <div class="hero-actions"><button type="button" id="refresh" class="button">↻ 데이터 새로고침</button><a class="button primary" href="./editor.html">+ 새 글 작성</a></div>
+</div>
+<p class="sync" id="sync" role="status" aria-live="polite">공개 운영 스냅샷을 불러오는 중입니다.</p>
+<section class="metrics" aria-label="운영 지표">
+ <article class="metric"><small>비교한 별셈소 게시글</small><strong id="posts-value">—</strong><p id="posts-note">분석된 공개 글 목록 기준</p><a href="./">게시글 관리 보기</a><div class="source" id="posts-source">뉴스 인텔리전스 스냅샷</div></article>
+ <article class="metric"><small>새로운 글감 후보</small><strong id="ideas-value">—</strong><p id="ideas-note">추천 점수는 검색량이 아니야</p><a href="./intelligence.html">뉴스 인텔리전스 보기</a><div class="source" id="ideas-source">규칙 기반 글감 추천</div></article>
+ <article class="metric"><small>정보 갱신 검토 후보</small><strong id="stale-value">—</strong><p id="stale-note">지난 일정 감지 · 실제 오류는 확인 필요</p><a href="./seo.html">오래된 정보 점검</a><div class="source" id="stale-source">SEO 스냅샷</div></article>
+ <article class="metric"><small>Google 표본 미색인</small><strong id="gsc-value">—</strong><p id="gsc-note">전체 사이트 미색인 수가 아님</p><a href="./gsc.html">Google 색인 관제 보기</a><div class="source" id="gsc-source">GSC 표본 검사</div></article>
+ <article class="metric"><small>Bing API 제출 대기</small><strong id="bing-value">—</strong><p id="bing-note">API 제출과 실제 색인은 다른 상태</p><a href="./indexing.html">색인 제출 현황 보기</a><div class="source" id="bing-source">Bing 제출 스냅샷</div></article>
+ <article class="metric"><small>최근 뉴스 수집 기사</small><strong id="news-value">—</strong><p id="news-note">최신 RSS 수집본 기준</p><a href="./news.html">뉴스 목록 보기</a><div class="source" id="news-source">뉴스 수집 스냅샷</div></article>
+</section>
+<section class="dashboard-grid">
+ <div class="panel"><div class="panel-heading"><h2>우선 확인할 작업</h2><a href="https://github.com/wiclab/blogger-manager/actions" target="_blank" rel="noopener noreferrer">Actions 확인</a></div><p>수집 데이터에서 확인된 항목만 표시해. 후보는 실제 오류가 아닐 수 있어.</p><div class="priority-list" id="priorities"><p>점검할 항목을 확인하고 있어.</p></div></div>
+ <div class="panel"><h2>바로 가기</h2><p>자주 쓰는 작업 화면을 빠르게 이동해.</p><div class="quick">
+ <a href="./index.html">▤ 게시글 관리</a><a href="./editor.html">✎ 글 편집·발행</a>
+ <a href="./news.html">▣ 뉴스 수집</a><a href="./write.html">◎ 주제 발굴</a>
+ <a href="./gsc.html">⌕ Google 색인</a><a href="./indexing.html">⇧ Bing 제출</a>
+ <a href="./sources.html">🔗 출처 점검</a><a href="./seo.html">↗ 글 갱신 검토</a></div></div>
+</section>
+<p class="footnote">이 화면은 자동화가 생성한 공개 스냅샷을 읽기만 해. 비공개 Google 인증 정보와 Blogger 수정 토큰은 사용하거나 저장하지 않아. 데이터가 없거나 오래됐으면 정상으로 가정하지 않아. 이 화면에서 색인 요청·게시물 수정·자동 발행은 실행되지 않아.</p>
+</main>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const root='https://raw.githubusercontent.com/wiclab/blogger-manager/';
+const site='https://wic12.blogspot.com/';
+const sources={
+ intelligence:'news-data/data/news-intelligence.json',
+ seo:'seo-data/data/seo-pulse.json',
+ gsc:'gsc-data/data/gsc-dashboard.json',
+ indexing:'indexing-data/data/indexing-dashboard.json',
+ news:'news-data/data/news.json'
+};
+const fmt=n=>Number.isInteger(n)&&n>=0?n.toLocaleString('ko-KR'):'—';
+const when=s=>{const t=Date.parse(s||'');return Number.isFinite(t)?new Date(t).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})+' KST':'시각 없음';};
+const old=(s,h)=>!Number.isFinite(Date.parse(s||''))||Date.now()-Date.parse(s)>h*3600000;
+function metric(id,value,note,source){$(id+'-value').textContent=fmt(value);$(id+'-note').textContent=note;$(id+'-source').textContent=source;}
+function addTask(title,detail,url){
+ const box=document.createElement('div');box.className='priority-item';
+ const name=document.createElement('strong');name.textContent=title;
+ const desc=document.createElement('p');desc.textContent=detail;
+ const link=document.createElement('a');link.href=url;link.textContent='해당 화면 열기';
+ box.append(name,desc,link);$('priorities').append(box);
+}
+async function load(){
+ const button=$('refresh');button.disabled=true;$('sync').textContent='최근 운영 스냅샷을 확인하는 중입니다.';
+ const keys=Object.keys(sources);
+ const entries=await Promise.allSettled(keys.map(async key=>{
+  const response=await fetch(root+sources[key]+'?t='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw new Error('HTTP '+response.status);
+  const data=await response.json();
+  if(data.site&&data.site!==site)throw new Error('대상 블로그 불일치');
+  return data;
+ }));
+ const data={},problems=[];
+ entries.forEach((entry,i)=>{if(entry.status==='fulfilled')data[keys[i]]=entry.value;else problems.push(keys[i]);});
+ $('priorities').replaceChildren();
+ if(data.intelligence){
+  const d=data.intelligence;
+  metric('posts',d.postsChecked,'수집된 게시글 제목 비교 · 전체 공개 글 수와 다를 수 있어',when(d.generatedAt)+' · 비교 범위 '+(d.postCoverage||'미확인'));
+  metric('ideas',Array.isArray(d.ideas)?d.ideas.length:null,'중복·공식 근거는 발행 전 직접 검토',when(d.generatedAt));
+  if(old(d.generatedAt,9))addTask('뉴스 분석 데이터 갱신 지연','최종 분석 '+when(d.generatedAt),'./intelligence.html');
+ }else{metric('posts',null,'분석 데이터를 읽지 못했어','확인 불가');metric('ideas',null,'분석 데이터를 읽지 못했어','확인 불가');}
+ if(data.seo){
+  const d=data.seo;
+  metric('stale',d.stale&&d.stale.expired_count,'날짜 탐지 후보 · 이미 수정된 글도 포함될 수 있어',when(d.stale&&d.stale.updated_at));
+  if(d.stale&&d.stale.expired_count>0)addTask('지난 일정 문구 확인','후보 '+fmt(d.stale.expired_count)+'건 · 문맥 검토 후 필요한 글만 수정','./seo.html');
+ }else metric('stale',null,'SEO 데이터를 읽지 못했어','확인 불가');
+ if(data.gsc){
+  const d=data.gsc,s=d.sample||{},c=s.counts||{};
+  metric('gsc',c.not_indexed,'검사 '+fmt(s.inspected_original)+'개 URL 중 · 전체 사이트 통계 아님',when(d.updated_at));
+  if(d.status!=='ok'||(Array.isArray(d.alerts)&&d.alerts.length))addTask('Google 색인 관제 알림','표본 검사 상태 또는 경고를 확인해','./gsc.html');
+ }else metric('gsc',null,'GSC 표본 데이터를 읽지 못했어','확인 불가');
+ if(data.indexing){
+  const d=data.indexing,b=d.bing_submission||{};
+  metric('bing',b.eligible_pending_count,'API 전송 대기 URL · 색인 미생성과는 별개',when(d.updated_at));
+  if(d.automation&&d.automation.run_state!=='ok')addTask('Bing 자동화 실행 확인','최신 상태: '+String(d.automation.run_state||'미확인'),'./indexing.html');
+  else if(old(d.updated_at,6))addTask('Bing 대시보드 갱신 지연','최근 상태 업데이트 '+when(d.updated_at),'./indexing.html');
+ }else metric('bing',null,'색인 제출 데이터를 읽지 못했어','확인 불가');
+ if(data.news){
+  const d=data.news;
+  metric('news',Array.isArray(d.items)?d.items.length:null,'최근 수집본 · 실제 뉴스 수집 시점 기준',when(d.generatedAt));
+  if(old(d.generatedAt,8))addTask('뉴스 수집본 갱신 지연','최근 수집 '+when(d.generatedAt),'./news.html');
+  if(Array.isArray(d.failedCategories)&&d.failedCategories.length)addTask('뉴스 수집 일부 실패',d.failedCategories.join(', ')+' 분야 수집 미완료','./news.html');
+ }else metric('news',null,'뉴스 수집본을 읽지 못했어','확인 불가');
+ if(problems.length)addTask('일부 스냅샷 조회 실패',problems.join(', ')+' 데이터를 읽지 못했어. 정상으로 간주하지 않아.','https://github.com/wiclab/blogger-manager/actions');
+ if(!$('priorities').children.length)addTask('즉시 확인할 경고 없음','확인한 스냅샷 안에서 별도의 우선 경고가 없어. 전체 정상 판정은 아니야.','./');
+ $('sync').textContent='확인 시각 '+new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' · '+(5-problems.length)+'/5개 스냅샷 조회'+(problems.length?' · '+problems.join(', ')+' 조회 실패':' · 카드별 수집 시각 표시');
+ button.disabled=false;
+}
+$('refresh').addEventListener('click',load);
+load().catch(error=>{$('sync').textContent='대시보드 조회 오류: '+error.message;$('refresh').disabled=false;});
+})();
+</script>
+</body></html>
