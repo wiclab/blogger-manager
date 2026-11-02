@@ -224,7 +224,7 @@ function renderPrivate(){
  let rows=privateReport.records.filter(r=>safeBlogUrl(r.url)&&latestObservation(r));
  rows=rows.filter(r=>{
   const o=latestObservation(r),g=o.original||{};
-  if(filter==="legacy")return r.previous_http_anomaly===true;
+  if(filter==="legacy")return privateReport.legacy_http_targets?.length?privateReport.legacy_http_targets.includes(r.url):r.previous_http_anomaly===true;
   if(filter==="tracking")return r.tracked_focus===true;
   if(filter==="http")return !!o.http&&o.http.result!=="ok";
   if(filter==="mismatch")return evidenceMismatch(r).length>0;
