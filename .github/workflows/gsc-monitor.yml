@@ -1,0 +1,89 @@
+name: Byeolsemso GSC read-only monitoring
+
+on:
+  pull_request:
+    paths:
+      - "scripts/gsc_monitor.py"
+      - "tests/test_gsc_monitor.py"
+      - ".github/workflows/gsc-monitor.yml"
+      - "gsc.html"
+  workflow_dispatch:
+  schedule:
+    - cron: "23 0 * * *" # 09:23 Korea, every day
+
+permissions:
+  contents: read
+
+concurrency:
+  group: byeolsemso-gsc-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    # Disabled until service account + GitHub variable are configured.
+    if: github.event_name == 'pull_request' || vars.GSC_MONITOR_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout version under test
+        uses: actions/checkout@v4
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify Python syntax and offline tests
+        run: |
+          python -m compileall -q scripts/gsc_monitor.py tests/test_gsc_monitor.py
+          python -m unittest discover -s tests -p "test_gsc_monitor.py" -v
+      - name: Check GSC dashboard JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          page = Path("gsc.html").read_text(encoding="utf-8")
+          inline = re.findall(r"<script(?:\s+[^>]*)?>([\s\S]*?)</script>", page)
+          if len(inline) != 1:
+              raise SystemExit("Expected exactly one GSC dashboard script")
+          Path("/tmp/byeolsemso-gsc.js").write_text(inline[0], encoding="utf-8")
+          PY
+          node --check /tmp/byeolsemso-gsc.js
+      - name: Checkout isolated GSC data branch
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: gsc-data
+          path: gsc-data
+          persist-credentials: true
+      - name: Install read-only Google auth library
+        if: github.event_name != 'pull_request'
+        run: python -m pip install "google-auth[requests]>=2.20,<3"
+      - name: Require configured GSC authentication
+        if: github.event_name != 'pull_request'
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$GSC_SERVICE_ACCOUNT_JSON" ]; then
+            echo "::error::GSC_SERVICE_ACCOUNT_JSON repository secret is missing"
+            exit 1
+          fi
+      - name: Collect sampled GSC inspections and mobile HTTP diagnostics
+        if: github.event_name != 'pull_request'
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/gsc_monitor.py gsc-data/data/gsc-dashboard.json
+      - name: Publish aggregate-only report on isolated data branch
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          test -s gsc-data/data/gsc-dashboard.json
+          cd gsc-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/gsc-dashboard.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Update aggregate GSC read-only monitoring"
+          git push origin HEAD:gsc-data

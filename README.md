@@ -6,8 +6,9 @@
 - [콘텐츠 관리](https://wiclab.github.io/blogger-manager/)
 - [Bing 성과·오래된 정보 점검](https://wiclab.github.io/blogger-manager/seo.html)
 - [Bing 제출·예약 실행·색인·검색 실적 분리 대시보드](https://wiclab.github.io/blogger-manager/indexing.html)
+- [Google 색인·모바일 URL 관제](https://wiclab.github.io/blogger-manager/gsc.html) — 별셈소 표본 조회·오류 감시 (GSC API 인증 필요)
 
-공통 상단 메뉴는 Bing SEO 화면의 남색 헤더 디자인으로 통일되었습니다. 사용하지 않는 GSC·GA4 전용 통계 화면은 제거했으며 주제 발굴 기능은 유지됩니다.
+공통 상단 메뉴는 Bing SEO 화면의 남색 헤더 디자인으로 통일되었습니다. GSC는 비밀키를 노출하지 않는 읽기 전용 관제를 별도 화면으로 운영하며 주제 발굴 기능은 유지됩니다.
 - [주제 발굴](https://wiclab.github.io/blogger-manager/write.html)
 - [글 편집](https://wiclab.github.io/blogger-manager/editor.html)
 - [뉴스](https://wiclab.github.io/blogger-manager/news.html)
@@ -23,11 +24,13 @@
 - `indexing.yml`: 별셈소 Bing 전용 제출(회당 최대 100개, 실제 API 할당량 우선)과 제출 요약 생성. 미사용 GSC 검사 기능 제거
 - `indexing-health.yml`: 4시간마다 독립적으로 예약 실행 성공과 제출 요약의 갱신 시각 점검 (5시간 초과 시 경고)
 - `seo-pulse.yml`: 매일 Bing 검색 유입 집계 및 지난 행사·신청 날짜 검토
+- `gsc-monitor.yml`: Google Search Console 표본 검사 및 모바일 리디렉션 감시 (명시적 활성화 전에는 실행하지 않음)
 - `visitor-alert.yml`: 방문 알림 Worker 테스트·조건부 배포 (Cloudflare/Telegram Secrets 필요)
 
 ## 문서
 - [뉴스 인텔리전스·Telegram 알림](docs/NEWS_INTELLIGENCE.md)
 - [색인 자동화 설정/운영](docs/INDEXING_AUTOMATION.md)
+- [별셈소 Google 색인 관제 연결 절차](docs/GSC_MONITOR.md)
 - [Bing 성과·오래된 정보 자동 점검](docs/SEO_PULSE.md)
 - [Blogger 편집기](docs/BLOGGER_EDITOR.md)
 - [이전 R2 이미지 사용 중단 주의사항](docs/R2_RETIREMENT.md)
