@@ -118,8 +118,82 @@ def fetch_live_posts(api_key: str) -> list[dict]:
         if url in seen:
             raise RuntimeError("BLOGGER_DUPLICATE_POST_URL")
         seen.add(url)
-        normalized.append({"url": url, "content": item["content"]})
+        normalized.append({"url": url, "content": item["content"],
+                           "title": str(item.get("title") or ""),
+                           "published": str(item.get("published") or ""),
+                           "labels": item.get("labels") if isinstance(item.get("labels"), list) else []})
     return normalized
+
+
+GENERIC_TERMS = {"방법", "확인", "비교", "정리", "기준", "추천", "정보", "계산기",
+                 "가이드", "2026", "2027", "대한민국", "한국", "어떻게", "사용", "이유",
+                 "guide", "how", "best", "the", "for", "and"}
+GENERIC_LABELS = {"생활정보", "생활 정보", "정보", "블로그", "blog", "data"}
+TITLE_WORD = re.compile(r"[가-힣]{2,}|[a-zA-Z0-9]{3,}")
+
+
+def title_terms(value: str) -> set[str]:
+    return {x for x in TITLE_WORD.findall(value.lower()) if x not in GENERIC_TERMS}
+
+
+def specific_labels(post: dict) -> set[str]:
+    labels = post.get("labels") or []
+    return {str(x).strip().lower() for x in labels
+            if isinstance(x, str) and str(x).strip().lower() not in GENERIC_LABELS}
+
+
+def opportunities(posts: list[dict], incoming: dict[str, set[str]],
+                  outgoing: dict[str, set[str]], limit: int = 100) -> dict:
+    """Candidate links only: 0/1 body inlinks, not proof of Google orphan status."""
+    by_url = {p["url"]: p for p in posts}
+    words = {u: title_terms(p.get("title", "")) for u, p in by_url.items()}
+    labels = {u: specific_labels(p) for u, p in by_url.items()}
+    counts = {u: len(incoming[u]) for u in by_url}
+    # Most isolated first, then oldest publish date (unknown dates last).
+    candidates = sorted(by_url, key=lambda u: (
+        counts[u], by_url[u].get("published") or "9999", u))
+    underserved = [u for u in candidates if counts[u] <= 1]
+    result = []
+    for target in underserved[:limit]:
+        suggestions = []
+        for source in by_url:
+            if source == target or target in outgoing[source]:
+                continue
+            common = sorted(words[target] & words[source])
+            overlap = sorted(labels[target] & labels[source])
+            # A general-purpose Blogger label does not prove meaningful relevance.
+            if len(common) < 2 and not (common and overlap):
+                continue
+            suggestions.append({
+                "source": source,
+                "source_title": by_url[source].get("title") or source.rsplit("/", 1)[-1],
+                "shared_terms": common[:5],
+                "shared_labels": overlap[:3],
+                "confidence": "title_and_label" if overlap else "title_terms",
+            })
+        suggestions.sort(key=lambda x: (-len(x["shared_terms"]),
+                                         -len(x["shared_labels"]), x["source"]))
+        result.append({
+            "url": target,
+            "title": by_url[target].get("title") or target.rsplit("/", 1)[-1],
+            "published": by_url[target].get("published") or None,
+            "inbound_from_other_posts": counts[target],
+            "suggested_sources": suggestions[:3],
+            "suggestions_found": len(suggestions),
+        })
+    return {
+        "zero_body_inbound_count": sum(count == 0 for count in counts.values()),
+        "one_body_inbound_count": sum(count == 1 for count in counts.values()),
+        "candidate_total": len(underserved),
+        "candidates_truncated": len(underserved) > limit,
+        "candidates": result,
+        "definition": "Links counted only from <a href> in other LIVE post bodies; "
+                      "site navigation, home, labels, sitemap and external links are "
+                      "not included. Zero body inlinks does NOT prove orphaned URL, "
+                      "low quality or Google indexing failure. Suggestions are "
+                      "conservative title/label overlap candidates, not a directive "
+                      "to add unrelated links.",
+    }
 
 
 def audit(posts: list[dict], *, at: dt.datetime | None = None) -> dict:
@@ -129,6 +203,8 @@ def audit(posts: list[dict], *, at: dt.datetime | None = None) -> dict:
     if len(live_urls) != len(posts):
         raise ValueError("Duplicate post URL")
     incoming: dict[str, set[str]] = {}
+    inbound_live: dict[str, set[str]] = {url: set() for url in live_urls}
+    outbound_live: dict[str, set[str]] = {url: set() for url in live_urls}
     links_checked = 0
     known_links = 0
     for post in posts:
@@ -144,6 +220,9 @@ def audit(posts: list[dict], *, at: dt.datetime | None = None) -> dict:
             links_checked += 1
             if target in live_urls:
                 known_links += 1
+                if target != source:
+                    inbound_live[target].add(source)
+                    outbound_live[source].add(target)
                 continue
             incoming.setdefault(target, set()).add(source)
     ordered = sorted(incoming.items(), key=lambda x: (-len(x[1]), x[0]))
@@ -156,6 +235,7 @@ def audit(posts: list[dict], *, at: dt.datetime | None = None) -> dict:
         "links_to_live_posts": known_links,
         "unlisted_target_count": len(ordered),
         "affected_source_count": len({s for _, sources in ordered for s in sources}),
+        "link_opportunities": opportunities(posts, inbound_live, outbound_live),
         "findings_total": len(ordered),
         "findings_truncated": len(ordered) > MAX_FINDINGS,
         "findings": [{"target": target, "sources": sorted(sources)[:20],
@@ -179,6 +259,7 @@ def main() -> int:
     print("Live posts scanned: " + str(data["live_posts_checked"]))
     print("Post-shaped internal hrefs checked: " + str(data["post_links_checked"]))
     print("Unlisted target URLs requiring review: " + str(data["unlisted_target_count"]))
+    print("Zero incoming body-link posts: " + str(data["link_opportunities"]["zero_body_inbound_count"]))
     return 0
 
 
