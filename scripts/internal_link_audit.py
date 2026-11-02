@@ -1,0 +1,191 @@
+#!/usr/bin/env python3
+"""Read-only audit of links to blog posts missing from the current LIVE list.
+
+This is a review queue, NOT proof of HTTP 404, Google exclusion, or a broken
+redirect. Never modify Blogger posts, submit URLs, or publish API keys.
+"""
+from __future__ import annotations
+
+import datetime as dt
+from html.parser import HTMLParser
+import json
+import os
+from pathlib import Path
+import re
+import sys
+import urllib.error
+import urllib.parse
+import urllib.request
+
+SITE = "https://wic12.blogspot.com/"
+HOST = "wic12.blogspot.com"
+BLOGGER_API = "https://www.googleapis.com/blogger/v3"
+POST = re.compile(r"^/\d{4}/\d{2}/[^/]+\.html$")
+BLOG_ID = re.compile(r"^[0-9]+$")
+REPORT = Path("data/internal-link-audit.json")
+MAX_PAGES = 20
+MAX_POSTS = 5000
+MAX_FINDINGS = 100
+
+
+def canonical_post(value: str, base: str | None = None) -> str | None:
+    try:
+        url = urllib.parse.urljoin(base or SITE, value)
+        u = urllib.parse.urlsplit(url)
+        if (u.scheme not in ("http", "https") or u.hostname != HOST
+                or u.username or u.password or u.port is not None
+                or not POST.fullmatch(u.path)):
+            return None
+        return "https://" + HOST + u.path
+    except (ValueError, TypeError):
+        return None
+
+
+class LinkParser(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.links: list[str] = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag.lower() == "a":
+            self.links.extend(value for key, value in attrs
+                              if key.lower() == "href" and value)
+
+
+def get_json(path: str, params: dict[str, str], api_key: str) -> dict:
+    values = {**params, "key": api_key}
+    url = BLOGGER_API + path + "?" + urllib.parse.urlencode(values)
+    req = urllib.request.Request(url, headers={
+        "Accept": "application/json", "User-Agent": "ByeolsemsoLinkAudit/1.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=35) as res:
+            body = res.read(20_000_001)
+        if len(body) > 20_000_000:
+            raise RuntimeError("BLOGGER_RESPONSE_TOO_LARGE")
+        result = json.loads(body)
+        if not isinstance(result, dict):
+            raise ValueError("Unexpected JSON root")
+        return result
+    except urllib.error.HTTPError as exc:
+        # URLs contain API keys. Never log the request URL or error response.
+        raise RuntimeError(f"BLOGGER_API_HTTP_{exc.code}") from None
+    except (urllib.error.URLError, TimeoutError):
+        raise RuntimeError("BLOGGER_API_NETWORK_ERROR") from None
+    except (ValueError, UnicodeError):
+        raise RuntimeError("BLOGGER_API_INVALID_RESPONSE") from None
+
+
+def fetch_live_posts(api_key: str) -> list[dict]:
+    if not api_key:
+        raise RuntimeError("BLOGGER_API_KEY_MISSING")
+    metadata = get_json("/blogs/byurl", {"url": SITE, "view": "READER"}, api_key)
+    blog_id = str(metadata.get("id", ""))
+    if (not BLOG_ID.fullmatch(blog_id)
+            or urllib.parse.urlsplit(str(metadata.get("url", ""))).hostname != HOST):
+        raise RuntimeError("BLOGGER_WRONG_BLOG")
+    posts, token, seen_tokens = [], "", set()
+    for _ in range(MAX_PAGES):
+        options = {"status": "LIVE", "view": "READER",
+                   "fetchBodies": "true", "maxResults": "500"}
+        if token:
+            options["pageToken"] = token
+        page = get_json("/blogs/" + blog_id + "/posts", options, api_key)
+        batch = page.get("items", [])
+        if not isinstance(batch, list):
+            raise RuntimeError("BLOGGER_POSTS_INVALID")
+        posts.extend(batch)
+        if len(posts) > MAX_POSTS:
+            raise RuntimeError("BLOGGER_TOO_MANY_POSTS")
+        next_token = page.get("nextPageToken")
+        if not next_token:
+            break
+        if not isinstance(next_token, str) or next_token in seen_tokens:
+            raise RuntimeError("BLOGGER_PAGINATION_INVALID")
+        seen_tokens.add(next_token)
+        token = next_token
+    else:
+        raise RuntimeError("BLOGGER_PAGINATION_EXCEEDED")
+    if not posts:
+        raise RuntimeError("BLOGGER_POSTS_EMPTY")
+    # A partial or wrong-host list must never produce false missing-link claims.
+    normalized, seen = [], set()
+    for item in posts:
+        if not isinstance(item, dict) or not isinstance(item.get("content"), str):
+            raise RuntimeError("BLOGGER_POST_INVALID")
+        url = canonical_post(item.get("url", ""))
+        if not url:
+            raise RuntimeError("BLOGGER_POST_WRONG_HOST_OR_PATH")
+        if url in seen:
+            raise RuntimeError("BLOGGER_DUPLICATE_POST_URL")
+        seen.add(url)
+        normalized.append({"url": url, "content": item["content"]})
+    return normalized
+
+
+def audit(posts: list[dict], *, at: dt.datetime | None = None) -> dict:
+    if not posts:
+        raise ValueError("Empty LIVE post list cannot verify missing targets")
+    live_urls = {p["url"] for p in posts}
+    if len(live_urls) != len(posts):
+        raise ValueError("Duplicate post URL")
+    incoming: dict[str, set[str]] = {}
+    links_checked = 0
+    known_links = 0
+    for post in posts:
+        source = post["url"]
+        if canonical_post(source) != source:
+            raise ValueError("Invalid source blog post URL")
+        parser = LinkParser()
+        parser.feed(post["content"])
+        for href in parser.links:
+            target = canonical_post(href, source)
+            if not target:
+                continue
+            links_checked += 1
+            if target in live_urls:
+                known_links += 1
+                continue
+            incoming.setdefault(target, set()).add(source)
+    ordered = sorted(incoming.items(), key=lambda x: (-len(x[1]), x[0]))
+    now = at or dt.datetime.now(dt.timezone.utc)
+    return {
+        "schema": 1, "site": SITE, "checked_at": now.isoformat(timespec="seconds"),
+        "status": "review_required" if ordered else "no_missing_targets_observed",
+        "live_posts_checked": len(posts),
+        "post_links_checked": links_checked,
+        "links_to_live_posts": known_links,
+        "unlisted_target_count": len(ordered),
+        "affected_source_count": len({s for _, sources in ordered for s in sources}),
+        "findings_total": len(ordered),
+        "findings_truncated": len(ordered) > MAX_FINDINGS,
+        "findings": [{"target": target, "sources": sorted(sources)[:20],
+                      "source_count": len(sources), "sources_truncated": len(sources) > 20,
+                      "classification": "not_in_current_live_posts_list"}
+                     for target, sources in ordered[:MAX_FINDINGS]],
+        "note": "These post-like internal URLs are absent from the current Blogger "
+                "LIVE list. They may be deleted, unpublished, redirected or an "
+                "outdated link. This does not prove HTTP 404 or Google indexing "
+                "failure. Review before editing; no posts were changed.",
+    }
+
+
+def main() -> int:
+    data = audit(fetch_live_posts(os.environ.get("BLOGGER_API_KEY", "").strip()))
+    REPORT.parent.mkdir(parents=True, exist_ok=True)
+    temp = REPORT.with_suffix(".tmp")
+    temp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+                    encoding="utf-8")
+    temp.replace(REPORT)
+    print("Live posts scanned: " + str(data["live_posts_checked"]))
+    print("Post-shaped internal hrefs checked: " + str(data["post_links_checked"]))
+    print("Unlisted target URLs requiring review: " + str(data["unlisted_target_count"]))
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        raise SystemExit(main())
+    except (RuntimeError, ValueError) as exc:
+        # No API key, request URL, raw body or credentials in logs.
+        print("Internal link audit failed: " + str(exc), file=sys.stderr)
+        raise SystemExit(1)

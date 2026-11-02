@@ -1,0 +1,92 @@
+name: Byeolsemso internal link audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 1 * * 1" # Mondays 10:17 Korea (schedule may be delayed)
+  push:
+    branches: [main]
+    paths:
+      - "scripts/internal_link_audit.py"
+      - "tests/test_internal_link_audit.py"
+      - ".github/workflows/internal-link-audit.yml"
+  pull_request:
+    paths:
+      - "scripts/internal_link_audit.py"
+      - "tests/test_internal_link_audit.py"
+      - ".github/workflows/internal-link-audit.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: byeolsemso-internal-link-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out version under test
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify offline logic (no external requests)
+        run: |
+          python -m compileall -q scripts/internal_link_audit.py tests/test_internal_link_audit.py
+          python -m unittest discover -s tests -p "test_internal_link_audit.py" -v
+      - name: Require read-only Blogger API key
+        if: github.event_name != 'pull_request'
+        env:
+          BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
+        run: |
+          if [ -z "${BLOGGER_API_KEY:-}" ]; then
+            echo "::error::BLOGGER_API_KEY is not configured; no scan performed."
+            exit 1
+          fi
+      - name: Audit published posts and internal post hrefs
+        if: github.event_name != 'pull_request'
+        env:
+          BLOGGER_API_KEY: ${{ secrets.BLOGGER_API_KEY }}
+        run: python -m scripts.internal_link_audit
+      - name: Summarize review candidates
+        if: github.event_name != 'pull_request'
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          report = json.loads(Path("data/internal-link-audit.json").read_text(encoding="utf-8"))
+          lines = [
+            "## 별셈소 내부링크 점검 (수정 없음)",
+            "- 공개 글 검사: " + str(report["live_posts_checked"]),
+            "- 글 주소 형태의 내부 링크 검사: " + str(report["post_links_checked"]),
+            "- 공개 글 목록에 없는 연결 대상: " + str(report["unlisted_target_count"]),
+            "- 수정 검토가 필요한 출발 글: " + str(report["affected_source_count"]),
+            "",
+            "**주의:** 공개 글 목록에 없다는 사실만으로 404 또는 삭제를 확정하지 않습니다. "
+            "이전 주소 리디렉션 여부 등을 확인하고 수정하세요.",
+            "",
+          ]
+          for entry in report["findings"][:15]:
+            lines.append("- 연결 대상: " + entry["target"])
+            lines.append("  - 출발 글 수: " + str(entry["source_count"]))
+            for source in entry["sources"][:3]:
+              lines.append("  - 출발 글: " + source)
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary:
+            with open(summary, "a", encoding="utf-8") as output:
+              output.write("\n".join(lines) + "\n")
+          print("Audit review candidates: " + str(report["unlisted_target_count"]))
+          PY
+      - name: Attach read-only audit results
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: byeolsemso-internal-link-audit-${{ github.run_id }}
+          path: data/internal-link-audit.json
+          if-no-files-found: error
+          retention-days: 30
