@@ -87,6 +87,11 @@ def differences(before: dict, after: dict) -> list[dict]:
             if old.get(key) != new.get(key):
                 changes.append({"variant": variant, "field": key,
                                 "before": old.get(key), "after": new.get(key)})
+    if before.get("http") and after.get("http"):
+        for key in ("result", "reason", "redirects", "final_url", "final_status", "canonical_ok", "noindex"):
+            if before["http"].get(key) != after["http"].get(key):
+                changes.append({"variant": "ordinary_http", "field": key,
+                                "before": before["http"].get(key), "after": after["http"].get(key)})
     return changes
 
 

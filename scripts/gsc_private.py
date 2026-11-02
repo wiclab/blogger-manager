@@ -97,12 +97,14 @@ def classify(original: dict, mobile: dict | None, http: dict | None) -> dict:
     mobile_state = (mobile.get("verdict"), mobile.get("coverageState")) if mobile else None
     mobile_diff = mobile_state is not None and any(original.get(k) != mobile.get(k) for k in
         ("verdict", "coverageState", "pageFetchState", "lastCrawlTime", "userCanonical", "googleCanonical"))
-    if http.get("result") not in (None, "ok"):
+    if http.get("result") not in (None, "ok", "inconclusive"):
         return {"priority": 1, "reason": "CURRENT_HTTP_ERROR", "mobile_difference": mobile_diff}
     if http.get("noindex") or original.get("robotsTxtState") == "DISALLOWED" or "BLOCKED" in index_state:
         return {"priority": 1, "reason": "INDEXING_DIRECTIVE_OR_ROBOTS", "mobile_difference": mobile_diff}
-    if fetch and fetch not in ("SUCCESSFUL", "PAGE_FETCH_STATE_UNSPECIFIED"):
+    if any(r and r.get("pageFetchState") not in (None, "SUCCESSFUL", "PAGE_FETCH_STATE_UNSPECIFIED") for r in (original, mobile)):
         return {"priority": 1, "reason": "SAVED_GSC_FETCH_PROBLEM", "mobile_difference": mobile_diff}
+    if http.get("result") == "inconclusive":
+        return {"priority": 2, "reason": "HTTP_PROBE_INCONCLUSIVE", "mobile_difference": mobile_diff}
     if http.get("canonical_ok") is False:
         return {"priority": 2, "reason": "CURRENT_CANONICAL_DIFFERENCE", "mobile_difference": mobile_diff}
     if mobile_diff:
@@ -170,8 +172,10 @@ def merge(previous: dict | None, observations: list[dict], checked_at: str,
                 "fetch_recovered_only" if isinstance(old, dict) and old.get("pageFetchState") not in (None, "SUCCESSFUL", "PAGE_FETCH_STATE_UNSPECIFIED") and new.get("pageFetchState") == "SUCCESSFUL" and new.get("verdict") != "PASS" else
                 "indexed_snapshot" if new.get("verdict") == "PASS" else "no_index_transition_confirmed")
         snapshot["transitions"] = transitions
-        modified_at = (http or {}).get("modified_at") or previous_row.get("modified_at")
+        modified_at = (http or {}).get("modified_at") or item.get("modified_at") or previous_row.get("modified_at")
         snapshot["recrawl"] = recrawl_state(snapshot, modified_at)
+        snapshot["recrawl"]["modified_source"] = ("current_public_html" if (http or {}).get("modified_at")
+            else item.get("modified_source") if item.get("modified_at") else previous_row.get("modified_source", "unknown"))
         snapshot["crawl_stats_mismatches"] = evidence_mismatches(url, snapshot, evidence)
         earlier = [s for s in previous_row.get("observations", [])
                    if isinstance(s, dict) and s.get("date") != date][-MAX_OBSERVATIONS + 1:]
@@ -184,6 +188,7 @@ def merge(previous: dict | None, observations: list[dict], checked_at: str,
                         "tracked_focus": url in FOCUS_URLS,
                         "previous_http_anomaly": previous_row.get("previous_http_anomaly", False) or (before.get("http") or {}).get("result") == "bad_redirect",
                         "original_url": url, "mobile_url": url + "?m=1", "modified_at": modified_at,
+                        "modified_source": snapshot["recrawl"]["modified_source"],
                         "last_checked": checked_at, "priority": status["priority"],
                         "reason": status["reason"], "mobile_difference": status["mobile_difference"],
                         "events": events[-64:], "observations": history}

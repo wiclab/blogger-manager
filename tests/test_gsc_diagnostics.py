@@ -52,6 +52,7 @@ class DiagnosticsTests(unittest.TestCase):
         self.assertEqual(self.probe([Response(302, URL)])['reason'], 'redirect_loop')
         outside = self.probe([Response(302, 'https://elsewhere.example/')])
         self.assertEqual(outside['reason'], 'out_of_scope_target_not_followed')
+        self.assertEqual(outside['result'], 'inconclusive')
         self.assertEqual(outside['final_url'], URL)
         self.assertEqual(outside['unfetched_target'], 'https://elsewhere.example/')
         self.assertEqual(self.probe([Response(302, URL+'?m=1')], 0)['reason'], 'redirect_limit_reached')
@@ -62,6 +63,24 @@ class DiagnosticsTests(unittest.TestCase):
     def test_http_error_response_still_preserves_headers(self):
         error = g.urllib.error.HTTPError(URL, 302, 'redirect', {'Location':URL+'?m=1'}, None)
         self.assertEqual(self.probe([error, Response(200)])['final_status'], 200)
+
+    def test_same_host_http_transition_is_followed_without_relaxing_gsc_scope(self):
+        middle=URL.replace('https:', 'http:')+'?m=1'
+        x=self.probe([Response(302,middle),Response(301,URL+'?m=1'),Response(200)])
+        self.assertEqual(x['result'],'ok')
+        self.assertEqual(x['redirects'],2)
+        self.assertEqual(x['chain'][1]['status'],301)
+        self.assertFalse(g.is_blog_url(middle,allow_query=True))
+
+    def test_mobile_fetch_failure_and_http_policy_stop_remain_separate(self):
+        x=p.classify(saved(),saved('REDIRECT_ERROR'),{'result':'inconclusive'})
+        self.assertEqual(x['reason'],'SAVED_GSC_FETCH_PROBLEM')
+        x=p.classify(saved(),saved(),{'result':'inconclusive'})
+        self.assertEqual(x['reason'],'HTTP_PROBE_INCONCLUSIVE')
+
+    def test_http_recovery_is_recorded_as_change_not_indexing(self):
+        changes=d.differences(entry(http={'result':'bad_redirect'}),entry(http={'result':'ok'}))
+        self.assertIn({'variant':'ordinary_http','field':'result','before':'bad_redirect','after':'ok'},changes)
 
     def test_groups_only_exact_mobile_variant(self):
         self.assertEqual(d.group_url(URL+'?m=1'), URL)
@@ -83,6 +102,16 @@ class DiagnosticsTests(unittest.TestCase):
         self.assertEqual(r['original'], 'attempted_after_modification_fetch_failed')
         self.assertEqual(r['mobile'], 'crawl_predates_modification')
         self.assertEqual(d.recrawl_state(snap, None)['variants']['mobile'], 'unknown')
+
+    def test_sitemap_modified_date_survives_inconclusive_http(self):
+        xml=('<?xml version="1.0"?><urlset><url><loc>'+URL+'</loc><lastmod>2026-10-22T00:00:00Z</lastmod></url></urlset>').encode()
+        modified={}
+        with mock.patch.object(g,'get_bytes',return_value=xml):
+            self.assertIn(URL,g.read_sitemap(modified))
+        r=p.merge(None,[entry(modified_at=modified[URL],modified_source='sitemap_lastmod',http={'result':'inconclusive'})],DATE)
+        o=r['records'][0]['observations'][0]
+        self.assertEqual(o['recrawl']['modified_source'],'sitemap_lastmod')
+        self.assertEqual(o['recrawl']['variants']['original'],'crawl_predates_modification')
 
     def test_crawl_evidence_not_inferred_from_http(self):
         evidence = [{'url':URL+'?m=1', 'crawled_at':'2026-10-17T00:00:00Z',
