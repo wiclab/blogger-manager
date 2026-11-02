@@ -16,7 +16,7 @@ SITE = "https://wic12.blogspot.com/"
 AAD = b"byeolsemso-gsc-private-v1|https://wic12.blogspot.com/"
 ITERATIONS = 600_000
 MAX_RECORDS = 500
-MAX_OBSERVATIONS = 8
+MAX_OBSERVATIONS = 32
 MAX_PLAINTEXT_SIZE = 4_000_000
 
 
@@ -95,7 +95,8 @@ def classify(original: dict, mobile: dict | None, http: dict | None) -> dict:
     http = http or {}
     original_state = (original.get("verdict"), original.get("coverageState"))
     mobile_state = (mobile.get("verdict"), mobile.get("coverageState")) if mobile else None
-    mobile_diff = mobile_state is not None and mobile_state != original_state
+    mobile_diff = mobile_state is not None and any(original.get(k) != mobile.get(k) for k in
+        ("verdict", "coverageState", "pageFetchState", "lastCrawlTime", "userCanonical", "googleCanonical"))
     if http.get("result") not in (None, "ok"):
         return {"priority": 1, "reason": "CURRENT_HTTP_ERROR", "mobile_difference": mobile_diff}
     if http.get("noindex") or original.get("robotsTxtState") == "DISALLOWED" or "BLOCKED" in index_state:
@@ -111,9 +112,11 @@ def classify(original: dict, mobile: dict | None, http: dict | None) -> dict:
     return {"priority": 4, "reason": "INDEXED_SNAPSHOT", "mobile_difference": False}
 
 
-def merge(previous: dict | None, observations: list[dict], checked_at: str) -> dict:
-    """Keep one latest observation per UTC date and last eight dates per URL."""
+def merge(previous: dict | None, observations: list[dict], checked_at: str,
+          crawl_evidence: list[dict] | None = None) -> dict:
+    """Keep daily encrypted snapshots, explicit transitions and evidence sources."""
     from scripts.gsc_monitor import is_blog_url
+    from scripts.gsc_diagnostics import FOCUS_URLS, group_url, differences, recrawl_state, evidence_mismatches
     prev = previous or {"schema": 1, "site": SITE, "records": []}
     if prev.get("site") != SITE or prev.get("schema") != 1:
         raise RuntimeError("GSC_DETAIL_PREVIOUS_INVALID: report belongs to another site")
@@ -124,34 +127,73 @@ def merge(previous: dict | None, observations: list[dict], checked_at: str) -> d
         url = item.get("url")
         if not isinstance(url, str) or not is_blog_url(url):
             raise RuntimeError("GSC_DETAIL_PREVIOUS_INVALID: unsafe URL")
-        records[url] = item
+        records[group_url(url)] = json.loads(json.dumps(item))
+    evidence = list((prev.get("crawl_evidence") or []))
+    for e in crawl_evidence or []:
+        group_url(e["url"])
+        if e not in evidence:
+            evidence.append(e)
+    evidence = evidence[-500:]
     date = checked_at[:10]
     for item in observations:
         url, original = item.get("url"), item.get("original")
-        if not isinstance(url, str) or not is_blog_url(url):
+        if not isinstance(url, str):
             raise RuntimeError("GSC_DETAIL_URL_REJECTED: outside allowed blog")
+        input_url = url
+        try:
+            url = group_url(url)
+        except ValueError:
+            raise RuntimeError("GSC_DETAIL_URL_REJECTED: outside allowed blog") from None
         if not isinstance(original, dict):
             raise RuntimeError("GSC_DETAIL_OBSERVATION_INVALID: missing GSC response")
         mobile = item.get("mobile")
+        if input_url.endswith("?m=1"):
+            mobile, original = original, {}
         http = item.get("http")
         status = classify(original, mobile, http)
         snapshot = {"date": date, "observed_at": checked_at, "original": original,
-                    "mobile": mobile, "http": http, **status}
+                    "mobile": mobile, "http": http,
+                    "errors": item.get("errors", {}),
+                    "inspection_source": item.get("inspection_source", "gsc_saved_url_inspection_api"),
+                    "cause": "unconfirmed", **status}
         previous_row = records.get(url, {})
+        before = (previous_row.get("observations") or [{}])[-1]
+        snapshot["changes"] = differences(before, snapshot)
+        snapshot["previous_observed_at"] = before.get("observed_at")
+        transitions = {}
+        for variant in ("original", "mobile"):
+            old, new = before.get(variant), snapshot.get(variant)
+            transitions[variant] = (
+                "unknown" if not isinstance(new, dict) or not new else
+                "became_indexed" if isinstance(old, dict) and old.get("verdict") in ("FAIL", "NEUTRAL") and new.get("verdict") == "PASS" else
+                "left_index" if isinstance(old, dict) and old.get("verdict") == "PASS" and new.get("verdict") in ("FAIL", "NEUTRAL") else
+                "fetch_recovered_only" if isinstance(old, dict) and old.get("pageFetchState") not in (None, "SUCCESSFUL", "PAGE_FETCH_STATE_UNSPECIFIED") and new.get("pageFetchState") == "SUCCESSFUL" and new.get("verdict") != "PASS" else
+                "indexed_snapshot" if new.get("verdict") == "PASS" else "no_index_transition_confirmed")
+        snapshot["transitions"] = transitions
+        modified_at = (http or {}).get("modified_at") or previous_row.get("modified_at")
+        snapshot["recrawl"] = recrawl_state(snapshot, modified_at)
+        snapshot["crawl_stats_mismatches"] = evidence_mismatches(url, snapshot, evidence)
         earlier = [s for s in previous_row.get("observations", [])
                    if isinstance(s, dict) and s.get("date") != date][-MAX_OBSERVATIONS + 1:]
         history = earlier + [snapshot]
+        events = list(previous_row.get("events") or [])
+        if snapshot["changes"]:
+            events.append({"observed_at": checked_at, "previous_observed_at": before.get("observed_at"),
+                           "changes": snapshot["changes"], "transitions": transitions})
         records[url] = {"url": url, "first_seen": previous_row.get("first_seen") or checked_at,
+                        "tracked_focus": url in FOCUS_URLS,
+                        "previous_http_anomaly": previous_row.get("previous_http_anomaly", False) or (before.get("http") or {}).get("result") == "bad_redirect",
+                        "original_url": url, "mobile_url": url + "?m=1", "modified_at": modified_at,
                         "last_checked": checked_at, "priority": status["priority"],
                         "reason": status["reason"], "mobile_difference": status["mobile_difference"],
-                        "observations": history}
+                        "events": events[-64:], "observations": history}
     sorted_records = sorted(
         records.values(),
         key=lambda x: (x.get("last_checked", ""), x.get("url", "")), reverse=True)
     sorted_records = sorted_records[:MAX_RECORDS]
     sorted_records.sort(key=lambda x: (x.get("priority", 9), x.get("url", "")))
     return {"schema": 1, "site": SITE, "updated_at": checked_at,
-            "records": sorted_records}
+            "crawl_evidence": evidence, "records": sorted_records}
 
 
 def recurring_priority(previous: dict | None, available_urls: list[str], cap: int = 5) -> list[str]:
