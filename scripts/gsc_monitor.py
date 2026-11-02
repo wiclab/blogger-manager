@@ -261,9 +261,17 @@ def http_chain(url: str, max_hops: int = 4) -> dict:
     return {"result": "bad_redirect", "redirects": max_hops + 1}
 
 
-def collect(day: dt.date, previous: dict | None = None) -> dict:
+def collect(day: dt.date, previous: dict | None = None,
+            detail_sink: list[dict] | None = None,
+            priority_urls: list[str] | None = None) -> dict:
     token = credentials_from_secret()
-    urls = rotate(read_sitemap(), day)
+    all_urls = read_sitemap()
+    prioritized = [u for u in (priority_urls or []) if u in all_urls][:5]
+    regular = rotate(all_urls, day, MAX_INSPECTIONS - len(prioritized))
+    urls = list(dict.fromkeys(prioritized + regular))
+    if len(urls) < min(MAX_INSPECTIONS, len(all_urls)):
+        urls.extend(u for u in all_urls if u not in urls)
+        urls = urls[:MAX_INSPECTIONS]
     if not urls:
         raise RuntimeError("No URLs selected")
     outcomes, errors, mobile_differences = [], {}, 0
@@ -272,8 +280,13 @@ def collect(day: dt.date, previous: dict | None = None) -> dict:
         try:
             original = inspect(url, token)
             outcomes.append(original)
+            entry = {"url": url, "original": original, "mobile": None, "http": None}
+            if detail_sink is not None:
+                detail_sink.append(entry)
             if index < MAX_MOBILE_INSPECTIONS:
                 mobile = inspect(url + "?m=1", token)
+                if detail_sink is not None:
+                    entry["mobile"] = mobile
                 mobile_checked += 1
                 if ((original.get("verdict"), original.get("coverageState")) !=
                     (mobile.get("verdict"), mobile.get("coverageState"))):
@@ -314,6 +327,11 @@ def collect(day: dt.date, previous: dict | None = None) -> dict:
         except ValueError:
             pass
     checks = [http_chain(url) for url in urls[:MAX_HTTP_PROBES]]
+    if detail_sink is not None:
+        details_by_url = {e["url"]: e for e in detail_sink}
+        for url, check in zip(urls[:MAX_HTTP_PROBES], checks):
+            if url in details_by_url:
+                details_by_url[url]["http"] = check
     http_summary = {"checked": len(checks), "ok": sum(c["result"] == "ok" for c in checks),
                     "redirect_problem": sum(c["result"] == "bad_redirect" for c in checks),
                     "other_error": sum(c["result"] not in ("ok", "bad_redirect") for c in checks),
@@ -336,7 +354,7 @@ def collect(day: dt.date, previous: dict | None = None) -> dict:
     history.append(entry)
     return {"schema": 1, "site": SITE, "updated_at": time, "status":
             "partial" if errors else "ok", "sample_only": True,
-            "sample": {"eligible_urls": len(read_sitemap()), "inspected_original": len(outcomes),
+            "sample": {"eligible_urls": len(all_urls), "inspected_original": len(outcomes),
                        "mobile_gsc_compared": mobile_checked,
                        "mobile_status_differences": mobile_differences,
                        "inspection_errors": sum(errors.values()), "counts": counts},
@@ -371,8 +389,32 @@ def main() -> int:
                 raise ValueError("Wrong site in previous report")
         except (ValueError, OSError):
             raise RuntimeError("Existing dashboard invalid; refusing overwrite") from None
-    result = collect(dt.datetime.now(dt.timezone.utc).date(), previous)
+    detail_passphrase = os.environ.get("GSC_DETAIL_PASSPHRASE", "")
+    details = [] if detail_passphrase else None
+    previous_details = None
+    encrypted_path = output.with_name("gsc-details.enc.json")
+    if detail_passphrase:
+        from scripts import gsc_private
+        gsc_private.check_passphrase(detail_passphrase)
+        if encrypted_path.is_file():
+            try:
+                sealed = json.loads(encrypted_path.read_text(encoding="utf-8"))
+                previous_details = gsc_private.decrypt(sealed, detail_passphrase)
+            except (ValueError, OSError):
+                raise RuntimeError("GSC_DETAIL_ENCRYPTED_INVALID: refusing overwrite") from None
+    selected_focus = (gsc_private.recurring_priority(previous_details, read_sitemap())
+                      if detail_passphrase else None)
+    result = collect(dt.datetime.now(dt.timezone.utc).date(), previous,
+                     detail_sink=details, priority_urls=selected_focus)
     output.parent.mkdir(parents=True, exist_ok=True)
+    if detail_passphrase:
+        next_details = gsc_private.merge(previous_details, details, result["updated_at"])
+        encrypted = gsc_private.encrypt(next_details, detail_passphrase)
+        encrypted_tmp = encrypted_path.with_suffix(".tmp")
+        encrypted_tmp.write_text(json.dumps(encrypted, separators=(",", ":")) + "\n",
+                                 encoding="utf-8")
+        encrypted_tmp.replace(encrypted_path)
+        print("GSC private URL diagnostics updated (encrypted only)")
     temp = output.with_suffix(".tmp")
     temp.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n",
                     encoding="utf-8")
