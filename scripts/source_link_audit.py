@@ -27,7 +27,7 @@ REPORT = Path("data/source-link-health.json")
 PRIOR = Path("data/previous-source-link-health.json")
 MAX_SELECTED = 60
 MAX_STORED = 1200
-SENSITIVE = re.compile(r"(?i)(?:^|_)(?:api_?key|access_?token|password|passwd|secret|auth|signature|sig|session|jwt|code)(?:$|_)")
+SENSITIVE = re.compile(r"(?i)(?:^|_)(?:api_?key|token|access_?token|password|passwd|secret|auth|signature|sig|session|jwt|code)(?:$|_)")
 EXACT_HOSTS = {
     "support.google.com", "developers.google.com", "www.google.com",
     "lolesports.com", "www.lolesports.com", "www.youtube.com", "youtu.be",
@@ -55,7 +55,7 @@ def safe_url(raw: str) -> str | None:
         if (parts.scheme != "https" or not parts.hostname or parts.username
                 or parts.password or parts.port is not None or not official_host(parts.hostname)
                 or "\\" in raw or any(ord(c) < 32 for c in raw)
-                or not parts.path.startswith(("/", ""))):
+                ):
             return None
         try:
             ipaddress.ip_address(parts.hostname)
