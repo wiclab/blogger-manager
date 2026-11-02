@@ -146,7 +146,7 @@ a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8p
 const el=id=>document.getElementById(id);
 function text(id,v){el(id).textContent=String(v);}
 function num(v){return Number.isFinite(Number(v))?Number(v).toLocaleString("ko-KR"):"—";}
-function time(v){if(!v)return "기록 없음";const d=new Date(v);return Number.isFinite(+d)?"시간 확인 불가":d.toLocaleString("ko-KR",{timeZone:"Asia/Seoul"});}
+function time(v){if(!v)return "기록 없음";const d=new Date(v);return Number.isFinite(+d)?d.toLocaleString("ko-KR",{timeZone:"Asia/Seoul"}):"시간 확인 불가";}
 function badge(id,value,label){
  const node=el(id);node.textContent=label;
  node.className="badge"+(value==="ok"?" good":value==="warning"||value==="quota_exhausted"?" warn":" bad");
