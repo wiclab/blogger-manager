@@ -88,7 +88,7 @@ jobs:
           GSC_DETAIL_PASSPHRASE: ${{ secrets.GSC_DETAIL_PASSPHRASE }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python scripts/gsc_monitor.py gsc-data/data/gsc-dashboard.json
+        run: python -m scripts.gsc_monitor gsc-data/data/gsc-dashboard.json
       - name: Publish aggregate + optional AES-GCM encrypted URL report
         if: github.event_name != 'pull_request'
         run: |

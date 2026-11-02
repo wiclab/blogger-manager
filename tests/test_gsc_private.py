@@ -21,6 +21,12 @@ def observation(url, verdict="NEUTRAL", fetch="SUCCESSFUL", mobile=None, http=No
 
 
 class PrivateReportTests(unittest.TestCase):
+    def test_workflow_runs_monitor_as_module(self):
+        from pathlib import Path
+        workflow = (Path(__file__).parents[1] / ".github/workflows/gsc-monitor.yml").read_text(encoding="utf-8")
+        self.assertIn("python -m scripts.gsc_monitor gsc-data/data/gsc-dashboard.json", workflow)
+        self.assertNotIn("python scripts/gsc_monitor.py gsc-data/data/gsc-dashboard.json", workflow)
+
     @unittest.skipUnless(importlib.util.find_spec("cryptography"), "crypto dependency checked in GSC-specific workflow")
     def test_encryption_round_trip_does_not_expose_url(self):
         url = monitor.SITE + "2026/08/private-test.html"
