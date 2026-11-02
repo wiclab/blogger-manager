@@ -281,7 +281,11 @@ def collect(day: dt.date, previous: dict | None = None) -> dict:
         except RuntimeError as e:
             category = str(e)
             errors[category] = errors.get(category, 0) + 1
-            if "permission" in category or "quota" in category:
+            if category.startswith((
+                "GSC_API_DISABLED", "GSC_PROPERTY_PERMISSION", "GSC_AUTH_SCOPE",
+                "GSC_ACCESS_401", "GSC_ACCESS_403", "GSC_API_QUOTA_429",
+                "GSC permission denied", "GSC API quota"
+            )):
                 raise RuntimeError(category) from None
     if not outcomes:
         raise RuntimeError("No successful GSC inspections; report unchanged")

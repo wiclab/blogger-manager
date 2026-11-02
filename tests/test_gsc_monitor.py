@@ -70,6 +70,16 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(result["sample"]["counts"]["not_indexed"], 20)
         self.assertTrue(result["sample_only"])
 
+    def test_access_denial_fails_fast_and_keeps_error_code(self):
+        url = g.SITE + "2026/09/test.html"
+        with (mock.patch.object(g, "credentials_from_secret", return_value="fake"),
+              mock.patch.object(g, "read_sitemap", return_value=[url]),
+              mock.patch.object(g, "inspect",
+                                side_effect=RuntimeError("GSC_ACCESS_403: verify API enabled")) as call):
+            with self.assertRaisesRegex(RuntimeError, "GSC_ACCESS_403"):
+                g.collect(dt.date(2026, 11, 2))
+        self.assertEqual(call.call_count, 1)
+
     def test_zero_success_does_not_overwrite(self):
         url = g.SITE + "2026/09/test.html"
         with (mock.patch.object(g, "credentials_from_secret", return_value="fake"),
