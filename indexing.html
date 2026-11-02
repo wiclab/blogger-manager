@@ -189,7 +189,7 @@ function bloggerEditURL(raw){
   if(typeof raw!=="string")return null;
   const u=new URL(raw);
   if(u.protocol!=="https:"||u.hostname!=="www.blogger.com"||u.search||u.hash||u.username||u.password||u.port)return null;
-  return /^\\/blog\\/post\\/edit\\/\\d+\\/\\d+$/.test(u.pathname)?u.href:null;
+  return /^\/blog\/post\/edit\/\d+\/\d+$/.test(u.pathname)?u.href:null;
  }catch{return null;}
 }
 function escapeLinkText(value){
