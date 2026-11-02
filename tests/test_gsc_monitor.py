@@ -101,6 +101,34 @@ class MonitorTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "GSC_SECRET_ESCAPED_KEY"):
                 g.credentials_from_secret()
 
+    def test_disabled_google_api_is_diagnosed_safely(self):
+        from io import BytesIO
+        error = g.urllib.error.HTTPError(
+            g.INDEX_API, 403, "Forbidden", {}, BytesIO(g.json.dumps({
+                "error": {"code": 403, "message": "Google Search Console API has not been used in project 123 before or it is disabled",
+                          "details": [{"reason": "SERVICE_DISABLED", "domain": "googleapis.com"}]}}).encode()))
+        value = g.google_api_access_error(error)
+        self.assertTrue(value.startswith("GSC_API_DISABLED"))
+        self.assertNotIn("123", value)
+
+    def test_property_permission_denial_is_diagnosed_safely(self):
+        from io import BytesIO
+        error = g.urllib.error.HTTPError(
+            g.INDEX_API, 403, "Forbidden", {}, BytesIO(g.json.dumps({
+                "error": {"code": 403, "message": "User does not have sufficient permission for site",
+                          "errors": [{"reason": "forbidden"}]}}).encode()))
+        self.assertTrue(g.google_api_access_error(error).startswith("GSC_PROPERTY_PERMISSION"))
+
+    def test_generic_api_error_does_not_leak_response_text(self):
+        from io import BytesIO
+        error = g.urllib.error.HTTPError(
+            g.INDEX_API, 403, "Forbidden", {}, BytesIO(g.json.dumps({
+                "error": {"code": 403, "message": "unknown sensitive@example.com data",
+                          "status": "PERMISSION_DENIED"}}).encode()))
+        value = g.google_api_access_error(error)
+        self.assertEqual(value.startswith("GSC_ACCESS_403"), True)
+        self.assertNotIn("sensitive@", value)
+
     def test_missing_credentials_fail_closed(self):
         with mock.patch.dict(g.os.environ, {}, clear=True):
             with self.assertRaisesRegex(RuntimeError, "not configured"):
