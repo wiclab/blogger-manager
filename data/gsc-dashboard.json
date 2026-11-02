@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-02T07:33:08+00:00",
+  "updated_at": "2026-11-02T08:16:36+00:00",
   "status": "ok",
   "sample_only": true,
   "sample": {
@@ -22,13 +22,15 @@
   },
   "http": {
     "checked": 8,
-    "ok": 8,
-    "redirect_problem": 0,
+    "ok": 2,
+    "redirect_problem": 6,
     "other_error": 0,
     "canonical_mismatch": 0,
     "noindex": 0
   },
-  "alerts": [],
+  "alerts": [
+    "http_redirect"
+  ],
   "history": [
     {
       "date": "2026-11-02",
@@ -36,7 +38,7 @@
       "indexed": 0,
       "not_indexed": 20,
       "fetch_problem": 7,
-      "http_redirect_problem": 0
+      "http_redirect_problem": 6
     }
   ],
   "note": "Sample inspection only; not the total number of indexed pages. GSC API is saved-index status, not a live crawl or indexing request. HTTP mobile probes simulate an Android browser, not verified Googlebot."
