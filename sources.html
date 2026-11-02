@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>별셈소 공식 출처 링크 점검 · Blogger Manager</title>
+<link rel="stylesheet" href="./assets/manager-header.css">
+<style>
+:root{font:15px/1.6 system-ui,-apple-system,"Noto Sans KR",sans-serif;--blue:#245ee4;--ink:#17233a;--muted:#607187;--line:#dae3ef}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7fc;color:var(--ink)}
+main{max-width:1100px;margin:auto;padding:20px}
+h1{font-size:clamp(20px,3vw,28px)}
+h2{font-size:19px;margin:0 0 12px}
+a{color:#2159a9;overflow-wrap:anywhere}
+section{padding:20px;background:#fff;border:1px solid var(--line);border-radius:16px;margin-bottom:16px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{padding:15px;background:#f3f6fc;border-radius:11px}
+.stat .label{font-size:12px;color:var(--muted)}
+.stat strong{display:block;font-size:clamp(18px,3vw,26px)}
+.muted{color:var(--muted);font-size:13px}
+.note{border-left:3px solid #97b8ea;padding:12px;background:#f6f9fe;border-radius:9px;color:#495c79}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:14px 0}
+.controls label{display:grid;gap:5px;flex:1 1 190px;font-size:13px;color:var(--muted);font-weight:650}
+input,select,button{font:inherit;min-height:42px;border:1px solid #bbcee8;border-radius:9px;padding:8px 10px}
+button{background:var(--blue);color:white;border:0;font-weight:650;cursor:pointer}
+button:disabled{background:#d9e1eb;color:#6b788a;cursor:not-allowed}
+.entries{display:grid;gap:9px}
+.entry{border:1px solid var(--line);border-radius:12px;padding:14px;overflow-wrap:anywhere}
+.entry h3{font-size:15px;line-height:1.45;margin:0 0 5px}
+.row{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center}
+.pill{font-size:12px;font-weight:700;background:#e8f0fc;color:#26508f;border-radius:20px;padding:4px 10px}
+.pill.warn{background:#fff0d7;color:#8d5600}
+.pill.bad{background:#fbe5e5;color:#9a2525}
+.sources{margin:12px 0 0;padding-left:20px;font-size:13px}
+.sources li{margin:4px 0}
+.pages{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:18px}
+@media(max-width:650px){main{padding:12px}section{padding:15px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header class="bm-hero"><div class="bm-wrap"><h1 class="bm-title">별셈소 공식 출처 링크 점검</h1><p class="bm-sub">정부·기관·공식 도움말 출처의 접속 상태 확인 · 안전한 수동 검토</p><nav class="bm-nav"><a href="./">콘텐츠 관리</a><a href="./seo.html">Bing · 글 갱신</a><a href="./indexing.html">색인 제출 현황</a><a href="./gsc.html">Google 색인 관제</a><a href="./sources.html" aria-current="page">출처 링크 점검</a><a href="./editor.html">글 편집·발행</a><a href="./news.html">뉴스</a></nav></div></header>
+<main>
+<section>
+<div class="row"><h2>정기 검사 현황</h2><button type="button" id="refresh">새로고침</button></div>
+<p class="muted" id="checked-at">보고서 불러오는 중</p>
+<div class="cards">
+<div class="stat"><div class="label">발견한 공식 출처 URL</div><strong id="total">—</strong></div>
+<div class="stat"><div class="label">확인한 URL</div><strong id="checked">—</strong></div>
+<div class="stat"><div class="label">404·410 검토 후보</div><strong id="review">—</strong></div>
+<div class="stat"><div class="label">미확인·재확인 필요</div><strong id="pending">—</strong></div>
+</div>
+<p class="note">공개 게시글에 실제 연결된 <strong>공식 기관 HTTPS 주소만</strong> 검사해. 1회 최대 60개씩 나눠 확인하며 HEAD와 GET에서 모두 404·410이 나와도 <strong>수정 검토 후보</strong>로만 표시해. 403·접속 차단·리디렉션은 깨진 링크로 단정하지 않아. 과거에 검사된 상태는 오래됐을 수 있으니 날짜를 확인해.</p>
+<p class="muted"><a href="https://github.com/wiclab/blogger-manager/actions/workflows/source-link-audit.yml" target="_blank" rel="noopener noreferrer">자동 검사 실행 기록과 수동 실행</a> · 주 1회 점검 · 기존 글 자동 수정 없음</p>
+</section>
+<section>
+<h2>출처 링크별 검사 결과</h2>
+<div class="controls">
+<label for="search">도메인·주소·글 제목<input id="search" type="search" placeholder="예: gov.kr, 온누리" autocomplete="off"></label>
+<label for="filter">상태<select id="filter"><option value="review_missing">404·410 검토 후보</option><option value="all">전체</option><option value="inconclusive">미확인·리디렉션</option><option value="not_checked">아직 검사 안 함</option><option value="ok">접근 가능</option></select></label>
+<label for="sort">정렬<select id="sort"><option value="priority">문제 우선</option><option value="recent">최근 점검</option><option value="domain">도메인순</option></select></label>
+</div>
+<p class="muted" id="result-count" role="status">결과 불러오는 중</p>
+<div class="entries" id="results">결과 불러오는 중</div>
+<div class="pages"><button type="button" id="prev" disabled>이전 15개</button><span id="page" class="muted">—</span><button type="button" id="next" disabled>다음 15개</button></div>
+</section>
+</main>
+<script>
+"use strict";
+const SITE="https://wic12.blogspot.com/";
+const REPORT="https://raw.githubusercontent.com/wiclab/blogger-manager/link-data/data/source-link-health.json";
+const TITLES="https://raw.githubusercontent.com/wiclab/blogger-manager/seo-data/data/blog-post-titles.json";
+const $=id=>document.getElementById(id);
+const number=n=>Number.isFinite(Number(n))?Number(n).toLocaleString("ko-KR"):"—";
+const time=x=>{const t=new Date(x);return x&&Number.isFinite(+t)?t.toLocaleString("ko-KR",{timeZone:"Asia/Seoul"}):"기록 없음";};
+function blogUrl(raw){
+ try{
+  const u=new URL(raw);
+  return u.protocol==="https:"&&u.hostname==="wic12.blogspot.com"&&/^\/20\d\d\/\d\d\/[^/]+\.html$/.test(u.pathname)?u.origin+u.pathname:null;
+ }catch{return null;}
+}
+function officialUrl(raw){
+ try{
+  const u=new URL(raw);
+  if(u.protocol!=="https:"||u.username||u.password||u.port||u.href.length>650)return null;
+  const h=u.hostname.toLowerCase();
+  const ok=h.endsWith(".go.kr")||h.endsWith(".gov.kr")||h.endsWith(".korea.kr")
+   ||["www.gov.kr","gov.kr","www.korea.kr","korea.kr","data.go.kr","support.google.com","developers.google.com",
+      "www.google.com","www.lolesports.com","lolesports.com","www.youtube.com","youtu.be","help.naver.com",
+      "help.kakao.com","www.bing.com","www.korail.com","www.letskorail.com","www.hometax.go.kr","www.nts.go.kr",
+      "www.kepco.co.kr","www.law.go.kr"].includes(h);
+  return ok?u.href:null;
+ }catch{return null;}
+}
+function aLink(url,label){
+ const a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener noreferrer";a.textContent=String(label);
+ return a;
+}
+const LABELS={review_missing:"404·410 수동 검토",ok:"접근 가능",redirect_unverified:"리디렉션 미확인",inconclusive:"접속 결과 미확인",not_checked:"미검사"};
+let rows=[],titleMap=new Map(),page=0,loaded=false;
+const COUNT=15;
+function draw(){
+ const root=$("results");root.replaceChildren();
+ if(!loaded){root.textContent="아직 보고서를 읽지 못했어. GitHub 실행 기록을 확인해.";return;}
+ const q=$("search").value.trim().toLowerCase(),filter=$("filter").value,sort=$("sort").value;
+ let subset=rows.filter(r=>{
+  if(filter==="inconclusive"&&!["inconclusive","redirect_unverified"].includes(r.state))return false;
+  if(!["inconclusive","all"].includes(filter)&&r.state!==filter)return false;
+  const sources=Array.isArray(r.sources)?r.sources:[];
+  return !q||(String(r.url)+" "+sources.map(u=>titleMap.get(blogUrl(u))||u).join(" ")).toLowerCase().includes(q);
+ });
+ const rank={review_missing:0,inconclusive:1,redirect_unverified:2,not_checked:3,ok:4};
+ subset.sort((a,b)=>{
+  if(sort==="priority"&&rank[a.state]!==rank[b.state])return rank[a.state]-rank[b.state];
+  if(sort==="recent"&&(a.checked_at||"")!==(b.checked_at||""))return (a.checked_at||"")>(b.checked_at||"")?-1:1;
+  return String(a.domain||a.url).localeCompare(String(b.domain||b.url));
+ });
+ const pages=Math.max(1,Math.ceil(subset.length/COUNT));page=Math.max(0,Math.min(page,pages-1));
+ $("result-count").textContent="조건에 맞는 출처 "+number(subset.length)+"개 · 15개씩 표시";
+ $("page").textContent=(page+1)+" / "+pages+"페이지";
+ $("prev").disabled=page<=0;$("next").disabled=page>=pages-1;
+ if(!subset.length){root.textContent="조건에 맞는 출처가 없어. 상태 필터를 변경해봐.";return;}
+ for(const r of subset.slice(page*COUNT,(page+1)*COUNT)){
+  const u=officialUrl(r.url);if(!u)continue;
+  const item=document.createElement("article");item.className="entry";
+  const row=document.createElement("div");row.className="row";
+  const h=document.createElement("h3");h.append(aLink(u,r.domain||u));
+  const pill=document.createElement("span");pill.className="pill"+(r.state==="review_missing"?" bad":r.state!=="ok"?" warn":"");
+  pill.textContent=LABELS[r.state]||"상태 미확인";
+  row.append(h,pill);item.append(row);
+  const link=document.createElement("div");link.className="muted";link.append(aLink(u,u));item.append(link);
+  const meta=document.createElement("p");meta.className="muted";
+  meta.textContent="검사: "+time(r.checked_at)+" · HEAD "+(r.head_code??"—")+" / GET "+(r.get_code??"—")+" · 연결한 게시글 "+number(r.source_count)+"개";
+  item.append(meta);
+  if(Array.isArray(r.sources)&&r.sources.length){
+   const ul=document.createElement("ul");ul.className="sources";
+   for(const source of r.sources){
+    const original=blogUrl(source);if(!original)continue;
+    const li=document.createElement("li");li.append("이 출처를 인용한 글: ",aLink(original,titleMap.get(original)||original));
+    ul.append(li);
+   }
+   item.append(ul);
+  }
+  root.append(item);
+ }
+}
+async function fetchJson(url){
+ const r=await fetch(url+"?v="+Date.now(),{cache:"no-store"});
+ if(!r.ok)throw Error("Report HTTP "+r.status);
+ return r.json();
+}
+async function load(){
+ $("checked-at").textContent="검사 보고서 확인 중";
+ try{
+  const results=await Promise.allSettled([fetchJson(REPORT),fetchJson(TITLES)]);
+  if(results[0].status!=="fulfilled")throw Error("No source-link data");
+  const data=results[0].value;
+  if(data.site!==SITE||data.schema!==1||!Array.isArray(data.rows)||data.rows.length>1200)throw Error("Invalid audit report");
+  titleMap=new Map();
+  if(results[1].status==="fulfilled"){
+   const titles=results[1].value;
+   if(titles.site===SITE&&Array.isArray(titles.posts)){
+    for(const p of titles.posts){const url=blogUrl(p.url);if(url)titleMap.set(url,String(p.title||url));}
+   }
+  }
+  rows=data.rows.filter(r=>officialUrl(r.url)&&["ok","review_missing","redirect_unverified","inconclusive","not_checked"].includes(r.state));
+  loaded=true;page=0;
+  $("total").textContent=number(data.official_url_total);
+  $("checked").textContent=number(data.checked_distinct);
+  $("review").textContent=number(data.review_missing_count);
+  $("pending").textContent=number(Number(data.inconclusive_count||0)+Number(data.not_checked_count||0));
+  const ms=Date.now()-new Date(data.updated_at).getTime();
+  $("checked-at").textContent="최근 검사: "+time(data.updated_at)+(ms>15*86400000?" · 보고서 갱신 지연":"")+" · 최근 실행 확인 "+number(data.sample_this_run)+"개";
+  draw();
+ }catch{
+  loaded=false;rows=[];rootReset();
+ }
+}
+function rootReset(){
+ $("checked-at").textContent="아직 보고서가 없거나 읽지 못했어. GitHub 출처 링크 검사 실행을 확인해.";
+ for(const id of ["total","checked","review","pending"])$(id).textContent="—";
+ $("result-count").textContent="보고서를 불러올 수 없어.";$("results").textContent="실행 기록을 확인해.";
+ $("prev").disabled=true;$("next").disabled=true;
+}
+for(const control of ["search","filter","sort"]){
+ $(control).addEventListener(control==="search"?"input":"change",()=>{page=0;draw();});
+}
+$("prev").addEventListener("click",()=>{if(page>0){page--;draw();}});
+$("next").addEventListener("click",()=>{page++;draw();});
+$("refresh").addEventListener("click",load);
+load();
+</script>
+</body>
+</html>
