@@ -80,5 +80,31 @@ jobs:
               raise SystemExit('invalid news items: ' + '; '.join(bad[:5]))
           if len(urls) != len(set(urls)):
               raise SystemExit('duplicate news URLs detected')
+          quality = snapshot.get('quality')
+          if quality is not None:
+              names = ('한국', '해외', '경제', '기술·AI', '문화', '생활·건강')
+              if (not isinstance(quality, dict) or quality.get('version') != 1
+                      or not isinstance(quality.get('categories'), dict)
+                      or set(quality['categories']) != set(names)):
+                  raise SystemExit('invalid news quality metadata')
+              raw = quality.get('rawFetched')
+              unique = quality.get('uniqueAfterDedup')
+              removed = quality.get('removedAsDuplicate')
+              trimmed = quality.get('truncatedAtCap')
+              published = quality.get('published')
+              figures = (raw, unique, removed, trimmed, published)
+              if any(type(v) is not int or v < 0 for v in figures):
+                  raise SystemExit('invalid news quality counters')
+              if (raw != unique + removed or unique != published + trimmed
+                      or published != len(items)):
+                  raise SystemExit('inconsistent news quality totals')
+              categories = quality['categories']
+              if (any(not isinstance(categories[name], dict) for name in names)
+                      or any(type(categories[name].get('fetched')) is not int or
+                             type(categories[name].get('displayed')) is not int
+                             for name in names)
+                      or sum(categories[name]['fetched'] for name in names) != raw
+                      or sum(categories[name]['displayed'] for name in names) != published):
+                  raise SystemExit('inconsistent news category quality metadata')
           print(f'News snapshot healthy: {len(items)} items; age={age / 3600:.1f}h')
           PY
