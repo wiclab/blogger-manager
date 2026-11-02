@@ -119,10 +119,13 @@ def fetch_live_posts(api_key: str) -> list[dict]:
         if url in seen:
             raise RuntimeError("BLOGGER_DUPLICATE_POST_URL")
         seen.add(url)
+        post_id = str(item.get("id") or "")
         normalized.append({"url": url, "content": item["content"],
                            "title": str(item.get("title") or ""),
                            "published": str(item.get("published") or ""),
-                           "labels": item.get("labels") if isinstance(item.get("labels"), list) else []})
+                           "labels": item.get("labels") if isinstance(item.get("labels"), list) else [],
+                           "blog_id": blog_id,
+                           "post_id": post_id if BLOG_ID.fullmatch(post_id) else ""})
     return normalized
 
 
@@ -158,6 +161,17 @@ def specific_labels(post: dict) -> set[str]:
             if isinstance(x, str) and str(x).strip().lower() not in GENERIC_LABELS}
 
 
+def blogger_edit_url(post: dict) -> str | None:
+    """Official Blogger editor for a LIVE post, never a guessed post ID."""
+    blog_id = str(post.get("blog_id") or "")
+    post_id = str(post.get("post_id") or "")
+    if not BLOG_ID.fullmatch(blog_id) or not BLOG_ID.fullmatch(post_id):
+        return None
+    if canonical_post(post.get("url", "")) != post.get("url"):
+        return None
+    return f"https://www.blogger.com/blog/post/edit/{blog_id}/{post_id}"
+
+
 def opportunities(posts: list[dict], incoming: dict[str, set[str]],
                   outgoing: dict[str, set[str]], limit: int = 500) -> dict:
     """Candidate links only: 0/1 body inlinks, not proof of Google orphan status."""
@@ -189,6 +203,7 @@ def opportunities(posts: list[dict], incoming: dict[str, set[str]],
             suggestions.append({
                 "source": source,
                 "source_title": by_url[source].get("title") or source.rsplit("/", 1)[-1],
+                "source_edit_url": blogger_edit_url(by_url[source]),
                 "shared_terms": common[:5],
                 "shared_labels": overlap[:3],
                 "confidence": "title_and_label" if overlap else "rare_title_term",

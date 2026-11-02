@@ -42,6 +42,12 @@ a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8p
 .link-recommend{margin-top:12px;padding:11px 12px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:13px}
 .link-recommend p{margin:0 0 6px}
 .link-recommend ul{padding-left:20px;margin:0}.link-recommend li{margin:6px 0;overflow-wrap:anywhere}
+.link-action-row{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:8px 0 13px}
+.link-action-row button,.link-action-row a{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:36px;font:inherit;font-weight:650;font-size:12px;padding:7px 10px;border-radius:9px;border:1px solid #b4c9eb;background:#f0f5ff;color:#194f9c;text-decoration:none;cursor:pointer}
+.link-action-row button:focus-visible,.link-action-row a:focus-visible{outline:3px solid #98baff;outline-offset:2px}
+.link-copy-status{font-size:12px;color:#475569;flex-basis:100%}
+.link-copy-fallback{width:100%;min-height:64px;border:1px solid #7b99c5;border-radius:8px;font:12px monospace;padding:8px;overflow-wrap:anywhere}
+
 .link-pages{display:flex;gap:10px;justify-content:center;align-items:center;margin:15px 0}
 .link-pages button:disabled{background:#e3eaf4;color:#7c8da5;cursor:not-allowed}
 .link-missing{padding:14px 16px;border-radius:12px;border:1px solid var(--line);margin-top:12px}
@@ -76,7 +82,7 @@ a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8p
   <div id="link-results" class="link-results">검사 목록 확인 중</div>
   <div class="link-pages"><button id="link-prev" class="button" type="button" disabled>이전 10개</button><span id="link-page-info" class="muted">—</span><button id="link-next" class="button" type="button" disabled>다음 10개</button></div>
   <details class="link-missing"><summary>공개 글 목록에 없는 링크 대상 확인 <span id="link-missing-label"></span></summary><div id="link-missing-list">검사 결과를 불러오는 중</div></details>
-  <p class="muted">연결 추천은 제목의 구체적인 공통 주제어 등을 이용한 후보야. 본문 문맥이 맞을 때만 연결해.</p>
+  <p class="muted">연결 추천은 제목의 공통 주제어 등을 이용한 검토 후보야. <strong>‘Blogger에서 편집’</strong>은 링크를 넣을 기존 글을 열고, <strong>‘링크 HTML 복사’</strong>는 연결 대상 링크만 복사해. 글은 자동 수정·게시하지 않아. 실제 본문 문맥에 맞을 때만 연결해.</p>
   <p class="muted"><a href="https://github.com/wiclab/blogger-manager/actions/workflows/internal-link-audit.yml" target="_blank" rel="noopener noreferrer">검사 실행 기록·수동 실행</a> · 자동 갱신: 매주 월요일 오전 10:17(KST)</p>
 </section>
 <section class="panel full">
@@ -178,6 +184,55 @@ function linkSafeAnchor(raw,label){
  a.target="_blank";a.rel="noopener noreferrer";a.textContent=String(label||url);
  return a;
 }
+function bloggerEditURL(raw){
+ try{
+  if(typeof raw!=="string")return null;
+  const u=new URL(raw);
+  if(u.protocol!=="https:"||u.hostname!=="www.blogger.com"||u.search||u.hash||u.username||u.password||u.port)return null;
+  return /^\/blog\/post\/edit\/\d+\/\d+$/.test(u.pathname)?u.href:null;
+ }catch{return null;}
+}
+function escapeLinkText(value){
+ return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function linkHtmlSnippet(url,title){
+ const valid=canonical(url);
+ if(!valid)return null;
+ return '<a href="'+escapeLinkText(valid)+'">'+escapeLinkText(title||"관련 글 보기")+'</a>';
+}
+function addLinkQuickActions(container,source,target){
+ const actions=document.createElement("div");actions.className="link-action-row";
+ const edit=bloggerEditURL(source.source_edit_url);
+ if(edit){
+  const a=document.createElement("a");
+  a.href=edit;a.target="_blank";a.rel="noopener noreferrer";
+  a.textContent="Blogger에서 편집";a.title="링크를 추가할 기존 게시글의 공식 Blogger 편집기를 열어";
+  actions.append(a);
+ }
+ const snippet=linkHtmlSnippet(target.url,target.title);
+ if(snippet){
+  const copy=document.createElement("button");
+  copy.type="button";copy.textContent="링크 HTML 복사";
+  copy.title="연결 대상의 제목과 URL만 복사해. 게시물은 자동 수정하지 않아";
+  const status=document.createElement("span");status.className="link-copy-status";status.setAttribute("role","status");
+  copy.addEventListener("click",async()=>{
+   try{
+    if(!navigator.clipboard||typeof navigator.clipboard.writeText!=="function")throw Error("clipboard unavailable");
+    await navigator.clipboard.writeText(snippet);
+    status.textContent="복사 완료 · 기존 글의 적절한 문맥에 붙여넣고 문장을 다듬어줘.";
+   }catch{
+    status.replaceChildren();
+    status.textContent="자동 복사가 제한되어 있어. 아래 코드를 선택해서 Ctrl+C 해줘.";
+    const fallback=document.createElement("textarea");
+    fallback.className="link-copy-fallback";fallback.readOnly=true;fallback.value=snippet;
+    status.append(fallback);
+    fallback.focus();fallback.select();
+   }
+  });
+  actions.append(copy,status);
+ }
+ container.append(actions);
+}
 function renderLinkRows(){
  const target=el("link-results");target.replaceChildren();
  if(!linkAuditReady){target.textContent="검사 보고서를 아직 불러오지 못했어.";return;}
@@ -238,6 +293,7 @@ function renderLinkRows(){
      tag.textContent=" · 공통 키워드: "+src.shared_terms.join(", ");li.append(tag);
     }
     list.append(li);
+    addLinkQuickActions(li,src,item);
    }
    rec.append(list);
   }
