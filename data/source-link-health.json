@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-02T12:48:28+00:00",
-  "live_posts_checked": 220,
-  "official_url_total": 314,
+  "updated_at": "2026-11-02T14:54:16+00:00",
+  "live_posts_checked": 221,
+  "official_url_total": 317,
   "sample_this_run": 60,
-  "checked_distinct": 120,
+  "checked_distinct": 180,
   "review_missing_count": 0,
-  "ok_count": 86,
-  "inconclusive_count": 34,
-  "not_checked_count": 194,
+  "ok_count": 132,
+  "inconclusive_count": 48,
+  "not_checked_count": 137,
   "rows": [
     {
       "url": "https://110.go.kr/data/counselView.do?curPage=1&num=A01_660057",
@@ -860,10 +860,10 @@
         "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html"
       ],
       "source_count": 3,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://lost112.go.kr/lost/lostList.do",
@@ -896,10 +896,10 @@
         "https://wic12.blogspot.com/2026/09/2026-national-foundation-day-hangeul-day-events.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://m.korea.kr/briefing/pressReleaseView.do?newsId=156785655",
@@ -908,10 +908,10 @@
         "https://wic12.blogspot.com/2026/10/2026-lodging-booking-license-check-november-12.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://m.korea.kr/briefing/pressReleaseView.do?newsId=156786628&pWise=mSub&pWiseSub=C5",
@@ -920,10 +920,10 @@
         "https://wic12.blogspot.com/2026/11/digital-onnuri-10-percent-november-2026.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://mcee.go.kr/home/web/board/read.do?boardId=1636850&boardMasterId=713&menuId=10392",
@@ -932,10 +932,10 @@
         "https://wic12.blogspot.com/2026/10/blog-post_26.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 403,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://mediahub.seoul.go.kr/archives/2019100",
@@ -944,10 +944,10 @@
         "https://wic12.blogspot.com/2026/10/2026-seoul-october-november-events-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://mediahub.seoul.go.kr/archives/2019389",
@@ -956,10 +956,10 @@
         "https://wic12.blogspot.com/2026/09/2026-2027-flu-free-vaccination-schedule.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://minwon24.police.go.kr/",
@@ -993,10 +993,10 @@
         "https://wic12.blogspot.com/2026/09/2026-august-inflation-what-got-expensive.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 403,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://moel.go.kr/news/enews/report/enewsView.do?news_seq=19862",
@@ -1005,10 +1005,10 @@
         "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://myapt.molit.go.kr/",
@@ -1041,10 +1041,10 @@
         "https://wic12.blogspot.com/2026/10/2026-seoul-october-november-events-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://news.seoul.go.kr/culture/archives/534476",
@@ -1053,10 +1053,10 @@
         "https://wic12.blogspot.com/2026/10/2026-seoul-october-november-events-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "redirect_unverified",
+      "head_code": 302,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://news.seoul.go.kr/culture/archives/534609",
@@ -1065,10 +1065,10 @@
         "https://wic12.blogspot.com/2026/09/2026-national-foundation-day-hangeul-day-events.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://news.seoul.go.kr/env/archives/564359",
@@ -1101,10 +1101,10 @@
         "https://wic12.blogspot.com/2026/10/window-condensation-mold-winter-apartment.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://news.seoul.go.kr/env/archives/65631",
@@ -1113,10 +1113,10 @@
         "https://wic12.blogspot.com/2026/10/water-meter-freeze-prevention-apartment.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://news.seoul.go.kr/traffic/archives/510651",
@@ -1125,10 +1125,10 @@
         "https://wic12.blogspot.com/2026/10/2026-metropolitan-subway-fare-discount-card-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://nhuf.molit.go.kr/",
@@ -1149,10 +1149,10 @@
         "https://wic12.blogspot.com/2026/10/flu-covid-same-day-vaccination-2026.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
+      "state": "inconclusive",
       "head_code": null,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://nip.kdca.go.kr/irhp/infm/goVcntInfo.do?menuCd=134&menuLv=1",
@@ -1161,10 +1161,10 @@
         "https://wic12.blogspot.com/2026/10/flu-covid-same-day-vaccination-2026.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
+      "state": "inconclusive",
       "head_code": null,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://nip.kdca.go.kr/irhp/mngm/goVcntMngm.do?menuCd=333&menuLv=3",
@@ -1173,10 +1173,10 @@
         "https://wic12.blogspot.com/2026/09/2026-2027-flu-free-vaccination-schedule.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
+      "state": "inconclusive",
       "head_code": null,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=238977&mi=40397",
@@ -1185,10 +1185,10 @@
         "https://wic12.blogspot.com/2026/10/2025-earned-child-tax-credit-late-application.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 400,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://nyj.go.kr/culture/selectTnResrceListU.do?key=288&si1=23&si2=33",
@@ -1209,10 +1209,10 @@
         "https://wic12.blogspot.com/2026/09/wrong-bank-transfer-money-back.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://sri.kostat.go.kr/board.es?act=view&bid=10820&list_no=435687&mid=a10301060500",
@@ -1221,10 +1221,10 @@
         "https://wic12.blogspot.com/2026/09/what-koreans-do-after-work.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "redirect_unverified",
+      "head_code": 301,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/accounts/answer/3265955?hl=ko",
@@ -1233,10 +1233,10 @@
         "https://wic12.blogspot.com/2026/09/bus-phone-left-on-bus-what-to-do.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/android/answer/6160491?hl=ko-kr",
@@ -1245,10 +1245,10 @@
         "https://wic12.blogspot.com/2026/10/smartphone-lost-first-30-minutes-response.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/googleplay/answer/4646404?hl=ko",
@@ -1257,10 +1257,10 @@
         "https://wic12.blogspot.com/2026/10/card-reissue-recurring-payment-checklist.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/maps/answer/10077010?hl=ko",
@@ -1269,10 +1269,10 @@
         "https://wic12.blogspot.com/2026/09/google-maps-timeline-export-route-map.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/maps/answer/6258979?co=GENIE.Platform%3DAndroid&hl=ko",
@@ -1281,10 +1281,10 @@
         "https://wic12.blogspot.com/2026/09/google-maps-timeline-export-route-map.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/maps/answer/6258979?co=GENIE.Platform%3DiOS&hl=ko",
@@ -1293,10 +1293,10 @@
         "https://wic12.blogspot.com/2026/09/google-maps-timeline-export-route-map.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/photos/answer/14216276?hl=ko-KR",
@@ -1305,10 +1305,10 @@
         "https://wic12.blogspot.com/2026/11/google-photos-delete-phone-photo-keep.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/photos/answer/6128843?co=GENIE.Platform%3DAndroid&hl=ko",
@@ -1317,10 +1317,10 @@
         "https://wic12.blogspot.com/2026/11/google-photos-delete-phone-photo-keep.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/photos/answer/6128843?co=GENIE.Platform%3DAndroid&hl=ko-KR",
@@ -1329,10 +1329,10 @@
         "https://wic12.blogspot.com/2026/10/phone-storage-full-after-deleting-photos.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/photos/answer/6128843?co=GENIE.Platform%3DiOS&hl=ko",
@@ -1341,10 +1341,10 @@
         "https://wic12.blogspot.com/2026/11/google-photos-delete-phone-photo-keep.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/photos/answer/6128858?co=GENIE.Platform%3DAndroid&hl=ko",
@@ -1353,10 +1353,10 @@
         "https://wic12.blogspot.com/2026/11/google-photos-delete-phone-photo-keep.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/photos/answer/6128858?co=GENIE.Platform%3DiOS&hl=ko",
@@ -1365,10 +1365,10 @@
         "https://wic12.blogspot.com/2026/11/google-photos-delete-phone-photo-keep.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/photos/answer/9343402?hl=ko",
@@ -1377,10 +1377,10 @@
         "https://wic12.blogspot.com/2026/10/phone-storage-full-after-deleting-photos.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://support.google.com/pixelphone/answer/6090599?hl=en",
@@ -1389,10 +1389,10 @@
         "https://wic12.blogspot.com/2026/10/smartphone-battery-drain-iphone-galaxy-check.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://topis.seoul.go.kr/",
@@ -1401,10 +1401,10 @@
         "https://wic12.blogspot.com/2026/08/2026.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
+      "state": "inconclusive",
       "head_code": null,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://tour.jb.go.kr/travel/info/view.do?category_top_id=a&contentsSid=38&ctnt_id=25180&menuCd=DOM_000000102003002000",
@@ -1413,10 +1413,10 @@
         "https://wic12.blogspot.com/2026/10/iksan-agape-garden-autumn-visit.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://various.foodsafetykorea.go.kr/nutrient/",
@@ -1425,10 +1425,10 @@
         "https://wic12.blogspot.com/2026/09/chuseok-gamtae-gim-how-to-eat-store.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://web1.gg.go.kr/contents/contents.do?ciIdx=987115&menuId=266077",
@@ -1437,10 +1437,10 @@
         "https://wic12.blogspot.com/2026/10/2026-metropolitan-subway-fare-discount-card-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://whatsnew.mofe.go.kr/mec/ots/dif/view.do?comBaseCd=DIFGODEPRT&difGovDepart1=DIFGODR007&difSer=8c3f277a-0fcd-43ac-98d8-7ab24ed45717&temp=2026&temp2=HALF002",
@@ -1449,10 +1449,10 @@
         "https://wic12.blogspot.com/2026/10/disaster-alert-157-characters-emergency-safety.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 403,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.1372.go.kr/",
@@ -1461,10 +1461,10 @@
         "https://wic12.blogspot.com/2026/09/gym-membership-cancellation-refund-calculation.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
+      "state": "inconclusive",
       "head_code": null,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.ansan.go.kr/water/common/cntnts/selectContents.do?cntnts_id=C0001899",
@@ -1473,10 +1473,10 @@
         "https://wic12.blogspot.com/2026/09/water-meter-moving-no-use-leak-check-calculation.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.anyang.go.kr/main/contents.do?key=4993",
@@ -1485,10 +1485,10 @@
         "https://wic12.blogspot.com/2026/10/use-old-city-trash-bags-after-moving.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
+      "state": "inconclusive",
       "head_code": null,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.bucheon.go.kr/site/homepage/menu/viewMenu?menuid=148006008003011",
@@ -1497,10 +1497,10 @@
         "https://wic12.blogspot.com/2026/11/2026-december-car-tax-payment-prepaid-calculator.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.busan.go.kr/water/rateinfo03",
@@ -1509,10 +1509,10 @@
         "https://wic12.blogspot.com/2026/09/water-meter-moving-no-use-leak-check-calculation.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
+      "state": "inconclusive",
       "head_code": null,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.car365.go.kr/",
@@ -1522,10 +1522,10 @@
         "https://wic12.blogspot.com/2026/10/car-inspection-period-reservation-fee-fine.html"
       ],
       "source_count": 2,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "redirect_unverified",
+      "head_code": 302,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.climate.go.kr/",
@@ -1534,10 +1534,10 @@
         "https://wic12.blogspot.com/2026/08/korea-summer-weather-2030-prediction.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.consumer.go.kr/",
@@ -1546,10 +1546,10 @@
         "https://wic12.blogspot.com/2026/10/free-trial-auto-payment-dark-pattern-response.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.consumer.go.kr/common/proc/consumer/bbs/100/fileDownLoad/667.do",
@@ -1558,10 +1558,10 @@
         "https://wic12.blogspot.com/2026/10/free-trial-auto-payment-dark-pattern-response.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.consumer.go.kr/consumer/subIndex/51.do",
@@ -1570,10 +1570,10 @@
         "https://wic12.blogspot.com/2026/10/marathon-entry-refund-bib-transfer-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.consumer.go.kr/user/ftc/consumer/trublmdatcase/116/selectTrublMdatCaseView.do?page=10&row=25&searchCnd=&searchType=&searchWrd=&trublMdatcaseSn=12035",
@@ -1582,10 +1582,10 @@
         "https://wic12.blogspot.com/2026/09/gym-membership-cancellation-refund-calculation.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.customs.go.kr/kcs/ad/tax/BuyTaxCalculation.do",
@@ -1594,10 +1594,10 @@
         "https://wic12.blogspot.com/2026/10/2026-black-friday-overseas-shopping-customs-checklist.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.customs.go.kr/kcs/cm/cntnts/cntntsView.do?cntntsId=827&mi=2835",
@@ -1606,10 +1606,10 @@
         "https://wic12.blogspot.com/2026/10/2026-black-friday-overseas-shopping-customs-checklist.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=1362&mi=2891&nttSn=10153725&nttSnUrl=a04bbdb196741990a7987c1457393cc4",
@@ -1618,10 +1618,10 @@
         "https://wic12.blogspot.com/2026/10/2026-black-friday-overseas-shopping-customs-checklist.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=1362&mi=2891&nttSn=10176743&nttSnUrl=0b6477a0d2c425948fd0866c7b527f24",
@@ -1630,10 +1630,10 @@
         "https://wic12.blogspot.com/2026/09/semiconductor-exports-drop-korea-total-exports.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?nttSn=10142854&nttSnUrl=0ddd5ddedd8d336d4b66b4d9ea728964",
@@ -1642,10 +1642,10 @@
         "https://wic12.blogspot.com/2026/10/2026-black-friday-overseas-shopping-customs-checklist.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.dongnae.go.kr/index.dongnae?menuCd=DOM_000000102005002000",
@@ -1654,10 +1654,10 @@
         "https://wic12.blogspot.com/2026/11/2026-december-car-tax-payment-prepaid-calculator.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.easylaw.go.kr/CSP/CSP/OnhunqueansInfoRetrieve.laf?onhunqnaAstSeq=88&onhunqueSeq=4307",
@@ -1666,10 +1666,10 @@
         "https://wic12.blogspot.com/2026/10/return-pickup-delay-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.easylaw.go.kr/CSP/CnpClsMain.laf?ccfNo=2&cciNo=2&cnpClsNo=2&csmSeq=1771",
@@ -1751,10 +1751,10 @@
         "https://wic12.blogspot.com/2026/09/fruit-rice-cake-two-hour-trip-storage-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.foodsafetykorea.go.kr/portal/board/boardDetail.do?bbs_no=bbs109&menu_grp=MENU_NEW05&menu_no=2873&ntctxt_no=1108195",
@@ -1763,10 +1763,10 @@
         "https://wic12.blogspot.com/2026/10/delivery-container-microwave-safety.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
       "url": "https://www.foodsafetykorea.go.kr/portal/board/boardDetail.do?bbs_no=bbs231&menu_grp=MENU_NEW01&menu_no=2694&ntctxt_no=1082124",
@@ -2169,6 +2169,18 @@
       "domain": "www.kepco.co.kr",
       "sources": [
         "https://wic12.blogspot.com/2026/10/electric-heating-pad-monthly-electricity-cost.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://www.kepco.co.kr/KEPCO_FILE/html/2026_08/issue.html",
+      "domain": "www.kepco.co.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/heat-pump-electricity-tariff-2026-jeju-ess.html"
       ],
       "source_count": 1,
       "state": "not_checked",
@@ -2780,6 +2792,30 @@
       "head_code": 200,
       "get_code": null,
       "checked_at": "2026-11-02T12:45:51+00:00"
+    },
+    {
+      "url": "https://www.mcee.go.kr/home/web/board/read.do?boardId=1849370&boardMasterId=939&menuId=10598",
+      "domain": "www.mcee.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/heat-pump-electricity-tariff-2026-jeju-ess.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://www.mcee.go.kr/m/mob/board/read.do?boardId=1881100&boardMasterId=939&menuId=156",
+      "domain": "www.mcee.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/heat-pump-electricity-tariff-2026-jeju-ess.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
     },
     {
       "url": "https://www.mcst.go.kr/site/s_culture/festival/festivalView.jsp?pRo=91&pSeq=12926",
