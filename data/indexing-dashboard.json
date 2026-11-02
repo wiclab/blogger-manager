@@ -1,81 +1,85 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-01T23:50:20+00:00",
+    "last_successful_check_at": "2026-11-02T06:42:23+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": 0,
-    "eligible_pending_count": 121,
-    "held_batches_count": 0,
+    "blocked_uncertain_count": 100,
+    "daily_quota_remaining_before": 100,
+    "eligible_pending_count": 24,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-01T12:48:00+00:00",
     "monthly_quota_remaining_before": 2900,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 121,
+    "pending_count": 124,
     "per_run_cap": 100,
-    "published_count": 219,
+    "published_count": 220,
     "queue_summary": {
       "changed_since_submission": 0,
-      "first_time_pending": 121,
-      "older_or_undated": 109,
+      "first_time_pending": 24,
+      "older_or_undated": 24,
       "preview_note": "Illustrative next batch order, not a confirmed submission or queue wait duration.",
       "priority_preview": [
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/09/massage-chair-brand-comparison-guide.html"
         },
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/09/rice-cooker-keep-warm-vs-frozen-rice.html"
         },
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/steam-standard-deluxe-bundle-edition-guide.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/09/semiconductor-exports-drop-korea-total-exports.html"
         },
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/blog-post_26.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/08/teen-smartphone-use-time-per-year.html"
         },
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/energy-voucher-bill-deduction-2026.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/10/gas-stove-clicking-no-flame-checklist.html"
         },
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/salted-cabbage-20kg-kimjang-amount-guide.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/10/iksan-agape-garden-autumn-visit.html"
         },
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/2026-black-friday-overseas-shopping-customs-checklist.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/10/electric-heating-pad-monthly-electricity-cost.html"
         },
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/epe-obesity-drug-price-insurance-2026.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/09/google-nuclear-power-20-years-ai-electricity.html"
         },
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/steam-game-not-launching-refund-check.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/09/ai-data-center-korea-power-nuclear-20.html"
         },
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/2026-energy-voucher-winter-application-guide.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/09/seoul-fireworks-festival-one-million-people.html"
         },
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/hybrid-car-12v-battery-reset-jump-start-guide.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/10/head-bump-concussion-warning-signs.html"
         },
         {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/2027-suneung-day-commute-traffic-guide.html"
+          "reason": "older_or_undated",
+          "url": "https://wic12.blogspot.com/2026/09/life-experiment-001-monday-multiple-endings.html"
         }
       ],
-      "recent_new": 12,
+      "recent_new": 0,
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
     "recent_pending": [
+      "https://wic12.blogspot.com/2026/09/card-payment-after-withdrawal-cancel-refund.html",
+      "https://wic12.blogspot.com/2026/09/power-strip-daisy-chain-overload-calculator.html",
+      "https://wic12.blogspot.com/2026/09/auto-transfer-weekend-holiday-withdrawal.html",
+      "https://wic12.blogspot.com/2026/11/2026-december-car-tax-payment-prepaid-calculator.html",
       "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html",
       "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html",
       "https://wic12.blogspot.com/2026/10/steam-standard-deluxe-bundle-edition-guide.html",
@@ -83,15 +87,11 @@
       "https://wic12.blogspot.com/2026/10/energy-voucher-bill-deduction-2026.html",
       "https://wic12.blogspot.com/2026/10/salted-cabbage-20kg-kimjang-amount-guide.html",
       "https://wic12.blogspot.com/2026/10/2026-black-friday-overseas-shopping-customs-checklist.html",
-      "https://wic12.blogspot.com/2026/10/epe-obesity-drug-price-insurance-2026.html",
-      "https://wic12.blogspot.com/2026/10/steam-game-not-launching-refund-check.html",
-      "https://wic12.blogspot.com/2026/10/2026-energy-voucher-winter-application-guide.html",
-      "https://wic12.blogspot.com/2026/10/hybrid-car-12v-battery-reset-jump-start-guide.html",
-      "https://wic12.blogspot.com/2026/10/2027-suneung-day-commute-traffic-guide.html"
+      "https://wic12.blogspot.com/2026/10/epe-obesity-drug-price-insurance-2026.html"
     ],
-    "state": "quota_exhausted",
+    "state": "ok",
     "submitted_this_run": 0,
-    "tracked_submitted_count": 98
+    "tracked_submitted_count": 96
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -101,5 +101,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-01T23:50:20+00:00"
+  "updated_at": "2026-11-02T06:42:23+00:00"
 }
