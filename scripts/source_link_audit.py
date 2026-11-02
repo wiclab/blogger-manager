@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import concurrent.futures
 import datetime as dt
-import hashlib
 import ipaddress
 import json
 import os
@@ -177,10 +176,13 @@ def build_report(posts: list[dict], prior: dict[str, dict],
                  limit: int = MAX_SELECTED) -> dict:
     now = now or dt.datetime.now(dt.timezone.utc)
     links = gather(posts)
-    week = now.isocalendar().week
-    # Stable rotation ensures every URL eventually gets a turn even as old rows persist.
-    ordered = sorted(links, key=lambda url: hashlib.sha256(
-        (str(week) + ":" + url).encode("utf-8")).hexdigest())
+    # Prioritize never-checked links, then the oldest verified check time.
+    # This guarantees coverage across repeated runs when the set is stable.
+    ordered = sorted(links, key=lambda url: (
+        bool(prior.get(url, {}).get("checked_at")),
+        str(prior.get(url, {}).get("checked_at") or ""),
+        url,
+    ))
     selected = ordered[:max(0, min(limit, MAX_SELECTED))]
     results = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
