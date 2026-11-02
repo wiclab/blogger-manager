@@ -1,6 +1,12 @@
 name: Byeolsemso GSC read-only monitoring
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/gsc_monitor.py"
+      - "tests/test_gsc_monitor.py"
+      - ".github/workflows/gsc-monitor.yml"
   pull_request:
     paths:
       - "scripts/gsc_monitor.py"
