@@ -212,6 +212,7 @@ class Tags(html.parser.HTMLParser):
         super().__init__()
         self.canonicals = []
         self.robots = []
+        self.modified_at = None
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -219,6 +220,10 @@ class Tags(html.parser.HTMLParser):
             self.canonicals.append(a.get("href") or "")
         if tag == "meta" and (a.get("name") or "").lower() in ("robots", "googlebot"):
             self.robots.append(a.get("content") or "")
+        if tag == "meta" and a.get("property") == "article:modified_time":
+            self.modified_at = a.get("content")
+        if tag == "time" and "updated" in (a.get("class") or "").split():
+            self.modified_at = a.get("datetime") or self.modified_at
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -228,10 +233,20 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 def http_chain(url: str, max_hops: int = 4) -> dict:
     opener = urllib.request.build_opener(NoRedirect)
-    seen, current, status, body = set(), url, None, b""
+    seen, current, status, body, chain = set(), url, None, b"", []
+    checked_at = dt.datetime.now(dt.timezone.utc).isoformat()
+    def finish(result, reason, **extra):
+        return {"result": result, "reason": reason, "source": "ordinary_http_android",
+                "checked_at": checked_at, "chain": chain,
+                "redirects": sum(s.get("status") in (301, 302, 303, 307, 308) for s in chain),
+                "final_url": chain[-1]["url"] if chain else url,
+                "final_status": chain[-1]["status"] if chain else None,
+                "unfetched_target": current if chain and current != chain[-1]["url"] else None, **extra}
     for hop in range(max_hops + 1):
-        if current in seen or not is_blog_url(current, allow_query=True):
-            return {"result": "bad_redirect", "redirects": hop}
+        if current in seen:
+            return finish("bad_redirect", "redirect_loop")
+        if not is_blog_url(current, allow_query=True):
+            return finish("bad_redirect", "out_of_scope_target_not_followed")
         seen.add(current)
         req = urllib.request.Request(current, headers={"User-Agent": ANDROID_UA})
         try:
@@ -243,63 +258,86 @@ def http_chain(url: str, max_hops: int = 4) -> dict:
             status = e.code
             location = e.headers.get("Location")
             body = b""
-        except (urllib.error.URLError, TimeoutError):
-            return {"result": "network_error", "redirects": hop}
+        except (urllib.error.URLError, TimeoutError, OSError):
+            status = None
+            chain.append({"url": current, "status": None, "location": None})
+            return finish("network_error", "network_error")
+        chain.append({"url": current, "status": status, "location": location})
         if status in (301, 302, 303, 307, 308):
             if not location:
-                return {"result": "bad_redirect", "redirects": hop}
-            current = urllib.parse.urljoin(current, location)
+                return finish("bad_redirect", "missing_location")
+            if hop == max_hops:
+                return finish("bad_redirect", "redirect_limit_reached")
+            try:
+                current = urllib.parse.urljoin(current, location)
+            except ValueError:
+                return finish("bad_redirect", "invalid_location")
             continue
         if status != 200:
-            return {"result": "http_" + str(status), "redirects": hop}
+            return finish("http_" + str(status), "terminal_http_status")
         parser = Tags()
-        parser.feed(body.decode("utf-8", errors="replace"))
-        return {"result": "ok", "redirects": hop,
-                "canonical_ok": len(parser.canonicals) == 1 and
-                                 parser.canonicals[0] == url.split("?", 1)[0],
-                "noindex": any("noindex" in r.lower() for r in parser.robots)}
-    return {"result": "bad_redirect", "redirects": max_hops + 1}
+        text = body.decode("utf-8", errors="replace")
+        parser.feed(text)
+        modified = re.search(r'"dateModified"\s*:\s*"([^"<>]+)"', text)
+        origin = url.split("?", 1)[0]
+        mobile_redirect = len(chain) == 2 and chain[0]["status"] == 302 and current == origin + "?m=1"
+        return finish("ok", "normal_blogger_mobile_redirect" if mobile_redirect else "http_success",
+                      canonical_ok=len(parser.canonicals) == 1 and parser.canonicals[0] == origin,
+                      canonicals=parser.canonicals, noindex=any("noindex" in r.lower() for r in parser.robots),
+                      modified_at=modified[1] if modified else parser.modified_at)
+    raise AssertionError("unreachable")
 
 
 def collect(day: dt.date, previous: dict | None = None,
             detail_sink: list[dict] | None = None,
-            priority_urls: list[str] | None = None) -> dict:
+            priority_urls: list[str] | None = None,
+            focus_urls: list[str] | None = None,
+            legacy_http_urls: list[str] | None = None) -> dict:
     token = credentials_from_secret()
     all_urls = read_sitemap()
-    prioritized = [u for u in (priority_urls or []) if u in all_urls][:5]
-    regular = rotate(all_urls, day, MAX_INSPECTIONS - len(prioritized))
+    focused = list(dict.fromkeys(focus_urls or []))[:15]
+    if any(not is_blog_url(u) for u in focused):
+        raise RuntimeError("GSC_FOCUS_INVALID: outside allowed blog")
+    prioritized = [u for u in (priority_urls or []) if is_blog_url(u)][:6]
+    # Retain known targets even when absent from a sitemap; don't silently drop failures.
+    capacity = 26 if focused else MAX_INSPECTIONS
+    prioritized = list(dict.fromkeys(focused + prioritized))
+    regular = rotate(all_urls, day, max(0, capacity - len(prioritized)))
     urls = list(dict.fromkeys(prioritized + regular))
-    if len(urls) < min(MAX_INSPECTIONS, len(all_urls)):
+    if len(urls) < min(capacity, len(all_urls)):
         urls.extend(u for u in all_urls if u not in urls)
-        urls = urls[:MAX_INSPECTIONS]
+        urls = urls[:capacity]
     if not urls:
         raise RuntimeError("No URLs selected")
     outcomes, errors, mobile_differences = [], {}, 0
     mobile_checked = 0
+    fatal = ("GSC_API_DISABLED", "GSC_PROPERTY_PERMISSION", "GSC_AUTH_SCOPE",
+             "GSC_ACCESS_401", "GSC_ACCESS_403", "GSC_API_QUOTA_429",
+             "GSC permission denied", "GSC API quota")
     for index, url in enumerate(urls):
-        try:
-            original = inspect(url, token)
-            outcomes.append(original)
-            entry = {"url": url, "original": original, "mobile": None, "http": None}
-            if detail_sink is not None:
-                detail_sink.append(entry)
-            if index < MAX_MOBILE_INSPECTIONS:
-                mobile = inspect(url + "?m=1", token)
-                if detail_sink is not None:
-                    entry["mobile"] = mobile
-                mobile_checked += 1
-                if ((original.get("verdict"), original.get("coverageState")) !=
-                    (mobile.get("verdict"), mobile.get("coverageState"))):
-                    mobile_differences += 1
-        except RuntimeError as e:
-            category = str(e)
-            errors[category] = errors.get(category, 0) + 1
-            if category.startswith((
-                "GSC_API_DISABLED", "GSC_PROPERTY_PERMISSION", "GSC_AUTH_SCOPE",
-                "GSC_ACCESS_401", "GSC_ACCESS_403", "GSC_API_QUOTA_429",
-                "GSC permission denied", "GSC API quota"
-            )):
-                raise RuntimeError(category) from None
+        entry = {"url": url, "original": {}, "mobile": None, "http": None,
+                 "inspection_source": "gsc_saved_url_inspection_api", "errors": {}}
+        variants = ("original", "mobile") if url in focused or index < MAX_MOBILE_INSPECTIONS else ("original",)
+        for variant in variants:
+            try:
+                data = inspect(url + ("?m=1" if variant == "mobile" else ""), token)
+                entry[variant] = data
+                if variant == "original":
+                    outcomes.append(data)
+                else:
+                    mobile_checked += 1
+            except RuntimeError as e:
+                category = str(e)
+                errors[category] = errors.get(category, 0) + 1
+                entry["errors"][variant] = category
+                if category.startswith(fatal):
+                    raise RuntimeError(category) from None
+        if entry["original"] and entry["mobile"] and any(
+                entry["original"].get(k) != entry["mobile"].get(k) for k in
+                ("verdict", "coverageState", "pageFetchState", "lastCrawlTime", "userCanonical", "googleCanonical")):
+            mobile_differences += 1
+        if detail_sink is not None:
+            detail_sink.append(entry)
     if not outcomes:
         raise RuntimeError("No successful GSC inspections; report unchanged")
     counts = {"indexed": 0, "not_indexed": 0, "unknown": 0,
@@ -326,18 +364,27 @@ def collect(day: dt.date, previous: dict | None = None,
                 counts["recent_crawl"] += 1
         except ValueError:
             pass
-    checks = [http_chain(url) for url in urls[:MAX_HTTP_PROBES]]
+    http_urls = list(dict.fromkeys([u for u in (legacy_http_urls or []) if is_blog_url(u)] + focused + urls[:MAX_HTTP_PROBES]))[:29]
+    checks = [http_chain(url) for url in http_urls]
     if detail_sink is not None:
         details_by_url = {e["url"]: e for e in detail_sink}
-        for url, check in zip(urls[:MAX_HTTP_PROBES], checks):
+        for url, check in zip(http_urls, checks):
             if url in details_by_url:
                 details_by_url[url]["http"] = check
+            else:
+                detail_sink.append({"url": url, "original": {}, "mobile": None,
+                                    "http": check, "inspection_source": "not_inspected_this_run"})
     http_summary = {"checked": len(checks), "ok": sum(c["result"] == "ok" for c in checks),
                     "redirect_problem": sum(c["result"] == "bad_redirect" for c in checks),
                     "other_error": sum(c["result"] not in ("ok", "bad_redirect") for c in checks),
                     "canonical_mismatch": sum(c["result"] == "ok" and
                                               not c["canonical_ok"] for c in checks),
                     "noindex": sum(bool(c.get("noindex")) for c in checks)}
+    from collections import Counter
+    http_summary["reason_counts"] = dict(Counter(c.get("reason", "legacy_unknown") for c in checks))
+    legacy_checks = [c for u, c in zip(http_urls, checks) if u in (legacy_http_urls or [])]
+    http_summary["previous_anomalies_rechecked"] = len(legacy_checks)
+    http_summary["previous_anomaly_results"] = dict(Counter(c.get("reason", "legacy_unknown") for c in legacy_checks))
     time = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
     alerts = sorted(x for x, hit in (
         ("http_redirect", http_summary["redirect_problem"] > 0),
@@ -402,13 +449,28 @@ def main() -> int:
                 previous_details = gsc_private.decrypt(sealed, detail_passphrase)
             except (ValueError, OSError):
                 raise RuntimeError("GSC_DETAIL_ENCRYPTED_INVALID: refusing overwrite") from None
-    selected_focus = (gsc_private.recurring_priority(previous_details, read_sitemap())
+    selected_focus = (gsc_private.recurring_priority(previous_details,
+                      [r["url"] for r in (previous_details or {}).get("records", [])])
                       if detail_passphrase else None)
+    from scripts import gsc_diagnostics
+    legacy_http_urls = [r["url"] for r in (previous_details or {}).get("records", [])
+                        if (r.get("observations") or [{}])[-1].get("http", {}) and
+                        (r.get("observations") or [{}])[-1]["http"].get("result") == "bad_redirect"][:6]
+    selected_focus = list(dict.fromkeys(legacy_http_urls + (selected_focus or [])))[:6]
     result = collect(dt.datetime.now(dt.timezone.utc).date(), previous,
-                     detail_sink=details, priority_urls=selected_focus)
+                     detail_sink=details, priority_urls=selected_focus,
+                     focus_urls=list(gsc_diagnostics.FOCUS_URLS) if detail_passphrase else None,
+                     legacy_http_urls=legacy_http_urls)
     output.parent.mkdir(parents=True, exist_ok=True)
     if detail_passphrase:
-        next_details = gsc_private.merge(previous_details, details, result["updated_at"])
+        next_details = gsc_private.merge(previous_details, details, result["updated_at"],
+                                        gsc_diagnostics.crawl_evidence_from_secret())
+        tracked = [r for r in next_details["records"] if r["url"] in gsc_diagnostics.FOCUS_URLS]
+        result["tracking"] = {"focus_target": 15, "focus_recorded": len(tracked),
+            "crawl_stats_evidence_loaded": len(next_details.get("crawl_evidence", [])),
+            "crawl_stats_mismatches": sum(bool(r["observations"][-1].get("crawl_stats_mismatches")) for r in tracked),
+            "modified_dates_known": sum(bool(r.get("modified_at")) for r in tracked),
+            "successful_recrawls_after_modification": sum(any(v == "successful_after_modification" for v in r["observations"][-1]["recrawl"]["variants"].values()) for r in tracked)}
         encrypted = gsc_private.encrypt(next_details, detail_passphrase)
         encrypted_tmp = encrypted_path.with_suffix(".tmp")
         encrypted_tmp.write_text(json.dumps(encrypted, separators=(",", ":")) + "\n",

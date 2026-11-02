@@ -35,7 +35,7 @@ a{color:#2158ab}a:focus-visible{outline:3px solid #f59e0b}
 .private-controls .secondary{background:#e8edf5;color:var(--ink)}
 #private-findings{display:none;margin-top:12px}
 #private-findings[aria-hidden="false"]{display:block}
-#private-findings td{word-break:break-word;vertical-align:top}
+#private-findings td{word-break:break-word;vertical-align:top;white-space:pre-line}
 .private-url{font-size:.83rem;word-break:break-all}
 .private-details{font-size:.84rem;color:var(--muted)}
 .private-details summary{cursor:pointer;color:#2158ab}
@@ -92,13 +92,20 @@ a{color:#2158ab}a:focus-visible{outline:3px solid #f59e0b}
      <option value="priority">우선 검사 대상</option>
      <option value="fetch">GSC 가져오기 문제</option>
      <option value="mobile">원본 / 모바일 GSC 기록 차이</option>
+     <option value="tracking">보고서 15개 추적</option>
+     <option value="legacy">기존 HTTP 이상 재검사</option>
+     <option value="http">HTTP 경로 이상</option>
+     <option value="mismatch">크롤링 통계 / 저장 검사 불일치</option>
+     <option value="changed">상태 변경</option>
      <option value="nonindexed">미색인</option>
      <option value="all">전체 기록</option>
    </select></label>
   </div>
   <p id="private-count" class="muted"></p>
+  <label>크롤링 통계 증거 JSON (선택·이 기기에서만 적용) <input id="crawl-evidence-file" type="file" accept="application/json,.json"></label>
+  <p id="crawl-evidence-status" class="muted">크롤링 통계 API는 없어. 가져온 기록이 없으면 비교 미실시로 표시해.</p>
   <div style="overflow-x:auto"><table>
-   <thead><tr><th>글 URL</th><th>우선순위</th><th>색인 / 가져오기</th><th>크롤링</th><th>상세 정보</th></tr></thead>
+   <thead><tr><th>글 URL</th><th>관측 / 원인</th><th>원본 · 모바일</th><th>검사 · 변경</th><th>상세 정보</th></tr></thead>
    <tbody id="private-list"></tbody>
   </table></div>
   <p class="muted">이 수치는 같은 글의 마지막 검사 기록을 보여 줘. 이전 상태와 비교하려면 상세 정보에 표시되는 검사 날짜를 함께 확인해. 모바일 기록 차이만으로 색인 오류를 단정할 수 없어.</p>
@@ -133,7 +140,7 @@ function render(data){
  set("mobile",count(s.mobile_gsc_compared));set("different",count(s.mobile_status_differences));
  set("httpok",count(h.ok));set("redirect",count(h.redirect_problem));
  set("details","대상 URL "+count(s.eligible_urls)+"개 중 이번 표본 "+count(s.inspected_original)+"개 · 검사 실패 "+count(s.inspection_errors)+"건 · 가져오기 문제 "+count(c.fetch_problem)+"건 · robots 차단 "+count(c.robots_blocked)+"건 · noindex "+count(c.noindex)+"건");
- set("httpdetails","HTTP 검사 "+count(h.checked)+"개 · canonical 불일치 "+count(h.canonical_mismatch)+"개 · 그 밖의 HTTP/네트워크 오류 "+count(h.other_error)+"개");
+ set("httpdetails","일반 HTTP 검사 "+count(h.checked)+"개 · canonical 차이 "+count(h.canonical_mismatch)+"개 · HTTP/네트워크 오류 "+count(h.other_error)+"개 · 과거 이동 이상 재검사 "+count(h.previous_anomalies_rechecked)+"개 · 정상 모바일 이동 "+count(h.reason_counts?.normal_blogger_mobile_redirect)+"개");
  const total=(c.indexed||0)+(c.not_indexed||0)+(c.unknown||0);
  const bar=$("coverage");bar.replaceChildren();if(total){for(const [klass,v] of [["yes",c.indexed],["no",c.not_indexed],["unknown",c.unknown]]){const span=document.createElement("span");span.className=klass;span.style.width=((v||0)/total*100)+"%";bar.append(span)}}
  const body=$("history");body.replaceChildren();
@@ -158,6 +165,7 @@ function render(data){
 const PRIVATE_DATA="https://raw.githubusercontent.com/wiclab/blogger-manager/gsc-data/data/gsc-details.enc.json";
 const PRIVATE_AAD="byeolsemso-gsc-private-v1|https://wic12.blogspot.com/";
 let privateReport=null;
+let localCrawlEvidence=[];
 const base64bytes=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 async function decryptPrivateDocument(sealed,passphrase){
  if(!sealed||sealed.schema!==1||sealed.site!=="https://wic12.blogspot.com/"||
@@ -183,12 +191,44 @@ function safeBlogUrl(s){
 }
 function latestObservation(row){const a=row.observations;return Array.isArray(a)&&a.length?a[a.length-1]:null}
 function fieldLine(label,val){return label+": "+(val==null||val===""?"기록 없음":String(val))}
+function reasonLabel(reason){return ({CURRENT_HTTP_ERROR:"현재 일반 HTTP 이상",INDEXING_DIRECTIVE_OR_ROBOTS:"색인 지시문 관측",SAVED_GSC_FETCH_PROBLEM:"저장된 Google 가져오기 실패",CURRENT_CANONICAL_DIFFERENCE:"일반 HTTP canonical 차이",GSC_ORIGINAL_MOBILE_DIFFERENCE:"원본/모바일 저장 기록 차이",NOT_INDEXED_CAUSE_UNCONFIRMED:"미색인",INDEXED_SNAPSHOT:"저장된 색인 확인"})[reason]||"관측 정보 부족"}
+function evidenceMismatch(r){
+ const o=latestObservation(r),found=[...(o?.crawl_stats_mismatches||[])];
+ for(const e of localCrawlEvidence){
+  if(e.url.split("?")[0]!==r.url||e.status!==200)continue;
+  const variant=e.url.endsWith("?m=1")?"mobile":"original",saved=o?.[variant];
+  if(saved&&(!saved.lastCrawlTime||Date.parse(e.crawled_at)>Date.parse(saved.lastCrawlTime)))
+   found.push({variant,evidence:e,cause:"원인 미확정"});
+ }
+ return found;
+}
+$("crawl-evidence-file").addEventListener("change",async e=>{
+ try{
+  const file=e.target.files[0];if(!file)return;
+  if(!privateReport)throw Error("먼저 상세 기록 잠금을 해제해 줘");
+  if(file.size>1000000)throw Error("증거 파일은 1MB 이하만 허용해");
+  const data=JSON.parse(await file.text());
+  if(!Array.isArray(data)||data.length>500||data.some(x=>{
+   if(!x||typeof x.url!=="string")return true;
+   const original=x.url.split("?")[0];
+   return !safeBlogUrl(original)||![original,original+"?m=1"].includes(x.url)||
+    !Number.isInteger(x.status)||x.status<100||x.status>599||!Number.isFinite(Date.parse(x.crawled_at));
+  }))throw Error("증거 JSON 형식이 맞지 않아");
+  localCrawlEvidence=data.map(x=>({url:x.url,status:x.status,crawled_at:x.crawled_at,source:"local_manual_crawl_stats_import"}));
+  set("crawl-evidence-status",data.length+"건을 이 기기에서만 비교해. 서버 업로드·저장은 하지 않았어.");renderPrivate();
+ }catch(error){localCrawlEvidence=[];set("crawl-evidence-status",error.message);renderPrivate();}
+});
 function renderPrivate(){
  const body=$("private-list");body.replaceChildren();if(!privateReport)return;
  const filter=$("private-filter").value;
  let rows=privateReport.records.filter(r=>safeBlogUrl(r.url)&&latestObservation(r));
  rows=rows.filter(r=>{
   const o=latestObservation(r),g=o.original||{};
+  if(filter==="legacy")return r.previous_http_anomaly===true;
+  if(filter==="tracking")return r.tracked_focus===true;
+  if(filter==="http")return !!o.http&&o.http.result!=="ok";
+  if(filter==="mismatch")return evidenceMismatch(r).length>0;
+  if(filter==="changed")return (o.changes||[]).length>0;
   if(filter==="priority")return r.priority<=2;
   if(filter==="fetch")return r.reason==="SAVED_GSC_FETCH_PROBLEM"||
     (g.pageFetchState&&g.pageFetchState!=="SUCCESSFUL"&&g.pageFetchState!=="PAGE_FETCH_STATE_UNSPECIFIED");
@@ -205,9 +245,9 @@ function renderPrivate(){
   const td=document.createElement("td"),a=document.createElement("a");a.href=r.url;a.target="_blank";a.rel="noopener noreferrer";
   a.className="private-url";a.textContent=r.url.replace("https://wic12.blogspot.com/","/");
   td.append(a);tr.append(td);
-  cell(r.priority===1?"높음":r.priority===2?"확인 필요":"일반").className="private-priority";
-  cell((g.verdict||"미확인")+" / "+(g.pageFetchState||"가져오기 기록 없음"));
-  cell(g.lastCrawlTime?stamp(g.lastCrawlTime):"기록 없음");
+  cell(reasonLabel(r.reason)+" · 원인 미확정").className="private-priority";
+  cell("원본: "+(g.coverageState||g.verdict||"미확인")+" / "+(g.pageFetchState||"기록 없음")+"\n?m=1: "+(latest.mobile?.coverageState||latest.mobile?.verdict||"미검사")+" / "+(latest.mobile?.pageFetchState||"기록 없음"));
+  cell("검사: "+stamp(latest.observed_at)+"\n원본 크롤링: "+(g.lastCrawlTime?stamp(g.lastCrawlTime):"기록 없음")+"\n모바일 크롤링: "+(latest.mobile?.lastCrawlTime?stamp(latest.mobile.lastCrawlTime):"기록 없음")+"\n이전 대비: "+(latest.changes?.length||0)+"개 필드 변경");
   const extra=document.createElement("td"),box=document.createElement("details");box.className="private-details";
   const caption=document.createElement("summary");caption.textContent="자세히";box.append(caption);
   const pre=document.createElement("pre");
@@ -224,8 +264,8 @@ function renderPrivate(){
   ].join("\n");
   const history=(r.observations||[]).map(o=>o.date+": "+(o.original?.verdict||"미확인")+
    " / "+(o.original?.pageFetchState||"기록 없음")).join("\n");
-  pre.textContent="진단 분류: "+r.reason+"\n모바일 기록 차이: "+(latest.mobile_difference?"있음":"없음/미검사")+
-   "\n현재 HTTP 결과: "+(latest.http?.result||"미검사")+"\n\n"+describe(g,"원본 ")+"\n\n"+
+  pre.textContent="진단 분류: "+reasonLabel(r.reason)+"\n모바일 기록 차이: "+(latest.mobile_difference?"있음":"없음/미검사")+
+   "\n현재 일반 HTTP 결과 (실제 Googlebot 아님): "+(latest.http?.result||"미검사")+" / "+(latest.http?.reason||"과거 상세 미수집")+"\nHTTP 검사시각: "+(latest.http?.checked_at||"기록 없음")+"\n이동 횟수: "+(latest.http?.redirects??"미확인")+" / 최종 응답: "+(latest.http?.final_status??"미확인")+"\n최종 URL: "+(latest.http?.final_url||"미확인")+"\n경로:\n"+(latest.http?.chain||[]).map(h=>h.url+" → "+(h.status??"응답 없음")+" / Location: "+(h.location||"없음")).join("\n")+"\n최신 수정일: "+(latest.recrawl?.modified_at||"미확인")+"\n수정 후 재수집: "+JSON.stringify(latest.recrawl?.variants||{})+"\n색인 전환 / 단순 가져오기 회복: "+JSON.stringify(latest.transitions||{})+"\n크롤링 통계 불일치: "+(evidenceMismatch(r).length?JSON.stringify(evidenceMismatch(r)):"제공 증거에서 확인 안 됨 / 미비교")+"\n이전 대비 필드 차이:\n"+JSON.stringify(latest.changes||[],null,2)+"\n동일 날짜 포함 변경 이력:\n"+JSON.stringify(r.events||[],null,2)+"\n검사 실패: "+JSON.stringify(latest.errors||{})+"\n\n"+describe(g,"원본 ")+"\n\n"+
    (latest.mobile?describe(latest.mobile,"?m=1 "):"모바일 GSC 미검사")+
    "\n\n이전 검사 기록:\n"+history;
   box.append(pre);extra.append(box);tr.append(extra);body.append(tr);
@@ -248,13 +288,13 @@ $("private-unlock-form").addEventListener("submit",async e=>{
   set("private-message","잠금 해제 완료 · 이 화면에서만 복호화했어. 브라우저를 닫으면 기록은 사라져.");
   renderPrivate();
  }catch(error){
-  privateReport=null;$("private-findings").setAttribute("aria-hidden","true");
+  privateReport=null;localCrawlEvidence=[];$("private-findings").setAttribute("aria-hidden","true");
   set("private-message",error.name==="OperationError"?"암호가 맞지 않거나 암호화 자료가 손상됐어.":error.message||"잠금 해제 실패");
  }finally{btn.disabled=false;}
 });
 $("private-lock").addEventListener("click",()=>{
- privateReport=null;$("private-findings").setAttribute("aria-hidden","true");
- $("private-list").replaceChildren();$("private-passphrase").value="";
+ privateReport=null;localCrawlEvidence=[];$("private-findings").setAttribute("aria-hidden","true");
+ $("private-list").replaceChildren();$("private-passphrase").value="";$("crawl-evidence-file").value="";
  set("private-message","화면의 복호화된 기록을 닫았어.");
 });
 $("private-filter").addEventListener("change",renderPrivate);
