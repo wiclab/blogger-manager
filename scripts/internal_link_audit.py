@@ -159,7 +159,7 @@ def specific_labels(post: dict) -> set[str]:
 
 
 def opportunities(posts: list[dict], incoming: dict[str, set[str]],
-                  outgoing: dict[str, set[str]], limit: int = 100) -> dict:
+                  outgoing: dict[str, set[str]], limit: int = 500) -> dict:
     """Candidate links only: 0/1 body inlinks, not proof of Google orphan status."""
     by_url = {p["url"]: p for p in posts}
     words = {u: title_terms(p.get("title", "")) for u, p in by_url.items()}
