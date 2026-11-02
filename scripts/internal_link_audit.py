@@ -7,6 +7,7 @@ redirect. Never modify Blogger posts, submit URLs, or publish API keys.
 from __future__ import annotations
 
 import datetime as dt
+from collections import Counter
 from html.parser import HTMLParser
 import json
 import os
@@ -125,15 +126,30 @@ def fetch_live_posts(api_key: str) -> list[dict]:
     return normalized
 
 
-GENERIC_TERMS = {"방법", "확인", "비교", "정리", "기준", "추천", "정보", "계산기",
-                 "가이드", "2026", "2027", "대한민국", "한국", "어떻게", "사용", "이유",
-                 "guide", "how", "best", "the", "for", "and"}
-GENERIC_LABELS = {"생활정보", "생활 정보", "정보", "블로그", "blog", "data"}
+GENERIC_TERMS = {
+    "방법", "확인", "확인하기", "확인할", "비교", "정리", "기준", "추천", "정보",
+    "계산기", "계산", "가이드", "2026", "2027", "대한민국", "한국",
+    "어떻게", "사용", "이유", "안내", "순서", "시간", "개월", "만원", "진짜",
+    "얼마나", "얼마", "내야", "할까", "될까", "해야", "싶다면", "해지하면",
+    "다를까", "뭐가", "사야", "언제", "전", "후", "기록", "일정", "종료된",
+    "준비물", "지나면", "차이", "할인", "무료", "계속", "켜기", "다시",
+    "매일", "하루", "일반", "만약", "변경", "공식", "기본", "핵심", "관리",
+    "사례", "차이와", "상세", "누가", "어떤", "가지", "수수료", "할인", "대응",
+    "체크", "체크리스트", "계산해봤습니다", "방법은", "됐는데", "바꾸면",
+    "줄어들까", "안에", "분", "달", "개월권", "정말", "왜", "서비스",
+    "휴대폰", "스마트폰", "아이폰", "갤럭시", "인터넷", "구글", "서울",
+    "게임", "카드", "결제", "얼마일까", "될까요", "미리", "사용법", "안전",
+    "목록", "일정은", "놓치면", "사이트", "조건", "필요", "대상", "결과",
+    "the", "for", "and", "guide", "how", "best",
+}
+GENERIC_LABELS = {"생활정보", "생활 정보", "정보", "블로그", "blog", "data",
+                  "생활계산", "게임", "건강·운동", "건강", "생활"}
 TITLE_WORD = re.compile(r"[가-힣]{2,}|[a-zA-Z0-9]{3,}")
 
 
 def title_terms(value: str) -> set[str]:
-    return {x for x in TITLE_WORD.findall(value.lower()) if x not in GENERIC_TERMS}
+    return {x for x in TITLE_WORD.findall(value.lower())
+            if x not in GENERIC_TERMS and not x.isdigit()}
 
 
 def specific_labels(post: dict) -> set[str]:
@@ -148,6 +164,7 @@ def opportunities(posts: list[dict], incoming: dict[str, set[str]],
     by_url = {p["url"]: p for p in posts}
     words = {u: title_terms(p.get("title", "")) for u, p in by_url.items()}
     labels = {u: specific_labels(p) for u, p in by_url.items()}
+    frequency = Counter(term for terms in words.values() for term in terms)
     counts = {u: len(incoming[u]) for u in by_url}
     # Most isolated first, then oldest publish date (unknown dates last).
     candidates = sorted(by_url, key=lambda u: (
@@ -161,15 +178,21 @@ def opportunities(posts: list[dict], incoming: dict[str, set[str]],
                 continue
             common = sorted(words[target] & words[source])
             overlap = sorted(labels[target] & labels[source])
-            # A general-purpose Blogger label does not prove meaningful relevance.
-            if len(common) < 2 and not (common and overlap):
+            # Require at least one distinct, relatively rare topic expression:
+            # generic words and common devices/categories alone are not evidence.
+            distinctive = [term for term in common
+                           if len(term) >= 3 and frequency[term] <= 4]
+            if not distinctive:
+                continue
+            if len(common) < 2 and not overlap and not any(
+                    frequency[term] == 2 for term in distinctive):
                 continue
             suggestions.append({
                 "source": source,
                 "source_title": by_url[source].get("title") or source.rsplit("/", 1)[-1],
                 "shared_terms": common[:5],
                 "shared_labels": overlap[:3],
-                "confidence": "title_and_label" if overlap else "title_terms",
+                "confidence": "title_and_label" if overlap else "rare_title_term",
             })
         suggestions.sort(key=lambda x: (-len(x["shared_terms"]),
                                          -len(x["shared_labels"]), x["source"]))
@@ -191,7 +214,7 @@ def opportunities(posts: list[dict], incoming: dict[str, set[str]],
                       "site navigation, home, labels, sitemap and external links are "
                       "not included. Zero body inlinks does NOT prove orphaned URL, "
                       "low quality or Google indexing failure. Suggestions are "
-                      "conservative title/label overlap candidates, not a directive "
+                      "conservative distinctive title/label overlap candidates, not a directive "
                       "to add unrelated links.",
     }
 
