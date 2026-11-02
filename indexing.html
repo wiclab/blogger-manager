@@ -38,6 +38,12 @@ a{color:#245ee4}footer{text-align:center;color:#6b7990;font-size:12px;padding:8p
 <main class="wrap">
 <div class="actions"><span id="refreshed" class="muted">보고서 불러오는 중</span><button id="refresh" type="button" class="button">새로고침</button></div>
 <div class="layout" style="margin-top:13px">
+<section class="panel full" aria-labelledby="link-gap-title">
+  <div class="titleline"><h2 id="link-gap-title">내부링크 사각지대 자동 점검</h2><span class="badge">매주 자동 검사</span></div>
+  <p>다른 공개 글 <strong>본문에서 연결되지 않은 글(0개)</strong>과 연결이 1개뿐인 글을 찾아. 제목·주제가 충분히 겹치는 기존 글이 있으면 내부링크 추가를 검토할 후보로 함께 보여줘.</p>
+  <p class="note">게시글 본문 링크만 계산하고 메뉴·라벨·사이트맵은 제외해. 유입 링크가 0개여도 Google이 방문할 수 있으며, 색인 누락의 확정 원인은 아니야. 자동으로 본문을 수정하거나 링크를 삽입하지 않아.</p>
+  <p><a href="https://github.com/wiclab/blogger-manager/actions/workflows/internal-link-audit.yml" target="_blank" rel="noopener noreferrer">최신 검사 실행과 링크 보강 후보 확인</a> · <a href="https://github.com/wiclab/blogger-manager/actions/workflows/internal-link-audit.yml" target="_blank" rel="noopener noreferrer">검사 수동 실행</a></p>
+</section>
 <section class="panel full">
 <div class="titleline"><h2>① Bing API URL 제출 기록</h2><span id="submission-status" class="badge">확인 중</span></div>
 <div class="cards">
