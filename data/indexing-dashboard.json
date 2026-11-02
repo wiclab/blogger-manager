@@ -1,19 +1,19 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-02T06:42:23+00:00",
+    "last_successful_check_at": "2026-11-02T06:42:27+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 100,
+    "blocked_uncertain_count": 0,
     "daily_quota_remaining_before": 100,
     "eligible_pending_count": 24,
-    "held_batches_count": 1,
-    "last_successful_submission_at": "2026-11-01T12:48:00+00:00",
+    "held_batches_count": 0,
+    "last_successful_submission_at": "2026-11-02T06:42:27+00:00",
     "monthly_quota_remaining_before": 2900,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 124,
+    "pending_count": 24,
     "per_run_cap": 100,
     "published_count": 220,
     "queue_summary": {
@@ -76,22 +76,22 @@
       "without_modified_timestamp": 0
     },
     "recent_pending": [
-      "https://wic12.blogspot.com/2026/09/card-payment-after-withdrawal-cancel-refund.html",
-      "https://wic12.blogspot.com/2026/09/power-strip-daisy-chain-overload-calculator.html",
-      "https://wic12.blogspot.com/2026/09/auto-transfer-weekend-holiday-withdrawal.html",
-      "https://wic12.blogspot.com/2026/11/2026-december-car-tax-payment-prepaid-calculator.html",
-      "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html",
-      "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html",
-      "https://wic12.blogspot.com/2026/10/steam-standard-deluxe-bundle-edition-guide.html",
-      "https://wic12.blogspot.com/2026/10/blog-post_26.html",
-      "https://wic12.blogspot.com/2026/10/energy-voucher-bill-deduction-2026.html",
-      "https://wic12.blogspot.com/2026/10/salted-cabbage-20kg-kimjang-amount-guide.html",
-      "https://wic12.blogspot.com/2026/10/2026-black-friday-overseas-shopping-customs-checklist.html",
-      "https://wic12.blogspot.com/2026/10/epe-obesity-drug-price-insurance-2026.html"
+      "https://wic12.blogspot.com/2026/10/2027-suneung-day-commute-traffic-guide.html",
+      "https://wic12.blogspot.com/2026/09/mister-trot-4-audition-video-one-vs-two-songs_01884627881.html",
+      "https://wic12.blogspot.com/2026/10/switch2-existing-games-compatibility-upgrade-pass.html",
+      "https://wic12.blogspot.com/2026/10/nintendo-switch-online-worth-it-expansion-pack.html",
+      "https://wic12.blogspot.com/2026/10/switch2-game-key-card-download-guide.html",
+      "https://wic12.blogspot.com/2026/10/switch2-microsd-express-256gb-512gb-storage.html",
+      "https://wic12.blogspot.com/2026/10/elden-ring-editions-base-game-dlc-deluxe-guide.html",
+      "https://wic12.blogspot.com/2026/09/first-trail-running-too-hard-recovery.html",
+      "https://wic12.blogspot.com/2026/08/7.html",
+      "https://wic12.blogspot.com/2026/10/running-phone-pocket-belt-armband-guide.html",
+      "https://wic12.blogspot.com/2026/10/night-running-reflective-bands-lights-guide.html",
+      "https://wic12.blogspot.com/2026/09/how-long-should-i-run-weekly-calculator.html"
     ],
     "state": "ok",
-    "submitted_this_run": 0,
-    "tracked_submitted_count": 96
+    "submitted_this_run": 100,
+    "tracked_submitted_count": 196
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -101,5 +101,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-02T06:42:23+00:00"
+  "updated_at": "2026-11-02T06:42:27+00:00"
 }
