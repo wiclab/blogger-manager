@@ -116,7 +116,7 @@ async function load(){try{const response=await fetch("https://raw.githubusercont
 $("refresh").addEventListener("click",load);$("filter").addEventListener("change",renderStaleList);$("term").addEventListener("input",renderStaleList);load();
 
 /* Load the shared CMS navigation without adding another static script tag. */
-(function(){var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
+(function(){if(!document.head)return;var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
 </script>
 </body>
 </html>

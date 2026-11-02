@@ -93,5 +93,5 @@ async function load(){
 $('more').onclick=()=>{shown+=30;render();};$('load').onclick=load;$('category').onchange=()=>{if(snapshot){shown=30;render();}};$('search').oninput=()=>{if(snapshot)render();};$('copyAll').onclick=()=>copyText(visible().map((x,i)=>(i+1)+'. '+x.title+'\n'+x.source+' · '+date(x.publishedAt)+'\n'+x.url).join('\n\n'));
 
 /* Load the shared CMS navigation without adding another static script tag. */
-(function(){var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
+(function(){if(!document.head)return;var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
 </script></body></html>

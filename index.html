@@ -3812,7 +3812,7 @@ window.addEventListener(
 
 
 /* Load the shared CMS navigation without adding another static script tag. */
-(function(){var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
+(function(){if(!document.head)return;var cms=document.createElement('script');cms.src='./assets/cms-shell.js';cms.async=true;document.head.appendChild(cms);})();
 </script>
 
 </body>
