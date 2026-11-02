@@ -21,7 +21,6 @@
 @media(max-width:680px){.quality-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.quality-categories{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style><link rel="stylesheet" href="./assets/manager-header.css">
 <link rel="stylesheet" href="./assets/cms-shell.css">
-<script src="./assets/cms-shell.js" defer></script>
 </head>
 <body>
 <header class="bm-hero"><div class="bm-wrap"><h1 class="bm-title">오늘의 뉴스</h1><p class="bm-sub">최근 수집한 뉴스에서 새로운 글감 찾기</p><nav class="bm-nav" aria-label="관리자 메뉴"><a href="./">콘텐츠 관리</a><a href="./seo.html">Bing · 글 갱신</a><a href="./indexing.html">색인 제출 현황</a><a href="./gsc.html">Google 색인 관제</a><a href="./sources.html">출처 링크 점검</a><a href="./write.html">주제 발굴</a><a href="./editor.html">글 편집·발행</a><a href="./news.html" aria-current="page">뉴스</a><a href="./intelligence.html">뉴스 인텔리전스</a></nav></div></header>
@@ -92,4 +91,5 @@ async function load(){
  catch(error){$('status').textContent=error.message+(snapshot?' 이전에 조회한 목록을 유지합니다.':'');}finally{$('load').disabled=false;}
 }
 $('more').onclick=()=>{shown+=30;render();};$('load').onclick=load;$('category').onchange=()=>{if(snapshot){shown=30;render();}};$('search').oninput=()=>{if(snapshot)render();};$('copyAll').onclick=()=>copyText(visible().map((x,i)=>(i+1)+'. '+x.title+'\n'+x.source+' · '+date(x.publishedAt)+'\n'+x.url).join('\n\n'));
-</script></body></html>
+</script><script src="./assets/cms-shell.js" defer></script>
+</body></html>
