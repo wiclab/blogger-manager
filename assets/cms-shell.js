@@ -2,7 +2,7 @@
 (function(){
 'use strict';
 var groups=[
- {title:'작업 공간',items:[['dashboard.html','운영 대시보드','◫'],['index.html','게시글 관리','▤'],['editor.html','글 편집·발행','✎']]},
+ {title:'작업 공간',items:[['dashboard.html','운영 대시보드','◫'],['traffic.html','방문 통계','📊'],['index.html','게시글 관리','▤'],['editor.html','글 편집·발행','✎']]},
  {title:'콘텐츠 기획',items:[['news.html','뉴스 수집','▣'],['intelligence.html','뉴스 인텔리전스','✧'],['write.html','주제 발굴','◎']]},
  {title:'검색 · 품질',items:[['seo.html','Bing · 글 갱신','↗'],['indexing.html','색인 제출 현황','⇧'],['gsc.html','Google 색인 관제','⌕'],['sources.html','출처 링크 점검','🔗']]}
 ];
