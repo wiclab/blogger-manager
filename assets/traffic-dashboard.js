@@ -6,10 +6,10 @@ const WORKER='https://blogger-manager-api.chldndlf91.workers.dev';
 const API='https://www.googleapis.com/blogger/v3';
 const SITE='wic12.blogspot.com';
 const $=id=>document.getElementById(id);
-const fmt=n=>Number.isSafeInteger(Number(n))&&Number(n)>=0?Number(n).toLocaleString('ko-KR'):'—';
+const fmt=n=>n!==null&&n!==undefined&&n!==''&&Number.isSafeInteger(Number(n))&&Number(n)>=0?Number(n).toLocaleString('ko-KR'):'—';
 const now=()=>new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});
 let token='',expires=0,blogId='',oauthClient=null,busyBlogger=false;
-let adminVerified=false,busyGA=false,days=28,googleReady=false;
+let adminVerified=false,busyGA=false,gaPending=false,days=28,googleReady=false;
 function message(id,text,error=false){$(id).textContent=text;$(id).classList.toggle('error',error);}
 function pill(id,text,kind=''){$(id).textContent=text;$(id).className='chip'+(kind?' '+kind:'');}
 function validToken(){return !!token&&Date.now()<expires-30000;}
@@ -48,7 +48,9 @@ async function loadBlogger(){
  try{
   if(!blogId)blogId=await resolveBlog();
   const ranges=[['7DAYS','pv7'],['30DAYS','pv30'],['all','pvAll']];
+  const requestToken=token;
   const results=await Promise.allSettled(ranges.map(([range])=>bloggerGet('/blogs/'+encodeURIComponent(blogId)+'/pageviews?range='+encodeURIComponent(range))));
+  if(requestToken!==token||!validToken())return;
   let good=0;const errors=[];
   results.forEach((r,i)=>{
    const [range,id]=ranges[i];const count=r.status==='fulfilled'?extractCount(r.value,range):null;
@@ -144,10 +146,13 @@ async function adminGetStats(){
  return data;
 }
 async function loadGA(){
- if(!adminVerified||busyGA)return;
- busyGA=true;pill('gaState','조회 중');message('gaStatus','CMS의 GA4 '+days+'일 통계를 확인 중입니다.');
+ if(!adminVerified)return;
+ if(busyGA){gaPending=true;return;}
+ const requestedDays=days,requestToken=idToken();
+ busyGA=true;pill('gaState','조회 중');message('gaStatus','CMS의 GA4 '+requestedDays+'일 통계를 확인 중입니다.');
  try{
   const data=await adminGetStats();
+  if(requestedDays!==days||!adminVerified||requestToken!==idToken())return;
   if(data.blog?.url&&new URL(data.blog.url).hostname.toLowerCase()!==SITE)throw Error('대상 블로그 불일치');
   const ga=data.analytics;
   if(!ga?.summary)throw Error('GA4 통계가 제공되지 않습니다. 관리자 계정 또는 GA4 연결을 확인하세요.');
@@ -161,7 +166,7 @@ async function loadGA(){
  }catch(e){
   for(const id of ['gaUsers','gaSessions','gaViews'])$(id).textContent='—';
   renderPages([]);pill('gaState','조회 실패','bad');message('gaStatus','GA4 조회 실패: '+e.message,true);
- }finally{busyGA=false;}
+ }finally{busyGA=false;if(gaPending){gaPending=false;if(adminVerified)loadGA();}}
 }
 function logoutGA(){
  sessionStorage.removeItem('bloggerManagerIdToken');adminVerified=false;$('gaOut').disabled=true;$('gaLogin').hidden=false;
