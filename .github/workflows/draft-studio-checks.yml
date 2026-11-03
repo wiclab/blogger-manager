@@ -1,0 +1,38 @@
+name: Draft studio Chromium fixture
+
+on:
+  pull_request:
+    paths:
+      - "draft-studio.html"
+      - "scripts/draft_studio_*.cjs"
+      - "tests/draft_studio*.cjs"
+      - ".github/workflows/draft-studio-checks.yml"
+  push:
+    branches: [main]
+    paths:
+      - "draft-studio.html"
+      - "scripts/draft_studio_*.cjs"
+      - "tests/draft_studio*.cjs"
+      - ".github/workflows/draft-studio-checks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  draft-browser-fixture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate localhost draft-only behavior without network publishing
+        run: node --test tests/draft_studio.test.cjs
+      - name: Install pinned Chromium for offline Blogger fixture
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Test clipboard PNG, metadata, HTML, draft save and zero Publish clicks
+        run: node tests/draft_studio_browser.cjs

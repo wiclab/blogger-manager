@@ -1,0 +1,6 @@
+# Local, private Chromium profile and generated drafts. Never commit Google cookies.
+.local/
+node_modules/
+*.log
+.env
+.env.*

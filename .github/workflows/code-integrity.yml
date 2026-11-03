@@ -43,6 +43,20 @@ jobs:
           for script in /tmp/blogger-manager-js-check/*.js; do
             node --check "$script"
           done
+      - name: Draft studio offline security regression
+        run: |
+          node --test tests/draft_studio.test.cjs
+          for file in scripts/draft_studio_*.cjs; do node --check "$file"; done
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          blocks=re.findall(r'<script(?:\s+[^>]*)?>([\s\S]*?)</script>',Path("draft-studio.html").read_text(),re.I)
+          inline=[code for code in blocks if code.strip()]
+          if len(inline)!=1:
+              raise SystemExit("Expected one draft studio inline JS block")
+          Path("/tmp/draft-studio-inline.js").write_text(inline[0])
+          PY
+          node --check /tmp/draft-studio-inline.js
       - name: CMS OAuth and admin session behavioral regression
         run: node tests/cms_auth_flow.cjs
       - name: CMS login reuse and consent regression
