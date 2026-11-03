@@ -934,6 +934,9 @@
     >
       Google 계정으로 인증해주세요.
     </div>
+    <button id="sessionRetry" type="button" hidden onclick="restoreSession()">
+      관리자 세션 다시 확인
+    </button>
 
   </div>
 
@@ -990,6 +993,10 @@
     <div id="updated"></div>
 
     <div id="method"></div>
+    <div id="reportError" role="alert" hidden style="margin:12px 0;padding:12px;border:1px solid #fca5a5;border-radius:10px;background:#fef2f2;color:#991b1b">
+      <span id="reportErrorText"></span>
+      <button type="button" onclick="retryReport()" style="margin-left:10px">보고서 다시 불러오기</button>
+    </div>
 
 
     <div class="blogger-auth-panel">
@@ -1015,6 +1022,8 @@
         >
           🔐 Blogger 권한 연결
         </button>
+        <a id="bloggerOAuthFallback" href="#" target="_blank" rel="noopener noreferrer" hidden>새 탭에서 Blogger 권한 연결</a>
+        <span id="bloggerOAuthMessage" role="status" aria-live="polite" hidden></span>
 
         <button
           class="action-button"
@@ -2052,47 +2061,27 @@ async function adminApi(
    관리자 인증
 ========================================= */
 
-async function verifyWithServer(
-  idToken
-) {
-
-  const response =
-    await fetch(
-      API_BASE +
-      "/auth/check",
-
-      {
-        method:
-          "POST",
-
-        headers: {
-          Authorization:
-            `Bearer ${idToken}`
-        }
-      }
-    );
-
-
-  const data =
-    await response.json();
-
-
-  if (
-    !response.ok ||
-    !data.ok ||
-    !data.admin
-  ) {
-
-    throw new Error(
-      data.error ||
-      "auth_failed"
-    );
-
+async function verifyWithServer(idToken) {
+  let response;
+  try {
+    response = await fetch(API_BASE + "/auth/check", {
+      method: "POST",
+      headers: { Authorization: "Bearer " + idToken }
+    });
+  } catch {
+    throw new Error("인증 서버에 연결하지 못했습니다. 잠시 후 다시 확인해주세요.");
   }
 
-
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || !data.ok || !data.admin) {
+    const error = new Error(data.error || "auth_failed");
+    // Only an explicit rejected credential is grounds for clearing a session.
+    // Network problems, 5xx, and malformed replies must not log out an admin.
+    error.authRejected = response.status === 401 || response.status === 403 ||
+      (response.ok && (!data.ok || !data.admin));
+    throw error;
+  }
   return data;
-
 }
 
 
@@ -2100,71 +2089,21 @@ async function verifyWithServer(
    Google 로그인
 ========================================= */
 
-async function handleCredentialResponse(
-  response
-) {
-
-  const message =
-    document.getElementById(
-      "loginMessage"
-    );
-
-
+async function handleCredentialResponse(response) {
+  const message = document.getElementById("loginMessage");
+  message.className = "login-info";
+  message.textContent = "Cloudflare 서버에서 관리자 확인 중...";
   try {
-
-    message.className =
-      "login-info";
-
-    message.textContent =
-      "Cloudflare 서버에서 관리자 확인 중...";
-
-
-    const idToken =
-      String(
-        response.credential ||
-        ""
-      );
-
-
-    const admin =
-      await verifyWithServer(
-        idToken
-      );
-
-
-    sessionStorage.setItem(
-      "bloggerManagerIdToken",
-      idToken
-    );
-
-
-    await showApp(
-      admin
-    );
-
-
+    const idToken = String(response?.credential || "");
+    if (!idToken) throw new Error("Google 인증 정보가 없습니다.");
+    const admin = await verifyWithServer(idToken);
+    sessionStorage.setItem("bloggerManagerIdToken", idToken);
+    await showApp(admin);
   } catch (error) {
-
-    console.error(
-      error
-    );
-
-
-    sessionStorage.removeItem(
-      "bloggerManagerIdToken"
-    );
-
-
-    message.className =
-      "login-error";
-
-
-    message.textContent =
-      "로그인 실패: " +
-      error.message;
-
+    // No session deletion here: a transient server/report error is not logout.
+    message.className = "login-error";
+    message.textContent = "관리자 인증 확인 실패: " + error.message;
   }
-
 }
 
 
@@ -2173,45 +2112,31 @@ async function handleCredentialResponse(
 ========================================= */
 
 async function restoreSession() {
-
-  const token =
-    getIdToken();
-
-
+  const token = getIdToken();
+  const retry = document.getElementById("sessionRetry");
   if (!token) {
-
+    retry.hidden = true;
     return false;
-
   }
-
-
+  let admin;
   try {
-
-    const admin =
-      await verifyWithServer(
-        token
-      );
-
-
-    await showApp(
-      admin
-    );
-
-
-    return true;
-
-
-  } catch {
-
-    sessionStorage.removeItem(
-      "bloggerManagerIdToken"
-    );
-
-
+    admin = await verifyWithServer(token);
+  } catch (error) {
+    if (error.authRejected === true) {
+      sessionStorage.removeItem("bloggerManagerIdToken");
+      retry.hidden = true;
+      document.getElementById("loginMessage").textContent =
+        "관리자 세션이 만료되었거나 거절됐습니다. 다시 로그인해주세요.";
+    } else {
+      retry.hidden = false;
+      document.getElementById("loginMessage").textContent =
+        "인증 서버 확인 중 문제가 발생했습니다. 기존 세션은 유지됩니다. 다시 시도해주세요.";
+    }
     return false;
-
   }
-
+  retry.hidden = true;
+  await showApp(admin);
+  return true;
 }
 
 
@@ -2280,68 +2205,38 @@ function initGoogleLogin() {
    앱
 ========================================= */
 
-async function showApp(
-  admin
-) {
-
-  document
-    .getElementById(
-      "loginScreen"
-    )
-    .style.display =
-      "none";
-
-
-  document
-    .getElementById(
-      "app"
-    )
-    .style.display =
-      "block";
-
-
-  document
-    .getElementById(
-      "userName"
-    )
-    .textContent =
-      admin.name ||
-      "관리자";
-
-
-  const photo =
-    document.getElementById(
-      "userPhoto"
-    );
-
-
-  if (
-    admin.picture
-  ) {
-
-    photo.src =
-      admin.picture;
-
-    photo.style.display =
-      "block";
-
+async function showApp(admin) {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("app").style.display = "block";
+  document.getElementById("userName").textContent = admin.name || "관리자";
+  const photo = document.getElementById("userPhoto");
+  if (admin.picture) {
+    photo.src = admin.picture;
+    photo.style.display = "block";
   } else {
-
-    photo.style.display =
-      "none";
-
+    photo.style.display = "none";
   }
 
-
+  // These are independent data requests; failures should not undo authentication.
   await checkBloggerStatus();
+  if (!REPORT) await retryReport();
+}
 
 
-  if (!REPORT) {
-
+async function retryReport() {
+  const panel = document.getElementById("reportError");
+  try {
     await loadReport();
-
+    panel.hidden = true;
+    document.getElementById("reportErrorText").textContent = "";
+    return true;
+  } catch (error) {
+    panel.hidden = false;
+    document.getElementById("reportErrorText").textContent =
+      "운영 보고서를 불러오지 못했습니다: " + error.message +
+      " · 관리자 로그인은 유지됩니다.";
+    return false;
   }
-
 }
 
 
@@ -2450,35 +2345,60 @@ async function checkBloggerStatus() {
 ========================================= */
 
 async function connectBlogger() {
+  const fallback = document.getElementById("bloggerOAuthFallback");
+  const notice = document.getElementById("bloggerOAuthMessage");
+  fallback.hidden = true;
+  fallback.removeAttribute("href");
+  notice.hidden = true;
+  notice.textContent = "";
 
+  // Must run during the actual click, before the first awaited network call.
+  let popup = null;
   try {
-
-    const data =
-      await adminApi(
-        "/oauth/blogger/start",
-        {
-          method:
-            "POST"
-        }
-      );
-
-
-    window.open(
-      data.authorizationUrl,
-      "bloggerOAuthPopup",
-      "width=620,height=760"
-    );
-
-
-  } catch (error) {
-
-    alert(
-      "Blogger 권한 연결 실패: " +
-      error.message
-    );
-
+    popup = window.open("about:blank", "bloggerOAuthPopup", "width=620,height=760");
+  } catch {
+    // Popup blocking is recoverable via a user-clicked HTTPS fallback link.
   }
 
+  try {
+    const data = await adminApi("/oauth/blogger/start", { method: "POST" });
+    let authorizationUrl;
+    try {
+      const parsed = new URL(String(data.authorizationUrl || ""));
+      if (parsed.protocol !== "https:" || parsed.hostname !== "accounts.google.com" ||
+          parsed.username || parsed.password || parsed.port) {
+        throw new Error("Unexpected OAuth endpoint");
+      }
+      authorizationUrl = parsed.href;
+    } catch {
+      throw new Error("인증 주소를 검증하지 못했습니다. 다시 시도해주세요.");
+    }
+
+    if (popup && !popup.closed) {
+      try {
+        popup.location.replace(authorizationUrl);
+        popup.focus();
+        notice.textContent = "Google 권한 승인 창에서 연결을 완료해주세요.";
+        notice.hidden = false;
+        return;
+      } catch {
+        // If an existing popup cannot be navigated, offer a safe link instead.
+      }
+    }
+    if (popup && !popup.closed) {
+      try { popup.close(); } catch {}
+    }
+    fallback.href = authorizationUrl;
+    fallback.hidden = false;
+    notice.textContent = "팝업이 차단됐습니다. 아래 연결 링크를 직접 눌러주세요.";
+    notice.hidden = false;
+  } catch (error) {
+    if (popup && !popup.closed) {
+      try { popup.close(); } catch {}
+    }
+    notice.textContent = "Blogger 연결 준비 실패: " + error.message;
+    notice.hidden = false;
+  }
 }
 
 
@@ -2511,6 +2431,10 @@ window.addEventListener(
 
 
     await checkBloggerStatus();
+    if (BLOGGER_CONNECTED) {
+      document.getElementById("bloggerOAuthFallback").hidden = true;
+      document.getElementById("bloggerOAuthMessage").textContent = "Blogger 연결 완료.";
+    }
 
   }
 );
@@ -2557,10 +2481,11 @@ async function disconnectBlogger() {
 
 async function loadReport() {
 
-  REPORT =
-    await adminApi(
-      "/report"
-    );
+  const nextReport = await adminApi("/report");
+  if (!nextReport || !Array.isArray(nextReport.blogs)) {
+    throw new Error("보고서 데이터 형식이 올바르지 않습니다.");
+  }
+  REPORT = nextReport;
 
 
   /*
