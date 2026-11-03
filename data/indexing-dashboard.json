@@ -1,27 +1,105 @@
 {
-  "schema": 1,
-  "site": "https://qevnaxori.blogspot.com/",
-  "updated_at": null,
   "automation": {
-    "last_successful_check_at": null,
-    "run_state": "not_started",
+    "last_successful_check_at": "2026-11-03T08:01:12+00:00",
+    "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "state": "not_started",
-    "published_count": null,
-    "tracked_submitted_count": 0,
-    "pending_count": null,
-    "eligible_pending_count": null,
-    "held_batches_count": 0,
-    "blocked_uncertain_count": 0,
-    "submitted_this_run": 0,
+    "blocked_uncertain_count": 100,
+    "daily_quota_remaining_before": 100,
+    "eligible_pending_count": 19,
+    "held_batches_count": 1,
     "last_successful_submission_at": null,
-    "per_run_cap": 100
+    "monthly_quota_remaining_before": 2800,
+    "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
+    "pending_count": 119,
+    "per_run_cap": 100,
+    "published_count": 119,
+    "queue_summary": {
+      "changed_since_submission": 0,
+      "first_time_pending": 19,
+      "older_or_undated": 0,
+      "preview_note": "Illustrative next batch order, not a confirmed submission or queue wait duration.",
+      "priority_preview": [
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/09/nobody-mows-idle-lawn-game.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/09/gas-price-increase-commute-cost-calculator.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/09/electric-cars-critical-minerals-ev-price.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/09/how-much-water-does-one-ai-question-use.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/09/lifetime-toilet-flush-water-use.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/09/rainforest-tree-worth-per-year.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/09/spend-one-bitcoin-in-24-hours.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/09/does-closing-toilet-lid-before-flushing-work.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/09/how-sword-box-magic-trick-works.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/09/teach-dog-english-for-10-years.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html"
+        },
+        {
+          "reason": "recent_new",
+          "url": "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html"
+        }
+      ],
+      "recent_new": 19,
+      "recent_updated": 0,
+      "without_modified_timestamp": 0
+    },
+    "recent_pending": [
+      "https://qevnaxori.blogspot.com/2026/09/could-genetic-engineering-create-spider-man.html",
+      "https://qevnaxori.blogspot.com/2026/10/avengers-doomsday-mcu-timeline-watch-time.html",
+      "https://qevnaxori.blogspot.com/2026/10/streaming-bundle-cost-2026.html",
+      "https://qevnaxori.blogspot.com/2026/10/tv-antenna-vs-sports-bar-break-even-calculator.html",
+      "https://qevnaxori.blogspot.com/2026/10/thanksgiving-2026-walmart-vs-aldi-meal-cost.html",
+      "https://qevnaxori.blogspot.com/2026/10/meal-kits-vs-groceries-for-one-cost.html",
+      "https://qevnaxori.blogspot.com/2026/09/streaming-subscription-rotation-calculator.html",
+      "https://qevnaxori.blogspot.com/2026/09/business-class-downgrade-refund-calculation.html",
+      "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html",
+      "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html",
+      "https://qevnaxori.blogspot.com/2026/09/how-sawing-person-in-half-magic-trick-works.html",
+      "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html"
+    ],
+    "state": "ok",
+    "submitted_this_run": 0,
+    "tracked_submitted_count": 0
   },
   "metric_definitions": {
-    "submitted": "Bing API accepted URL-submission request, not indexing",
-    "indexed": "Actual search index status is not available from Bing Submission API"
-  }
+    "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
+    "impressions": "Search results display counts provided by Bing Webmaster performance API",
+    "indexed": "Search engine index status, not directly available from Bing submission API",
+    "submitted": "Bing API accepted URL-submission request (not indexed)"
+  },
+  "schema": 1,
+  "site": "https://qevnaxori.blogspot.com/",
+  "updated_at": "2026-11-03T08:01:12+00:00"
 }
