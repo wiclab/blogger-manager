@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "updated_at": null,
+  "run_id": null,
+  "coverage_note": "초기 점검 전",
+  "sites": [
+    {
+      "id": "byeol",
+      "name": "별셈소",
+      "base": "https://wic12.blogspot.com/",
+      "published_count": null,
+      "checked_count": 0,
+      "issue_count": 0,
+      "inconclusive_count": 0,
+      "pending_count": null
+    },
+    {
+      "id": "nobody",
+      "name": "Nobody Asked Data",
+      "base": "https://qevnaxori.blogspot.com/",
+      "published_count": null,
+      "checked_count": 0,
+      "issue_count": 0,
+      "inconclusive_count": 0,
+      "pending_count": null
+    }
+  ],
+  "rows": {},
+  "run": {
+    "status": "not_started",
+    "scanned": 0,
+    "screenshot_count": 0,
+    "errors": []
+  },
+  "viewport_widths": [
+    320,
+    360,
+    390,
+    430
+  ],
+  "note": "본 보고서는 공개 페이지의 표본 모바일 레이아웃 검사이며 자동 수정하거나 실제 기기·계산식 검증을 보장하지 않습니다."
+}
