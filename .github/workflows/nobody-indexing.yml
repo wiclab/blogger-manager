@@ -45,9 +45,10 @@ jobs:
           import re
           html = Path("nobody-indexing.html").read_text(encoding="utf-8")
           scripts = re.findall(r"<script(?:\s+[^>]*)?>([\s\S]*?)</script>", html, flags=re.I)
-          if len(scripts) != 1:
-              raise SystemExit("Expected exactly one Nobody dashboard script")
-          Path("/tmp/nobody-indexing-dashboard.js").write_text(scripts[0], encoding="utf-8")
+          inline = [script for script in scripts if script.strip()]
+          if len(inline) != 1:
+              raise SystemExit("Expected exactly one nonempty Nobody dashboard inline script")
+          Path("/tmp/nobody-indexing-dashboard.js").write_text(inline[0], encoding="utf-8")
           PY
           node --check /tmp/nobody-indexing-dashboard.js
 
