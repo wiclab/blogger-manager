@@ -1,97 +1,48 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-02T18:46:02+00:00",
+    "last_successful_check_at": "2026-11-03T02:35:51+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": 0,
-    "eligible_pending_count": 40,
-    "held_batches_count": 0,
+    "blocked_uncertain_count": 46,
+    "daily_quota_remaining_before": 99,
+    "eligible_pending_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-02T06:42:27+00:00",
-    "monthly_quota_remaining_before": 2800,
+    "monthly_quota_remaining_before": 2799,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 40,
+    "pending_count": 46,
     "per_run_cap": 100,
-    "published_count": 221,
+    "published_count": 224,
     "queue_summary": {
-      "changed_since_submission": 14,
-      "first_time_pending": 26,
-      "older_or_undated": 23,
+      "changed_since_submission": 0,
+      "first_time_pending": 0,
+      "older_or_undated": 0,
       "preview_note": "Illustrative next batch order, not a confirmed submission or queue wait duration.",
-      "priority_preview": [
-        {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/11/heat-pump-electricity-tariff-2026-jeju-ess.html"
-        },
-        {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/10/return-pickup-delay-guide.html"
-        },
-        {
-          "reason": "recent_new",
-          "url": "https://wic12.blogspot.com/2026/09/first-trail-running-too-hard-recovery.html"
-        },
-        {
-          "reason": "recent_updated",
-          "url": "https://wic12.blogspot.com/2026/09/bank-hours-2027-9-30.html"
-        },
-        {
-          "reason": "recent_updated",
-          "url": "https://wic12.blogspot.com/2026/09/car-engine-oil-change-low-mileage-guide.html"
-        },
-        {
-          "reason": "recent_updated",
-          "url": "https://wic12.blogspot.com/2026/09/computer-24-hours-electricity-cost-sleep-shutdown-calculator.html"
-        },
-        {
-          "reason": "recent_updated",
-          "url": "https://wic12.blogspot.com/2026/10/mobile-plan-recommendation-real-bill-comparison.html"
-        },
-        {
-          "reason": "recent_updated",
-          "url": "https://wic12.blogspot.com/2026/10/milk-soy-aseptic-carton-recycling-guide.html"
-        },
-        {
-          "reason": "recent_updated",
-          "url": "https://wic12.blogspot.com/2026/10/family-passport-bundle-delivery-cost-guide.html"
-        },
-        {
-          "reason": "recent_updated",
-          "url": "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html"
-        },
-        {
-          "reason": "recent_updated",
-          "url": "https://wic12.blogspot.com/2026/10/mobile-id-bank-app-issuance-use-loss-guide.html"
-        },
-        {
-          "reason": "recent_updated",
-          "url": "https://wic12.blogspot.com/2026/10/youth-jeonse-guarantee-age-39.html"
-        }
-      ],
-      "recent_new": 3,
-      "recent_updated": 14,
+      "priority_preview": [],
+      "recent_new": 0,
+      "recent_updated": 0,
       "without_modified_timestamp": 0
     },
     "recent_pending": [
+      "https://wic12.blogspot.com/2026/09/water-meter-moving-no-use-leak-check-calculation.html",
+      "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html",
+      "https://wic12.blogspot.com/2026/08/1.html",
+      "https://wic12.blogspot.com/2026/11/electric-hydrogen-taxi-carbon-neutral-points.html",
+      "https://wic12.blogspot.com/2026/11/puffer-jacket-washing-machine-care-label-drying.html",
+      "https://wic12.blogspot.com/2026/11/game-time-selection-abolition-shutdown-parental-controls.html",
       "https://wic12.blogspot.com/2026/11/heat-pump-electricity-tariff-2026-jeju-ess.html",
       "https://wic12.blogspot.com/2026/09/bank-hours-2027-9-30.html",
       "https://wic12.blogspot.com/2026/09/car-engine-oil-change-low-mileage-guide.html",
       "https://wic12.blogspot.com/2026/09/computer-24-hours-electricity-cost-sleep-shutdown-calculator.html",
       "https://wic12.blogspot.com/2026/10/mobile-plan-recommendation-real-bill-comparison.html",
-      "https://wic12.blogspot.com/2026/10/milk-soy-aseptic-carton-recycling-guide.html",
-      "https://wic12.blogspot.com/2026/10/family-passport-bundle-delivery-cost-guide.html",
-      "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html",
-      "https://wic12.blogspot.com/2026/10/mobile-id-bank-app-issuance-use-loss-guide.html",
-      "https://wic12.blogspot.com/2026/10/youth-jeonse-guarantee-age-39.html",
-      "https://wic12.blogspot.com/2026/10/child-support-advance-payment-income-limit-abolished.html",
-      "https://wic12.blogspot.com/2026/10/resident-registration-family-label-general-detailed.html"
+      "https://wic12.blogspot.com/2026/10/milk-soy-aseptic-carton-recycling-guide.html"
     ],
-    "state": "quota_exhausted",
+    "state": "ok",
     "submitted_this_run": 0,
-    "tracked_submitted_count": 181
+    "tracked_submitted_count": 178
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -101,5 +52,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-02T18:46:02+00:00"
+  "updated_at": "2026-11-03T02:35:51+00:00"
 }
