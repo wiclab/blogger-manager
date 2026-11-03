@@ -13,6 +13,8 @@ on:
       - "assets/manager-header.css"
       - "assets/cms-shell.css"
       - "assets/cms-shell.js"
+      - "assets/editor-preview.js"
+      - "tests/editor_preview_browser.cjs"
       - "tests/test_navigation.py"
       - "tests/test_cms_shell.py"
       - "docs/BLOGGER_EDITOR.md"
@@ -32,6 +34,8 @@ on:
       - "assets/manager-header.css"
       - "assets/cms-shell.css"
       - "assets/cms-shell.js"
+      - "assets/editor-preview.js"
+      - "tests/editor_preview_browser.cjs"
       - "tests/test_navigation.py"
       - "tests/test_cms_shell.py"
       - "docs/BLOGGER_EDITOR.md"
@@ -69,3 +73,9 @@ jobs:
         run: node tests/cms_auth_flow.cjs
       - name: CMS login reuse and consent regression
         run: node tests/cms_login_reuse.cjs
+      - name: Install browser test runtime
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Preview rendering and mobile regression (no Blogger credentials)
+        run: node tests/editor_preview_browser.cjs

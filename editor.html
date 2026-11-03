@@ -44,8 +44,9 @@ label{display:block;font-size:12px;font-weight:800;color:#54627c;margin-bottom:5
 #status.error{background:#fff0ed;color:#942b16}
 #status.ok{background:#ebf9ef;color:#176b39}
 .tags{padding:9px 11px;background:#f2f5fb;border-radius:8px;color:#4b5b74;font-size:12px;overflow-wrap:anywhere}
-#preview{display:block;width:100%;min-height:450px;border:1px solid #d7e1eb;background:white;border-radius:9px}
+#preview{display:block;width:100%;height:600px;min-height:450px;border:1px solid #d7e1eb;background:white;border-radius:9px}
 .hide{display:none !important}
+.preview-error{padding:10px 12px;background:#fff0ed;color:#942b16;font-size:14px;line-height:1.65;overflow-wrap:anywhere}
 .tabbar button[aria-pressed="true"]{background:#e5efff;color:#1157bb;border-color:#a9c2e9}
 #postLink{color:#165fc3;font-size:12px;overflow-wrap:anywhere}
 @media(max-width:850px){.layout{grid-template-columns:1fr}#posts{max-height:250px}.wrap{padding:12px}header{padding:15px}textarea{min-height:320px}}
@@ -86,9 +87,12 @@ label{display:block;font-size:12px;font-weight:800;color:#54627c;margin-bottom:5
         <button type="button" id="sourceTab" aria-pressed="true">HTML 편집</button>
         <button type="button" id="previewTab" aria-pressed="false">미리보기</button>
         <button type="button" id="copyHtml">HTML 복사</button>
+        <label for="previewWidth">미리보기 너비</label>
+        <select id="previewWidth" style="width:auto;max-width:100%"><option value="auto">화면에 맞춤</option><option value="360">360px</option><option value="375">375px</option><option value="412">412px</option></select>
       </div>
       <textarea id="html" spellcheck="false" placeholder="본문 HTML을 입력하세요. 새 이미지는 Blogger 공식 편집기에서 삽입하세요."></textarea>
       <iframe id="preview" title="본문 미리보기: 스크립트 실행 차단" sandbox class="hide" referrerpolicy="no-referrer"></iframe>
+      <p id="previewStatus" class="muted" role="status" aria-live="polite"></p>
       <p class="muted">미리보기에서는 보안상 JavaScript가 실행되지 않습니다. 계산기는 실제 Blogger 미리보기에서 별도로 확인하세요.</p>
     </div>
     <div class="notice" style="margin:18px 0;border-color:#c5dfd3;background:#f2fbf6">
@@ -107,6 +111,7 @@ label{display:block;font-size:12px;font-weight:800;color:#54627c;margin-bottom:5
   </section>
 </div>
 </main>
+<script src="./assets/editor-preview.js"></script>
 <script>
 'use strict';
 (function () {
@@ -189,20 +194,24 @@ function fillEditor(p) {
   setButtons();
 }
 function showSource() {
+  if(window.BloggerPreview) window.BloggerPreview.cancel();
   $('sourceTab').setAttribute('aria-pressed','true');
   $('previewTab').setAttribute('aria-pressed','false');
   $('html').classList.remove('hide');
   $('preview').classList.add('hide');
 }
 function showPreview() {
+  if(!window.BloggerPreview) {
+    $('previewStatus').textContent='미리보기 모듈을 불러오지 못했습니다. 페이지를 새로고침하세요.';
+    $('previewStatus').className='preview-error';
+    return;
+  }
   $('sourceTab').setAttribute('aria-pressed','false');
   $('previewTab').setAttribute('aria-pressed','true');
-  const doc='<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; img-src https: data:; style-src &#39;unsafe-inline&#39; https:; font-src https: data:"><style>body{padding:16px;margin:0;font-family:system-ui,sans-serif;line-height:1.75;overflow-wrap:anywhere}img,iframe,table{max-width:100%}</style>'+
-    $('html').value;
-  $('preview').srcdoc=doc;
   $('html').classList.add('hide');
-  $('preview').classList.remove('hide');
+  window.BloggerPreview.render($('html').value,$('previewWidth').value);
 }
+
 function drawPosts() {
   const query=$('query').value.trim().toLowerCase();
   const visible=items.filter(p=>(p.title||'').toLowerCase().includes(query));
@@ -347,6 +356,7 @@ $('more').addEventListener('click',()=>listPosts(true));
 $('newPost').addEventListener('click',()=>{if(!confirmDiscard())return;resetEditor();statusText('새 임시글을 작성하고 「저장」을 누르세요.','ok');});
 $('sourceTab').addEventListener('click',showSource);
 $('previewTab').addEventListener('click',showPreview);
+$('previewWidth').addEventListener('change',()=>{if($('previewTab').getAttribute('aria-pressed')==='true')showPreview();});
 $('save').addEventListener('click',save);
 $('publish').addEventListener('click',publish);
 $('reload').addEventListener('click',()=>{if(!current||busy||!confirmDiscard())return;openPost(current.id,true);});
