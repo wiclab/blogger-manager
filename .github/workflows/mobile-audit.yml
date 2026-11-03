@@ -1,0 +1,155 @@
+name: Mobile layout hunter (Byeolsemso and Nobody)
+
+on:
+  pull_request:
+    paths:
+      - "scripts/mobile_audit.py"
+      - "scripts/mobile_audit_scan.cjs"
+      - "tests/test_mobile_audit.py"
+      - "tests/mobile_audit.test.cjs"
+      - "mobile-audit.html"
+      - "assets/cms-shell.js"
+      - ".github/workflows/mobile-audit.yml"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/mobile_audit.py"
+      - "scripts/mobile_audit_scan.cjs"
+      - "tests/test_mobile_audit.py"
+      - "tests/mobile_audit.test.cjs"
+      - "mobile-audit.html"
+      - "assets/cms-shell.js"
+      - ".github/workflows/mobile-audit.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "13 1,7,13,19 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mobile-audit-data
+  cancel-in-progress: false
+
+jobs:
+  offline-tests:
+    name: Offline audit regressions
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test isolated dual-blog audit without external network
+        run: |
+          python -m compileall -q scripts/mobile_audit.py
+          python -m unittest discover -s tests -p 'test_mobile_audit.py' -v
+          node --test tests/mobile_audit.test.cjs
+      - name: Validate CMS page inline JavaScript and shared menu JavaScript
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          page = Path("mobile-audit.html").read_text(encoding="utf-8")
+          blocks = re.findall(r'<script(?:\s+[^>]*)?>([\s\S]*?)</script>', page, flags=re.I)
+          inline = [block for block in blocks if block.strip()]
+          if len(inline) != 1:
+              raise SystemExit("Expected one nonempty mobile audit dashboard inline script")
+          Path("/tmp/mobile-audit-cms.js").write_text(inline[0], encoding="utf-8")
+          PY
+          node --check /tmp/mobile-audit-cms.js
+          node --check assets/cms-shell.js
+
+  scan:
+    name: Scan public mobile layouts (read-only)
+    needs: offline-tests
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Check out approved CMS code
+        uses: actions/checkout@v4
+      - name: Check out isolated audit data branch
+        uses: actions/checkout@v4
+        with:
+          ref: mobile-audit-data
+          path: audit-data
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify data branch exists and load immutable prior snapshot
+        run: |
+          set -euo pipefail
+          test -s audit-data/data/mobile-audit.json
+          mkdir -p data/mobile-shots
+          python - <<'PY'
+          import json
+          from scripts.mobile_audit import validate_prior
+          path="audit-data/data/mobile-audit.json"
+          validate_prior(json.load(open(path,encoding="utf-8")))
+          print("Prior two-blog audit report verified")
+          PY
+      - name: Fetch published post inventories and select bounded audit queue
+        run: |
+          python -m scripts.mobile_audit prepare \
+            --prior audit-data/data/mobile-audit.json \
+            --queue data/mobile-audit-queue.json
+      - name: Install pinned Playwright runner and Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Inspect 320, 360, 390 and 430px layouts
+        run: |
+          node scripts/mobile_audit_scan.cjs \
+            data/mobile-audit-queue.json data/mobile-audit-scan.json data/mobile-shots
+      - name: Merge audited URLs with previously checked pages
+        run: |
+          python -m scripts.mobile_audit finalize \
+            --prior audit-data/data/mobile-audit.json \
+            --queue data/mobile-audit-queue.json \
+            --scan data/mobile-audit-scan.json \
+            --out data/mobile-audit.json \
+            --run-id "$GITHUB_RUN_ID"
+      - name: Save read-only screenshots and safe diagnostic artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-layout-audit
+          path: |
+            data/mobile-audit.json
+            data/mobile-audit-scan.json
+            data/mobile-shots/*.jpg
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Commit public report and issue screenshots to isolated branch only
+        run: |
+          set -euo pipefail
+          test -s data/mobile-audit.json
+          cp data/mobile-audit.json audit-data/data/mobile-audit.json
+          mkdir -p audit-data/screenshots
+          if compgen -G 'data/mobile-shots/*.jpg' > /dev/null; then
+            cp data/mobile-shots/*.jpg audit-data/screenshots/
+          fi
+          python -m scripts.mobile_audit prune \
+            --out audit-data/data/mobile-audit.json \
+            --shots audit-data/screenshots
+          cd audit-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mobile-audit.json
+          git add -A -- screenshots || true
+          if git diff --cached --quiet; then
+            echo "No changes in mobile report"
+            exit 0
+          fi
+          git commit -m "Refresh dual-blog mobile layout sample and screenshot evidence"
+          git push origin HEAD:mobile-audit-data
+          echo "Public read-only mobile audit report persisted"
