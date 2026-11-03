@@ -15,7 +15,31 @@ const ORIGIN="http://"+HOST+":"+PORT;
 const ROOT=path.resolve(__dirname,"..");
 const WORKDIR=path.join(ROOT,".local","draft-studio-jobs");
 const JOBS=new Map();
+const HISTORY_PATH=path.join(WORKDIR,"history.json");
+const DEDUP_MS=24*3600000;
 let activeJob=null;
+async function history(){
+  try{
+    const data=JSON.parse(await fsp.readFile(HISTORY_PATH,"utf8"));
+    if(!data||data.version!==1||typeof data.items!=="object"||Array.isArray(data.items))
+      throw Error("Corrupt draft history");
+    return data;
+  }catch(e){
+    if(e.code==="ENOENT")return {version:1,items:{}};
+    throw Error("초안 중복 방지 기록을 읽지 못했어. 기록을 확인하기 전 새 작업 중지.");
+  }
+}
+async function persistHistory(data){
+  await fsp.mkdir(WORKDIR,{recursive:true,mode:0o700});
+  const temp=HISTORY_PATH+".tmp-"+crypto.randomUUID();
+  try{
+    await fsp.writeFile(temp,JSON.stringify(data,null,2)+"\n",{mode:0o600,flag:"wx"});
+    await fsp.rename(temp,HISTORY_PATH);
+  }finally{await fsp.unlink(temp).catch(()=>{});}
+}
+function fingerprint(input){
+  return crypto.createHash("sha256").update(JSON.stringify(input)).digest("hex");
+}
 function allowedPath(url){
   return ["/draft-studio.html","/assets/cms-shell.js","/assets/cms-shell.css",
     "/assets/manager-header.css"].includes(url);
@@ -76,7 +100,18 @@ async function processJob(job) {
     if(e.partialRecord)job.blogger=e.partialRecord;
     mark("중단: "+job.error,"failed");
     console.error("Draft studio job "+job.id+": "+job.error);
-  }finally{activeJob=null;}
+  }finally{
+    try{
+      const h=await history();
+      const key=fingerprint(job.request);
+      if(h.items[key]?.id===job.id){
+        h.items[key].status=job.status;
+        h.items[key].editorUrl=job.blogger?.editorUrl||null;
+        await persistHistory(h);
+      }
+    }catch(e){console.error("Draft history persistence: "+String(e.message||e));}
+    activeJob=null;
+  }
 }
 async function serve(req,res) {
   if(!sameOrigin(req)){send(res,403,{error:"Localhost origin check failed"});return;}
@@ -123,9 +158,17 @@ async function serve(req,res) {
       blogId(input);
       if(!process.env.OPENAI_API_KEY)throw Error("서버의 OPENAI_API_KEY 설정이 필요해.");
     }catch(e){send(res,400,{error:String(e.message||e)});return;}
+    const key=fingerprint(input),record=await history(),prior=record.items[key];
+    if(prior&&Number.isFinite(Date.parse(prior.createdAt))&&Date.now()-Date.parse(prior.createdAt)<DEDUP_MS){
+      send(res,409,{error:"같은 블로그·주제·라벨·메모로 이미 초안 작업을 시작했어. 중복 생성 전에 작업 기록 및 Blogger 임시글을 확인해줘.",
+        priorJobId:prior.id,priorStatus:prior.status,editorUrl:prior.editorUrl||null});
+      return;
+    }
     const id=crypto.randomUUID(),job={id,request:input,status:"queued",
       stage:"대기 중",updatedAt:new Date().toISOString(),article:null,imagePath:null,error:null,blogger:null};
     await fsp.mkdir(path.join(WORKDIR,id),{recursive:true,mode:0o700});
+    record.items[key]={id,createdAt:job.updatedAt,status:"queued",editorUrl:null};
+    await persistHistory(record);
     JOBS.set(id,job);activeJob=id;
     send(res,202,{id,status:"queued"});
     void processJob(job);
