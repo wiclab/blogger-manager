@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "site": "https://qevnaxori.blogspot.com/",
+  "updated_at": null,
+  "automation": {
+    "last_successful_check_at": null,
+    "run_state": "not_started",
+    "schedule_expected_interval_hours": 2,
+    "stale_after_hours": 5
+  },
+  "bing_submission": {
+    "state": "not_started",
+    "published_count": null,
+    "tracked_submitted_count": 0,
+    "pending_count": null,
+    "eligible_pending_count": null,
+    "held_batches_count": 0,
+    "blocked_uncertain_count": 0,
+    "submitted_this_run": 0,
+    "last_successful_submission_at": null,
+    "per_run_cap": 100
+  },
+  "metric_definitions": {
+    "submitted": "Bing API accepted URL-submission request, not indexing",
+    "indexed": "Actual search index status is not available from Bing Submission API"
+  }
+}
