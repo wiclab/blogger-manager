@@ -309,7 +309,7 @@ async function verifyWithServer(idToken) {
   if (!response.ok || !data.ok || !data.admin) {
     const error = new Error(data.error || "auth_failed");
     error.authRejected = response.status === 401 || response.status === 403 ||
-      (response.ok && (!data.ok || !data.admin));
+      (response.ok && (data.ok === false || data.admin === false));
     throw error;
   }
   return data;
