@@ -9,7 +9,7 @@ const $=id=>document.getElementById(id);
 const fmt=n=>n!==null&&n!==undefined&&n!==''&&Number.isSafeInteger(Number(n))&&Number(n)>=0?Number(n).toLocaleString('ko-KR'):'—';
 const now=()=>new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});
 let token='',expires=0,blogId='',oauthClient=null,busyBlogger=false;
-let adminVerified=false,busyGA=false,gaPending=false,days=28,googleReady=false;
+let adminVerified=false,busyGA=false,gaPending=false,days=28,googleReady=false,googlePrompted=false;
 function message(id,text,error=false){$(id).textContent=text;$(id).classList.toggle('error',error);}
 function pill(id,text,kind=''){$(id).textContent=text;$(id).className='chip'+(kind?' '+kind:'');}
 function validToken(){return !!token&&Date.now()<expires-30000;}
@@ -124,8 +124,16 @@ function initGoogleLogin(attempt=0){
   if(googleReady)return;googleReady=true;
   google.accounts.id.initialize({client_id:CLIENT_ID,callback:authenticateAdmin,auto_select:true});
   google.accounts.id.renderButton($('gaLogin'),{theme:'outline',size:'large',shape:'pill',width:240});
+  maybePromptLogin();
  }else if(attempt<32)setTimeout(()=>initGoogleLogin(attempt+1),250);
  else message('gaStatus','Google 로그인 모듈이 로드되지 않았습니다. 새로고침해 주세요.',true);
+}
+function maybePromptLogin(){
+ if(googlePrompted||!googleReady||idToken()||sessionStorage.getItem('bloggerManagerExplicitLogout'))return;
+ if(typeof google.accounts.id.prompt==='function'){
+  googlePrompted=true;
+  google.accounts.id.prompt();
+ }
 }
 function pathOnly(s){
  const raw=String(s||'');
@@ -212,14 +220,7 @@ document.querySelectorAll('[data-days]').forEach(btn=>btn.addEventListener('clic
 initGoogleLogin();
 verifyAdmin().then(ok=>{
  if(ok){loadGA();return;}
- // Only a previously rejected or missing credential may request fresh Google login.
- if(!idToken()&&!sessionStorage.getItem('bloggerManagerExplicitLogout')){
-  const prompt=()=>{if(window.google?.accounts?.id?.prompt)google.accounts.id.prompt();};
-  if(googleReady)prompt();
-  else{
-   const old=initGoogleLogin;
-   // Google login module may still be loading. The visible sign-in button always remains available.
-  }
- }
+ // If the old credential really expired, Google may issue a new ID token via One Tap.
+ maybePromptLogin();
 });
 })();
