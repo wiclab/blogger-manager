@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="light">
+<title>별셈소 방문 통계 · Blogger Manager</title>
+<link rel="stylesheet" href="./assets/manager-header.css">
+<link rel="stylesheet" href="./assets/cms-shell.css">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="./assets/cms-shell.js" defer></script>
+<script src="./assets/traffic-dashboard.js" defer></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f3f6fb;color:#172740;font:14px/1.65 system-ui,-apple-system,"Noto Sans KR",sans-serif}
+a{color:#2459bd;text-decoration:none}a:hover{text-decoration:underline}
+.traffic{max-width:1240px;margin:0 auto;padding:32px 24px 75px}
+.eyebrow{font-size:11px;letter-spacing:.11em;color:#315fd4;font-weight:850}
+.hero{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.hero h1{font-size:clamp(27px,4vw,37px);letter-spacing:-.04em;line-height:1.25;margin:5px 0 7px}
+.hero p{font-size:14px;color:#667991;margin:0}
+h2{font-size:19px;margin:0;letter-spacing:-.02em}
+p{color:#63748d;margin:7px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;background:#fff;border:1px solid #d8e3f1;color:#254979;border-radius:11px;padding:9px 14px;cursor:pointer;font:inherit;font-weight:800}
+.btn.primary{background:#315fd4;color:#fff;border-color:#315fd4}.btn:disabled{opacity:.5;cursor:wait}
+.section{margin-top:27px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:13px}
+.section-head p{font-size:12px;margin:3px 0}
+.chip{display:inline-flex;align-items:center;border-radius:40px;background:#edf2f9;color:#526b8e;padding:5px 10px;font-size:11px;font-weight:850;white-space:nowrap}
+.chip.ok{background:#e7f7ec;color:#19733f}.chip.bad{background:#fff0ed;color:#a03c23}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.metric,.panel{background:#fff;border:1px solid #e0e8f4;border-radius:16px;box-shadow:0 4px 23px #192c4b07}
+.metric{padding:21px;min-width:0}
+.metric small{display:block;color:#61738e;font-size:13px;font-weight:750}
+.metric strong{display:block;font-size:clamp(27px,3.7vw,38px);font-weight:850;line-height:1.25;color:#152d4d;margin:12px 0 9px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.metric em{display:block;color:#8492a7;font-size:11px;font-style:normal}
+.panel{padding:19px;margin-top:13px}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.panel h3{font-size:16px;margin:0}
+.auth{display:flex;gap:11px;align-items:center;flex-wrap:wrap;margin-top:13px}
+.status{padding:11px 13px;border:1px solid #e0e9f5;background:#f5f8fd;border-radius:10px;font-size:12px;color:#3c5c87;overflow-wrap:anywhere;margin:12px 0 0}
+.status.error{background:#fff5f2;color:#9b3f2b;border-color:#f0d2c8}
+.segment{display:flex;gap:4px;background:#edf3fa;border-radius:10px;padding:4px}
+.segment button{font:inherit;font-size:12px;font-weight:800;border:0;padding:6px 12px;border-radius:8px;background:transparent;color:#687b95;cursor:pointer}
+.segment button[aria-pressed=true]{background:#fff;color:#245bc8;box-shadow:0 2px 5px #20385816}
+.rank-list{display:grid;gap:15px;margin-top:18px}
+.rank-row{display:grid;grid-template-columns:minmax(0,1fr) 75px;gap:12px;align-items:center}
+.rank-row a{display:block;font-size:13px;font-weight:750;line-height:1.45;overflow-wrap:anywhere}
+.rank-row small{display:block;color:#8b98aa;font-size:11px;overflow-wrap:anywhere;margin-top:2px}
+.rank-row strong{font-variant-numeric:tabular-nums;text-align:right;font-size:14px;color:#243d66}
+.rank-track{background:#eff3fa;height:7px;border-radius:80px;margin-top:7px;overflow:hidden}
+.rank-fill{background:linear-gradient(90deg,#2e62d8,#8ab2ff);height:100%;border-radius:80px}
+.muted{font-size:13px;color:#8190a4}
+.note{margin-top:24px;padding:18px 19px;background:#fafcff;border:1px solid #dce6f4;border-radius:14px;color:#5c6c82;font-size:12px;line-height:1.85}
+.note strong{color:#324f7e}.note a{font-weight:800}
+#gaLogin[hidden]{display:none}
+@media(max-width:730px){.traffic{padding:22px 14px 55px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{padding:16px}.metric strong{font-size:29px}}
+@media(max-width:480px){.cards{grid-template-columns:1fr}.rank-row{grid-template-columns:minmax(0,1fr) 60px}.hero{gap:12px}.metric strong{font-size:30px}}
+</style>
+</head>
+<body>
+<header class="bm-hero"><div class="bm-wrap"><h1 class="bm-title">방문 통계</h1><p class="bm-sub">Blogger 조회수 · GA4 인기 페이지</p><nav class="bm-nav" aria-label="관리자 메뉴"><a href="./">콘텐츠 관리</a><a href="./seo.html">Bing · 글 갱신</a><a href="./indexing.html">색인 제출 현황</a><a href="./gsc.html">Google 색인 관제</a><a href="./sources.html">출처 링크 점검</a><a href="./write.html">주제 발굴</a><a href="./editor.html">글 편집·발행</a><a href="./news.html">뉴스</a><a href="./intelligence.html">뉴스 인텔리전스</a></nav></div></header>
+<main class="traffic">
+ <div class="hero">
+  <div><div class="eyebrow">BYEOLSEMSO / TRAFFIC</div><h1>별셈소 방문 통계</h1><p>Blogger 전체 조회수와 GA4 페이지별 통계를 구분해서 확인해.</p></div>
+  <div class="auth"><button type="button" class="btn primary" id="refresh">↻ 새로고침</button><a class="btn" href="./dashboard.html">운영 대시보드</a></div>
+ </div>
+ <section class="section" aria-labelledby="pvTitle">
+  <div class="section-head"><div><h2 id="pvTitle">Blogger 공식 조회수</h2><p>별셈소 블로그 전체 · Google 인증 후 실시간 API 조회</p></div><span id="pvState" class="chip">연결 필요</span></div>
+  <div class="cards">
+   <article class="metric"><small>최근 7일</small><strong id="pv7">—</strong><em>Blogger 페이지뷰</em></article>
+   <article class="metric"><small>최근 30일</small><strong id="pv30">—</strong><em>Blogger 페이지뷰</em></article>
+   <article class="metric"><small>누적 전체</small><strong id="pvAll">—</strong><em>전체 기간 페이지뷰</em></article>
+  </div>
+  <div class="panel">
+   <div class="panel-head"><h3>Blogger 조회 권한</h3><span id="pvStamp" class="chip">미조회</span></div>
+   <div class="auth">
+    <button class="btn primary" type="button" id="bloggerIn">Google 계정으로 Blogger 연결</button>
+    <button class="btn" type="button" id="bloggerOut" disabled>연결 해제</button>
+    <a href="https://www.blogger.com/" target="_blank" rel="noopener noreferrer">Blogger 관리자</a>
+   </div>
+   <p class="status" id="pvStatus" role="status" aria-live="polite">별셈소를 소유한 Google 계정으로 연결하세요. 액세스 토큰은 브라우저 메모리에만 유지합니다.</p>
+  </div>
+ </section>
+ <section class="section" aria-labelledby="gaTitle">
+  <div class="section-head">
+   <div><h2 id="gaTitle">Google Analytics 4 상세 통계</h2><p>기존 CMS 관리자 통계 API 사용 · 기간을 선택할 수 있어</p></div>
+   <div class="segment" aria-label="GA4 조회 기간">
+    <button type="button" data-days="7" aria-pressed="false">7일</button>
+    <button type="button" data-days="28" aria-pressed="true">28일</button>
+    <button type="button" data-days="90" aria-pressed="false">90일</button>
+   </div>
+  </div>
+  <div class="cards">
+   <article class="metric"><small>활성 사용자</small><strong id="gaUsers">—</strong><em>GA4 activeUsers</em></article>
+   <article class="metric"><small>세션</small><strong id="gaSessions">—</strong><em>GA4 sessions</em></article>
+   <article class="metric"><small>페이지 조회수</small><strong id="gaViews">—</strong><em>GA4 screenPageViews</em></article>
+  </div>
+  <div class="panel">
+   <div class="panel-head"><h3>인기 페이지 TOP 10</h3><span id="gaStamp" class="chip">미조회</span></div>
+   <p>선택한 기간의 GA4 페이지 조회수 순서야. 제목을 누르면 해당 별셈소 글이 열려.</p>
+   <div class="rank-list" id="popular"><p class="muted">CMS 인증을 완료하면 표시됩니다.</p></div>
+  </div>
+  <div class="panel">
+   <div class="panel-head"><h3>GA4 관리자 인증</h3><span class="chip" id="gaState">연결 필요</span></div>
+   <div class="auth"><div id="gaLogin"></div><button type="button" class="btn" id="gaOut" disabled>CMS 로그아웃</button><a href="./index.html">게시글 관리 화면</a></div>
+   <p class="status" id="gaStatus" role="status" aria-live="polite">기존 CMS 관리자 로그인 세션이 있다면 자동 확인합니다.</p>
+  </div>
+ </section>
+ <div class="note">
+  <strong>통계 해석 안내</strong> · Blogger PageViews API는 최근 7일, 30일, 누적 전체의 블로그 전체 조회수만 제공합니다. 게시글별 조회수 및 일별 그래프는 Blogger API가 제공하지 않습니다. 인기 글은 GA4의 페이지별 조회수로 보여줍니다.
+  두 서비스의 집계 방식과 기간이 달라 숫자가 일치하지 않을 수 있습니다. 개인정보나 조회수를 공개 저장소로 전송하지 않으며 게시글 수정·삭제·발행은 수행하지 않습니다.
+  <p><a href="https://developers.google.com/blogger/docs/3.0/reference/pageViews/get" target="_blank" rel="noopener noreferrer">Blogger API 공식 문서</a> · <a href="https://developers.google.com/analytics/devguides/reporting/data/v1/basics" target="_blank" rel="noopener noreferrer">GA4 API 공식 문서</a></p>
+ </div>
+</main>
+</body>
+</html>
