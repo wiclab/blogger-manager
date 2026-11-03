@@ -1,42 +1,291 @@
 {
+  "coverage_note": "12개/블로그/실행 표본 순환 검사. 4개 너비; 브라우저 기반 휴리스틱이므로 실제 모바일 기기 수동 검증 필요.",
+  "note": "읽기 전용 표본 검사. 자동 수정하지 않으며 계산기 수식·실제 모바일 기기까지 검증한 것은 아닙니다.",
+  "rows": {
+    "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-10-29T01:56:21Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [
+        {
+          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
+          "level": "review",
+          "selector": "body",
+          "type": "page_load_error",
+          "width": 390
+        }
+      ],
+      "lastmod": "2026-10-29T01:56:22Z",
+      "screenshot": null,
+      "severity": "review",
+      "site": "nobody",
+      "state": "inconclusive",
+      "url": "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/09/business-class-downgrade-refund-calculation.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-10-29T02:19:15Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/09/business-class-downgrade-refund-calculation.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/09/could-genetic-engineering-create-spider-man.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-10-30T05:24:12Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/09/could-genetic-engineering-create-spider-man.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/09/how-sawing-person-in-half-magic-trick-works.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-10-29T01:56:20Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/09/how-sawing-person-in-half-magic-trick-works.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-10-29T01:56:19Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/09/streaming-subscription-rotation-calculator.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-10-29T02:19:26Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/09/streaming-subscription-rotation-calculator.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/10/avengers-doomsday-mcu-timeline-watch-time.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-10-30T05:22:15Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/avengers-doomsday-mcu-timeline-watch-time.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/10/meal-kits-vs-groceries-for-one-cost.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-10-30T04:32:42Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/meal-kits-vs-groceries-for-one-cost.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/10/streaming-bundle-cost-2026.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-10-30T04:53:24Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/streaming-bundle-cost-2026.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/10/thanksgiving-2026-walmart-vs-aldi-meal-cost.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-10-30T04:35:38Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/thanksgiving-2026-walmart-vs-aldi-meal-cost.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/10/tv-antenna-vs-sports-bar-break-even-calculator.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-10-30T04:51:17Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/tv-antenna-vs-sports-bar-break-even-calculator.html"
+    },
+    "https://wic12.blogspot.com/2026/08/1.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-03T00:21:44Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/08/1.html"
+    },
+    "https://wic12.blogspot.com/2026/09/bank-hours-2027-9-30.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-02T11:34:17Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/09/bank-hours-2027-9-30.html"
+    },
+    "https://wic12.blogspot.com/2026/09/credit-card-revolving-30-percent-12-month-calculation.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-03T07:42:38Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/09/credit-card-revolving-30-percent-12-month-calculation.html"
+    },
+    "https://wic12.blogspot.com/2026/09/water-meter-moving-no-use-leak-check-calculation.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-03T00:21:49Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/09/water-meter-moving-no-use-leak-check-calculation.html"
+    },
+    "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-03T00:21:46Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html"
+    },
+    "https://wic12.blogspot.com/2026/10/change-mobile-phone-number-checklist.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-03T07:15:06Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/10/change-mobile-phone-number-checklist.html"
+    },
+    "https://wic12.blogspot.com/2026/11/electric-hydrogen-taxi-carbon-neutral-points.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-02T23:12:47Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/11/electric-hydrogen-taxi-carbon-neutral-points.html"
+    },
+    "https://wic12.blogspot.com/2026/11/game-time-selection-abolition-shutdown-parental-controls.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-02T22:36:06Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/11/game-time-selection-abolition-shutdown-parental-controls.html"
+    },
+    "https://wic12.blogspot.com/2026/11/google-photos-delete-phone-photo-keep.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-03T07:10:39Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/11/google-photos-delete-phone-photo-keep.html"
+    },
+    "https://wic12.blogspot.com/2026/11/heat-pump-electricity-tariff-2026-jeju-ess.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-02T14:30:06Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/11/heat-pump-electricity-tariff-2026-jeju-ess.html"
+    },
+    "https://wic12.blogspot.com/2026/11/kakaotalk-chat-backup-restore-new-phone.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-03T07:08:13Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/11/kakaotalk-chat-backup-restore-new-phone.html"
+    },
+    "https://wic12.blogspot.com/2026/11/puffer-jacket-washing-machine-care-label-drying.html": {
+      "checked_at": "2026-11-03T08:32:06+00:00",
+      "issues": [],
+      "lastmod": "2026-11-02T22:50:36Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/11/puffer-jacket-washing-machine-care-label-drying.html"
+    }
+  },
+  "run": {
+    "errors": [],
+    "scanned": 24,
+    "screenshot_count": 0,
+    "status": "partial"
+  },
+  "run_id": "41603927989",
   "schema": 1,
-  "updated_at": null,
-  "run_id": null,
-  "coverage_note": "초기 점검 전",
   "sites": [
     {
-      "id": "byeol",
-      "name": "별셈소",
       "base": "https://wic12.blogspot.com/",
-      "published_count": null,
-      "checked_count": 0,
-      "issue_count": 0,
+      "checked_count": 12,
+      "id": "byeol",
       "inconclusive_count": 0,
-      "pending_count": null
+      "issue_count": 0,
+      "name": "별셈소",
+      "pending_count": 213,
+      "published_count": 225
     },
     {
-      "id": "nobody",
-      "name": "Nobody Asked Data",
       "base": "https://qevnaxori.blogspot.com/",
-      "published_count": null,
-      "checked_count": 0,
+      "checked_count": 12,
+      "id": "nobody",
+      "inconclusive_count": 1,
       "issue_count": 0,
-      "inconclusive_count": 0,
-      "pending_count": null
+      "name": "Nobody Asked Data",
+      "pending_count": 107,
+      "published_count": 119
     }
   ],
-  "rows": {},
-  "run": {
-    "status": "not_started",
-    "scanned": 0,
-    "screenshot_count": 0,
-    "errors": []
-  },
+  "updated_at": "2026-11-03T08:33:04+00:00",
   "viewport_widths": [
     320,
     360,
     390,
     430
-  ],
-  "note": "본 보고서는 공개 페이지의 표본 모바일 레이아웃 검사이며 자동 수정하거나 실제 기기·계산식 검증을 보장하지 않습니다."
+  ]
 }
