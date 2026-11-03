@@ -60,3 +60,29 @@ ChatGPT에 직접 API 쓰기 도구를 연결하려면 별도 원격 MCP 서버�
 - [Blogger API v3](https://developers.google.com/blogger/docs/3.0/reference)
 - [Blogger Posts](https://developers.google.com/blogger/docs/3.0/reference/posts)
 - [Google Identity Services](https://developers.google.com/identity/oauth2/web/guides/overview)
+
+
+## 미리보기 갱신과 검증 (2026-11-04)
+
+- `showPreview()`는 미리보기 전용 `assets/editor-preview.js`에 현재 원고와 선택 너비를 전달합니다. 인증·저장·발행 함수는 변경하지 않았습니다.
+- 매 갱신마다 새 iframe을 만들고, `load` 등록 후 `srcdoc`를 지정합니다. 이전 갱신의 이벤트·타이머는 취소합니다.
+- 로드 이벤트만으로 성공을 판정하지 않습니다. 실제 텍스트/이미지 레이아웃, 이미지 로딩, 화면 너비 및 가로 넘침을 확인하고, 실패나 10초 초과 시 오류를 표시합니다.
+- 360/375/412px 선택은 프레임 내부의 실제 뷰포트 기준입니다. CMS 패널이 더 좁으면 화면에 맞게 줄며 확인 메시지에 실제 너비를 표시합니다. 정확한 선택 너비 검사는 충분히 넓은 CMS 창에서 합니다.
+- 원문 HTML의 특수문자는 HTML로 한 번만 파싱합니다. 원고 입력값은 변경하지 않습니다. 미리보기 복제본에서 script·base·refresh/CSP meta·중첩 iframe/object/embed를 제거합니다.
+- 부모의 렌더링 검사를 위해 iframe에 `allow-same-origin`만 부여합니다. `allow-scripts`는 부여하지 않으며 CSP도 `script-src 'none'`입니다. 폼 전송·팝업·상위 탐색을 허용하지 않습니다. 토큰은 미리보기 문서에 전달하지 않습니다.
+
+### 재현과 한계
+
+운영 클라우드 브라우저에서 최초 원문은 표시됐지만 HTML 수정 후 같은 iframe의 srcdoc를 다시 설정하면 한 줄 문장에서도 빈 화면이 관찰됐습니다. 인증/API 조회는 정상이고 iframe 내부에는 텍스트가 있었습니다. 이전 구현에는 load/렌더링 검사와 실패 안내가 없었습니다.
+
+별도 Chromium 143 환경에서는 이전 구현의 8회 갱신이 정상이라 브라우저 내부의 정확한 트리거는 확정하지 않았습니다. 확인된 결함은 오래된 프레임을 그대로 재사용하면서 로드와 표시 실패를 관찰하지 못하는 처리입니다. 특수문자나 CSP가 원인이었다고 단정하지 않습니다.
+
+### 오프라인 브라우저 회귀 검사
+
+```sh
+npm install --no-save --no-package-lock playwright@1.56.1
+npx playwright install chromium
+node tests/editor_preview_browser.cjs
+```
+
+일반 문장, 문단·특수문자, H2, 표, 이미지, FAQ, 긴 본문을 정확한 360/375/412px 프레임에서 렌더링하고 CMS 페이지 자체도 세 너비에서 확인합니다. 20회 갱신, 늦게 도착한 이전 로드 이벤트, 빈/숨겨진 본문, 이미지 실패, 가로 넘침, 로드 시간 초과, 사용자 스크립트 차단을 검사합니다. Google/Blogger 요청은 차단하며 실제 게시글을 읽거나 쓰지 않습니다.
