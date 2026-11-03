@@ -50,7 +50,7 @@ jobs:
           python - <<'PY'
           import re
           from pathlib import Path
-          blocks=re.findall(r'<script(?:\\s+[^>]*)?>([\\s\\S]*?)</script>',Path("draft-studio.html").read_text(),re.I)
+          blocks=re.findall(r'<script(?:\s+[^>]*)?>([\s\S]*?)</script>',Path("draft-studio.html").read_text(),re.I)
           inline=[code for code in blocks if code.strip()]
           if len(inline)!=1:
               raise SystemExit("Expected one draft studio inline JS block")
