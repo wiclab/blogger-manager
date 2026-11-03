@@ -1,0 +1,193 @@
+name: Nobody Asked Data Bing indexing
+
+on:
+  pull_request:
+    paths:
+      - "scripts/nobody_indexing.py"
+      - "tests/test_nobody_indexing.py"
+      - "nobody-indexing.html"
+      - ".github/workflows/nobody-indexing.yml"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/nobody_indexing.py"
+      - "tests/test_nobody_indexing.py"
+      - "nobody-indexing.html"
+      - ".github/workflows/nobody-indexing.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */2 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nobody-indexing-data
+  cancel-in-progress: false
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile existing and Nobody indexing code
+        run: python -m compileall -q scripts/indexing.py scripts/indexing_safe.py scripts/nobody_indexing.py tests/test_nobody_indexing.py
+      - name: Offline isolation and regression tests
+        run: python -m unittest discover -s tests -p 'test_nobody_indexing.py' -v
+      - name: Validate Nobody dashboard JavaScript
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path("nobody-indexing.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script(?:\s+[^>]*)?>([\s\S]*?)</script>", html, flags=re.I)
+          if len(scripts) != 1:
+              raise SystemExit("Expected exactly one Nobody dashboard script")
+          Path("/tmp/nobody-indexing-dashboard.js").write_text(scripts[0], encoding="utf-8")
+          PY
+          node --check /tmp/nobody-indexing-dashboard.js
+
+  bing-submit:
+    needs: offline-tests
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out approved main code
+        uses: actions/checkout@v4
+      - name: Check out isolated Nobody receipt branch
+        uses: actions/checkout@v4
+        with:
+          ref: nobody-indexing-data
+          path: nobody-indexing-data
+          persist-credentials: true
+      - name: Restore Nobody receipts without looking at Byeolsemso state
+        run: |
+          set -euo pipefail
+          test -s nobody-indexing-data/data/indexing-state.json
+          test -s nobody-indexing-data/data/indexing-dashboard.json
+          mkdir -p data
+          cp nobody-indexing-data/data/indexing-state.json data/indexing-state.json
+          cp nobody-indexing-data/data/indexing-dashboard.json data/indexing-dashboard.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify Nobody state and URL boundaries offline
+        run: |
+          python - <<'PY'
+          from scripts.nobody_indexing import configure, SITE
+          from scripts import indexing
+          configure()
+          state = indexing.load_state()
+          assert all(indexing.canonical(url) == url for url in state["bing"])
+          assert indexing.SITE == SITE
+          print(f"Protected Nobody receipts: {len(state['bing'])}")
+          PY
+      - name: Check Bing API secret without exposing it
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+        run: |
+          if [ -z "${BING_API_KEY:-}" ]; then
+            echo "::error::BING_API_KEY repository secret missing; no Nobody URLs submitted"
+            exit 1
+          fi
+      - name: Prepare Nobody batch without POST
+        id: prepare
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+        run: python -m scripts.nobody_indexing prepare
+      - name: Persist Nobody hold before sending any URLs
+        id: reserve
+        run: |
+          set -euo pipefail
+          test -s data/indexing-plan.json
+          test -s data/indexing-state.json
+          test -s data/indexing-dashboard.json
+          cp data/indexing-state.json nobody-indexing-data/data/indexing-state.json
+          cp data/indexing-dashboard.json nobody-indexing-data/data/indexing-dashboard.json
+          if [ -s data/indexing-state.backup.json ]; then
+            cp data/indexing-state.backup.json nobody-indexing-data/data/indexing-state.backup.json
+          fi
+          cd nobody-indexing-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/indexing-state.json data/indexing-dashboard.json
+          if [ -s data/indexing-state.backup.json ]; then
+            git add data/indexing-state.backup.json
+          fi
+          plan=$(python -c 'import json;print(json.load(open("../data/indexing-plan.json"))["action"])')
+          if ! git diff --cached --quiet; then
+            git commit -m "Persist Nobody Bing reservation and dashboard"
+            pushed=0
+            for attempt in 1 2 3; do
+              if git push origin HEAD:nobody-indexing-data; then pushed=1; break; fi
+              if [ "$attempt" -lt 3 ]; then sleep "$((attempt * 2))"; fi
+            done
+            if [ "$pushed" != 1 ]; then
+              echo "::error::Nobody reservation push failed; refusing Bing POST"
+              exit 1
+            fi
+          elif [ "$plan" = "submit" ]; then
+            echo "::error::Unpersisted reservation; refusing Bing POST"
+            exit 1
+          fi
+          if [ "$plan" = "submit" ]; then
+            local_head=$(git rev-parse HEAD)
+            remote_head=$(git ls-remote origin refs/heads/nobody-indexing-data | cut -f1)
+            if [ "$local_head" != "$remote_head" ]; then
+              echo "::error::Nobody reservation not confirmed on remote; refusing POST"
+              exit 1
+            fi
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Submit committed Nobody reservation to Bing exactly once
+        id: submit
+        if: steps.reserve.outputs.ready == 'true'
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+          INDEXING_RESERVATION_COMMITTED: "true"
+        run: python -m scripts.nobody_indexing submit
+      - name: Retain safe failure diagnostics for 7 days
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nobody-indexing-report-${{ github.run_id }}
+          path: |
+            data/indexing-report.json
+            data/indexing-failure.json
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Persist acknowledged Nobody receipts and clear hold
+        if: steps.submit.outcome == 'success'
+        run: |
+          set -euo pipefail
+          test -s data/indexing-state.json
+          test -s data/indexing-state.backup.json
+          test -s data/indexing-dashboard.json
+          cp data/indexing-state.json nobody-indexing-data/data/indexing-state.json
+          cp data/indexing-state.backup.json nobody-indexing-data/data/indexing-state.backup.json
+          cp data/indexing-dashboard.json nobody-indexing-data/data/indexing-dashboard.json
+          cd nobody-indexing-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/indexing-state.json data/indexing-state.backup.json data/indexing-dashboard.json
+          if git diff --cached --quiet; then
+            echo "::error::Acknowledged Nobody receipts missing; preserving remote hold"
+            exit 1
+          fi
+          git commit -m "Record acknowledged Nobody Bing receipts"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:nobody-indexing-data; then
+              echo "Confirmed Nobody Bing receipts persisted"
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then sleep "$((attempt * 2))"; fi
+          done
+          echo "::error::Receipt push failed; remote hold remains until manual reconciliation"
+          exit 1
