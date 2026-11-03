@@ -91,8 +91,13 @@ function sandbox(initialToken = "") {
   assert.equal(rootLogin.calls.prompt,1);
 
   const editor = sandbox();
-  editor.eval(inline("editor.html"));
-  await editor.eval("login()");
+  const editorSource = inline("editor.html").replace(
+    "setButtons();\n})();",
+    "setButtons();\nglobalThis.__editor={login};\n})();"
+  );
+  assert.notEqual(editorSource, inline("editor.html"));
+  editor.eval(editorSource);
+  await editor.eval("__editor.login()");
   assert.equal(editor.calls.oauth.length,1);
   assert.equal(editor.calls.oauth[0].prompt,"");
 
