@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>이미지 포함 초안 자동 준비기 · Blogger Manager</title>
+<link rel="stylesheet" href="./assets/cms-shell.css">
+<link rel="stylesheet" href="./assets/manager-header.css">
+<script src="./assets/cms-shell.js" defer></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fb;color:#243248;font:15px/1.7 system-ui,-apple-system,"Noto Sans KR",sans-serif}
+.wrap{max-width:1030px;margin:0 auto;padding:26px 18px 70px}
+h1,h2,h3{line-height:1.35}h2{font-size:20px;margin:0 0 12px}
+p{margin:7px 0;color:#50617c}
+.panel{background:#fff;border:1px solid #dfe5ef;padding:21px;border-radius:17px;margin-bottom:15px}
+.notice{background:#edf4ff;border-left:4px solid #4274c9;padding:13px 16px;margin:10px 0 20px;border-radius:8px}
+.badge{display:inline-block;font-size:12px;font-weight:800;background:#e9f7f0;color:#15734c;border-radius:50px;padding:3px 10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{margin-bottom:15px}
+.field label{font-weight:750;display:block;margin-bottom:5px;font-size:13px}
+.field input,.field select,.field textarea{display:block;width:100%;border:1px solid #c9d5e7;border-radius:10px;font:inherit;padding:11px 12px;min-height:46px;background:#fff;color:#1e2e45}
+.field textarea{min-height:125px;resize:vertical}
+button,.button{cursor:pointer;font:inherit;padding:12px 16px;border-radius:11px;border:1px solid #2e5bc6;background:#2e5bc6;color:#fff;font-weight:750;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+button:disabled{opacity:.55;cursor:not-allowed}
+.linkbutton{background:#fff;color:#2e5bc6;margin-left:9px}
+.small{font-size:13px;color:#617188}
+.preview{overflow-wrap:anywhere;word-break:normal}
+.preview img{display:block;max-width:min(100%,600px);height:auto;border-radius:12px;margin:16px auto}
+.preview article{font-size:15px;line-height:1.75}
+.preview article h2{font-size:19px;border-bottom:1px solid #e4e9ef;padding-bottom:7px}
+.preview article table{display:block;max-width:100%;overflow-x:auto}
+.preview article *{max-width:100%;box-sizing:border-box}
+#status{font-weight:650;white-space:pre-line;overflow-wrap:anywhere}
+#result{display:none}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 18px}
+.step{padding:6px 10px;border:1px solid #dde5f0;border-radius:999px;background:#f7f9fd;font-size:12px;font-weight:750}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#edf2fa;padding:2px 4px;border-radius:4px;overflow-wrap:anywhere}
+a{color:#2459b8}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.panel{padding:15px}.wrap{padding:15px 11px 50px}.linkbutton{margin:8px 0 0}}
+</style>
+</head>
+<body>
+<header class="bm-hero"><div class="bm-wrap"><h1 class="bm-title">이미지 포함 초안 자동 준비기</h1>
+<p class="bm-sub">주제 한 줄 → AI 대표이미지·원고 → Chromium Blogger 업로드 → 임시저장 (발행 안 함)</p>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<h2>글쓰기 자동화 연결</h2>
+<p class="small">이 기능은 Google 로그인·이미지 업로드를 처리하는 <strong>사용자 소유 Chromium 실행 환경</strong>이 필요해. GitHub Pages만으로는 계정에 로그인하거나 이미지 파일을 Blogger에 직접 업로드할 수 없어.</p>
+<div class="notice" id="runtime" role="status">로컬 글쓰기 실행기 확인 중</div>
+<a class="button linkbutton" id="local-link" href="http://127.0.0.1:8765/" target="_blank" rel="noopener noreferrer">로컬 글쓰기 실행기 열기</a>
+<p class="small">로컬 PC 또는 Work가 사용할 수 있는 컴퓨터에서 서버를 실행해. Android에서 이 버튼은 실행기가 같은 기기에서 돌고 있지 않으면 연결되지 않아.</p>
+</section>
+<section class="panel">
+<h2>자동으로 준비할 새 임시글</h2>
+<div class="steps"><span class="step">1. AI 원고 작성</span><span class="step">2. 일러스트 생성</span><span class="step">3. Blogger 이미지 업로드</span><span class="step">4. 제목·라벨·퍼머링크·검색 설명 저장</span><span class="step">5. 초안 상태 검증</span></div>
+<form id="draft-form">
+<div class="grid">
+<div class="field"><label for="blog">블로그</label><select id="blog" required><option value="byeol">별셈소 (한국어)</option><option value="nobody">Nobody Asked Data (English)</option></select></div>
+<div class="field"><label for="label">Blogger 라벨 (1개)</label><input id="label" required maxlength="50" value="생활정보" placeholder="기존 블로그 라벨 1개"/></div>
+</div>
+<div class="field"><label for="topic">글 주제 또는 제목</label>
+<input id="topic" required minlength="4" maxlength="200" placeholder="예: 휴대폰을 바꾸기 전 꼭 확인할 체크리스트"/></div>
+<div class="field"><label for="notes">확인된 사실·공식 출처·글 작성 메모 (선택)</label>
+<textarea id="notes" maxlength="12000" placeholder="최신 정책·가격·숫자 등 검증이 필요한 주제라면 확인된 자료와 링크를 여기에 적어줘."></textarea></div>
+<p class="small">새 초안만 생성해. 기존 공개 글을 수정하거나 게시하는 기능은 제공하지 않아. 생성된 이미지·원고는 로컬 파일로 보관하고 Blogger 공식 편집기에서 업로드해.</p>
+<button id="create" type="submit" disabled>이미지 만들고 Blogger 임시글까지 저장</button>
+</form>
+</section>
+<section class="panel" id="progress"><h2>작업 진행 상태</h2><p id="status" role="status" aria-live="polite">로컬 실행기를 연결하면 시작할 수 있어.</p></section>
+<section class="panel" id="result">
+<h2>생성한 초안 검토</h2>
+<div class="preview">
+<h3 id="result-title"></h3>
+<p id="result-meta"></p>
+<img id="result-image" alt="" loading="lazy"/>
+<p><strong>대표이미지 ALT</strong>: <span id="result-alt"></span></p>
+<a id="blogger-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Blogger 임시글 편집 화면 열기</a>
+<p class="small" id="result-note">완료 여부는 Blogger 편집기에서 임시글 상태를 확인한 경우에만 표시해.</p>
+<details><summary>생성한 HTML 원고 펼치기</summary><div id="result-html" class="preview"></div></details>
+</div>
+</section>
+<section class="panel">
+<h2>최초 1회 준비</h2>
+<p>PC/Work가 사용하는 실행 환경에서 <code>npm install playwright@1.56.1</code>, <code>npx playwright install chromium</code>을 실행하고 <code>OPENAI_API_KEY</code> 및 두 블로그의 <code>BLOGGER_BYEOL_ID</code>, <code>BLOGGER_NOBODY_ID</code>를 환경변수로 설정해.</p>
+<p>다음으로 <code>node scripts/draft_studio_blogger.cjs login byeol</code> 또는 <code>login nobody</code>로 Chromium에서 직접 Google 로그인하고, <code>node scripts/draft_studio_server.cjs</code>를 실행하면 돼.</p>
+<p class="small">ChatGPT Plus 요금과 API 사용료는 별개야. Google 로그인 쿠키와 API 키를 GitHub Secrets나 브라우저 웹페이지에 입력하지 마. 실제 Blogger 편집기 구조가 변경되면 안전상 자동 저장이 중단될 수 있어.</p>
+<p><a href="https://github.com/wiclab/blogger-manager/blob/main/docs/DRAFT_STUDIO.md" target="_blank" rel="noopener noreferrer">실행 설명서 및 보호 장치 확인</a></p>
+</section>
+</main>
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const LOCAL=location.origin==="http://127.0.0.1:8765";
+let jobId=null,pollHandle=null;
+const state={ready:false,active:false};
+function text(id,s){$(id).textContent=String(s||"");}
+function labelDefault(){if($("blog").value==="byeol")$("label").value="생활정보";else $("label").value="Nobody Lab";}
+function refresh(){ $("create").disabled=!state.ready||state.active; }
+async function connect(){
+ if(!LOCAL){
+  text("runtime","GitHub Pages에서는 읽기 전용 안내 화면이야. 이미지를 자동 업로드하려면 로컬 Chromium 실행기 화면을 열어줘.");
+  text("status","로컬 실행기가 필요해. 이 사이트가 네 컴퓨터의 Blogger 로그인 세션을 읽지는 않아.");
+  refresh();return;
+ }
+ $("local-link").hidden=true;
+ try{
+  const r=await fetch("/api/health",{cache:"no-store"});
+  if(!r.ok)throw Error("HTTP "+r.status);
+  const d=await r.json();
+  state.ready=!!d.ready&&!!d.apiKeyConfigured;
+  const all=!!d.configuredBlogs?.byeol&&!!d.configuredBlogs?.nobody;
+  text("runtime",!d.apiKeyConfigured?"로컬 서버 연결됨 · OPENAI_API_KEY 설정이 필요해.":!all?"로컬 서버 연결됨 · 블로그 ID를 환경변수에 설정해줘.":"로컬 서버 연결 정상 · 이미지/원고 자동 생성 준비됨");
+  text("status",state.ready?"주제를 입력하면 이미지 생성부터 Blogger 임시저장까지 시작해.":"환경변수 설정을 확인해줘.");
+ }catch(e){text("runtime","로컬 실행기에 연결하지 못했어: "+String(e.message||e));state.ready=false;}
+ refresh();
+}
+function safeHtml(html){
+ const template=document.createElement("template");
+ template.innerHTML=String(html||"");
+ template.content.querySelectorAll("script,iframe,object,embed,form,svg,style,link").forEach(n=>n.remove());
+ template.content.querySelectorAll("*").forEach(n=>{
+  for(const a of [...n.attributes]){
+   if(a.name.startsWith("on")||a.name==="srcdoc")n.removeAttribute(a.name);
+   if(["src","href"].includes(a.name)&&/^javascript:|^data:/i.test(a.value))n.removeAttribute(a.name);
+  }
+ });
+ return template.content;
+}
+async function poll(){
+ try{
+  const r=await fetch("/api/jobs/"+encodeURIComponent(jobId),{cache:"no-store"});
+  if(!r.ok)throw Error("Job status HTTP "+r.status);
+  const d=await r.json();
+  text("status",d.stage+(d.error?"\n오류: "+d.error:"")+(d.blogger?.editorUrl?"\n편집 URL: "+d.blogger.editorUrl:""));
+  if(d.article){
+   $("result").style.display="block";
+   text("result-title",d.article.title);
+   text("result-meta","라벨: "+d.article.label+" · 퍼머링크: "+d.article.slug+".html · 검색 설명: "+d.article.description);
+   text("result-alt",d.article.alt);
+   const host=d.hasImage?"/api/jobs/"+encodeURIComponent(jobId)+"/image":null;
+   if(host){$("result-image").src=host;$("result-image").alt=d.article.alt;}
+   $("result-html").replaceChildren(safeHtml(d.article.html));
+  }
+  if(d.blogger?.editorUrl&&/^https:\/\/www\.blogger\.com\/blog\/post\/edit\/\d+\/\d+/.test(d.blogger.editorUrl)){
+   const link=$("blogger-link");link.href=d.blogger.editorUrl;link.hidden=false;
+  }
+  if(d.status==="completed"||d.status==="failed"){
+   clearInterval(pollHandle);pollHandle=null;state.active=false;refresh();
+   text("result-note",d.status==="completed"&&d.blogger?.verified?
+    "Blogger 임시글 상태 검증 완료. 게시되지 않았어.":
+    "초안 저장이 완전히 검증되지 않았어. 기존 편집 URL에서 중복 생성 여부를 먼저 확인해.");
+  }
+ }catch(e){
+  text("status","진행 상태를 읽지 못했어: "+String(e.message||e));
+  clearInterval(pollHandle);state.active=false;refresh();
+ }
+}
+$("draft-form").addEventListener("submit",async e=>{
+ e.preventDefault();
+ if(!LOCAL||!state.ready||state.active)return;
+ const topic=$("topic").value.trim(),label=$("label").value.trim();
+ if(!topic||!label)return;
+ state.active=true;refresh();
+ text("status","원고와 이미지 생성 작업 접수 중");
+ try{
+  const r=await fetch("/api/drafts",{method:"POST",headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({blog:$("blog").value,topic,label,notes:$("notes").value})});
+  const d=await r.json();
+  if(!r.ok)throw Error(d.error||"작업 접수 실패");
+  jobId=d.id;
+  if(pollHandle)clearInterval(pollHandle);
+  pollHandle=setInterval(poll,1500);
+  await poll();
+ }catch(e){text("status","오류: "+String(e.message||e));state.active=false;refresh();}
+});
+$("blog").addEventListener("change",labelDefault);
+connect();
+})();
+</script>
+</body>
+</html>
