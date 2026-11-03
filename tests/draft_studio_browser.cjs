@@ -36,7 +36,7 @@ const list='<!doctype html><html><body><button id="new">New post</button>'+
  const page=await context.newPage();
  const image=path.join(os.tmpdir(),"draft-studio-fixture-"+Date.now()+".png");
  await fs.writeFile(image,Buffer.from(
-   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/fO0AAAAASUVORK5CYII=","base64"));
+   "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFElEQVR4nGPkSTnxn4GBgYGJAQoAIOwCO1zDvI0AAAAASUVORK5CYII=","base64"));
  try{
   await page.route("https://www.blogger.com/**",route=>{
     const pathname=new URL(route.request().url()).pathname;
