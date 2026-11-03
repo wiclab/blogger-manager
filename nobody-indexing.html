@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nobody Asked Data · Bing 자동 제출 현황</title>
+<meta name="robots" content="noindex">
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;color:#1a2a43;background:#f3f6fb}
+*{box-sizing:border-box}body{margin:0;line-height:1.65}a{color:#174aaf}
+header{background:#162b50;color:white;padding:24px max(18px,calc((100vw - 960px)/2))}
+header h1{margin:0;font-size:clamp(22px,4vw,29px)}
+header p{margin:7px 0 0;color:#cce0fa}
+main{max-width:1000px;margin:auto;padding:20px}
+.panel{border:1px solid #dce5f2;background:white;padding:20px;border-radius:16px;margin:0 0 16px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.metric{background:#f4f7fe;border-radius:12px;padding:14px;min-width:0}
+.metric strong{display:block;font-size:clamp(23px,4vw,29px);overflow-wrap:anywhere}
+.metric span{color:#51637a;font-size:13px}
+.muted{color:#52657e}.links{display:flex;gap:10px;flex-wrap:wrap}.links a{padding:9px 12px;border:1px solid #c5d3e7;border-radius:9px;text-decoration:none}
+.note{border-left:4px solid #9bb6e9;padding:10px 13px;background:#f2f6fd;margin-top:15px}
+button{background:#235cbd;border:0;border-radius:9px;padding:10px 15px;color:white;font:inherit;cursor:pointer}
+@media(max-width:700px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding:12px}.panel{padding:15px}}
+</style>
+</head>
+<body>
+<header><h1>Nobody Asked Data · Bing URL 제출</h1><p>노바디 전용 자동화 · 별셈소와 별도 제출 기록</p></header>
+<main>
+<section class="panel" aria-label="상태">
+  <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+    <strong id="status" role="status" aria-live="polite">제출 기록 확인 중</strong>
+    <button type="button" id="refresh">새로고침</button>
+  </div>
+  <p class="muted" id="updated">최근 실행: 확인 중</p>
+  <div class="grid">
+    <div class="metric"><strong id="published">—</strong><span>공개 글 (사이트맵)</span></div>
+    <div class="metric"><strong id="submitted">—</strong><span>현재 버전 접수 기록</span></div>
+    <div class="metric"><strong id="pending">—</strong><span>제출 대기</span></div>
+    <div class="metric"><strong id="last">—</strong><span>마지막 실행 접수</span></div>
+  </div>
+  <p id="quota" class="muted">할당량: 확인 중</p>
+  <p id="held" class="muted">미확정 보류: 확인 중</p>
+  <div class="note">Bing API의 URL 접수는 실제 검색 색인을 뜻하지 않아. 검색 색인 및 오류는 Bing Webmaster Tools에서 별도로 확인해야 해. 최초 실행 전에는 수치가 비어 있을 수 있어.</div>
+</section>
+<section class="panel">
+  <h2 style="margin-top:0;font-size:18px">운영 링크</h2>
+  <div class="links">
+    <a href="https://qevnaxori.blogspot.com/" target="_blank" rel="noopener">노바디 블로그</a>
+    <a href="https://github.com/wiclab/blogger-manager/actions/workflows/nobody-indexing.yml" target="_blank" rel="noopener">GitHub 실행 기록</a>
+    <a href="https://www.bing.com/webmasters/" target="_blank" rel="noopener">Bing Webmaster Tools</a>
+    <a href="./indexing.html">별셈소 Bing 현황</a>
+  </div>
+  <p class="muted" style="font-size:13px">노바디 글만 대상이며, 매 2시간 간격 예약 제출을 시도해. GitHub 예약 실행은 지연되거나 누락될 수 있어.</p>
+</section>
+</main>
+<script>
+"use strict";
+const DATA_URL = "https://raw.githubusercontent.com/wiclab/blogger-manager/nobody-indexing-data/data/indexing-dashboard.json";
+const $ = id => document.getElementById(id);
+const number = value => Number.isFinite(value) ? value.toLocaleString("ko-KR") : "—";
+const localTime = value => {
+  if (!value) return "첫 실행 전";
+  const date = new Date(value);
+  return Number.isFinite(date.getTime()) ? date.toLocaleString("ko-KR", {timeZone:"Asia/Seoul"}) : "알 수 없음";
+};
+async function refresh() {
+  $("status").textContent = "제출 기록 확인 중";
+  try {
+    const result = await fetch(DATA_URL + "?ts=" + Date.now(), {cache:"no-store"});
+    if (!result.ok) throw new Error("HTTP " + result.status);
+    const data = await result.json();
+    if (data.site !== "https://qevnaxori.blogspot.com/" || !data.bing_submission) {
+      throw new Error("Wrong blog or invalid data");
+    }
+    const metrics = data.bing_submission;
+    $("status").textContent = "제출 기록 상태: " + (metrics.state === "ok" ? "정상" : metrics.state || "초기 설정");
+    $("updated").textContent = "마지막 보고서 갱신: " + localTime(data.updated_at);
+    $("published").textContent = number(metrics.published_count);
+    $("submitted").textContent = number(metrics.tracked_submitted_count);
+    $("pending").textContent = number(metrics.pending_count);
+    $("last").textContent = number(metrics.submitted_this_run);
+    $("quota").textContent = "마지막 확인 시 Bing API 잔여 할당량 (일 / 월): "
+      + number(metrics.daily_quota_remaining_before) + " / " + number(metrics.monthly_quota_remaining_before);
+    $("held").textContent = "미확정 제출 보류: " + number(metrics.blocked_uncertain_count)
+      + "건 · 보호된 배치 " + number(metrics.held_batches_count) + "개";
+  } catch (error) {
+    $("status").textContent = "제출 데이터를 불러올 수 없어. GitHub 실행 기록을 확인해줘.";
+    $("updated").textContent = "오류: " + String(error.message || "Unknown").slice(0,100);
+  }
+}
+$("refresh").addEventListener("click", refresh);
+refresh();
+</script>
+</body>
+</html>
