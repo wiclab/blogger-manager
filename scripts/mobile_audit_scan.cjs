@@ -93,16 +93,16 @@ function evaluateLayout(width) {
       "모바일 뷰포트가 "+width+"px 요청에서 실제 "+viewport+"px로 렌더링됨");
   }
   const documentWidth=Math.max(document.documentElement.scrollWidth,document.body.scrollWidth);
-  if (documentWidth > viewport+9) {
+  if (documentWidth > width+9) {
     const candidates=Array.from(root.querySelectorAll("*")).slice(0,2500);
     const culprit=candidates.find(node => {
       const r=node.getBoundingClientRect();
       const css=getComputedStyle(node);
-      return r.width>0 && r.right>viewport+10 && r.left<viewport &&
+      return r.width>0 && r.right>width+10 && r.left<width &&
         css.position!=="fixed" && css.position!=="sticky" && !scrollAncestor(node);
     }) || root;
     push("horizontal_overflow","high",culprit,
-      "본문의 수평 크기 "+documentWidth+"px (화면 "+viewport+"px) — 가로 스크롤 의심");
+      "본문의 수평 크기 "+documentWidth+"px (요청한 화면 "+width+"px) — 가로 스크롤 의심");
   }
   const contentCandidates=Array.from(root.querySelectorAll("p,span,div,td,th,figcaption,li,blockquote")).slice(0,3000);
   for(const node of contentCandidates) {
@@ -121,16 +121,16 @@ function evaluateLayout(width) {
   }
   for(const node of Array.from(root.querySelectorAll("table")).slice(0,70)) {
     const rect=node.getBoundingClientRect();
-    if(rect.width>viewport+10 && !scrollAncestor(node)) {
+    if(rect.width>width+10 && !scrollAncestor(node)) {
       push("table_overflow","high",node,
-        "표 폭 "+Math.round(rect.width)+"px, 화면 "+viewport+"px — 표 전용 가로 스크롤 필요");
+        "표 폭 "+Math.round(rect.width)+"px, 화면 "+width+"px — 표 전용 가로 스크롤 필요");
     }
   }
   for(const node of Array.from(root.querySelectorAll("input,textarea,select,button")).slice(0,100)) {
     const rect=node.getBoundingClientRect();
     const css=getComputedStyle(node);
     if(rect.width===0 || rect.height===0 || css.display==="none" || css.visibility==="hidden")continue;
-    if((rect.right>viewport+10 || rect.left< -10) && !scrollAncestor(node)) {
+    if((rect.right>width+10 || rect.left< -10) && !scrollAncestor(node)) {
       push("control_clipped","review",node,"입력창/버튼이 화면 너비를 벗어남");
     }
   }
