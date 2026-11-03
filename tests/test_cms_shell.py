@@ -31,6 +31,27 @@ class CMSShellTests(unittest.TestCase):
   self.assertIn("aria-hidden",src)
   self.assertIn("mobile.addEventListener('change',syncAuth)",src)
   self.assertIn("body:not(.cms-enabled) .cms-sidebar",css)
+ def test_nobody_bing_report_uses_shared_cms_menu_on_desktop_and_mobile(self):
+  shell=(ROOT/"assets/cms-shell.js").read_text(encoding="utf-8")
+  report=(ROOT/"nobody-indexing.html").read_text(encoding="utf-8")
+  self.assertIn("['indexing.html','별셈소 Bing 제출'",shell)
+  self.assertIn("['nobody-indexing.html','노바디 Bing 제출'",shell)
+  self.assertLess(shell.index("['indexing.html','별셈소 Bing 제출'"),
+                  shell.index("['nobody-indexing.html','노바디 Bing 제출'"))
+  self.assertIn("current==='nobody-indexing.html'",shell)
+  self.assertIn("nobodyPage?'https://qevnaxori.blogspot.com/'",shell)
+  self.assertIn("mobile.addEventListener('change',syncAuth)",shell)
+  self.assertIn("aside.inert=!active",shell)
+  self.assertIn('href="./assets/manager-header.css"',report)
+  self.assertIn('href="./assets/cms-shell.css"',report)
+  self.assertIn('src="./assets/cms-shell.js" defer',report)
+  self.assertIn('class="bm-hero"',report)
+  self.assertIn('name="robots" content="noindex,nofollow"',report)
+  self.assertIn('/nobody-indexing-data/data/indexing-dashboard.json',report)
+  self.assertIn('https://qevnaxori.blogspot.com/',report)
+  self.assertNotIn("method:'POST'",report)
+  self.assertNotIn('BING_API_KEY',report)
+
  def test_editor_does_not_publish_unsaved_changes(self):
   page=(ROOT/"editor.html").read_text(encoding="utf-8")
   script=page.split("<script>\n'use strict';",1)[1]
