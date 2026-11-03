@@ -4,6 +4,7 @@
 
 ## 실행 중인 GitHub Pages 화면
 - [CMS 운영 대시보드](https://wiclab.github.io/blogger-manager/dashboard.html) — 글감·뉴스·SEO·색인 스냅샷을 읽기 전용으로 요약. 표본 값은 전체 사이트 지표가 아닙니다.
+- [방문 통계](https://wiclab.github.io/blogger-manager/traffic.html) — Blogger 전체 조회수(7일/30일/누적) + CMS 관리자 인증을 통한 GA4 기간별 요약/인기 페이지. 조회는 인증 후 브라우저에서만 수행.
 - [콘텐츠 관리](https://wiclab.github.io/blogger-manager/)
 - [Bing 성과·오래된 정보 점검](https://wiclab.github.io/blogger-manager/seo.html)
 - [Bing 제출·예약 실행·색인·검색 실적 분리 대시보드](https://wiclab.github.io/blogger-manager/indexing.html)
