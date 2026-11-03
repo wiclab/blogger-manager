@@ -19,6 +19,8 @@ const {evaluateLayout}=require("../scripts/mobile_audit_scan.cjs");
    '<table><tbody><tr><th>월차</th><th>총 사용금액</th><th>납부액</th></tr>'+
    '<tr><td>1</td><td>1,000,000</td><td>300,000</td></tr></tbody></table></article></body></html>');
   const broken=await page.evaluate(evaluateLayout,320);
+  console.log("Broken fixture detector findings:",JSON.stringify(broken));
+  console.log("Viewport metrics:",JSON.stringify(await page.evaluate(()=>({innerWidth,bodyWidth:document.body.scrollWidth,htmlWidth:document.documentElement.scrollWidth,tableWidth:document.querySelector("table").getBoundingClientRect().width}))));
   const types=new Set(broken.map(x=>x.type));
   assert(types.has("narrow_text"),"Should detect narrow multi-line text");
   assert(types.has("horizontal_overflow"),"Should detect body width overflow");
