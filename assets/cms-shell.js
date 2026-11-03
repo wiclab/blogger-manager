@@ -4,7 +4,7 @@
 var groups=[
  {title:'작업 공간',items:[['dashboard.html','운영 대시보드','◫'],['traffic.html','방문 통계','📊'],['index.html','게시글 관리','▤'],['editor.html','글 편집·발행','✎']]},
  {title:'콘텐츠 기획',items:[['news.html','뉴스 수집','▣'],['intelligence.html','뉴스 인텔리전스','✧'],['write.html','주제 발굴','◎']]},
- {title:'검색 · 품질',items:[['seo.html','Bing · 글 갱신','↗'],['indexing.html','색인 제출 현황','⇧'],['gsc.html','Google 색인 관제','⌕'],['sources.html','출처 링크 점검','🔗']]}
+ {title:'검색 · 품질',items:[['seo.html','Bing · 글 갱신','↗'],['indexing.html','별셈소 Bing 제출','⇧'],['nobody-indexing.html','노바디 Bing 제출','⇧'],['gsc.html','Google 색인 관제','⌕'],['sources.html','출처 링크 점검','🔗']]}
 ];
 function el(tag,cls,text){var x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x;}
 function init(){
@@ -26,14 +26,15 @@ function init(){
    section.appendChild(a);
   });nav.appendChild(section);
  });
- aside.append(nav,el('div','cms-sidebar-foot','별셈소 운영 도구 · 기존 Blogger 기능 유지'));
+ aside.append(nav,el('div','cms-sidebar-foot','블로그 운영 도구 · 기존 Blogger 기능 유지'));
  var bar=el('div','cms-topbar');bar.setAttribute('role','banner');
  var left=el('div','cms-topbar-left'),right=el('div','cms-topbar-right');
  var toggle=el('button','cms-menu-toggle','☰');toggle.type='button';
  toggle.id='cms-menu-toggle';toggle.setAttribute('aria-controls','cms-sidebar');
  toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','관리 메뉴 열기');
- left.append(toggle,el('span','cms-topbar-title',title),el('span','cms-topbar-caption','/ 별셈소 CMS'));
- var site=el('a','', '블로그 보기');site.href='https://wic12.blogspot.com/';site.rel='noopener noreferrer';site.target='_blank';
+ var nobodyPage=current==='nobody-indexing.html';
+ left.append(toggle,el('span','cms-topbar-title',title),el('span','cms-topbar-caption',nobodyPage?'/ Nobody Asked Data CMS':'/ 별셈소 CMS'));
+ var site=el('a','', '블로그 보기');site.href=nobodyPage?'https://qevnaxori.blogspot.com/':'https://wic12.blogspot.com/';site.rel='noopener noreferrer';site.target='_blank';
  var editor=el('a','cms-topbar-primary','+ 글 작성');editor.href='./editor.html';right.append(site,editor);
  bar.append(left,right);
  host.insertBefore(aside,host.firstChild);host.insertBefore(bar,aside.nextSibling);
