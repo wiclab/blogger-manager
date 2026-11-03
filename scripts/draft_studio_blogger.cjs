@@ -104,9 +104,13 @@ async function replaceWithHtml(page,html){
     page.getByRole("button",{name:/HTML view|HTML 보기|HTML 모드|HTML/i}),
     page.getByLabel(/Compose view|작성 보기|보기 전환/i)
   ],"HTML 편집 모드");
-  const input=page.locator("textarea:visible");
-  if(await input.count()!==1)
-    throw Error("HTML 원본 입력창을 구분하지 못했어. 글 내용은 임의로 덮어쓰지 않아.");
+  // Search-description textarea may stay visible in the settings sidebar.
+  let input=page.locator('textarea#html,textarea[aria-label*="HTML"],textarea[placeholder*="HTML"]');
+  if(await input.count()!==1){
+    const all=page.locator("textarea:visible");
+    if(await all.count()===1)input=all;
+  }
+  input=await requireOne(input,"HTML 원본");
   await input.fill(html,{timeout});
   const read=await input.inputValue();
   if(!read.includes("googleusercontent.com")||!read.includes("<h2"))
