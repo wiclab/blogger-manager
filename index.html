@@ -2078,7 +2078,7 @@ async function verifyWithServer(idToken) {
     // Only an explicit rejected credential is grounds for clearing a session.
     // Network problems, 5xx, and malformed replies must not log out an admin.
     error.authRejected = response.status === 401 || response.status === 403 ||
-      (response.ok && (!data.ok || !data.admin));
+      (response.ok && (data.ok === false || data.admin === false));
     throw error;
   }
   return data;
@@ -2098,6 +2098,7 @@ async function handleCredentialResponse(response) {
     if (!idToken) throw new Error("Google 인증 정보가 없습니다.");
     const admin = await verifyWithServer(idToken);
     sessionStorage.setItem("bloggerManagerIdToken", idToken);
+    sessionStorage.removeItem("bloggerManagerExplicitLogout");
     await showApp(admin);
   } catch (error) {
     // No session deletion here: a transient server/report error is not logout.
@@ -2171,7 +2172,7 @@ function initGoogleLogin() {
       handleCredentialResponse,
 
     auto_select:
-      false
+      true
 
   });
 
@@ -2197,6 +2198,13 @@ function initGoogleLogin() {
     }
 
   );
+
+  // Google can issue a fresh ID token without another button click when allowed.
+  // Never retry automatically after the administrator explicitly signs out.
+  if (!getIdToken() && !sessionStorage.getItem("bloggerManagerExplicitLogout") &&
+      typeof google.accounts.id.prompt === "function") {
+    google.accounts.id.prompt();
+  }
 
 }
 
@@ -2245,14 +2253,10 @@ async function retryReport() {
 ========================================= */
 
 function logout() {
-
-  sessionStorage.removeItem(
-    "bloggerManagerIdToken"
-  );
-
-
+  sessionStorage.removeItem("bloggerManagerIdToken");
+  sessionStorage.setItem("bloggerManagerExplicitLogout", "1");
+  if (window.google?.accounts?.id?.disableAutoSelect) google.accounts.id.disableAutoSelect();
   location.reload();
-
 }
 
 
@@ -3728,9 +3732,9 @@ window.addEventListener(
   "load",
   async () => {
 
-    initGoogleLogin();
-
     await restoreSession();
+
+    initGoogleLogin();
 
   }
 );

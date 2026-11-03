@@ -9,7 +9,7 @@ const $=id=>document.getElementById(id);
 const fmt=n=>n!==null&&n!==undefined&&n!==''&&Number.isSafeInteger(Number(n))&&Number(n)>=0?Number(n).toLocaleString('ko-KR'):'—';
 const now=()=>new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});
 let token='',expires=0,blogId='',oauthClient=null,busyBlogger=false;
-let adminVerified=false,busyGA=false,gaPending=false,days=28,googleReady=false;
+let adminVerified=false,busyGA=false,gaPending=false,days=28,googleReady=false,googlePrompted=false;
 function message(id,text,error=false){$(id).textContent=text;$(id).classList.toggle('error',error);}
 function pill(id,text,kind=''){$(id).textContent=text;$(id).className='chip'+(kind?' '+kind:'');}
 function validToken(){return !!token&&Date.now()<expires-30000;}
@@ -74,7 +74,8 @@ function connectBlogger(){
   },
   error_callback:r=>message('pvStatus','Google 인증 창 오류: '+String(r?.type||'알 수 없음'),true)
  });
- oauthClient.requestAccessToken({prompt:validToken()?'':'consent'});
+ // Google remembers earlier grants. Do not force a new consent on every visit.
+ oauthClient.requestAccessToken({prompt:''});
 }
 function disconnectBlogger(){
  const previous=token;clearBlogger();
@@ -84,33 +85,55 @@ function disconnectBlogger(){
 function idToken(){return sessionStorage.getItem('bloggerManagerIdToken')||'';}
 async function verifyAdmin(){
  const value=idToken();
- if(!value)return false;
+ if(!value){$('gaRetry').hidden=true;return false;}
  try{
-  const res=await fetch(WORKER+'/auth/check',{method:'POST',headers:{Authorization:'Bearer '+value},cache:'no-store'});
-  const body=await res.json();
-  if(!res.ok||!body.ok||!body.admin)throw Error('인증 만료');
-  adminVerified=true;$('gaOut').disabled=false;$('gaLogin').hidden=true;
+  let res;
+  try {
+   res=await fetch(WORKER+'/auth/check',{method:'POST',headers:{Authorization:'Bearer '+value},cache:'no-store'});
+  } catch { throw Error('인증 서버에 연결하지 못했습니다.'); }
+  const body=await res.json().catch(()=>({}));
+  if(!res.ok||!body.ok||!body.admin){
+   const error=Error(body.error||'관리자 인증 확인 실패');
+   error.authRejected=res.status===401||res.status===403||
+     (res.ok&&(body.ok===false||body.admin===false));
+   throw error;
+  }
+  adminVerified=true;$('gaOut').disabled=false;$('gaLogin').hidden=true;$('gaRetry').hidden=true;
   pill('gaState','CMS 연결됨','ok');message('gaStatus','CMS 관리자 인증이 확인됐습니다.');
   return true;
- }catch{
-  sessionStorage.removeItem('bloggerManagerIdToken');
-  adminVerified=false;$('gaLogin').hidden=false;
-  pill('gaState','인증 필요','bad');message('gaStatus','CMS 관리자 인증이 만료되었거나 연결되지 않았습니다.',true);
+ }catch(error){
+  adminVerified=false;
+  const expired=error.authRejected===true;
+  if(expired)sessionStorage.removeItem('bloggerManagerIdToken');
+  $('gaRetry').hidden=expired;
+  $('gaLogin').hidden=!expired;
+  $('gaOut').disabled=true;
+  pill('gaState',expired?'인증 만료':'연결 재확인 필요','bad');
+  message('gaStatus',expired?'관리자 인증이 만료됐습니다. 다시 로그인해주세요.':'서버 연결이 원활하지 않습니다. 기존 로그인은 유지되므로 세션 다시 확인을 누르세요.',true);
   return false;
  }
 }
 async function authenticateAdmin(r){
  if(!r?.credential){message('gaStatus','Google 계정 인증 정보가 없습니다.',true);return;}
  sessionStorage.setItem('bloggerManagerIdToken',String(r.credential));
+ sessionStorage.removeItem('bloggerManagerExplicitLogout');
  if(await verifyAdmin())await loadGA();
 }
 function initGoogleLogin(attempt=0){
  if(window.google?.accounts?.id){
   if(googleReady)return;googleReady=true;
-  google.accounts.id.initialize({client_id:CLIENT_ID,callback:authenticateAdmin,auto_select:false});
+  google.accounts.id.initialize({client_id:CLIENT_ID,callback:authenticateAdmin,auto_select:true});
   google.accounts.id.renderButton($('gaLogin'),{theme:'outline',size:'large',shape:'pill',width:240});
+  maybePromptLogin();
  }else if(attempt<32)setTimeout(()=>initGoogleLogin(attempt+1),250);
  else message('gaStatus','Google 로그인 모듈이 로드되지 않았습니다. 새로고침해 주세요.',true);
+}
+function maybePromptLogin(){
+ if(googlePrompted||!googleReady||idToken()||sessionStorage.getItem('bloggerManagerExplicitLogout'))return;
+ if(typeof google.accounts.id.prompt==='function'){
+  googlePrompted=true;
+  google.accounts.id.prompt();
+ }
 }
 function pathOnly(s){
  const raw=String(s||'');
@@ -169,13 +192,21 @@ async function loadGA(){
  }finally{busyGA=false;if(gaPending){gaPending=false;if(adminVerified)loadGA();}}
 }
 function logoutGA(){
- sessionStorage.removeItem('bloggerManagerIdToken');adminVerified=false;$('gaOut').disabled=true;$('gaLogin').hidden=false;
+ sessionStorage.removeItem('bloggerManagerIdToken');
+ sessionStorage.setItem('bloggerManagerExplicitLogout','1');
+ if(window.google?.accounts?.id?.disableAutoSelect)google.accounts.id.disableAutoSelect();
+ adminVerified=false;$('gaOut').disabled=true;$('gaLogin').hidden=false;$('gaRetry').hidden=true;
  for(const id of ['gaUsers','gaSessions','gaViews'])$(id).textContent='—';
  $('gaStamp').textContent='미조회';renderPages([]);pill('gaState','인증 필요');message('gaStatus','CMS 관리자 세션을 종료했습니다.');
 }
 $('bloggerIn').addEventListener('click',connectBlogger);
 $('bloggerOut').addEventListener('click',disconnectBlogger);
 $('gaOut').addEventListener('click',logoutGA);
+$('gaRetry').addEventListener('click',async()=>{
+ $('gaRetry').disabled=true;
+ try{if(await verifyAdmin())await loadGA();}
+ finally{$('gaRetry').disabled=false;}
+});
 $('refresh').addEventListener('click',async()=>{
  $('refresh').disabled=true;
  try{await Promise.all([validToken()?loadBlogger():Promise.resolve(),adminVerified?loadGA():Promise.resolve()]);}
@@ -187,5 +218,9 @@ document.querySelectorAll('[data-days]').forEach(btn=>btn.addEventListener('clic
  if(adminVerified)loadGA();
 }));
 initGoogleLogin();
-verifyAdmin().then(ok=>{if(ok)loadGA();});
+verifyAdmin().then(ok=>{
+ if(ok){loadGA();return;}
+ // If the old credential really expired, Google may issue a new ID token via One Tap.
+ maybePromptLogin();
+});
 })();
