@@ -82,9 +82,10 @@ window.BloggerPreview = (() => {
         if (doc !== frame.contentDocument || !doc.defaultView) return;
         if (images.some(img => !img.complete || !img.naturalWidth)) throw new Error('이미지를 불러오지 못했습니다. 이미지 주소와 접근 권한을 확인하세요.');
         if (!visibleContent(doc)) throw new Error('표시할 내용이 없거나 HTML/CSS가 내용을 숨기고 있습니다.');
-        const viewport = doc.documentElement.clientWidth;
+        const viewport = doc.defaultView.innerWidth;
+        const contentWidth = doc.documentElement.clientWidth;
         if (!viewport || !frame.getBoundingClientRect().height) throw new Error('미리보기 화면의 크기가 0입니다.');
-        const overflow = Math.max(doc.documentElement.scrollWidth, doc.body.scrollWidth) > viewport + 1;
+        const overflow = Math.max(doc.documentElement.scrollWidth, doc.body.scrollWidth) > contentWidth + 1;
         finish(overflow ? 'error' : 'ready', overflow ?
           '미리보기에서 가로 넘침이 발견됐습니다. 고정 너비·표·이미지 CSS를 확인하세요.' :
           '미리보기 표시 확인 완료 · 실제 너비 ' + viewport + 'px · 이미지 ' + images.length + '개');

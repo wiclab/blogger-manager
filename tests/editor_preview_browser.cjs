@@ -55,9 +55,9 @@ const fixtures = {
       assert.equal(await page.locator('#preview').getAttribute('sandbox'),'allow-same-origin');
       if(expected==='ready') {
         const frame=page.frameLocator('#preview');
-        const metrics=await frame.locator('html').evaluate(el=>({w:el.clientWidth,s:el.scrollWidth,b:el.ownerDocument.body.scrollWidth}));
+        const metrics=await frame.locator('html').evaluate(el=>({w:el.ownerDocument.defaultView.innerWidth,c:el.clientWidth,s:el.scrollWidth,b:el.ownerDocument.body.scrollWidth}));
         if(width!=='auto') assert.equal(metrics.w,Number(width),'exact child viewport');
-        assert.ok(Math.max(metrics.s,metrics.b)<=metrics.w+1,JSON.stringify(metrics));
+        assert.ok(Math.max(metrics.s,metrics.b)<=metrics.c+1,JSON.stringify(metrics));
       }
       passed++;
     }
@@ -66,6 +66,8 @@ const fixtures = {
       if(name==='paragraph') assert.equal(await page.frameLocator('#preview').locator('p').innerText(),"창문 & 창틀 <확인> “물방울” '습기'");
       if(name==='image') assert.equal(await page.frameLocator('#preview').locator('img').evaluate(el=>el.complete&&el.naturalWidth>0),true);
     }
+    await render('<style>html{overflow-y:scroll;scrollbar-gutter:stable}</style>'+fixtures.long,'360');
+    assert.match(await page.locator('#previewStatus').textContent(),/실제 너비 360px/);
     for(let i=0;i<20;i++) await render(`<p>연속 갱신 ${i}</p>`,'360');
     // Cancel a pending generation; its late image event must not replace the next result.
     await page.route('https://slow.invalid/image.png',async route=>{
