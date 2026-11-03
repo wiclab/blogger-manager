@@ -129,6 +129,7 @@
     <p class="login-desc">블로그 분석 데이터<br>관리자 로그인이 필요합니다.</p>
     <div id="googleButton"></div>
     <div id="loginMessage" class="login-info">Google 계정으로 인증해주세요.</div>
+    <button type="button" id="sessionRetry" hidden onclick="restoreSession()">관리자 연결 다시 확인</button>
   </div>
 </section>
 
@@ -300,9 +301,17 @@ async function adminApi(path, options = {}) {
 }
 
 async function verifyWithServer(idToken) {
-  const response = await fetch(API_BASE + "/auth/check", { method:"POST", headers:{ Authorization:`Bearer ${idToken}` } });
-  const data = await response.json();
-  if (!response.ok || !data.ok || !data.admin) throw new Error(data.error || "auth_failed");
+  let response;
+  try {
+    response = await fetch(API_BASE + "/auth/check", { method:"POST", headers:{ Authorization:`Bearer ${idToken}` } });
+  } catch { throw new Error("인증 서버 연결에 실패했습니다."); }
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || !data.ok || !data.admin) {
+    const error = new Error(data.error || "auth_failed");
+    error.authRejected = response.status === 401 || response.status === 403 ||
+      (response.ok && (!data.ok || !data.admin));
+    throw error;
+  }
   return data;
 }
 
@@ -311,34 +320,49 @@ async function handleCredentialResponse(response) {
   try {
     message.className = "login-info";
     message.textContent = "Cloudflare 서버에서 관리자 확인 중...";
-    const idToken = String(response.credential || "");
+    const idToken = String(response?.credential || "");
+    if (!idToken) throw new Error("Google 인증 정보가 없습니다.");
     const admin = await verifyWithServer(idToken);
     sessionStorage.setItem("bloggerManagerIdToken", idToken);
+    sessionStorage.removeItem("bloggerManagerExplicitLogout");
+    document.getElementById("sessionRetry").hidden = true;
     await showApp(admin);
   } catch (error) {
-    sessionStorage.removeItem("bloggerManagerIdToken");
+    // A failed report fetch or transient verification is not logout.
     message.className = "login-error";
-    message.textContent = "로그인 실패: " + friendlyError(error.message);
+    message.textContent = "관리자 연결 실패: " + friendlyError(error.message);
   }
 }
 
 async function restoreSession() {
   const token = getIdToken();
-  if (!token) return false;
+  const retry = document.getElementById("sessionRetry");
+  if (!token) { retry.hidden = true; return false; }
+  let admin;
   try {
-    const admin = await verifyWithServer(token);
-    await showApp(admin);
-    return true;
-  } catch {
-    sessionStorage.removeItem("bloggerManagerIdToken");
+    admin = await verifyWithServer(token);
+  } catch (error) {
+    if (error.authRejected === true) {
+      sessionStorage.removeItem("bloggerManagerIdToken");
+      retry.hidden = true;
+      document.getElementById("loginMessage").textContent = "관리자 인증이 만료됐습니다. 다시 로그인해주세요.";
+    } else {
+      retry.hidden = false;
+      document.getElementById("loginMessage").textContent = "인증 서버 응답 오류입니다. 로그인 상태는 유지돼요. 다시 확인해주세요.";
+    }
     return false;
   }
+  retry.hidden = true;
+  await showApp(admin);
+  return true;
 }
 
 function initGoogleLogin() {
   if (!window.google || !google.accounts || !google.accounts.id) { setTimeout(initGoogleLogin, 200); return; }
-  google.accounts.id.initialize({ client_id:GOOGLE_CLIENT_ID, callback:handleCredentialResponse, auto_select:false });
+  google.accounts.id.initialize({ client_id:GOOGLE_CLIENT_ID, callback:handleCredentialResponse, auto_select:true });
   google.accounts.id.renderButton(document.getElementById("googleButton"), { theme:"outline", size:"large", shape:"pill", width:280 });
+  if (!getIdToken() && !sessionStorage.getItem("bloggerManagerExplicitLogout") &&
+      typeof google.accounts.id.prompt === "function") google.accounts.id.prompt();
 }
 
 async function showApp(admin) {
@@ -351,7 +375,12 @@ async function showApp(admin) {
   await loadData(false);
 }
 
-function logout() { sessionStorage.removeItem("bloggerManagerIdToken"); location.reload(); }
+function logout() {
+  sessionStorage.removeItem("bloggerManagerIdToken");
+  sessionStorage.setItem("bloggerManagerExplicitLogout", "1");
+  if (window.google?.accounts?.id?.disableAutoSelect) google.accounts.id.disableAutoSelect();
+  location.reload();
+}
 
 function setBlog(key) {
   BLOG_KEY = key;
