@@ -44,7 +44,7 @@ h2{font-size:18px;margin:0 0 14px}p{margin:6px 0;color:#53637a}
 <body>
 <main class="cms-dashboard" id="dashboard">
 <div class="dashboard-hero">
- <div><div class="eyebrow">BYEOLSEMSO / OVERVIEW</div><h1>운영 대시보드</h1><p>글 관리, 뉴스 글감, 검색·색인, 자동화 상태를 한곳에서 확인해.</p></div>
+ <div><div class="eyebrow">BLOGGER MANAGER / OVERVIEW</div><h1>운영 대시보드</h1><p>글 관리, 뉴스 글감, 검색·색인, 자동화 상태를 한곳에서 확인해.</p></div>
  <div class="hero-actions"><button type="button" id="refresh" class="button">↻ 데이터 새로고침</button><a class="button primary" href="./editor.html">+ 새 글 작성</a></div>
 </div>
 <p class="sync" id="sync" role="status" aria-live="polite">공개 운영 스냅샷을 불러오는 중입니다.</p>
@@ -54,6 +54,7 @@ h2{font-size:18px;margin:0 0 14px}p{margin:6px 0;color:#53637a}
  <article class="metric"><small>정보 갱신 검토 후보</small><strong id="stale-value">—</strong><p id="stale-note">지난 일정 감지 · 실제 오류는 확인 필요</p><a href="./seo.html">오래된 정보 점검</a><div class="source" id="stale-source">SEO 스냅샷</div></article>
  <article class="metric"><small>Google 표본 미색인</small><strong id="gsc-value">—</strong><p id="gsc-note">전체 사이트 미색인 수가 아님</p><a href="./gsc.html">Google 색인 관제 보기</a><div class="source" id="gsc-source">GSC 표본 검사</div></article>
  <article class="metric"><small>Bing API 제출 대기</small><strong id="bing-value">—</strong><p id="bing-note">API 제출과 실제 색인은 다른 상태</p><a href="./indexing.html">색인 제출 현황 보기</a><div class="source" id="bing-source">Bing 제출 스냅샷</div></article>
+ <article class="metric"><small>모바일 오류 의심 글</small><strong id="mobile-value">—</strong><p id="mobile-note">별셈소 + Nobody · 표본 검사 결과</p><a href="./mobile-audit.html">모바일 오류 사냥꾼 열기</a><div class="source" id="mobile-source">모바일 레이아웃 검사</div></article>
  <article class="metric"><small>최근 뉴스 수집 기사</small><strong id="news-value">—</strong><p id="news-note">최신 RSS 수집본 기준</p><a href="./news.html">뉴스 목록 보기</a><div class="source" id="news-source">뉴스 수집 스냅샷</div></article>
 </section>
 <section class="dashboard-grid">
@@ -63,7 +64,7 @@ h2{font-size:18px;margin:0 0 14px}p{margin:6px 0;color:#53637a}
  <a href="./traffic.html">📊 방문 통계</a>
  <a href="./news.html">▣ 뉴스 수집</a><a href="./write.html">◎ 주제 발굴</a>
  <a href="./gsc.html">⌕ Google 색인</a><a href="./indexing.html">⇧ Bing 제출</a>
- <a href="./sources.html">🔗 출처 점검</a><a href="./seo.html">↗ 글 갱신 검토</a></div></div>
+ <a href="./sources.html">🔗 출처 점검</a><a href="./mobile-audit.html">▣ 모바일 오류 사냥꾼</a><a href="./seo.html">↗ 글 갱신 검토</a></div></div>
 </section>
 <p class="footnote">이 화면은 자동화가 생성한 공개 스냅샷을 읽기만 해. 비공개 Google 인증 정보와 Blogger 수정 토큰은 사용하거나 저장하지 않아. 데이터가 없거나 오래됐으면 정상으로 가정하지 않아. 이 화면에서 색인 요청·게시물 수정·자동 발행은 실행되지 않아.</p>
 </main>
@@ -78,6 +79,7 @@ const sources={
  seo:'seo-data/data/seo-pulse.json',
  gsc:'gsc-data/data/gsc-dashboard.json',
  indexing:'indexing-data/data/indexing-dashboard.json',
+ mobile:'mobile-audit-data/data/mobile-audit.json',
  news:'news-data/data/news.json'
 };
 const fmt=n=>Number.isInteger(n)&&n>=0?n.toLocaleString('ko-KR'):'—';
@@ -128,6 +130,15 @@ async function load(){
   if(d.automation&&d.automation.run_state!=='ok')addTask('Bing 자동화 실행 확인','최신 상태: '+String(d.automation.run_state||'미확인'),'./indexing.html');
   else if(old(d.updated_at,6))addTask('Bing 대시보드 갱신 지연','최근 상태 업데이트 '+when(d.updated_at),'./indexing.html');
  }else metric('bing',null,'색인 제출 데이터를 읽지 못했어','확인 불가');
+ if(data.mobile){
+  const d=data.mobile,s=Array.isArray(d.sites)?d.sites:[];
+  const valid=s.length===2&&s.some(x=>x.id==='byeol'&&x.base==='https://wic12.blogspot.com/')&&s.some(x=>x.id==='nobody'&&x.base==='https://qevnaxori.blogspot.com/');
+  const issueTotal=valid?s.reduce((n,x)=>n+(Number.isInteger(x.issue_count)?x.issue_count:0),0):null;
+  metric('mobile',issueTotal,'검사한 글의 오류 의심 · 미검사 글은 포함되지 않아',when(d.updated_at));
+  if(!valid)addTask('모바일 검사 결과 블로그 불일치','보고서 두 블로그 구분을 점검해','./mobile-audit.html');
+  else if(old(d.updated_at,30))addTask('모바일 검사 결과 오래됨','최근 검사 '+when(d.updated_at)+' · 실행 기록 확인','./mobile-audit.html');
+  else if(issueTotal>0)addTask('모바일 레이아웃 오류 후보 확인','별셈소·Nobody 합계 '+fmt(issueTotal)+'개 글에 이상 징후','./mobile-audit.html');
+ }else metric('mobile',null,'모바일 검사 데이터를 읽지 못했어','확인 불가');
  if(data.news){
   const d=data.news;
   metric('news',Array.isArray(d.items)?d.items.length:null,'최근 수집본 · 실제 뉴스 수집 시점 기준',when(d.generatedAt));
@@ -136,7 +147,7 @@ async function load(){
  }else metric('news',null,'뉴스 수집본을 읽지 못했어','확인 불가');
  if(problems.length)addTask('일부 스냅샷 조회 실패',problems.join(', ')+' 데이터를 읽지 못했어. 정상으로 간주하지 않아.','https://github.com/wiclab/blogger-manager/actions');
  if(!$('priorities').children.length)addTask('즉시 확인할 경고 없음','확인한 스냅샷 안에서 별도의 우선 경고가 없어. 전체 정상 판정은 아니야.','./');
- $('sync').textContent='확인 시각 '+new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' · '+(5-problems.length)+'/5개 스냅샷 조회'+(problems.length?' · '+problems.join(', ')+' 조회 실패':' · 카드별 수집 시각 표시');
+ $('sync').textContent='확인 시각 '+new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' · '+(6-problems.length)+'/6개 스냅샷 조회'+(problems.length?' · '+problems.join(', ')+' 조회 실패':' · 카드별 수집 시각 표시');
  button.disabled=false;
 }
 $('refresh').addEventListener('click',load);
