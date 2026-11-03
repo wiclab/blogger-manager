@@ -95,7 +95,7 @@ async function verifyAdmin(){
   if(!res.ok||!body.ok||!body.admin){
    const error=Error(body.error||'관리자 인증 확인 실패');
    error.authRejected=res.status===401||res.status===403||
-     (res.ok&&(!body.ok||!body.admin));
+     (res.ok&&(body.ok===false||body.admin===false));
    throw error;
   }
   adminVerified=true;$('gaOut').disabled=false;$('gaLogin').hidden=true;$('gaRetry').hidden=true;
