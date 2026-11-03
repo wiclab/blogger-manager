@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>모바일 오류 사냥꾼 · Blogger Manager</title>
+<link rel="stylesheet" href="./assets/manager-header.css">
+<link rel="stylesheet" href="./assets/cms-shell.css">
+<script src="./assets/cms-shell.js" defer></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7fc;color:#1e2c43;font:15px/1.7 system-ui,-apple-system,"Noto Sans KR",sans-serif}
+a{color:#2258b2}h1,h2,h3,p{overflow-wrap:break-word}h2{font-size:19px;margin:0 0 10px}
+.bm-hero .bm-wrap{max-width:1180px}
+.audit-wrap{max-width:1160px;margin:0 auto;padding:26px 20px 80px}
+.note{color:#627086;font-size:13px;margin:0 0 16px}
+.status{padding:13px 16px;border:1px solid #dce5ef;background:#fff;border-radius:12px;margin-bottom:16px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin:16px 0}
+.card{min-width:0;background:#fff;border:1px solid #dfe7f2;border-radius:16px;padding:20px}
+.card h2{margin:0 0 11px}.card p{margin:6px 0}
+.numbers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.number{border-radius:11px;background:#f3f6fd;padding:12px 9px;min-width:0;text-align:center}
+.number strong{display:block;font-size:23px;line-height:1.3;font-variant-numeric:tabular-nums}
+.number span{display:block;font-size:11px;color:#5d718b;overflow-wrap:anywhere}
+.card-foot{font-size:12px;color:#627086;margin-top:12px}
+.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0 16px}
+.filters label{font-weight:750;font-size:13px}
+.filters select,.filters button{border:1px solid #cfdbea;border-radius:9px;padding:9px 13px;background:#fff;color:#203b60;font:inherit;min-height:42px}
+.filters button{background:#2f5ed0;color:#fff;border-color:#2f5ed0;cursor:pointer}
+.findings{display:grid;gap:12px}
+.finding{background:#fff;border:1px solid #dfe6f0;border-radius:14px;padding:17px;min-width:0}
+.finding.high{border-left:4px solid #df724a}.finding.review{border-left:4px solid #dbb251}
+.finding-header{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.finding-header h3{font-size:15px;margin:0;overflow-wrap:anywhere}
+.pill{white-space:nowrap;background:#fff1e9;color:#9c421f;border-radius:50px;padding:3px 10px;font-size:11px;font-weight:800}
+.pill.review{background:#fff5dd;color:#845c1c}.pill.ok{background:#e6f6ed;color:#247449}
+.finding p{font-size:13px;color:#4e5d72;margin:5px 0}
+.finding small{color:#697b92}
+.issue-list{margin:10px 0;padding-left:19px;font-size:13px;overflow-wrap:anywhere}
+.issue-list li{margin:5px 0}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:9px;font-size:13px;font-weight:750}
+.evidence{margin-top:10px;border-radius:10px;border:1px solid #e0e6ee;padding:10px;background:#f8fafc}
+.evidence summary{cursor:pointer;font-weight:700;font-size:13px}
+.evidence img{display:block;width:min(100%,360px);height:auto;margin:12px auto 4px;border:1px solid #d3dfef}
+.empty{padding:30px 15px;text-align:center;background:white;border:1px dashed #cbd6e5;border-radius:12px;color:#566980}
+.info{margin-top:22px;font-size:12px;line-height:1.8;color:#586b82;padding:15px;border-radius:12px;background:#eaf0f9}
+@media(max-width:720px){.audit-wrap{padding:18px 13px 58px}.cards{grid-template-columns:1fr}.card{padding:15px}.number strong{font-size:21px}.finding{padding:14px}.filters select{flex:1;min-width:110px}}
+@media(max-width:370px){.numbers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header class="bm-hero"><div class="bm-wrap">
+<h1 class="bm-title">모바일 오류 사냥꾼</h1>
+<p class="bm-sub">별셈소 · Nobody Asked Data | 공개 글의 모바일 표·텍스트·계산기 레이아웃 표본 점검</p>
+</div></header>
+<main class="audit-wrap">
+<div class="status" id="status" role="status" aria-live="polite">GitHub 모바일 점검 결과를 불러오는 중이야.</div>
+<p class="note" id="updated">최근 검사 시각 확인 중</p>
+<section class="cards" id="site-cards" aria-label="블로그별 모바일 검사 현황"></section>
+<section aria-labelledby="findings-head">
+<h2 id="findings-head">발견한 문제와 스크린샷</h2>
+<div class="filters">
+<label for="site-filter">블로그</label>
+<select id="site-filter">
+<option value="all">두 블로그 전체</option>
+<option value="byeol">별셈소</option>
+<option value="nobody">Nobody Asked Data</option>
+</select>
+<label for="status-filter">표시</label>
+<select id="status-filter">
+<option value="issues">문제·검사 불가 우선</option>
+<option value="all">검사 결과 전체</option>
+<option value="high">심각한 문제 후보</option>
+</select>
+<button type="button" id="reload">데이터 새로고침</button>
+</div>
+<p class="note" id="count-note">검사 결과 읽는 중</p>
+<div class="findings" id="findings"></div>
+</section>
+<div class="info">
+<p><strong>검사 범위:</strong> 각 실행에서 블로그당 최대 12개 공개 글을 골라 320·360·390·430px 브라우저 렌더링을 검사해. 수정된 글과 미검사 글을 우선하고, 나머지는 순환 점검해. 자동 스캔은 매 6시간 예약되지만 GitHub 예약 실행은 지연·누락될 수 있어.</p>
+<p><strong>판정 한계:</strong> 휴리스틱으로 발견한 레이아웃 문제는 실제 휴대폰에서 확인해야 해. JavaScript 오류는 계산식 오류를 확정하지 않고, 계산기 버튼을 자동 클릭하지 않아. 게시글 수정·발행은 실행하지 않아.</p>
+<p><a href="https://github.com/wiclab/blogger-manager/actions/workflows/mobile-audit.yml" target="_blank" rel="noopener noreferrer">자동 검사 실행·진단 기록 보기</a> · <a href="./dashboard.html">CMS 운영 대시보드로 돌아가기</a></p>
+</div>
+</main>
+<script>
+(function(){
+"use strict";
+const URL_DATA="https://raw.githubusercontent.com/wiclab/blogger-manager/mobile-audit-data/data/mobile-audit.json";
+const URL_SHOTS="https://raw.githubusercontent.com/wiclab/blogger-manager/mobile-audit-data/";
+const HOSTS={byeol:"wic12.blogspot.com",nobody:"qevnaxori.blogspot.com"};
+const typeLabels={
+ narrow_text:"문구가 지나치게 좁게 줄바꿈됨",
+ horizontal_overflow:"본문 전체 가로 넘침",
+ table_overflow:"표가 모바일 화면을 벗어남",
+ control_clipped:"계산기 입력창·버튼 잘림",
+ script_error:"JavaScript 실행 오류 단서",
+ viewport_mismatch:"모바일 화면 너비 설정 문제",
+ page_load_error:"페이지 렌더링 확인 실패"
+};
+const $=id=>document.getElementById(id);
+let saved=null;
+const number=x=>Number.isInteger(x)&&x>=0?x.toLocaleString("ko-KR"):"—";
+const date=x=>{
+ const d=new Date(x||"");
+ return Number.isFinite(d.getTime())?d.toLocaleString("ko-KR",{timeZone:"Asia/Seoul"}):"검사 전";
+};
+function el(tag,cls,content){
+ const node=document.createElement(tag);
+ if(cls)node.className=cls;
+ if(content!==undefined)node.textContent=String(content);
+ return node;
+}
+function validUrl(url,site){
+ try{const u=new URL(url);return u.protocol==="https:"&&u.hostname===HOSTS[site]&&
+ /^\/\d{4}\/\d{2}\/[^/]+\.html$/.test(u.pathname)&&!u.search&&!u.hash;}
+ catch(_){return false;}
+}
+function card(stat){
+ const root=el("article","card");
+ root.appendChild(el("h2","",stat.name));
+ const list=el("div","numbers");
+ const data=[
+  ["공개 글",stat.published_count],
+  ["검사한 글",stat.checked_count],
+  ["문제 후보",stat.issue_count],
+  ["검사 대기",stat.pending_count]
+ ];
+ data.forEach(row=>{
+  const block=el("div","number");block.append(el("strong","",number(row[1])),el("span","",row[0]));list.appendChild(block);
+ });
+ root.appendChild(list);
+ root.appendChild(el("div","card-foot","검사 불가 "+number(stat.inconclusive_count)+"건 · 실제 오류로 확정하지 않아"));
+ return root;
+}
+function render(){
+ if(!saved)return;
+ const target=$("findings"),site=$("site-filter").value,mode=$("status-filter").value;
+ target.replaceChildren();
+ const rows=Object.values(saved.rows||{}).filter(row=>{
+  if(!row||!HOSTS[row.site]||!validUrl(row.url,row.site))return false;
+  if(site!=="all"&&row.site!==site)return false;
+  if(mode==="issues"&&row.state==="ok")return false;
+  if(mode==="high"&&row.severity!=="high")return false;
+  return true;
+ }).sort((a,b)=>{
+  const rank=r=>r.severity==="high"?0:r.state==="inconclusive"?1:r.severity==="review"?2:3;
+  return rank(a)-rank(b)||(b.checked_at||"").localeCompare(a.checked_at||"");
+ });
+ $("count-note").textContent="현재 조건 "+number(rows.length)+"개 결과 · 검사를 마친 글만 표시해";
+ if(!rows.length){target.appendChild(el("div","empty",mode==="issues"?"현재 필터에 표시할 문제 후보가 없어. 미검사 글까지 정상이라는 의미는 아니야.":"표시할 검사 기록이 없어."));return;}
+ for(const row of rows.slice(0,100)){
+  const article=el("article","finding "+(row.severity==="high"?"high":row.severity==="review"?"review":""));
+  const header=el("div","finding-header");
+  const title=el("h3","",row.site==="byeol"?"별셈소":"Nobody Asked Data");
+  const pill=el("span","pill "+(row.severity==="high"?"":row.state==="ok"?"ok":"review"),
+    row.state==="inconclusive"?"검사 불가":row.severity==="high"?"우선 확인":row.state==="issue"?"검토 권장":"이상 징후 없음");
+  header.append(title,pill);article.appendChild(header);
+  article.appendChild(el("p","",row.url.replace(/^https?:\/\//,"")));
+  article.appendChild(el("small","",date(row.checked_at)+" · "+(row.issues||[]).length+"개 단서"));
+  if(Array.isArray(row.issues)&&row.issues.length){
+   const list=el("ul","issue-list");
+   for(const finding of row.issues){
+    const li=el("li");
+    li.textContent=(typeLabels[finding.type]||"추가 검사 필요")+" · "+finding.width+"px — "+String(finding.detail||"").slice(0,190);
+    list.appendChild(li);
+   }
+   article.appendChild(list);
+  }
+  const actions=el("div","actions"),link=el("a","","공개 글 보기");
+  link.href=row.url;link.target="_blank";link.rel="noopener noreferrer";
+  actions.appendChild(link);article.appendChild(actions);
+  if(typeof row.screenshot==="string"&&/^screenshots\/[a-f0-9]{12}-(320|360|390|430)\.jpg$/.test(row.screenshot)){
+   const details=el("details","evidence"),summary=el("summary","","오류 위치 스크린샷 보기");
+   const img=document.createElement("img");
+   img.loading="lazy";img.alt="모바일 화면 문제 후보 스크린샷";
+   img.src=URL_SHOTS+row.screenshot;
+   details.append(summary,img);article.appendChild(details);
+  }
+  target.appendChild(article);
+ }
+ if(rows.length>100)target.appendChild(el("p","note","상위 100개만 표시했어. 블로그 필터로 범위를 좁혀줘."));
+}
+async function load(){
+ $("reload").disabled=true;$("status").textContent="공개 검사 결과 불러오는 중";
+ try{
+  const response=await fetch(URL_DATA+"?t="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw new Error("HTTP "+response.status);
+  const data=await response.json();
+  if(data.schema!==1||!Array.isArray(data.sites)||data.sites.length!==2||
+    !data.sites.some(x=>x.id==="byeol"&&x.base==="https://wic12.blogspot.com/")||
+    !data.sites.some(x=>x.id==="nobody"&&x.base==="https://qevnaxori.blogspot.com/")||
+    !data.rows||typeof data.rows!=="object")throw new Error("블로그 구분 또는 보고서 형식 불일치");
+  saved=data;$("site-cards").replaceChildren(...data.sites.map(card));
+  $("status").textContent=data.updated_at?"표본 검사 결과 로드 완료 · "+(data.run?.status==="partial"?"일부 검사 불가":"최근 실행 기록 있음"):"첫 실제 검사 전 · 초기 화면";
+  $("updated").textContent="최근 결과 갱신: "+date(data.updated_at)+" · "+
+    (data.run?.scanned||0)+"개 글 검사 · 실행 기록 #"+(data.run_id||"없음");
+  if(data.updated_at&&Date.now()-Date.parse(data.updated_at)>30*3600000){
+   $("status").textContent="검사 결과가 30시간 이상 오래됐어 · GitHub Actions 상태를 확인해";
+  }
+  render();
+ }catch(error){
+  saved=null;$("site-cards").replaceChildren();$("findings").replaceChildren();
+  $("status").textContent="검사 데이터를 읽지 못했어. 정상으로 간주하지 않아.";
+  $("updated").textContent="조회 실패: "+String(error.message).slice(0,110);
+ }finally{$("reload").disabled=false;}
+}
+$("site-filter").addEventListener("change",render);
+$("status-filter").addEventListener("change",render);
+$("reload").addEventListener("click",load);
+load();
+})();
+</script>
+</body>
+</html>
