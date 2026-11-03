@@ -65,3 +65,5 @@ jobs:
             Path(f'/tmp/editor-inline-{i}.js').write_text(script,encoding='utf-8')
           PY
           for script in /tmp/editor-inline-*.js; do node --check "$script"; done
+      - name: CMS OAuth and admin session behavioral regression
+        run: node tests/cms_auth_flow.cjs

@@ -43,6 +43,8 @@ jobs:
           for script in /tmp/blogger-manager-js-check/*.js; do
             node --check "$script"
           done
+      - name: CMS OAuth and admin session behavioral regression
+        run: node tests/cms_auth_flow.cjs
       - name: Verify isolated data routing and absence of old state on main
         run: |
           python - <<'PY'
