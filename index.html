@@ -2078,7 +2078,7 @@ async function verifyWithServer(idToken) {
     // Only an explicit rejected credential is grounds for clearing a session.
     // Network problems, 5xx, and malformed replies must not log out an admin.
     error.authRejected = response.status === 401 || response.status === 403 ||
-      (response.ok && (!data.ok || !data.admin));
+      (response.ok && (data.ok === false || data.admin === false));
     throw error;
   }
   return data;
