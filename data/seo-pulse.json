@@ -20,6 +20,11 @@
         "clicks": 0,
         "date": "2026-10-31",
         "impressions": 0
+      },
+      {
+        "clicks": 0,
+        "date": "2026-11-01",
+        "impressions": 10
       }
     ],
     "low_ctr_query_count": 0,
@@ -31,20 +36,20 @@
     "totals": {
       "clicks": 0,
       "ctr_pct": 0.0,
-      "impressions": 23
+      "impressions": 33
     },
-    "updated_at": "2026-11-02T14:54:17+00:00",
+    "updated_at": "2026-11-03T10:07:52+00:00",
     "window": {
-      "from": "2026-10-06",
-      "to": "2026-11-02",
+      "from": "2026-10-07",
+      "to": "2026-11-03",
       "type": "daily API values"
     }
   },
-  "checked_date": "2026-11-02",
+  "checked_date": "2026-11-03",
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
   "stale": {
-    "checked_posts": 221,
+    "checked_posts": 225,
     "expired_count": 11,
     "items": [
       {
@@ -171,7 +176,7 @@
     "note": "Potential dates only: context can be historical or already updated. Do not auto-edit posts.",
     "status": "ok",
     "upcoming_count": 4,
-    "updated_at": "2026-11-02T14:54:18+00:00"
+    "updated_at": "2026-11-03T10:07:53+00:00"
   },
   "warnings": []
 }
