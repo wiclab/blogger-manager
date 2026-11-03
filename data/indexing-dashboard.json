@@ -1,19 +1,19 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-03T17:59:38+00:00",
+    "last_successful_check_at": "2026-11-03T17:59:49+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 6,
+    "blocked_uncertain_count": 0,
     "daily_quota_remaining_before": 48,
     "eligible_pending_count": 0,
-    "held_batches_count": 1,
-    "last_successful_submission_at": "2026-11-03T09:59:23+00:00",
+    "held_batches_count": 0,
+    "last_successful_submission_at": "2026-11-03T17:59:49+00:00",
     "monthly_quota_remaining_before": 2748,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 6,
+    "pending_count": 0,
     "per_run_cap": 100,
     "published_count": 227,
     "queue_summary": {
@@ -26,17 +26,10 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [
-      "https://wic12.blogspot.com/2026/10/window-condensation-mold-winter-apartment.html",
-      "https://wic12.blogspot.com/2026/11/humidifier-air-purifier-pm-spike-guide.html",
-      "https://wic12.blogspot.com/2026/11/2026-irp-pension-savings-tax-credit-calculator.html",
-      "https://wic12.blogspot.com/2026/11/cash-receipt-self-issued-hometax-register.html",
-      "https://wic12.blogspot.com/2026/10/youth-jeonse-guarantee-age-39.html",
-      "https://wic12.blogspot.com/2026/10/child-support-advance-payment-income-limit-abolished.html"
-    ],
+    "recent_pending": [],
     "state": "ok",
-    "submitted_this_run": 0,
-    "tracked_submitted_count": 221
+    "submitted_this_run": 6,
+    "tracked_submitted_count": 227
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -46,5 +39,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-03T17:59:38+00:00"
+  "updated_at": "2026-11-03T17:59:49+00:00"
 }
