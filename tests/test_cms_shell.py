@@ -52,6 +52,25 @@ class CMSShellTests(unittest.TestCase):
   self.assertNotIn("method:'POST'",report)
   self.assertNotIn('BING_API_KEY',report)
 
+ def test_mobile_audit_is_reachable_on_desktop_and_mobile(self):
+  menu=(ROOT/"assets/cms-shell.js").read_text(encoding="utf-8")
+  html=(ROOT/"mobile-audit.html").read_text(encoding="utf-8")
+  dashboard=(ROOT/"dashboard.html").read_text(encoding="utf-8")
+  self.assertIn("['mobile-audit.html','모바일 오류 사냥꾼'",menu)
+  self.assertIn("aside.inert=!active",menu)
+  self.assertIn("cms-drawer-open",menu)
+  self.assertIn('href="./assets/cms-shell.css"',html)
+  self.assertIn('src="./assets/cms-shell.js" defer',html)
+  self.assertIn('name="robots" content="noindex,nofollow"',html)
+  self.assertIn("mobile-audit-data/data/mobile-audit.json",html)
+  self.assertIn("https://wic12.blogspot.com/",html)
+  self.assertIn("https://qevnaxori.blogspot.com/",html)
+  self.assertIn("evidence",html)
+  self.assertIn('href="./mobile-audit.html"',dashboard)
+  self.assertIn("mobile:'mobile-audit-data/data/mobile-audit.json'",dashboard)
+  self.assertNotIn("method:'POST'",html)
+  self.assertNotIn("BING_API_KEY",html)
+
  def test_editor_does_not_publish_unsaved_changes(self):
   page=(ROOT/"editor.html").read_text(encoding="utf-8")
   script=page.split("<script>\n'use strict';",1)[1]
