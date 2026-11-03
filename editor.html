@@ -281,7 +281,8 @@ async function login() {
       error_callback:error=>statusText('Google 로그인 팝업을 확인하세요: '+(error.type||'error'),'error')
     });
   }
-  tokenClient.requestAccessToken({prompt:token?'':'consent'});
+  // Keep OAuth access tokens in memory; previously approved scope should not force consent again.
+  tokenClient.requestAccessToken({prompt:''});
 }
 async function logout() {
   if(busy||!confirmDiscard())return;
