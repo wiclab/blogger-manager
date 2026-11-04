@@ -1,29 +1,14 @@
 {
   "version": 1,
   "site": "https://wic12.blogspot.com/",
-  "generatedAt": "2026-11-03T19:38:02.052306+00:00",
-  "newsGeneratedAt": "2026-11-03T19:38:00.693335+00:00",
+  "generatedAt": "2026-11-04T00:41:26.843323+00:00",
+  "newsGeneratedAt": "2026-11-04T00:41:25.638567+00:00",
   "newsCount": 237,
-  "postsChecked": 227,
+  "postsChecked": 228,
   "postCoverage": "complete",
   "postExpectedCount": 227,
   "scoring": "규칙 기반 편집 우선순위, 검색량/검색순위/사실 검증 결과가 아님",
   "ideas": [
-    {
-      "id": "1cc66c179164ab7c78f2c53a",
-      "headline": "[이미애 칼럼] 수용자 소비쿠폰 지급, 대상보다 정책 목적과 효과를 살펴야",
-      "category": "경제",
-      "source": "뉴스타운",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9IX0RGRDVCaGphc1Q2amN4ZDJ6OEhoUzBBb3R6WUNlYkFJamlCRlNjY0NPamlqUThkNnIydFNtUk5wRklyZkdaX3Nwc3dlZHdtVnE1a2xwWF8zNHV1anFHZGU3c1ZxUXJpd0U5LS13?oc=5",
-      "publishedAt": "2026-11-03T00:30:54+00:00",
-      "score": 81,
-      "reasons": [
-        "생활형 핵심어: 쿠폰, 소비",
-        "독자 질문으로 확장 가능"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
     {
       "id": "c57c06f6fa74f324debae1cb",
       "headline": "'민생회복 소비쿠폰' 받은 수감자 7만명... 사용 가능 여부는?",
@@ -40,30 +25,58 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "ea561ffbdfe28164a04482ed",
-      "headline": "\"가구당 전기요금 8000원 절약…LH, 태양광 요금상계거래 첫 도입",
+      "id": "0c035d5359801d978b1e70d8",
+      "headline": "K-전기차 경쟁력 비상…’세액공제 카드’ 재검토",
       "category": "경제",
-      "source": "아시아경제",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1wOTFzN1F3bmxtcDQ2WnVwb255OUFYa01Ed28tUl93cUcxYnQwTmRRSVpIM1hXTFBneTMxc1NoUTB0Q2syX19ncEt6MHllZzBLdE84ZDZrWTJsZkl2em9Zcw?oc=5",
-      "publishedAt": "2026-11-03T00:33:07+00:00",
+      "source": "연합뉴스TV",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1xVTh1NHh2WEV6dGpiMlNDV2UySGFHbDhKbjVyNkF3cmVLZlBBT2VQYVNFTjdiZEdPR04tWVlHaUVHWG1FTDZKcmpMR2I2U3c3TXcweUw5Um1RZnNvXzNkNldnSUV4Vm8?oc=5",
+      "publishedAt": "2026-11-03T20:40:00+00:00",
+      "score": 77,
+      "reasons": [
+        "생활형 핵심어: 전기, 기차, 카드"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "d1c3d1fe0e2378c47ee3b7b0",
+      "headline": "석 달 만에 ‘전기차 세액공제’ 다시 꺼낸 정부…세금으로 중국차 막을 수 있나",
+      "category": "경제",
+      "source": "경향신문",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBabTVlRUw2OUxUcURqNXJYeUNaMnVNRzkxS3hIcHBYbEZmMkdMWXlPSUZSc003ODVYWlhzbE11M25jSzZJcGNVWXdCY2pGOTdDNE1OS2U2UHE5Z9IBX0FVX3lxTE1FMENFQXp4QUNrNTg4clhydmtmdEFOYVRSMjJvcVBwLVRJRU9WbUJPZzhiUVNrd0hiLVhtYVhpQTNJcXBjaHY4YkVvTXB5c3hkSElQel91WUE0RDZza0ZR?oc=5",
+      "publishedAt": "2026-11-03T21:00:00+00:00",
+      "score": 77,
+      "reasons": [
+        "생활형 핵심어: 전기, 세금, 기차"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "407993304d8328f2c330c4a5",
+      "headline": "대한적십자사 대전세종지사 여성봉사특별자문위원회, 자립준비청년 140명 대상, 1인당 10만원 상당 온누리 상품권 지원",
+      "category": "경제",
+      "source": "모빅경제",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1PdFY5dHpoM2NJQWw0aEJZNWxlV3dENkc2cndWRG5fanpQMGVnN0ZCNldDRmxxMlVNRU1uNTNZOE5xRmQyaExwVE9XcFhpd2xweWQ5RVNJMUxuWE42TFJFSEtSRlllMHBLUXNOMnREaDA?oc=5",
+      "publishedAt": "2026-11-03T23:50:29+00:00",
       "score": 76,
       "reasons": [
-        "생활형 핵심어: 요금, 전기",
+        "생활형 핵심어: 상품권, 청년",
         "독자 질문으로 확장 가능"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "6e05e4e9402c0a38452252db",
-      "headline": "빵집 창업에 “SW개발업 신청”…수상한 정책대출 상담",
+      "id": "6cb04875015b3ab0d92e9879",
+      "headline": "연말 소비쿠폰·캐시백, 체감 절약 효과는",
       "category": "경제",
-      "source": "KBS 뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBSUTF3TGgzWDZ0dzVraGp1ZDNrN21NVWRzZUxWUWVOZnN1LXp6UklhYWxmano1WXZYSWlJbnI5MmVuMUxPbWRWelAwUnZTd3FvRWJOZDJOM25HTkpYSXc1YzhkZmFIdw?oc=5",
-      "publishedAt": "2026-11-03T12:35:00+00:00",
+      "source": "공감신문",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1UQ3dlZlRRTXZnSWE4bGd5bTV4UGpPbzVWSEd6Q1lCbG1JeXNyek5jRG5tTFYwOWdYYU94czFEZVJJLXNaMVlhMXFzbWpTRjVLcTNhUTdESTVRbXgzdnhjazZlb0FLODlX?oc=5",
+      "publishedAt": "2026-11-04T00:08:20+00:00",
       "score": 76,
       "reasons": [
-        "생활형 핵심어: 신청, 대출",
+        "생활형 핵심어: 쿠폰, 소비",
         "독자 질문으로 확장 가능"
       ],
       "relatedPosts": [],
@@ -100,20 +113,6 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "815a2bad1d7411b580d935e7",
-      "headline": "[연말정산 TIP] 연말정산 의료비, 신용카드로 내면 공제를 둘 다 받나요?",
-      "category": "경제",
-      "source": "베이비뉴스",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1tU18ybHAxVS1mdWo5NkdpUGZNcmNDd0J0a19PaGtDMHlneFhNLU5UTkRxSElmUUhuc3dUUl9zWVpVTVNmNWItbEVQWm9fTnVHNFgtSXZDRDRFMFBxVW8tQkhzaEVaUlVGeDRDSA?oc=5",
-      "publishedAt": "2026-11-03T02:38:27+00:00",
-      "score": 75,
-      "reasons": [
-        "생활형 핵심어: 연말정산, 카드"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
       "id": "2cee85a10a92813cc1fb3d0d",
       "headline": "내년 개신교 정부 지원금 27.6% 축소",
       "category": "경제",
@@ -129,33 +128,41 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "2bbb1c66456570914ece4516",
-      "headline": "실거주 아니면 ‘세금 폭탄’…꼬이는 부동산 세제개편안 셈법",
+      "id": "851ca6e3b7180739017a8332",
+      "headline": "\"정부 지원 대출 가능해요\"…서민 3500명에 수수료 50억 챙긴 일당 - 머니투데이",
       "category": "경제",
-      "source": "매일경제",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5BeXVOc3pMejV5Rm1NaHlJSGQtdTR5MEcxQ216Q1c1cGFoTzZjYVYwSldXcFUzSnN4SERqQ3pBZ3V4TzNGUHFPSDlWUW1QWlBvend0VFc2UE0?oc=5",
-      "publishedAt": "2026-11-03T07:48:32+00:00",
-      "score": 75,
+      "source": "머니투데이",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBCcXN3NUtNa0g5MFdYeDFpWmtBckhkMFoxY0FpamZLTE94VE5zSEZfc0xyMXItMWtBaFN3Sl9iLXRzREE2dVhteXplXzl5MTRVSFVYNzBJQjBsRThNSWlVbHNjdlpQOENTS0tB0gFwQVVfeXFMTVY4YVlSejM2MnUwbVhhbFcyeDgtWms3T2pPRER6dGd4NE52dm5MbkJVV1p6OWxGWTd0bHRBQXNqbzZkTHhYaGJvV25LZHdZR2YyU25LeWc3YlVLR2xFSzNiOXVkUWZoMEJVbDVFTjNLMg?oc=5",
+      "publishedAt": "2026-11-03T20:01:00+00:00",
+      "score": 71,
       "reasons": [
-        "생활형 핵심어: 세금",
-        "변경·시점 표현: 개편"
+        "생활형 핵심어: 수수료, 대출"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "94293d97659225a7d9b50e67",
-      "headline": "LG엔솔, 3분기 매출 역대 최대…ESS·전기차 물량 증가",
+      "id": "44bdc01f5edac241261ec1f5",
+      "headline": "[전문인칼럼] 전기요금 논의 준비",
       "category": "경제",
-      "source": "지디넷코리아",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFB6VWczbUFad24xSy0wQ2JKcTl1bUszRHVoOFVrVTMtUHNkOEQ0WUtJOHlaT3d3aGRmS2t1ejd1MlJ3XzQya0xWblY3NE5rbnhRcER6Ny1B?oc=5",
-      "publishedAt": "2026-11-03T01:42:58+00:00",
+      "source": "대전일보",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBONy1Pa2ZPamRrVncxc3k3eWNjQkh3NzJHdEx5al9YUHRoWHJTbExWcXBia2RMUENhM3cweXU5Y0NyQ0t2d1Y4Q09NTkw1S0liUlpwalQ5MTdwS01TX2lDUVRTTGhlR29nYWVwbXBSRdIBc0FVX3lxTFBGZDlCNWxyZ3J2MEhVc0wyOGhCSWFSS1NSQ1IzU05ud3Y5c1picmxfcmlVWXpwRVdNMVN1QzVBUTZLcERWVWdqTzFTamlmSWJ1SHVndVViV2JkMUJZNWg0MjIyOWZYUURwWWJRbDJWZXZGNzg?oc=5",
+      "publishedAt": "2026-11-03T22:00:00+00:00",
       "score": 71,
       "reasons": [
-        "생활형 핵심어: 전기, 기차"
+        "생활형 핵심어: 요금, 전기"
       ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+      "relatedPosts": [
+        {
+          "title": "히트펌프 전기요금 누진제 피할 수 있나? 2026 선택 요금 3가지·제주 개선 논의",
+          "url": "https://wic12.blogspot.com/2026/11/heat-pump-electricity-tariff-2026-jeju-ess.html",
+          "overlap": [
+            "논의",
+            "전기요금"
+          ]
+        }
+      ],
+      "reason": "이미 다룬 주제와 유사함: 별도 신규 발행 전에 차별점 확인."
     },
     {
       "id": "b28c6d6d0a50840ccb677eb8",
@@ -178,6 +185,20 @@
       "source": "DealSite경제TV",
       "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5FaEpLblctR19aUnpHS3VnMWpnaG9Vc2pjYy1KMTI2TjFvc0NlQWdfMW9XZ3ZBWHY4MkRRNDYyX1RlVkJlSFpSOXNZcUlaZm5EQ3RxQzJR?oc=5",
       "publishedAt": "2026-11-03T08:19:15+00:00",
+      "score": 71,
+      "reasons": [
+        "생활형 핵심어: 전기, 기차"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "353dbaf8a099fcda9090cb31",
+      "headline": "과반 무너진 국산 전기차…\"전기차도 세액공제 포함해야\"",
+      "category": "경제",
+      "source": "세무사신문",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBHYUdoMXJsMHk1VTBQTmNkNUhudGNVOVFyQXVTZ0UzY1prOWRtY1czQmZhejRyVXdvMFVGNUlYeEc3REdZb3M4YXdFMHFHdGotVjhKXzIybjhqNURoeVNmZDVjRHBwUjNxNFJoaEhR?oc=5",
+      "publishedAt": "2026-11-03T05:51:55+00:00",
       "score": 71,
       "reasons": [
         "생활형 핵심어: 전기, 기차"
@@ -214,44 +235,82 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "aa9d8b909856ef4f1d687744",
-      "headline": "중국만 배불리던 전기차 규정… ‘국내생산 세액공제’ 지각 논의",
+      "id": "75924e1f886d44faa3a9b6bf",
+      "headline": "빈틈없는 연말정산… ‘연금저축 600만원 + IRP 300만원’ 조합이 최적",
       "category": "경제",
       "source": "문화일보",
-      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBDUHRjeUpaTHpLWXo2S3dHbFpJa0VtdjhYQ3plb3dxZXlaNDB0emdjOWpmQ1hONk1iVy1ISE5BWWNDYVZsb1FsRUwyWDhWdFpm?oc=5",
-      "publishedAt": "2026-11-03T02:55:20+00:00",
+      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBxc1NKOFRiTFNfb2lzVXFLRE9zSFdTbHVIbVY2blNPcU9wclJNLWxyZjRoZXZyblVoTWxIMENZYmZrTHV4YVNOX0R6OGhJeDlI?oc=5",
+      "publishedAt": "2026-11-04T00:23:38+00:00",
       "score": 71,
       "reasons": [
-        "생활형 핵심어: 전기, 기차"
+        "생활형 핵심어: 연말정산, 연금"
       ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+      "relatedPosts": [
+        {
+          "title": "2026 연말정산 IRP·연금저축 세액공제｜얼마 넣어야 유리할까?",
+          "url": "https://wic12.blogspot.com/2026/11/2026-irp-pension-savings-tax-credit-calculator.html",
+          "overlap": [
+            "irp",
+            "연금저축",
+            "연말정산"
+          ]
+        }
+      ],
+      "reason": "이미 다룬 주제와 유사함: 별도 신규 발행 전에 차별점 확인."
     },
     {
-      "id": "efad4226708cfe5d6b8cec68",
-      "headline": "중국산 전기차에 안방 내준 국산차…세액공제 힘 받을까",
+      "id": "ca2af817f4bdcdab35649215",
+      "headline": "저신용자에 정부지원 대출 알선…수수료 50억원 챙긴 일당 송치 : 경제",
       "category": "경제",
-      "source": "비즈워치",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE01QU13SllEUEs0c1JFSEtnMnd0XzZwNW9XU2g3V3Riamh3ZjV2a0drWG9wR3hPTG84aHZURG5DZXZDc2VtWG45S3BISFk1TEJwRUgxUzBMU3VqbnNmNGc3WHZUVGtLUHlhc1RrTQ?oc=5",
-      "publishedAt": "2026-11-03T01:34:02+00:00",
+      "source": "재경일보",
+      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1TWGJFcVNRdVlpT1VMUm9GYWVsSVBkU0V4Q202VHc3dUFzQXA5eEE2VzNaUEtGYldSdVlPOTVkYjQ2bmlUR3FzcTNiWQ?oc=5",
+      "publishedAt": "2026-11-03T21:28:00+00:00",
       "score": 71,
       "reasons": [
-        "생활형 핵심어: 전기, 기차"
+        "생활형 핵심어: 수수료, 대출"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "bcc9e79dfa87a1a4fb550941",
-      "headline": "\"출시 1년 만에 1천630만장 쾌거\"…넥슨 '아크 레이더스', 게임 넘어 글로벌 IP로 '우뚝'",
-      "category": "한국",
-      "source": "청년일보",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1MeGFjaW94RFAzckQtQlloZXhOdnlLMkx0bktjdlk1aXJhVWdEWGlUbEd6N0FyMUl5Q19MZjJoOXRtWlJSQUx0WXI5R1VkT2dWZjVjUFlvc1N2S1ZCcWxzS2tqRk1LNU0?oc=5",
-      "publishedAt": "2026-11-02T23:00:07+00:00",
+      "id": "ed84e531f2feeaea4dfb871e",
+      "headline": "저신용자에 정부지원 대출 중개…수수료 50억 챙긴 일당 송치",
+      "category": "경제",
+      "source": "연합뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBXLVFOdlU5QS1wd3BpMVBIbzNuZE5URkQwQ0t1R1AtV051bGZtczlwMEg5dVNlZDJqdjZoYUtGT0lZbFlrWEl6MXJmY1BkX3pVSG9uWU5VNzlMbmvSAWBBVV95cUxQTGlRQ2FudFcxYnByRzBQd3k2aUFuejB5YmlMME81WEFFVlhrel9iVkVNVDdpV1N5bE9xbVdmUlVrRDdqWTFsQ20xb2xDc3p0WHhSZWRqaG1va3BDSVlqRHc?oc=5",
+      "publishedAt": "2026-11-03T21:00:03+00:00",
+      "score": 71,
+      "reasons": [
+        "생활형 핵심어: 수수료, 대출"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "0ec8fb0711497ef3868187dd",
+      "headline": "정부지원 대출 컨설팅 빙자…50억 불법 수수료 챙긴 일당 송치",
+      "category": "경제",
+      "source": "아시아경제",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBqX0JGdnpfSUdSclg4U0duelFzcGZVRUliSnVzUEhZRktYMmJlbDBudzlfdFlyYzl4aS1hRXNiQTFGRkdCSWotenh2azZRSXR5NWphemFjdUxqMmpXcXlZQQ?oc=5",
+      "publishedAt": "2026-11-03T21:03:00+00:00",
+      "score": 71,
+      "reasons": [
+        "생활형 핵심어: 수수료, 대출"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "fd28382191d92d7195e50269",
+      "headline": "JTBC, 매각 절차 속도…회생법원에 매각공고안 허가 신청",
+      "category": "경제",
+      "source": "연합뉴스TV",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5ncDY1bHVGNERTVDkzQlU5VHU3UW41WENEeVZfeEt0ZXJkSjhQcV9uRm1nQVVNNzN1VG1kOFdfdnFrejRpOFNFTTNwZFhQdUpRLVJ2emtyelBUTjRQaHVpdXBwb2kyY0E?oc=5",
+      "publishedAt": "2026-11-03T02:50:00+00:00",
       "score": 65,
       "reasons": [
-        "생활형 핵심어: 게임",
-        "변경·시점 표현: 출시"
+        "생활형 핵심어: 신청",
+        "독자 질문으로 확장 가능"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -302,6 +361,6 @@
     }
   ],
   "note": "검토용 제안. 기사나 공공 정책의 내용은 공식 원문으로 다시 확인하세요. 자동 수정·발행하지 않습니다.",
-  "primaryNewsCount": 194,
-  "focusedNewsCount": 43
+  "primaryNewsCount": 192,
+  "focusedNewsCount": 45
 }
