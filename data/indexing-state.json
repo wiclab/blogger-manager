@@ -926,7 +926,26 @@
     }
   },
   "google": {},
-  "held_batches": {},
+  "held_batches": {
+    "ff92888acdf24e24b041e89d6241b330": {
+      "entries": [
+        {
+          "fingerprint": "2026-11-04T22:06:21.772+09:00",
+          "url": "https://wic12.blogspot.com/2026/11/acne-picking-dark-spots-scars-vs-moles.html"
+        },
+        {
+          "fingerprint": "2026-11-04T22:20:53.452+09:00",
+          "url": "https://wic12.blogspot.com/2026/10/running-foot-blister-treatment-next-run-guide.html"
+        },
+        {
+          "fingerprint": "2026-10-17T11:57:25Z",
+          "url": "https://wic12.blogspot.com/2026/10/parcel-delivered-but-not-received.html"
+        }
+      ],
+      "prepared_at": "2026-11-04T16:30:21+00:00",
+      "status": "held"
+    }
+  },
   "sitemap_registered": false,
   "version": 1
 }
