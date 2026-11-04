@@ -61,7 +61,7 @@ function processDraftInbox() {
           labels:[item.label],
         };
         const created = bloggerApi_(cfg.blogId, '/posts?isDraft=true', 'post', payload);
-        if (!created || !/^\\d+$/.test(String(created.id)) ||
+        if (!created || !/^\d+$/.test(String(created.id)) ||
             String(created.status).toUpperCase() !== 'DRAFT') {
           throw new Error('Creation response was not a verified DRAFT');
         }
@@ -108,7 +108,7 @@ function bridgeConfig_() {
   const p = PropertiesService.getScriptProperties();
   const blogId = String(p.getProperty('BLOG_ID') || '').trim();
   const folderId = String(p.getProperty('INBOX_FOLDER_ID') || '').trim();
-  if (!/^\\d{8,24}$/.test(blogId)) throw new Error('BLOG_ID is missing or invalid');
+  if (!/^\d{8,24}$/.test(blogId)) throw new Error('BLOG_ID is missing or invalid');
   if (!/^[A-Za-z0-9_-]{15,128}$/.test(folderId))
     throw new Error('INBOX_FOLDER_ID is missing or invalid');
   return {blogId,folderId};
@@ -123,7 +123,7 @@ function parseAndValidate_(raw) {
   const title = String(item.title || '').trim();
   const label = String(item.label || '').trim();
   const description = String(item.description || '').trim();
-  const slug = String(item.slug || '').replace(/\\.html$/,'');
+  const slug = String(item.slug || '').replace(/\.html$/,'');
   const html = String(item.html || '').trim();
   const alt = String(item.alt || '').trim();
   const imageUrl = String(item.imageUrl || '').trim();
@@ -133,16 +133,17 @@ function parseAndValidate_(raw) {
       !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) ||
       !alt || alt.length < 8 || alt.length > 160 ||
       html.length < 1300 || html.length > BRIDGE.maxHtmlChars ||
-      !/<h2\\b/i.test(html))
+      !/<h2\b/i.test(html))
     throw new Error('Article title, label, meta, ALT, slug or HTML invalid');
-  if (/<\\s*(script|iframe|object|embed|form|h1)\\b/i.test(html) ||
-      /on(?:error|load|click|mouseover)\\s*=/i.test(html) ||
+  if (/<\s*(script|iframe|object|embed|form|h1)\b/i.test(html) ||
+      /on(?:error|load|click|mouseover)\s*=/i.test(html) ||
       /(?:javascript:|data:image|srcdoc=)/i.test(html))
     throw new Error('Disallowed HTML or executable content');
   if (imageUrl) {
-    let host;
-    try { const u = new URL(imageUrl); if (u.protocol !== 'https:') throw 0;
-      host = u.hostname.toLowerCase(); } catch (_) { throw new Error('Invalid imageUrl'); }
+    // Apps Script V8 does not guarantee browser URL globals.
+    const match = /^https:\/\/([a-z0-9.-]+)\//i.exec(imageUrl);
+    if (!match) throw new Error('Invalid imageUrl');
+    const host = match[1].toLowerCase();
     if (!(host === 'blogger.googleusercontent.com' ||
           host.endsWith('.googleusercontent.com') ||
           host === 'wiclab.github.io'))
