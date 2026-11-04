@@ -4,6 +4,7 @@ const {chromium}=require("playwright");
 const assert=require("node:assert/strict");
 const fs=require("node:fs/promises");
 const os=require("node:os");
+const zlib=require("node:zlib");
 const path=require("node:path");
 const {runOnPage,assertJob}=require("../scripts/blogger_native_image_draft.cjs");
 const BLOG_ID="1659014803305858421",POST_ID="999999999999999999";
@@ -38,14 +39,39 @@ function mockBody({mismatch=false,existingImage=false,savedHtml=""}={}){
  'document.getElementById("save").onclick=async()=>{await fetch("/fixture/save",{method:"POST",body:document.getElementById("html").value});};'+
  '</script></body></html>';
 }
+function crc32(data){
+ let crc=0xffffffff;
+ for(const b of data){crc^=b;for(let i=0;i<8;i++)crc=(crc&1)?(crc>>>1)^0xedb88320:crc>>>1;}
+ return (crc^0xffffffff)>>>0;
+}
+function pngChunk(type,data){
+ const t=Buffer.from(type,"ascii"),len=Buffer.alloc(4),crc=Buffer.alloc(4);
+ len.writeUInt32BE(data.length);crc.writeUInt32BE(crc32(Buffer.concat([t,data])));
+ return Buffer.concat([len,t,data,crc]);
+}
+function makePng(){
+ const w=64,h=64,raw=Buffer.alloc(h*(1+w*4));
+ let seed=123456789;
+ for(let y=0;y<h;y++){
+  const start=y*(1+w*4);raw[start]=0;
+  for(let x=0;x<w;x++){
+   const p=start+1+x*4;
+   for(let c=0;c<3;c++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;raw[p+c]=seed>>>24;}
+   raw[p+3]=255;
+  }
+ }
+ const ihdr=Buffer.alloc(13);ihdr.writeUInt32BE(w,0);ihdr.writeUInt32BE(h,4);ihdr[8]=8;ihdr[9]=6;
+ return Buffer.concat([
+   Buffer.from("89504e470d0a1a0a","hex"),
+   pngChunk("IHDR",ihdr),pngChunk("IDAT",zlib.deflateSync(raw)),pngChunk("IEND",Buffer.alloc(0))
+ ]);
+}
 async function scenario({wrongTitle=false,existingImage=false,mismatch=false}={}){
  const browser=await chromium.launch({headless:true});
  const ctx=await browser.newContext({permissions:["clipboard-read","clipboard-write"]});
  const page=await ctx.newPage();
  const imageFile=path.join(os.tmpdir(),"blogger-native-image-"+process.pid+"-"+Date.now()+".png");
- await fs.writeFile(imageFile,Buffer.concat([Buffer.from(
-  "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABd0lEQVQ4T6WTTU8CQRSGn3kmO+5jktHuK/yBprb5Sw5aFVgxiM83DnOemJjtgnbpi0IPvevUf4EYudCy3nrqkg7OxrbNfzFkTMjkLh14BYQCmtstG/vAfi2LFHQDfjXlmrNT9chB0uRJ10dJ6FZQfhzw3hPUteq5jtGf7gmwlIG1hfi4J6xyJtmWIHdqVesWY3+4xUpVg+1Z1cIMWS0V4xfpGdI0YS/nXb8hEjP73zOa7g0uuOskwQ0gR8M8ToCkHLi36jpcbnKeA1bwtB5rSMGPbM6KakVIiyjtka4qy+2D89jpHsUsSMzmhx3zUmihTs2tHUUcqorjOc6tP2TyKhPBa1V6dJRHXdozBIpSbI74/RKgOOuEez2o7IlaAPJNAEr2OsrvKyUuO4PY6Gl8bYLURlJHGV6BnjK3Jav5ge4iM/KfYDZvXDgV0jjcAAAAASUVORK5CYII=","base64"),Buffer.alloc(2048)]));
- // Padding only for a PNG signature/fixture; no real photo involved.
+ await fs.writeFile(imageFile,makePng());
  let persisted="",publish=0,saves=0,newPosts=0;
  await page.route("https://www.blogger.com/**",route=>{
   const u=new URL(route.request().url());
