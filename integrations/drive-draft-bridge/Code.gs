@@ -114,6 +114,10 @@ function processDraftInbox() {
     // Recover the image queue later, without recreating or editing any Blogger post.
     try { backfillWaitingImageQueues_(folder,cfg); }
     catch(e){ console.error('Image queue recovery stopped: '+String(e.message||e).slice(0,150)); }
+    // Explicit user request only: after they upload a PNG in Blogger and save.
+    // The request document must be created by ChatGPT in the private queue.
+    try { processImageCleanupInbox_(folder,cfg); }
+    catch(e){ console.error('Image cleanup inbox stopped: '+String(e.message||e).slice(0,150)); }
   } finally {
     lock.releaseLock();
   }
@@ -337,4 +341,176 @@ function backfillWaitingImageQueues_(folder,cfg) {
         String(e.message||e).slice(0,120));
     }
   }
+}
+
+
+/**
+ * User-controlled image HTML tidy-up, no image binary upload.
+ * The user first uses the native Blogger editor to upload exactly one image
+ * and saves the post as a DRAFT. ChatGPT then adds one private Drive Google Doc:
+ *  name "READY_CLEANUP__<sourceDocId>"
+ *  body {"version":1,"action":"tidy_uploaded_blogger_image","blog":"byeol",
+ *        "publish":false,"mode":"draft_only","sourceDocId":"..."}
+ *
+ * This code never calls Blogger publish, insert, delete or revert endpoints.
+ * It updates only the content field of one previously verified DRAFT via PATCH.
+ */
+function processImageCleanupInbox_(folder,cfg) {
+  const files=folder.getFilesByType(MimeType.GOOGLE_DOCS);
+  const store=PropertiesService.getScriptProperties();
+  let count=0;
+  while(files.hasNext() && count<3) {
+    const requestFile=files.next();
+    if(!requestFile.getName().startsWith('READY_CLEANUP__'))continue;
+    count++;
+    const key='tidy:'+requestFile.getId();
+    if(store.getProperty(key))continue; // one shot even on ambiguous network result
+    let attemptedPatch=false;
+    try {
+      const raw=DocumentApp.openById(requestFile.getId()).getBody().getText();
+      const request=JSON.parse(String(raw).replace(/^\uFEFF/,''));
+      if(request.version!==1 || request.action!=='tidy_uploaded_blogger_image' ||
+         request.blog!=='byeol' || request.publish!==false ||
+         request.mode!=='draft_only' ||
+         !/^[a-zA-Z0-9_-]{20,128}$/.test(String(request.sourceDocId||'')) ||
+         requestFile.getName()!=='READY_CLEANUP__'+request.sourceDocId)
+        throw new Error('Cleanup request schema/name mismatch');
+      const source=DriveApp.getFileById(request.sourceDocId);
+      if(!source.getName().startsWith('SAVED_NEEDS_SETTINGS__'))
+        throw new Error('Source is not a recorded saved draft');
+      const parents=source.getParents();
+      let inFolder=false;
+      while(parents.hasNext())if(parents.next().getId()===cfg.folderId)inFolder=true;
+      if(!inFolder)throw new Error('Source draft document not in approved folder');
+      const stateString=store.getProperty('draft:'+request.sourceDocId);
+      const state=stateString?JSON.parse(stateString):null;
+      if(!state || state.status!=='DRAFT_SAVED_NEEDS_SETTINGS' ||
+         !/^\d{8,24}$/.test(String(state.postId||'')))
+        throw new Error('No approved Blogger draft ID associated with source');
+      const original=parseAndValidate_(
+        DocumentApp.openById(source.getId()).getBody().getText());
+      const postPath='/posts/'+encodeURIComponent(state.postId)+'?view=ADMIN';
+      const before=bloggerApi_(cfg.blogId,postPath,'get');
+      if(!before || String(before.id)!==state.postId ||
+        String(before.status).toUpperCase()!=='DRAFT' ||
+        before.title!==original.title)
+        throw new Error('Blogger post ID, title or DRAFT state mismatch');
+      const imageSource=String(before.content||'');
+      const tidy=normalizeUploadedImageHtml_(imageSource,original.alt,original.html);
+      // Re-read immediately before PATCH to prevent editing a different revision.
+      const rechecked=bloggerApi_(cfg.blogId,postPath,'get');
+      if(!rechecked || rechecked.content!==before.content ||
+         String(rechecked.status).toUpperCase()!=='DRAFT' ||
+         rechecked.title!==original.title)
+        throw new Error('Blogger draft changed while preparing cleanup');
+      store.setProperty(key,JSON.stringify({
+        status:'PATCH_IN_FLIGHT',sourceDocId:request.sourceDocId,
+        postId:state.postId,at:new Date().toISOString()}));
+      attemptedPatch=true;
+      // POST /publish is never used; the only write is a content-only PATCH.
+      bloggerApi_(cfg.blogId,'/posts/'+encodeURIComponent(state.postId),
+        'patch',{content:tidy.html});
+      const result=bloggerApi_(cfg.blogId,postPath,'get');
+      if(!result || String(result.status).toUpperCase()!=='DRAFT' ||
+         result.title!==original.title ||
+         !result.content.includes('alt="'+escapeHtmlAttr_(original.alt)+'"') ||
+         !result.content.includes(tidy.imageUrl) ||
+         !result.content.includes('data-byeol-featured="1"') ||
+         imageFingerprint_(result.content)!==imageFingerprint_(imageSource))
+        throw new Error('Blogger draft image/ALT/content read-back verification failed');
+      const record={
+        status:'IMAGE_CLEANED',postId:state.postId,
+        imageUrl:tidy.imageUrl,
+        editUrl:'https://www.blogger.com/blog/post/edit/'+cfg.blogId+'/'+state.postId,
+        at:new Date().toISOString()};
+      store.setProperty(key,JSON.stringify(record));
+      requestFile.setName('DONE_CLEANUP__'+request.sourceDocId);
+      console.log(JSON.stringify({cleanupDoc:requestFile.getId(),...record}));
+    }catch(e){
+      // A failed/ambiguous PATCH can have changed Blogger: NEVER auto-retry.
+      const result={
+        status:'REVIEW_IMAGE_CLEANUP',attemptedPatch,
+        reason:String(e.message||e).slice(0,180),
+        at:new Date().toISOString()
+      };
+      store.setProperty(key,JSON.stringify(result));
+      try {requestFile.setName('REVIEW_CLEANUP__'+
+        requestFile.getName().replace(/^READY_CLEANUP__/,'').replace(/^REVIEW_CLEANUP__/,''));}
+      catch(_){}
+      console.error(JSON.stringify({cleanupDoc:requestFile.getId(),...result}));
+    }
+  }
+}
+
+/** Image-only HTML adjustment. No rewriting of headings, links or paragraphs. */
+function normalizeUploadedImageHtml_(html,alt,baselineHtml){
+  const tags=Array.from(html.matchAll(/<img\b[^>]*>/gi));
+  if(tags.length!==1)
+    throw new Error('Expected exactly one newly uploaded image in Blogger draft');
+  const img=tags[0];
+  const source=(/\bsrc\s*=\s*["']([^"']+)["']/i.exec(img[0])||[])[1]||'';
+  if(!/^https:\/\/(?:[a-z0-9-]+\.)*googleusercontent\.com\/[^\s"'<>]+$/i.test(source))
+    throw new Error('Image is not on the official Google-hosted Blogger domain');
+  if(imageFingerprint_(html)!==imageFingerprint_(baselineHtml))
+    throw new Error('Body text differs from the original saved draft; preserve user edits');
+  if(!/<h2\b/i.test(html))
+    throw new Error('Expected H2 headings are missing');
+  // Preserve all non-image hyperlinks (official sources/internal links).
+  const originalHrefs=imageNonImageHrefs_(baselineHtml);
+  const currentHrefs=imageNonImageHrefs_(html);
+  if(originalHrefs.join('\n')!==currentHrefs.join('\n'))
+    throw new Error('Non-image links changed; no automatic overwrite');
+
+  let start=img.index,end=img.index+img[0].length;
+  let left=html.slice(0,start),right=html.slice(end);
+  const anchor=/<a\b[^>]*>\s*$/i.exec(left);
+  const anchorEnd=/^\s*<\/a>/i.exec(right);
+  if((anchor&&!anchorEnd)||(!anchor&&anchorEnd))
+    throw new Error('Image anchor wrapper cannot be verified');
+  if(anchor&&anchorEnd) {
+    const href=(/\bhref\s*=\s*["']([^"']+)["']/i.exec(anchor[0])||[])[1]||'';
+    if(href&&!/^https:\/\/(?:[a-z0-9-]+\.)*googleusercontent\.com\//i.test(href))
+      throw new Error('Non-Google image anchor URL; refusing to remove');
+    start-=anchor[0].length;
+    end+=anchorEnd[0].length;
+    left=html.slice(0,start);right=html.slice(end);
+  }
+  // Remove up to two empty presentation wrappers around only this image,
+  // never a wrapper that contains text or other elements.
+  for(let i=0;i<2;i++){
+    const opening=/<(div|figure|p)\b[^>]*>\s*$/i.exec(left);
+    if(!opening)break;
+    const close=new RegExp('^\\s*<\\/'+opening[1]+'\\s*>','i').exec(right);
+    if(!close)break;
+    start-=opening[0].length;end+=close[0].length;
+    left=html.slice(0,start);right=html.slice(end);
+  }
+  const remaining=html.slice(0,start)+html.slice(end);
+  const canonical='<div class="separator" data-byeol-featured="1" '+
+    'style="clear:both;text-align:center;margin:0 auto 24px;max-width:100%;">'+
+    '<img src="'+escapeHtmlAttr_(source)+'" alt="'+escapeHtmlAttr_(alt)+'" '+
+    'loading="eager" decoding="async" style="display:block;width:auto;'+
+    'max-width:100%;height:auto;margin:0 auto;border:0;border-radius:12px;" />'+
+    '</div>';
+  const lead=/^(\s*<article\b[^>]*>)/i.exec(remaining);
+  const output=lead?remaining.slice(0,lead[0].length)+'\n'+canonical+'\n'+
+    remaining.slice(lead[0].length):canonical+'\n'+remaining;
+  if((output.match(/<img\b/gi)||[]).length!==1 ||
+     imageFingerprint_(output)!==imageFingerprint_(html))
+    throw new Error('Image cleanup would change the article text');
+  return {html:output,imageUrl:source};
+}
+function escapeHtmlAttr_(text){
+  return String(text).replace(/&/g,'&amp;').replace(/"/g,'&quot;')
+    .replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;');
+}
+function imageFingerprint_(html){
+  return String(html).replace(/<!--[\s\S]*?-->/g,'')
+    .replace(/<[^>]*>/g,'').replace(/&nbsp;|&#160;/gi,' ')
+    .replace(/\s+/g,'').trim();
+}
+function imageNonImageHrefs_(html){
+  return Array.from(String(html).matchAll(/<a\b[^>]*\bhref\s*=\s*["']([^"']+)["']/gi))
+    .map(m=>m[1]).filter(h=>!/^https:\/\/(?:[a-z0-9-]+\.)*googleusercontent\.com\//i.test(h))
+    .sort();
 }
