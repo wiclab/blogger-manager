@@ -189,13 +189,14 @@ function draftAlreadyExists_(blogId, item) {
 function bloggerApi_(blogId,suffix,method,data) {
   const base = 'https://www.googleapis.com/blogger/v3/blogs/' +
     encodeURIComponent(blogId);
-  const response = UrlFetchApp.fetch(base + suffix, {
+  const options = {
     method:method,
     muteHttpExceptions:true,
     headers:{Authorization:'Bearer ' + ScriptApp.getOAuthToken()},
     contentType:'application/json',
-    payload:data ? JSON.stringify(data) : undefined,
-  });
+  };
+  if (data !== undefined) options.payload = JSON.stringify(data);
+  const response = UrlFetchApp.fetch(base + suffix, options);
   const code = response.getResponseCode();
   if (code < 200 || code > 299) throw new Error('Blogger API HTTP ' + code);
   return JSON.parse(response.getContentText());
