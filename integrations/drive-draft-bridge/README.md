@@ -77,3 +77,19 @@ node --test tests/drive_draft_bridge.test.cjs
 Google Docs에서 가져온 JSON 앞의 BOM(U+FEFF)은 제거한 뒤 파싱합니다. API 오류에서는 원문 응답이나 토큰을 기록하지 않고 HTTP 상태와 허용된 영문 reason 코드만 기록합니다. BOM 및 API 비활성화 회귀 테스트를 포함한 오프라인 테스트 7개가 통과했습니다. 실제 임시글 생성 성공을 뜻하지 않습니다.
 
 공식 참고: https://developers.google.com/apps-script/guides/cloud-platform-projects
+
+
+## PC를 상시 켜두지 않는 이미지 업로드 연결 (추가 실험)
+
+Google Apps Script의 새 Code.gs 버전은 Blogger에 DRAFT를 실제로 저장한 뒤, **같은 비공개 Drive 폴더**에서 `<slug>-featured.png`가 발견되면 파일 `READY_IMAGE__<slug>__<postId>.json`을 생성합니다. JSON에는 실제 Blogger 초안 ID, 원고 HTML, ALT, 정확한 이미지 파일명이 저장됩니다. 비밀번호·토큰은 기록하지 않습니다.
+
+이 JSON은 **Google Docs 문서가 아닌 일반 .json 파일**이므로 데스크톱용 Google Drive에서 PC의 파일로 동기화할 수 있습니다. 원본 PNG도 같은 폴더에 있어야 합니다.
+
+- GitHub 코드를 업데이트한 것만으로 **이미 운영 중인 Apps Script 프로젝트는 자동 갱신되지 않습니다.** 사용자는 본인 Apps Script 편집기에서 새 `Code.gs`를 기존 파일에 교체해 저장해야 합니다.
+- 이미 생성된 이전 임시글용 큐는 스크립트의 `preparePendingImageQueues` 함수를 본인 Google 계정에서 **한 번 실행**해 만들 수 있습니다. 이 함수는 기존 게시글을 수정하거나 새 글을 만들지 않습니다. 동일한 sidecar를 중복 생성하지 않습니다.
+- `<slug>-featured.png`가 없으면 `WAITING_FOR_PNG` 상태만 기록합니다. 이미 만든 임시글은 유지되며 이미지가 생기면 **별도로 backfill 함수를 다시 실행**해야 합니다.
+- PC용 로컬 실행기는 별도 Draft PR #54 `scripts/blogger_native_image_queue.cjs`에 있습니다. **Blogger 편집 화면에 이미지 붙여넣기 및 ALT/저장 확인**을 수행하지만, 실제 Blogger 로그인 및 업로드 성공 테스트는 아직 이루어지지 않았습니다.
+- PC가 꺼져 있으면 Blogger 글은 **이미지 미설정 임시글**로 남습니다. PC가 켜진 동안에만 실행됩니다.
+- 설정 후에도 **맞춤 퍼머링크·검색 설명 자동 설정은 아직 별개 과제**입니다.
+
+두 PR 모두 실계정 테스트를 통과한 뒤에만 운영에 반영해야 합니다.
