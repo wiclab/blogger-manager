@@ -23,7 +23,7 @@ function harness(options={}) {
     ["BLOG_ID","1659014803305858421"],
     ["INBOX_FOLDER_ID","1Xi-7jbr9epijmFHcdoUVnJoXOsRMzySC"],
   ]);
-  const calls=[],log=[];
+  const calls=[],log=[],sidecars=[];
   const file={id:"doc-unique-1",name:"READY__washer",
     getId(){return this.id;},getName(){return this.name;},
     setName(name){this.name=name;}};
@@ -36,9 +36,19 @@ function harness(options={}) {
       getProperties(){return Object.fromEntries(props);}
     };}},
     LockService:{getScriptLock(){return {tryLock(){return true;},releaseLock(){}};}},
-    DriveApp:{getFolderById(){let sent=false;return {getFilesByType(){return {
-      hasNext(){return !sent;},next(){sent=true;return file;}
-    };}};}},
+    DriveApp:{getFolderById(){let sent=false;return {
+      getFilesByType(){return {hasNext(){return !sent;},next(){sent=true;return file;}};},
+      getFilesByName(name){
+        const items=[];
+        if(!options.missingImage && name===article().slug+"-featured.png")
+          items.push({getId(){return "img-private-1";},getMimeType(){return "image/png";},
+            getSize(){return 44000;}});
+        items.push(...sidecars.filter(x=>x.name===name));
+        let index=0;return {hasNext(){return index<items.length;},next(){return items[index++];}};
+      },
+      createFile(name,content,mimeType){const value={name,content,mimeType};
+        sidecars.push(value);return value;}
+    };}},
     DocumentApp:{openById(){return {getBody(){return {getText(){return JSON.stringify(options.article||article());}}}};}},
     UrlFetchApp:{fetch(url,params){
       calls.push({url,method:params.method,payload:params.payload});
@@ -62,7 +72,7 @@ function harness(options={}) {
     Date,JSON,String,Object,Error,RegExp,encodeURIComponent,
   };
   vm.createContext(fake);vm.runInContext(source,fake,{filename:"Code.gs"});
-  return {fake,props,calls,file,log};
+  return {fake,props,calls,file,log,sidecars};
 }
 test("validates strict draft-only scope and rejects risky HTML",()=>{
   const h=harness();
@@ -123,4 +133,28 @@ test("API denial reports reason codes without logging raw response",()=>{
   assert.throws(()=>h.fake.processDraftInbox(),/HTTP 403 \(accessNotConfigured,SERVICE_DISABLED\)/);
   assert.equal(h.calls.filter(x=>x.method==="post").length,0);
   assert.equal(h.log.some(x=>x.includes("private-diagnostic")),false);
+});
+
+test("draft completion queues exactly one user-PC image job with verified post ID",()=>{
+  const h=harness();
+  h.fake.processDraftInbox();
+  assert.equal(h.sidecars.length,1);
+  assert.match(h.sidecars[0].name,/^READY_IMAGE__washing-machine-spin-noise-vibration-guide__99009\.json$/);
+  assert.equal(h.sidecars[0].mimeType,"application/json");
+  const q=JSON.parse(h.sidecars[0].content);
+  assert.equal(q.postId,"99009");
+  assert.equal(q.mode,"draft_only");
+  assert.equal(q.publish,false);
+  assert.equal(q.imageFileName,"washing-machine-spin-noise-vibration-guide-featured.png");
+  assert.equal(q.html,article().html);
+  assert.equal(h.calls.filter(x=>x.method==="post").length,1);
+  h.fake.preparePendingImageQueues();
+  assert.equal(h.sidecars.length,1,"backfill must not generate duplicate manifest");
+});
+test("missing image keeps draft saved but reports image queue pending",()=>{
+  const h=harness({missingImage:true});
+  h.fake.processDraftInbox();
+  assert.equal(h.sidecars.length,0);
+  assert.equal(JSON.parse(h.props.get("draft:doc-unique-1")).imageQueue.status,"WAITING_FOR_PNG");
+  assert.equal(h.calls.filter(x=>x.method==="post").length,1);
 });
