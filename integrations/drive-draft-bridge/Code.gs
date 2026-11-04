@@ -283,15 +283,22 @@ function preparePendingImageQueues() {
     const record=JSON.parse(raw);
     if (!record.postId || record.status!=='DRAFT_SAVED_NEEDS_SETTINGS') continue;
     examined++;
-    const checked=bloggerApi_(cfg.blogId,
-      '/posts/'+encodeURIComponent(record.postId)+'?view=ADMIN','get');
-    if (!checked || String(checked.status).toUpperCase()!=='DRAFT')
-      continue;
-    const item=parseAndValidate_(DocumentApp.openById(file.getId()).getBody().getText());
-    if (checked.title!==item.title) continue;
-    const q=prepareDraftImageQueue_(folder,file,item,cfg.blogId,record.postId);
-    if(q.status==='QUEUED')queued++;
-    console.log(JSON.stringify({docId:file.getId(),queue:q.status}));
+    try {
+      const checked=bloggerApi_(cfg.blogId,
+        '/posts/'+encodeURIComponent(record.postId)+'?view=ADMIN','get');
+      if (!checked || String(checked.status).toUpperCase()!=='DRAFT')
+        continue;
+      const item=parseAndValidate_(DocumentApp.openById(file.getId()).getBody().getText());
+      if (checked.title!==item.title) continue;
+      const q=prepareDraftImageQueue_(folder,file,item,cfg.blogId,record.postId);
+      if(q.status==='QUEUED')queued++;
+      console.log(JSON.stringify({docId:file.getId(),queue:q.status}));
+    } catch(e) {
+      // A user may have deleted an older draft. Never resurrect it or stop
+      // processing unrelated valid drafts in the queue.
+      console.error('Skipping old/invalid draft '+file.getId()+': '+
+        String(e.message||e).slice(0,130));
+    }
   }
   console.log(JSON.stringify({examined,queued}));
 }
