@@ -13,7 +13,7 @@ if not defined BYEOL_DRIVE_QUEUE_DIR (
   echo Enter the full local folder path from Google Drive for desktop.
   set /p BYEOL_DRIVE_QUEUE_DIR=Drive folder path: 
   if not defined BYEOL_DRIVE_QUEUE_DIR goto :end
-  >".local\byeolsemso-drive-path.txt" echo %BYEOL_DRIVE_QUEUE_DIR%
+  powershell -NoProfile -Command "[IO.File]::WriteAllText('.local\byeolsemso-drive-path.txt', [Environment]::GetEnvironmentVariable('BYEOL_DRIVE_QUEUE_DIR'))"
 )
 where node >nul 2>nul
 if errorlevel 1 (
