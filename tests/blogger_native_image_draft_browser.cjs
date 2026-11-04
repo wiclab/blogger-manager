@@ -43,8 +43,8 @@ async function scenario({wrongTitle=false,existingImage=false,mismatch=false}={}
  const ctx=await browser.newContext({permissions:["clipboard-read","clipboard-write"]});
  const page=await ctx.newPage();
  const imageFile=path.join(os.tmpdir(),"blogger-native-image-"+process.pid+"-"+Date.now()+".png");
- await fs.writeFile(imageFile,Buffer.from(
-  "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABd0lEQVQ4T6WTTU8CQRSGn3kmO+5jktHuK/yBprb5Sw5aFVgxiM83DnOemJjtgnbpi0IPvevUf4EYudCy3nrqkg7OxrbNfzFkTMjkLh14BYQCmtstG/vAfi2LFHQDfjXlmrNT9chB0uRJ10dJ6FZQfhzw3hPUteq5jtGf7gmwlIG1hfi4J6xyJtmWIHdqVesWY3+4xUpVg+1Z1cIMWS0V4xfpGdI0YS/nXb8hEjP73zOa7g0uuOskwQ0gR8M8ToCkHLi36jpcbnKeA1bwtB5rSMGPbM6KakVIiyjtka4qy+2D89jpHsUsSMzmhx3zUmihTs2tHUUcqorjOc6tP2TyKhPBa1V6dJRHXdozBIpSbI74/RKgOOuEez2o7IlaAPJNAEr2OsrvKyUuO4PY6Gl8bYLURlJHGV6BnjK3Jav5ge4iM/KfYDZvXDgV0jjcAAAAASUVORK5CYII=","base64"));
+ await fs.writeFile(imageFile,Buffer.concat([Buffer.from(
+  "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABd0lEQVQ4T6WTTU8CQRSGn3kmO+5jktHuK/yBprb5Sw5aFVgxiM83DnOemJjtgnbpi0IPvevUf4EYudCy3nrqkg7OxrbNfzFkTMjkLh14BYQCmtstG/vAfi2LFHQDfjXlmrNT9chB0uRJ10dJ6FZQfhzw3hPUteq5jtGf7gmwlIG1hfi4J6xyJtmWIHdqVesWY3+4xUpVg+1Z1cIMWS0V4xfpGdI0YS/nXb8hEjP73zOa7g0uuOskwQ0gR8M8ToCkHLi36jpcbnKeA1bwtB5rSMGPbM6KakVIiyjtka4qy+2D89jpHsUsSMzmhx3zUmihTs2tHUUcqorjOc6tP2TyKhPBa1V6dJRHXdozBIpSbI74/RKgOOuEez2o7IlaAPJNAEr2OsrvKyUuO4PY6Gl8bYLURlJHGV6BnjK3Jav5ge4iM/KfYDZvXDgV0jjcAAAAASUVORK5CYII=","base64"),Buffer.alloc(2048)]));
  // Padding only for a PNG signature/fixture; no real photo involved.
  let persisted="",publish=0,saves=0,newPosts=0;
  await page.route("https://www.blogger.com/**",route=>{
