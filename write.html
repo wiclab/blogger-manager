@@ -416,8 +416,72 @@ function logout() {
   location.reload();
 }
 
+
+function updateDuplicateSource() {
+  const source = document.getElementById("dupeSource");
+  const name = BLOG_KEY === "wic12" ? "별셈소" : "Nobody Asked Data";
+  const posts = BLOG_REPORT && Array.isArray(BLOG_REPORT.posts) ? BLOG_REPORT.posts : [];
+  const date = REPORT && Date.parse(REPORT.generatedAt);
+  const age = Number.isFinite(date) ? Math.max(0, Date.now() - date) : Infinity;
+  source.textContent = posts.length
+    ? name + " · 공개 글 " + posts.length + "개 · 수집 " + (Number.isFinite(date) ? new Date(date).toLocaleString("ko-KR") : "시각 미확인") +
+      (age > 24 * 3600000 ? " · ⚠ 오래된 자료, 새 글 누락 가능" : "")
+    : name + " · 공개 글 분석 자료가 없어. 새로고침 또는 Blogger Scan 확인 필요";
+}
+function checkDuplicate() {
+  const summary = document.getElementById("dupeSummary");
+  const list = document.getElementById("dupeResults");
+  list.replaceChildren();
+  const name = BLOG_KEY === "wic12" ? "별셈소" : "Nobody Asked Data";
+  const host = BLOG_KEY === "wic12" ? "wic12.blogspot.com" : "qevnaxori.blogspot.com";
+  if (!BLOG_REPORT || !Array.isArray(BLOG_REPORT.posts)) {
+    summary.textContent = "⚠ " + name + " 공개 글 목록이 아직 없어. 결과를 만들 수 없어.";
+    return;
+  }
+  try {
+    if (!window.DuplicateGuard) throw new Error("중복 검사 코드를 불러오지 못했어. 새로고침해.");
+    const selected = BLOG_REPORT.posts.filter(p => {
+      try { return new URL(p.url).hostname === host; } catch { return false; }
+    });
+    const title = document.getElementById("dupeTitle").value;
+    const outline = document.getElementById("dupeOutline").value;
+    const result = window.DuplicateGuard.compare(title, outline, selected);
+    const collected = REPORT && Date.parse(REPORT.generatedAt);
+    const stale = !Number.isFinite(collected) || Date.now() - collected > 24 * 3600000;
+    summary.textContent = (stale ? "⚠ 최신 글이 빠졌을 수 있는 오래된 보고서야.\n" : "") +
+      name + " · " + result.total + "개 공개 글 대조\n" + result.message +
+      (result.hasContext ? "\n도입부·소제목 정보도 비교했어." : "\n이전 보고서라 도입부·H2 데이터가 없어. 제목 위주로 비교했어.");
+    const labels={high:"중복 위험 높음",review:"본문 비교 필요",low:"직접 유사 낮음"};
+    for (const match of result.matches.slice(0, 6)) {
+      const item = document.createElement("article");
+      item.className = "dupe-result";
+      const tag = document.createElement("span");
+      tag.className = "dupe-tag " + match.level;
+      tag.textContent = labels[match.level] + " · 유사도 " + match.score + "점";
+      const link = document.createElement("a");
+      link.href = match.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = match.title;
+      const details = document.createElement("div");
+      details.className = "dupe-note";
+      details.textContent = match.shared.length
+        ? "겹치는 핵심어: " + match.shared.join(", ")
+        : "직접 일치하는 핵심어가 적어. 본문 검색 의도는 별도 확인이 필요해.";
+      item.append(tag, document.createElement("br"), link, details);
+      list.appendChild(item);
+    }
+  } catch (error) {
+    summary.textContent = "⚠ 검사 중단: " + String(error.message || error);
+  }
+}
+
 function setBlog(key) {
   BLOG_KEY = key;
+  BLOG_REPORT = null;
+  document.getElementById("dupeResults").replaceChildren();
+  document.getElementById("dupeSummary").textContent = "선택한 블로그의 기존 글 목록을 확인해.";
+  updateDuplicateSource();
   document.querySelectorAll("[data-blog]").forEach(btn => btn.classList.toggle("active", btn.dataset.blog === key));
   loadData(false);
 }
@@ -442,8 +506,11 @@ async function loadData(forceRefresh) {
     updateStatuses();
     buildCandidates();
     render();
+    updateDuplicateSource();
   } catch (error) {
     console.error(error);
+    BLOG_REPORT = null;
+    updateDuplicateSource();
     setStatus("gscStatus", "bad", "데이터 조회 실패");
     setStatus("gaStatus", "bad", friendlyError(error.message));
     document.getElementById("candidateBody").innerHTML = `<tr><td colspan="7" class="empty">불러오기 실패: ${escapeHtml(friendlyError(error.message))}</td></tr>`;
