@@ -101,6 +101,25 @@
     .spinner { width:34px; height:34px; margin:0 auto 14px; border:4px solid #e5e7eb; border-top-color:#142033; border-radius:50%; animation:spin 1s linear infinite; }
     @keyframes spin { to { transform:rotate(360deg); } }
 
+
+    /* Blog-specific, read-only duplicate risk checker. */
+    .dupe-panel{padding:20px;margin-bottom:16px;scroll-margin-top:24px}
+    .dupe-panel h2{font-size:19px;margin:0 0 7px}
+    .dupe-note{font-size:12px;color:#53657d;line-height:1.7;margin:8px 0}
+    .dupe-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0}
+    .dupe-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+    .dupe-field label{font-weight:800;font-size:12px}
+    .dupe-field input,.dupe-field textarea{width:100%;min-width:0;border:1px solid #cbd5e1;border-radius:10px;padding:11px;font:inherit;font-size:14px;line-height:1.6}
+    .dupe-field textarea{min-height:86px;resize:vertical}
+    .dupe-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:10px 0}
+    .dupe-controls button{background:#1d4ed8;border:0;color:#fff;border-radius:10px;padding:11px 15px;font-weight:800}
+    .dupe-results{display:grid;gap:10px;margin:12px 0}
+    .dupe-result{padding:13px;border-radius:11px;border:1px solid #dde5ef;background:#f8fafc;min-width:0;overflow-wrap:anywhere}
+    .dupe-result a{font-size:14px;font-weight:800;line-height:1.55}
+    .dupe-tag{display:inline-block;padding:3px 8px;border-radius:99px;background:#e2e8f0;font-size:11px;font-weight:800;margin-right:6px}
+    .dupe-tag.high{color:#991b1b;background:#fef2f2}.dupe-tag.review{color:#92400e;background:#fff7ed}.dupe-tag.low{color:#166534;background:#f0fdf4}
+    .dupe-summary{margin:13px 0;font-size:13px;line-height:1.7;white-space:pre-line;overflow-wrap:anywhere}
+    @media(max-width:700px){.dupe-panel{padding:15px}.dupe-fields{grid-template-columns:1fr}}
     @media (max-width:1100px) {
       .topbar { flex-wrap:wrap; }
       .page-nav { order:3; width:100%; }
@@ -175,6 +194,20 @@
       </div>
       <button id="refreshButton" class="refresh" onclick="loadData(true)">↻ 새로 불러오기</button>
     </div>
+
+
+    <section id="duplicate-check" class="panel dupe-panel" aria-labelledby="dupe-title">
+      <h2 id="dupe-title">🔎 신규 글 중복 검사 · 별셈소 / 노바디</h2>
+      <p class="dupe-note">위에서 블로그를 선택하고 새 글 제목과 핵심 질문을 입력해. 공개 글의 제목·도입부·H2 소제목에서 유사 후보를 찾는 읽기 전용 검사야.</p>
+      <div class="dupe-fields">
+        <div class="dupe-field"><label for="dupeTitle">신규 글 제목 (필수)</label><input id="dupeTitle" maxlength="200" autocomplete="off" placeholder="예: Annual vs. Monthly Subscriptions: When Is Annual Cheaper?"></div>
+        <div class="dupe-field"><label for="dupeOutline">핵심 질문 · 계산기 · 목차 (선택, 권장)</label><textarea id="dupeOutline" maxlength="4000" placeholder="예: Monthly fee, yearly fee, break-even month calculator"></textarea></div>
+      </div>
+      <div class="dupe-controls"><button type="button" onclick="checkDuplicate()">중복 검사 실행</button><span class="dupe-note" id="dupeSource" role="status">기존 글 목록 확인 중...</span></div>
+      <div id="dupeSummary" class="dupe-summary" role="status" aria-live="polite">제목을 입력하면 유사 글을 비교할 수 있어.</div>
+      <div id="dupeResults" class="dupe-results" aria-label="유사한 기존 게시글"></div>
+      <p class="dupe-note">점수는 자체 단어 유사도이며 실제 중복 확률이 아니야. 낮은 점수도 신규 발행을 보장하지 않아. 기존 글을 직접 읽고 판단해. 글을 수정·발행하지 않아.</p>
+    </section>
 
     <section class="metrics">
       <div class="metric"><div class="metric-label">검색어 데이터</div><div id="mQueries" class="metric-value">-</div><div class="metric-note">현재 API 응답 기준</div></div>
@@ -274,6 +307,7 @@
   </div>
 </div>
 
+<script src="./assets/duplicate-guard.js"></script>
 <script>
 const GOOGLE_CLIENT_ID = "745983224346-2bir36jrfv79g8igk46aocv49o44u50f.apps.googleusercontent.com";
 const API_BASE = "https://blogger-manager-api.chldndlf91.workers.dev";
@@ -284,6 +318,7 @@ let STATS = null;
 let REPORT = null;
 let BLOG_REPORT = null;
 let CANDIDATES = [];
+let LOAD_SEQ = 0; // Discard stale async responses when switching blogs.
 
 function getIdToken() { return sessionStorage.getItem("bloggerManagerIdToken") || ""; }
 
@@ -382,8 +417,72 @@ function logout() {
   location.reload();
 }
 
+
+function updateDuplicateSource() {
+  const source = document.getElementById("dupeSource");
+  const name = BLOG_KEY === "wic12" ? "별셈소" : "Nobody Asked Data";
+  const posts = BLOG_REPORT && Array.isArray(BLOG_REPORT.posts) ? BLOG_REPORT.posts : [];
+  const date = REPORT && Date.parse(REPORT.generatedAt);
+  const age = Number.isFinite(date) ? Math.max(0, Date.now() - date) : Infinity;
+  source.textContent = posts.length
+    ? name + " · 공개 글 " + posts.length + "개 · 수집 " + (Number.isFinite(date) ? new Date(date).toLocaleString("ko-KR") : "시각 미확인") +
+      (age > 24 * 3600000 ? " · ⚠ 오래된 자료, 새 글 누락 가능" : "")
+    : name + " · 공개 글 분석 자료가 없어. 새로고침 또는 Blogger Scan 확인 필요";
+}
+function checkDuplicate() {
+  const summary = document.getElementById("dupeSummary");
+  const list = document.getElementById("dupeResults");
+  list.replaceChildren();
+  const name = BLOG_KEY === "wic12" ? "별셈소" : "Nobody Asked Data";
+  const host = BLOG_KEY === "wic12" ? "wic12.blogspot.com" : "qevnaxori.blogspot.com";
+  if (!BLOG_REPORT || !Array.isArray(BLOG_REPORT.posts)) {
+    summary.textContent = "⚠ " + name + " 공개 글 목록이 아직 없어. 결과를 만들 수 없어.";
+    return;
+  }
+  try {
+    if (!window.DuplicateGuard) throw new Error("중복 검사 코드를 불러오지 못했어. 새로고침해.");
+    const selected = BLOG_REPORT.posts.filter(p => {
+      try { return new URL(p.url).hostname === host; } catch { return false; }
+    });
+    const title = document.getElementById("dupeTitle").value;
+    const outline = document.getElementById("dupeOutline").value;
+    const result = window.DuplicateGuard.compare(title, outline, selected);
+    const collected = REPORT && Date.parse(REPORT.generatedAt);
+    const stale = !Number.isFinite(collected) || Date.now() - collected > 24 * 3600000;
+    summary.textContent = (stale ? "⚠ 최신 글이 빠졌을 수 있는 오래된 보고서야.\n" : "") +
+      name + " · " + result.total + "개 공개 글 대조\n" + result.message +
+      (result.hasContext ? "\n도입부·소제목 정보도 비교했어." : "\n이전 보고서라 도입부·H2 데이터가 없어. 제목 위주로 비교했어.");
+    const labels={high:"중복 위험 높음",review:"본문 비교 필요",low:"직접 유사 낮음"};
+    for (const match of result.matches.slice(0, 6)) {
+      const item = document.createElement("article");
+      item.className = "dupe-result";
+      const tag = document.createElement("span");
+      tag.className = "dupe-tag " + match.level;
+      tag.textContent = labels[match.level] + " · 유사도 " + match.score + "점";
+      const link = document.createElement("a");
+      link.href = match.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = match.title;
+      const details = document.createElement("div");
+      details.className = "dupe-note";
+      details.textContent = match.shared.length
+        ? "겹치는 핵심어: " + match.shared.join(", ")
+        : "직접 일치하는 핵심어가 적어. 본문 검색 의도는 별도 확인이 필요해.";
+      item.append(tag, document.createElement("br"), link, details);
+      list.appendChild(item);
+    }
+  } catch (error) {
+    summary.textContent = "⚠ 검사 중단: " + String(error.message || error);
+  }
+}
+
 function setBlog(key) {
   BLOG_KEY = key;
+  BLOG_REPORT = null;
+  document.getElementById("dupeResults").replaceChildren();
+  document.getElementById("dupeSummary").textContent = "선택한 블로그의 기존 글 목록을 확인해.";
+  updateDuplicateSource();
   document.querySelectorAll("[data-blog]").forEach(btn => btn.classList.toggle("active", btn.dataset.blog === key));
   loadData(false);
 }
@@ -395,6 +494,7 @@ function setDays(days) {
 }
 
 async function loadData(forceRefresh) {
+  const seq = ++LOAD_SEQ;
   setLoading(true);
   const refresh = forceRefresh ? "&refresh=1" : "";
   try {
@@ -402,19 +502,35 @@ async function loadData(forceRefresh) {
       adminApi(`/stats/overview?blog=${encodeURIComponent(BLOG_KEY)}&days=${DAYS}${refresh}`),
       adminApi("/report")
     ]);
+    if (seq !== LOAD_SEQ) return;
     STATS = stats;
     REPORT = report;
     BLOG_REPORT = resolveBlogReport(report, BLOG_KEY);
     updateStatuses();
     buildCandidates();
     render();
+    updateDuplicateSource();
   } catch (error) {
     console.error(error);
+    if (seq !== LOAD_SEQ) return;
+    // GA4/GSC may be unavailable while the public Blogger scan report is valid.
+    // Allow the duplicate checker to work independently of the stats API.
+    try {
+      REPORT = await adminApi("/report");
+      if (seq !== LOAD_SEQ) return;
+      BLOG_REPORT = resolveBlogReport(REPORT, BLOG_KEY);
+    } catch (reportError) {
+      if (seq !== LOAD_SEQ) return;
+      REPORT = null;
+      BLOG_REPORT = null;
+      console.error("Blogger report unavailable", reportError);
+    }
+    updateDuplicateSource();
     setStatus("gscStatus", "bad", "데이터 조회 실패");
     setStatus("gaStatus", "bad", friendlyError(error.message));
     document.getElementById("candidateBody").innerHTML = `<tr><td colspan="7" class="empty">불러오기 실패: ${escapeHtml(friendlyError(error.message))}</td></tr>`;
   } finally {
-    setLoading(false);
+    if (seq === LOAD_SEQ) setLoading(false);
   }
 }
 

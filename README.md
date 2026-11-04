@@ -11,7 +11,7 @@
 - [Google 색인·모바일 URL 관제](https://wiclab.github.io/blogger-manager/gsc.html) — 별셈소 표본 조회·오류 감시 (GSC API 인증 필요)
 
 공통 상단 메뉴는 Bing SEO 화면의 남색 헤더 디자인으로 통일되었습니다. GSC는 비밀키를 노출하지 않는 읽기 전용 관제를 별도 화면으로 운영하며 주제 발굴 기능은 유지됩니다.
-- [주제 발굴](https://wiclab.github.io/blogger-manager/write.html)
+- [주제 발굴·중복 검사](https://wiclab.github.io/blogger-manager/write.html#duplicate-check) — 별셈소/노바디 공개 글 목록, 제목·도입부·H2 힌트와 새 글의 검색 의도를 비교하는 읽기 전용 위험도 검사. 기존 관리자 로그인 필요, 발행/수정 없음
 - [글 편집](https://wiclab.github.io/blogger-manager/editor.html)
 - [뉴스](https://wiclab.github.io/blogger-manager/news.html)
 - [뉴스 인텔리전스](https://wiclab.github.io/blogger-manager/intelligence.html) — 뉴스 글감, 기존 글 갱신 후보, 조건부 Telegram 알림
