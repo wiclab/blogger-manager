@@ -14,7 +14,7 @@ const src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTest123/w
 const original='<article style="max-width:740px;"><p>연결 상태를 확인합니다.</p>'+
   '<h2 style="border-bottom:2px solid #ddd;">Wi-Fi 첫 점검</h2>'+
   '<p>다른 기기로 비교하세요. <a href="https://support.google.com/android/answer/2651367">공식 안내</a></p>'+
-  ('<p>공유기 전원과 케이블을 순서대로 점검하세요.</p>').repeat(35)+'</article>';
+  ('<p>공유기 전원과 케이블을 순서대로 점검하세요.</p>').repeat(40)+'</article>';
 const withImage=original.replace('</article>',
   '<div class="separator" style="clear:both;text-align:center;">'+
   '<a href="'+src+'"><img border="0" width="1024" height="580" src="'+src+'" /></a></div></article>');
