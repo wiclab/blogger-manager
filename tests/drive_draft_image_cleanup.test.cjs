@@ -79,7 +79,8 @@ test("extract image, hoist to top, preserve all article text and links",()=>{
  assert.match(tidy.html,/^<article[^>]*>\s*<div class="separator" data-byeol-featured="1"/);
  assert.equal((tidy.html.match(/<img\b/g)||[]).length,1);
  assert.match(tidy.html,/alt="와이파이는 연결됐으나/);
- assert.match(tidy.html,/max-width:100%/);
+ assert.match(tidy.html,/max-width:900px/);
+ assert.match(tidy.html,/width:100%;max-width:100%;height:auto/);
  assert.match(tidy.html,/https:\/\/support\.google\.com\/android/);
  assert.doesNotMatch(tidy.html,/width="1024"/);
  assert.equal(h.scope.imageFingerprint_(tidy.html),h.scope.imageFingerprint_(withImage));
