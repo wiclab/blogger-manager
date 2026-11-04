@@ -83,6 +83,16 @@ function processDraftInbox() {
         };
         store.setProperty(key, JSON.stringify(result));
         file.setName('SAVED_NEEDS_SETTINGS__' + file.getName().slice(BRIDGE.namePrefix.length));
+        // Sidecar image jobs are non-native JSON files that Drive for desktop can sync.
+        // Never attempt to create another Blogger post if sidecar preparation fails.
+        try {
+          const queue = prepareDraftImageQueue_(folder, file, item, cfg.blogId, result.postId);
+          result.imageQueue = queue.status;
+        } catch (queueError) {
+          result.imageQueue = 'REVIEW_IMAGE_QUEUE';
+          result.imageQueueError = String(queueError.message || queueError).slice(0,150);
+        }
+        store.setProperty(key, JSON.stringify(result));
         console.log(JSON.stringify({docId:file.getId(),...result}));
       } catch (err) {
         // Deliberately no automatic retry after any attempted POST.
@@ -216,4 +226,67 @@ function listDraftBridgeResults() {
   const p = PropertiesService.getScriptProperties().getProperties();
   Object.keys(p).filter(k => k.startsWith('draft:')).forEach(k =>
     console.log(k + ': ' + p[k]));
+}
+
+
+/**
+ * Build a sidecar file for a user's own optional/occasionally-on PC.
+ * The only output is a private Google Drive JSON file; this function
+ * never uploads an image, publishes, updates, or creates a Blogger post.
+ */
+function prepareDraftImageQueue_(folder, sourceDoc, item, blogId, postId) {
+  if (item.imageUrl) return {status:'SKIP_ALREADY_HOSTED'};
+  const imageName = item.slug + '-featured.png';
+  const matches = folder.getFilesByName(imageName);
+  if (!matches.hasNext()) return {status:'WAITING_FOR_PNG',expected:imageName};
+  const imageFile=matches.next();
+  if (matches.hasNext()) throw new Error('Duplicate image name: '+imageName);
+  if (imageFile.getMimeType() !== 'image/png' ||
+      imageFile.getSize() < 1000 || imageFile.getSize() > 15*1024*1024)
+    throw new Error('Invalid PNG image size or type');
+  const fileName = 'READY_IMAGE__' + item.slug + '__' + postId + '.json';
+  const already = folder.getFilesByName(fileName);
+  if (already.hasNext()) return {status:'ALREADY_QUEUED',name:fileName};
+  const body={
+    version:1,task:'blogger_native_image',blog:'byeol',mode:'draft_only',publish:false,
+    blogId:String(blogId),postId:String(postId),
+    title:item.title,slug:item.slug,description:item.description,
+    alt:item.alt,html:item.html,
+    imageFileName:imageName,imageFileId:imageFile.getId(),
+    sourceDocId:sourceDoc.getId()
+  };
+  folder.createFile(fileName, JSON.stringify(body), 'application/json');
+  return {status:'QUEUED',name:fileName};
+}
+
+/**
+ * Safe migration for articles saved before the sidecar feature was installed.
+ * This does not recreate posts and does not change their content/status.
+ */
+function preparePendingImageQueues() {
+  const cfg=bridgeConfig_();
+  verifyTargetBlog_(cfg.blogId);
+  const folder=DriveApp.getFolderById(cfg.folderId);
+  const files=folder.getFilesByType(MimeType.GOOGLE_DOCS);
+  const store=PropertiesService.getScriptProperties();
+  let examined=0, queued=0;
+  while(files.hasNext() && examined<100) {
+    const file=files.next();
+    if (!file.getName().startsWith('SAVED_NEEDS_SETTINGS__')) continue;
+    const raw=store.getProperty('draft:'+file.getId());
+    if (!raw) continue;
+    const record=JSON.parse(raw);
+    if (!record.postId || record.status!=='DRAFT_SAVED_NEEDS_SETTINGS') continue;
+    examined++;
+    const checked=bloggerApi_(cfg.blogId,
+      '/posts/'+encodeURIComponent(record.postId)+'?view=ADMIN','get');
+    if (!checked || String(checked.status).toUpperCase()!=='DRAFT')
+      continue;
+    const item=parseAndValidate_(DocumentApp.openById(file.getId()).getBody().getText());
+    if (checked.title!==item.title) continue;
+    const q=prepareDraftImageQueue_(folder,file,item,cfg.blogId,record.postId);
+    if(q.status==='QUEUED')queued++;
+    console.log(JSON.stringify({docId:file.getId(),queue:q.status}));
+  }
+  console.log(JSON.stringify({examined,queued}));
 }
