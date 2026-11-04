@@ -155,6 +155,6 @@ test("missing image keeps draft saved but reports image queue pending",()=>{
   const h=harness({missingImage:true});
   h.fake.processDraftInbox();
   assert.equal(h.sidecars.length,0);
-  assert.equal(JSON.parse(h.props.get("draft:doc-unique-1")).imageQueue.status,"WAITING_FOR_PNG");
+  assert.equal(JSON.parse(h.props.get("draft:doc-unique-1")).imageQueue,"WAITING_FOR_PNG");
   assert.equal(h.calls.filter(x=>x.method==="post").length,1);
 });
