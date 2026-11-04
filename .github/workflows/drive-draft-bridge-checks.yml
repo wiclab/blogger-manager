@@ -1,0 +1,27 @@
+name: Drive to Blogger draft bridge (offline)
+on:
+  pull_request:
+    paths:
+      - "integrations/drive-draft-bridge/**"
+      - "tests/drive_draft_bridge.test.cjs"
+      - ".github/workflows/drive-draft-bridge-checks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  draft-only-bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check Apps Script JavaScript syntax
+        run: |
+          cp integrations/drive-draft-bridge/Code.gs /tmp/byeolsemso-drive-bridge.js
+          node --check /tmp/byeolsemso-drive-bridge.js
+      - name: Verify draft-only / duplicate / auth failure fixture tests
+        run: node --test tests/drive_draft_bridge.test.cjs
