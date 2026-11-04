@@ -116,7 +116,7 @@ function bridgeConfig_() {
 
 function parseAndValidate_(raw) {
   if (raw.length > 130000) throw new Error('Input document too large');
-  const item = JSON.parse(raw);
+  const item = JSON.parse(raw.replace(/^\uFEFF/, ''));
   if (!item || item.version !== 1 || item.blog !== 'byeol' ||
       item.publish !== false || item.mode !== 'draft_only')
     throw new Error('Wrong blog, missing draft-only flag, or unsupported schema');
@@ -198,7 +198,16 @@ function bloggerApi_(blogId,suffix,method,data) {
   if (data !== undefined) options.payload = JSON.stringify(data);
   const response = UrlFetchApp.fetch(base + suffix, options);
   const code = response.getResponseCode();
-  if (code < 200 || code > 299) throw new Error('Blogger API HTTP ' + code);
+  if (code < 200 || code > 299) {
+    let reasons = [];
+    try {
+      const error = JSON.parse(response.getContentText()).error || {};
+      reasons = (error.errors || []).map(e => e.reason)
+        .concat((error.details || []).map(e => e.reason))
+        .filter(r => /^[A-Za-z0-9_]+$/.test(String(r)));
+    } catch (_) {}
+    throw new Error('Blogger API HTTP ' + code + (reasons.length ? ' (' + reasons.join(',') + ')' : ''));
+  }
   return JSON.parse(response.getContentText());
 }
 
