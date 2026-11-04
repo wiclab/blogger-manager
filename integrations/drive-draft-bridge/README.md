@@ -16,8 +16,9 @@ ChatGPT의 연결된 Google Drive 도구는 개인 Drive에 문서를 만들 수
 2. [Google Apps Script](https://script.google.com/)에서 개인 스크립트 프로젝트를 만듭니다.
 3. `Code.gs`와 `appsscript.json`의 내용을 복사해 넣습니다. 프로젝트 설정에서 manifest 표시를 켜면 됩니다.
 4. 프로젝트 설정 → 스크립트 속성에 `BLOG_ID`(본인 Blogger **별셈소** ID), `INBOX_FOLDER_ID`(위 Drive 폴더 ID)를 설정합니다. **OAuth refresh token, 비밀번호, API 키를 문서/채팅/저장소에 입력하지 마세요.**
-5. `installDraftInboxTrigger`를 **본인 계정에서 최초 1회 실행**하고 Google OAuth 권한을 검토해 승인합니다. `drive`, `documents`, `blogger`, 외부 HTTP 요청, 트리거 관리 권한이 필요합니다.
-6. 권한/대상 블로그 검사를 통과하면 5분 주기 트리거가 만들어집니다. 처음부터 실제 게시글 생성 테스트를 하지 말고 테스트용 내용을 준비해 본인 Blogger 관리자에서 비공개 초안 상태와 URL을 검증하세요.
+5. **Blogger API를 연결된 Google Cloud 프로젝트에서 먼저 사용 설정합니다.** `UrlFetchApp` 직접 호출만으로는 API가 활성화되지 않습니다. 기본 관리형 프로젝트에서 `403 accessNotConfigured / SERVICE_DISABLED`가 발생하면 사용자 소유 표준 Cloud 프로젝트에 Blogger API를 활성화하고 Apps Script 설정에서 해당 프로젝트를 연결해야 합니다. Cloud 프로젝트 변경 시 OAuth 구성을 검토하고 재인증합니다. 이 오류 상태에서는 트리거 설치와 전송을 진행하지 않습니다.
+6. `installDraftInboxTrigger`를 **본인 계정에서 최초 1회 실행**하고 Google OAuth 권한을 검토해 승인합니다. `drive`, `documents`, `blogger`, 외부 HTTP 요청, 트리거 관리 권한이 필요합니다.
+7. 권한/대상 블로그 검사를 통과하면 5분 주기 트리거가 만들어집니다. 처음부터 실제 게시글 생성 테스트를 하지 말고 테스트용 내용을 준비해 본인 Blogger 관리자에서 비공개 초안 상태와 URL을 검증하세요.
 
 스크립트 속성의 `BLOG_ID`는 Blogger 관리자나 검증된 기존 CMS에서 확인해야 합니다. 다른 블로그 ID를 넣으면 코드에서 고정 호스트를 검사하고 중단합니다.
 
@@ -70,3 +71,9 @@ node --test tests/drive_draft_bridge.test.cjs
 - 실제 Blogger 편집 화면에서 이미지 업로드, 퍼머링크·검색 설명 설정·ALT·모바일 360/375/412px을 검증하는 별도, 사용자 승인된 자동화.
 - 현재 ChatGPT Plus 계정에서 사용자 정의 MCP 쓰기 도구가 실제 활성화 가능한지 계정·서비스 최신 기능 점검.
 - 위 조건을 모두 통과하기 전에는 **‘게시 버튼만 누르면 되는 자동완성’이라고 표시하지 말 것**.
+
+## 연결 진단 보정
+
+Google Docs에서 가져온 JSON 앞의 BOM(U+FEFF)은 제거한 뒤 파싱합니다. API 오류에서는 원문 응답이나 토큰을 기록하지 않고 HTTP 상태와 허용된 영문 reason 코드만 기록합니다. BOM 및 API 비활성화 회귀 테스트를 포함한 오프라인 테스트 7개가 통과했습니다. 실제 임시글 생성 성공을 뜻하지 않습니다.
+
+공식 참고: https://developers.google.com/apps-script/guides/cloud-platform-projects
