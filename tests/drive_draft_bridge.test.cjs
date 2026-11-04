@@ -43,8 +43,9 @@ function harness(options={}) {
     UrlFetchApp:{fetch(url,params){
       calls.push({url,method:params.method,payload:params.payload});
       let data;
-      if (options.httpError && params.method === "post") return {
-        getResponseCode(){return 502;},getContentText(){return '{"error":"timeout"}';}
+      if (options.authError || (options.httpError && params.method === "post")) return {
+        getResponseCode(){return options.authError ? 403 : 502;},
+        getContentText(){return options.authError ? '{"error":{"errors":[{"reason":"accessNotConfigured"}],"details":[{"reason":"SERVICE_DISABLED"}],"message":"private-diagnostic-must-not-log"}}' : '{"error":"timeout"}';}
       };
       if (/\/posts\?isDraft=true$/.test(url)){
         data={id:"99009",status:options.badCreateStatus||"DRAFT",title:(options.article||article()).title};
@@ -109,4 +110,17 @@ test("ambiguous Blogger insert error never causes an automatic second POST",()=>
   assert.equal(state.attemptedWrite,true);
   h.fake.processDraftInbox();
   assert.equal(h.calls.filter(x=>x.method==="post").length,1);
+});
+
+test("Docs BOM is accepted without changing article content",()=>{
+  const h=harness();
+  const parsed=h.fake.parseAndValidate_("\uFEFF"+JSON.stringify(article()));
+  assert.equal(parsed.html,article().html);
+  assert.equal(parsed.title,article().title);
+});
+test("API denial reports reason codes without logging raw response",()=>{
+  const h=harness({authError:true});
+  assert.throws(()=>h.fake.processDraftInbox(),/HTTP 403 \(accessNotConfigured,SERVICE_DISABLED\)/);
+  assert.equal(h.calls.filter(x=>x.method==="post").length,0);
+  assert.equal(h.log.some(x=>x.includes("private-diagnostic")),false);
 });
