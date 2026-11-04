@@ -43,7 +43,7 @@ function harness(options={}) {
     UrlFetchApp:{fetch(url,params){
       calls.push({url,method:params.method,payload:params.payload});
       let data;
-      if (options.httpError) return {
+      if (options.httpError && params.method === "post") return {
         getResponseCode(){return 502;},getContentText(){return '{"error":"timeout"}';}
       };
       if (/\/posts\?isDraft=true$/.test(url)){
@@ -100,8 +100,13 @@ test("wrong blog stops before write",()=>{
   assert.throws(()=>h.fake.processDraftInbox(),/not scoped/);
   assert.equal(h.calls.filter(x=>x.method==="post").length,0);
 });
-test("ambiguous API failure is not retried",()=>{
+test("ambiguous Blogger insert error never causes an automatic second POST",()=>{
   const h=harness({httpError:true});
-  assert.throws(()=>h.fake.processDraftInbox(),/Blogger API HTTP 502/);
-  assert.equal(h.calls.filter(x=>x.method==="post").length,0);
+  h.fake.processDraftInbox();
+  assert.equal(h.calls.filter(x=>x.method==="post").length,1);
+  const state = JSON.parse(h.props.get("draft:doc-unique-1"));
+  assert.equal(state.status,"NEEDS_MANUAL_REVIEW");
+  assert.equal(state.attemptedWrite,true);
+  h.fake.processDraftInbox();
+  assert.equal(h.calls.filter(x=>x.method==="post").length,1);
 });
