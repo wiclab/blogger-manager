@@ -1,7 +1,8 @@
 /**
  * ChatGPT -> private Google Drive document -> Blogger DRAFT ONLY.
  * Runs under the blog owner's own Google Apps Script OAuth authorization.
- * No publication/deletion/updates; never stores Google tokens outside Apps Script.
+ * Only explicit image cleanup requests can PATCH existing draft HTML.
+ * No publishing, deletion, new unauthorised drafts or outside token storage.
  *
  * REQUIRED Script Properties:
  *   BLOG_ID (numeric Blogger blog ID)
@@ -425,6 +426,16 @@ function processImageCleanupInbox_(folder,cfg) {
         at:new Date().toISOString()};
       store.setProperty(key,JSON.stringify(record));
       requestFile.setName('DONE_CLEANUP__'+request.sourceDocId);
+      // If the optional PC image queue exists, disable it after manual upload.
+      // Leaving an unused PNG in Drive is fine; never delete user files.
+      try {
+        const pcQueueName='READY_IMAGE__'+original.slug+'__'+state.postId+'.json';
+        const pcQueue=folder.getFilesByName(pcQueueName);
+        while(pcQueue.hasNext()) {
+          pcQueue.next().setName('SKIP_IMAGE__'+original.slug+'__'+state.postId+'.json');
+        }
+      }catch(queueErr){console.error('Optional PC queue rename skipped: '+
+        String(queueErr.message||queueErr).slice(0,80));}
       console.log(JSON.stringify({cleanupDoc:requestFile.getId(),...record}));
     }catch(e){
       // A failed/ambiguous PATCH can have changed Blogger: NEVER auto-retry.
@@ -444,6 +455,8 @@ function processImageCleanupInbox_(folder,cfg) {
 
 /** Image-only HTML adjustment. No rewriting of headings, links or paragraphs. */
 function normalizeUploadedImageHtml_(html,alt,baselineHtml){
+  if(/<img\b/i.test(baselineHtml))
+    throw new Error('Original draft already contained an image; refusing ambiguous cleanup');
   const tags=Array.from(html.matchAll(/<img\b[^>]*>/gi));
   if(tags.length!==1)
     throw new Error('Expected exactly one newly uploaded image in Blogger draft');
