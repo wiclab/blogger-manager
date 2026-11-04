@@ -4,3 +4,22 @@ node_modules/
 *.log
 .env
 .env.*
+
+# Python caches, local coverage and browser test artifacts.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+coverage/
+playwright-report/
+test-results/
+.DS_Store
+
+# Local Google/Cloudflare credentials and exported private keys.
+.secrets/
+credentials.json
+service-account*.json
+client_secret*.json
+token.json
+*.pem
+*.p12
