@@ -101,6 +101,25 @@
     .spinner { width:34px; height:34px; margin:0 auto 14px; border:4px solid #e5e7eb; border-top-color:#142033; border-radius:50%; animation:spin 1s linear infinite; }
     @keyframes spin { to { transform:rotate(360deg); } }
 
+
+    /* Blog-specific, read-only duplicate risk checker. */
+    .dupe-panel{padding:20px;margin-bottom:16px;scroll-margin-top:24px}
+    .dupe-panel h2{font-size:19px;margin:0 0 7px}
+    .dupe-note{font-size:12px;color:#53657d;line-height:1.7;margin:8px 0}
+    .dupe-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0}
+    .dupe-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+    .dupe-field label{font-weight:800;font-size:12px}
+    .dupe-field input,.dupe-field textarea{width:100%;min-width:0;border:1px solid #cbd5e1;border-radius:10px;padding:11px;font:inherit;font-size:14px;line-height:1.6}
+    .dupe-field textarea{min-height:86px;resize:vertical}
+    .dupe-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:10px 0}
+    .dupe-controls button{background:#1d4ed8;border:0;color:#fff;border-radius:10px;padding:11px 15px;font-weight:800}
+    .dupe-results{display:grid;gap:10px;margin:12px 0}
+    .dupe-result{padding:13px;border-radius:11px;border:1px solid #dde5ef;background:#f8fafc;min-width:0;overflow-wrap:anywhere}
+    .dupe-result a{font-size:14px;font-weight:800;line-height:1.55}
+    .dupe-tag{display:inline-block;padding:3px 8px;border-radius:99px;background:#e2e8f0;font-size:11px;font-weight:800;margin-right:6px}
+    .dupe-tag.high{color:#991b1b;background:#fef2f2}.dupe-tag.review{color:#92400e;background:#fff7ed}.dupe-tag.low{color:#166534;background:#f0fdf4}
+    .dupe-summary{margin:13px 0;font-size:13px;line-height:1.7;white-space:pre-line;overflow-wrap:anywhere}
+    @media(max-width:700px){.dupe-panel{padding:15px}.dupe-fields{grid-template-columns:1fr}}
     @media (max-width:1100px) {
       .topbar { flex-wrap:wrap; }
       .page-nav { order:3; width:100%; }
@@ -175,6 +194,20 @@
       </div>
       <button id="refreshButton" class="refresh" onclick="loadData(true)">↻ 새로 불러오기</button>
     </div>
+
+
+    <section id="duplicate-check" class="panel dupe-panel" aria-labelledby="dupe-title">
+      <h2 id="dupe-title">🔎 신규 글 중복 검사 · 별셈소 / 노바디</h2>
+      <p class="dupe-note">위에서 블로그를 선택하고 새 글 제목과 핵심 질문을 입력해. 공개 글의 제목·도입부·H2 소제목에서 유사 후보를 찾는 읽기 전용 검사야.</p>
+      <div class="dupe-fields">
+        <div class="dupe-field"><label for="dupeTitle">신규 글 제목 (필수)</label><input id="dupeTitle" maxlength="200" autocomplete="off" placeholder="예: Annual vs. Monthly Subscriptions: When Is Annual Cheaper?"></div>
+        <div class="dupe-field"><label for="dupeOutline">핵심 질문 · 계산기 · 목차 (선택, 권장)</label><textarea id="dupeOutline" maxlength="4000" placeholder="예: Monthly fee, yearly fee, break-even month calculator"></textarea></div>
+      </div>
+      <div class="dupe-controls"><button type="button" onclick="checkDuplicate()">중복 검사 실행</button><span class="dupe-note" id="dupeSource" role="status">기존 글 목록 확인 중...</span></div>
+      <div id="dupeSummary" class="dupe-summary" role="status" aria-live="polite">제목을 입력하면 유사 글을 비교할 수 있어.</div>
+      <div id="dupeResults" class="dupe-results" aria-label="유사한 기존 게시글"></div>
+      <p class="dupe-note">점수는 자체 단어 유사도이며 실제 중복 확률이 아니야. 낮은 점수도 신규 발행을 보장하지 않아. 기존 글을 직접 읽고 판단해. 글을 수정·발행하지 않아.</p>
+    </section>
 
     <section class="metrics">
       <div class="metric"><div class="metric-label">검색어 데이터</div><div id="mQueries" class="metric-value">-</div><div class="metric-note">현재 API 응답 기준</div></div>
@@ -274,6 +307,7 @@
   </div>
 </div>
 
+<script src="./assets/duplicate-guard.js"></script>
 <script>
 const GOOGLE_CLIENT_ID = "745983224346-2bir36jrfv79g8igk46aocv49o44u50f.apps.googleusercontent.com";
 const API_BASE = "https://blogger-manager-api.chldndlf91.workers.dev";
