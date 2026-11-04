@@ -46,13 +46,13 @@ function harness(options={}) {
       if (options.httpError) return {
         getResponseCode(){return 502;},getContentText(){return '{"error":"timeout"}';}
       };
-      if (/\\/posts\\?isDraft=true$/.test(url)){
+      if (/\/posts\?isDraft=true$/.test(url)){
         data={id:"99009",status:options.badCreateStatus||"DRAFT",title:(options.article||article()).title};
-      } else if (/\\/posts\\/99009\\?view=ADMIN$/.test(url)){
+      } else if (/\/posts\/99009\?view=ADMIN$/.test(url)){
         data={id:"99009",status:"DRAFT",title:(options.article||article()).title};
-      } else if (/\\/posts\\?/.test(url)){
+      } else if (/\/posts\?/.test(url)){
         data={items: options.duplicate ? [{title:(options.article||article()).title}] : []};
-      } else if (/\\/blogs\\/1659014803305858421\\?view=ADMIN$/.test(url)){
+      } else if (/\/blogs\/1659014803305858421\?view=ADMIN$/.test(url)){
         data={url:options.wrongBlog ? "https://other-blog.blogspot.com/" : "https://wic12.blogspot.com/"};
       } else {throw new Error("Unexpected URL: "+url);}
       return {getResponseCode(){return 200;},getContentText(){return JSON.stringify(data);}};
