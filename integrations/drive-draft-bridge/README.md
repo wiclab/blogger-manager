@@ -93,3 +93,45 @@ Google Apps Script의 새 Code.gs 버전은 Blogger에 DRAFT를 실제로 저장
 - 설정 후에도 **맞춤 퍼머링크·검색 설명 자동 설정은 아직 별개 과제**입니다.
 
 두 PR 모두 실계정 테스트를 통과한 뒤에만 운영에 반영해야 합니다.
+
+
+## ✅ 모바일만으로 대표이미지 업로드 → 채팅 "이미지 올렸어" → 자동 HTML 정리
+
+**새로운 무료/PC 불필요 옵션.** 사용자가 휴대폰 Blogger 편집기에서 기존 임시글에 대표이미지를 **한 장 직접 업로드하고 임시저장**한 후, 같은 ChatGPT 채팅에 **"이미지 올렸어"**라고 말하면 연결된 Google Drive 도구가 아래 요청 파일을 생성하도록 설계되었습니다.
+
+### 진행 순서
+
+1. 기존 별셈소 본문을 Drive → Apps Script → Blogger **임시글**로 생성합니다. 자동화 원본 Docs ID와 실제 Blogger post ID는 Apps Script의 Script Properties에 연결되어 있습니다.
+2. 사용자는 Blogger 모바일 웹 편집기에서 그림 1장을 직접 업로드한 뒤 **임시저장**을 누릅니다. 이미지가 Blogger 자체 서버에서 호스팅됩니다.
+3. ChatGPT는 `별셈소 ChatGPT 임시글 큐` 폴더에 Google Docs 1개를 만듭니다.
+   - 제목: `READY_CLEANUP__<원본 Google Docs ID>`
+   - 본문:
+     ```json
+     {
+       "version": 1,
+       "action": "tidy_uploaded_blogger_image",
+       "blog": "byeol",
+       "publish": false,
+       "mode": "draft_only",
+       "sourceDocId": "<원본 Google Docs ID>"
+     }
+     ```
+   - 대상 원고를 확인할 수 없거나 여러 후보가 있으면 임의로 선택하지 않습니다.
+   - 요청 문서를 먼저 `HOLD__` 상태로 만들고 JSON 원문/폴더 확인 후 `READY_CLEANUP__`로 이름을 변경합니다.
+4. 기존 **5분 주기 Apps Script 트리거**가 `processDraftInbox` 실행 시 요청을 처리합니다. 별도의 PC, 유료 API, Cloudflare 브라우저 또는 Work가 필요하지 않습니다.
+5. Apps Script는 원본 Docs에 기록된 실제 Blogger draft ID를 찾고 Blogger API로 해당 초안 **현재 HTML**을 읽습니다.
+6. 다음 조건을 전부 확인한 경우에만 **content 필드에 PATCH**를 요청합니다.
+   - 대상은 별셈소 블로그이고 `status=DRAFT` (공개/예약 글은 수정하지 않습니다).
+   - 원본 Docs 제목이 일치하며 본문의 **텍스트 및 비이미지 링크가 일치**합니다.
+   - **Blogger 자체 googleusercontent 이미지가 정확히 1장** 있고, 원본 원고에는 이미지가 없습니다.
+   - 대표이미지의 불필요한 이미지 전용 div/a 래퍼를 제거하고 상단에 중앙 정렬.
+   - 원래 저장한 ALT, max-width 100%, height auto, 모바일 대응, 바깥 테두리 제거.
+   - **본문 텍스트/제목/라벨/퍼머링크/검색 설명은 건드리지 않습니다.**
+7. 저장 이후 API 재조회로 ALT, 이미지 주소, 본문 보존, DRAFT 여부를 확인합니다.
+   - 성공: 요청 문서 이름 `DONE_CLEANUP__<원본 ID>`, 기록 `IMAGE_CLEANED`.
+   - 실패/모호: `REVIEW_CLEANUP__<원본 ID>`, 기록 `REVIEW_IMAGE_CLEANUP`. **자동 재시도하지 않습니다.**
+   - 이미 별도로 준비한 `READY_IMAGE__...` PC 대기열이 있다면 성공 후 `SKIP_IMAGE__...`로 표시합니다. 삭제하지 않습니다.
+
+**중요:** GitHub PR에 이 코드가 추가되더라도 현재 Google Apps Script 프로젝트는 **자동으로 변경되지 않습니다.** 기존 프로젝트의 `Code.gs`를 [최신 브랜치 코드](https://github.com/wiclab/blogger-manager/blob/feat/chat-to-blogger-draft-bridge-20261104/integrations/drive-draft-bridge/Code.gs)로 **최초 한 번 수동 갱신**해야 합니다. 이 기능은 GitHub **모의 테스트**만 통과했으며 실제 Blogger HTML API 수정 검증은 아직 진행하지 않았습니다. 테스트 성공을 실제 글 변경 완료로 착각하지 마세요.
+
+공식 Blogger API는 게시글 수정에 `PATCH /blogs/{blogId}/posts/{postId}`를 지원합니다: https://developers.google.com/blogger/docs/3.0/using#updating_a_post_with_patch_semantics
