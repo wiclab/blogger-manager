@@ -1,19 +1,19 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-04T12:15:55+00:00",
+    "last_successful_check_at": "2026-11-04T12:15:56+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 10,
+    "blocked_uncertain_count": 0,
     "daily_quota_remaining_before": 81,
     "eligible_pending_count": 0,
-    "held_batches_count": 1,
-    "last_successful_submission_at": "2026-11-04T06:32:50+00:00",
+    "held_batches_count": 0,
+    "last_successful_submission_at": "2026-11-04T12:15:56+00:00",
     "monthly_quota_remaining_before": 2681,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 10,
+    "pending_count": 0,
     "per_run_cap": 100,
     "published_count": 122,
     "queue_summary": {
@@ -26,21 +26,10 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [
-      "https://qevnaxori.blogspot.com/2026/09/shower-hot-water-wait-waste-calculator.html",
-      "https://qevnaxori.blogspot.com/2026/10/ten-minute-shower-cost-per-year.html",
-      "https://qevnaxori.blogspot.com/2026/11/dripping-faucet-water-waste-cost-calculator.html",
-      "https://qevnaxori.blogspot.com/2026/10/fresh-vs-frozen-vegetables-cost-calculator.html",
-      "https://qevnaxori.blogspot.com/2026/10/bulk-food-waste-break-even-calculator.html",
-      "https://qevnaxori.blogspot.com/2026/11/is-freezing-leftovers-worth-it-cost-calculator.html",
-      "https://qevnaxori.blogspot.com/2026/11/video-playback-speed-time-savings-calculator.html",
-      "https://qevnaxori.blogspot.com/2026/09/chances-of-getting-seat-crowded-subway.html",
-      "https://qevnaxori.blogspot.com/2026/09/if-everyone-on-earth-screamed-at-once.html",
-      "https://qevnaxori.blogspot.com/2026/08/how-long-to-walk-around-the-earth.html"
-    ],
+    "recent_pending": [],
     "state": "ok",
-    "submitted_this_run": 0,
-    "tracked_submitted_count": 112
+    "submitted_this_run": 10,
+    "tracked_submitted_count": 122
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -50,5 +39,5 @@
   },
   "schema": 1,
   "site": "https://qevnaxori.blogspot.com/",
-  "updated_at": "2026-11-04T12:15:55+00:00"
+  "updated_at": "2026-11-04T12:15:56+00:00"
 }
