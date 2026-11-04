@@ -508,10 +508,12 @@ function normalizeUploadedImageHtml_(html,alt,baselineHtml){
   }
   const remaining=html.slice(0,start)+html.slice(end);
   const canonical='<div class="separator" data-byeol-featured="1" '+
-    'style="clear:both;text-align:center;margin:0 auto 24px;max-width:100%;">'+
+    'style="clear:both;display:block;box-sizing:border-box;width:100%;'+
+    'max-width:900px;text-align:center;margin:0 auto 24px;">'+
     '<img src="'+escapeHtmlAttr_(source)+'" alt="'+escapeHtmlAttr_(alt)+'" '+
-    'loading="eager" decoding="async" style="display:block;width:auto;'+
-    'max-width:100%;height:auto;margin:0 auto;border:0;border-radius:12px;" />'+
+    'loading="eager" decoding="async" style="display:block;box-sizing:border-box;'+
+    'width:100%;max-width:100%;height:auto;margin:0 auto;'+
+    'border:0;border-radius:12px;" />'+
     '</div>';
   const lead=/^(\s*<article\b[^>]*>)/i.exec(remaining);
   const output=lead?remaining.slice(0,lead[0].length)+'\n'+canonical+'\n'+
