@@ -1,19 +1,19 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-04T06:55:27+00:00",
+    "last_successful_check_at": "2026-11-04T06:55:29+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 12,
+    "blocked_uncertain_count": 0,
     "daily_quota_remaining_before": 100,
     "eligible_pending_count": 0,
-    "held_batches_count": 1,
-    "last_successful_submission_at": "2026-11-03T17:59:49+00:00",
+    "held_batches_count": 0,
+    "last_successful_submission_at": "2026-11-04T06:55:29+00:00",
     "monthly_quota_remaining_before": 2700,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 12,
+    "pending_count": 0,
     "per_run_cap": 100,
     "published_count": 230,
     "queue_summary": {
@@ -26,23 +26,10 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [
-      "https://wic12.blogspot.com/2026/10/2027-suneung-day-commute-traffic-guide.html",
-      "https://wic12.blogspot.com/2026/11/2027-csat-glasses-ai-smartwatch-rules.html",
-      "https://wic12.blogspot.com/2026/10/wifi-connected-but-no-internet-checklist.html",
-      "https://wic12.blogspot.com/2026/11/phone-usb-charging-only-file-transfer-fix.html",
-      "https://wic12.blogspot.com/2026/11/google-photos-delete-phone-photo-keep.html",
-      "https://wic12.blogspot.com/2026/10/appliance-service-visit-fee-without-repair.html",
-      "https://wic12.blogspot.com/2026/10/washing-machine-not-draining-check-hose-filter.html",
-      "https://wic12.blogspot.com/2026/11/washing-machine-spin-noise-vibration-guide.html",
-      "https://wic12.blogspot.com/2026/10/window-condensation-mold-winter-apartment.html",
-      "https://wic12.blogspot.com/2026/10/resident-registration-family-label-general-detailed.html",
-      "https://wic12.blogspot.com/2026/10/disaster-alert-157-characters-emergency-safety.html",
-      "https://wic12.blogspot.com/2026/10/free-shipping-extra-purchase-calculator.html"
-    ],
+    "recent_pending": [],
     "state": "ok",
-    "submitted_this_run": 0,
-    "tracked_submitted_count": 218
+    "submitted_this_run": 12,
+    "tracked_submitted_count": 230
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -52,5 +39,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-04T06:55:27+00:00"
+  "updated_at": "2026-11-04T06:55:29+00:00"
 }
