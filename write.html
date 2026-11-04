@@ -318,6 +318,7 @@ let STATS = null;
 let REPORT = null;
 let BLOG_REPORT = null;
 let CANDIDATES = [];
+let LOAD_SEQ = 0; // Discard stale async responses when switching blogs.
 
 function getIdToken() { return sessionStorage.getItem("bloggerManagerIdToken") || ""; }
 
@@ -493,6 +494,7 @@ function setDays(days) {
 }
 
 async function loadData(forceRefresh) {
+  const seq = ++LOAD_SEQ;
   setLoading(true);
   const refresh = forceRefresh ? "&refresh=1" : "";
   try {
@@ -500,6 +502,7 @@ async function loadData(forceRefresh) {
       adminApi(`/stats/overview?blog=${encodeURIComponent(BLOG_KEY)}&days=${DAYS}${refresh}`),
       adminApi("/report")
     ]);
+    if (seq !== LOAD_SEQ) return;
     STATS = stats;
     REPORT = report;
     BLOG_REPORT = resolveBlogReport(report, BLOG_KEY);
@@ -509,13 +512,25 @@ async function loadData(forceRefresh) {
     updateDuplicateSource();
   } catch (error) {
     console.error(error);
-    BLOG_REPORT = null;
+    if (seq !== LOAD_SEQ) return;
+    // GA4/GSC may be unavailable while the public Blogger scan report is valid.
+    // Allow the duplicate checker to work independently of the stats API.
+    try {
+      REPORT = await adminApi("/report");
+      if (seq !== LOAD_SEQ) return;
+      BLOG_REPORT = resolveBlogReport(REPORT, BLOG_KEY);
+    } catch (reportError) {
+      if (seq !== LOAD_SEQ) return;
+      REPORT = null;
+      BLOG_REPORT = null;
+      console.error("Blogger report unavailable", reportError);
+    }
     updateDuplicateSource();
     setStatus("gscStatus", "bad", "데이터 조회 실패");
     setStatus("gaStatus", "bad", friendlyError(error.message));
     document.getElementById("candidateBody").innerHTML = `<tr><td colspan="7" class="empty">불러오기 실패: ${escapeHtml(friendlyError(error.message))}</td></tr>`;
   } finally {
-    setLoading(false);
+    if (seq === LOAD_SEQ) setLoading(false);
   }
 }
 
