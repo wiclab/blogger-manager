@@ -88,6 +88,7 @@ function processDraftInbox() {
         try {
           const queue = prepareDraftImageQueue_(folder, file, item, cfg.blogId, result.postId);
           result.imageQueue = queue.status;
+          result.imageName = item.slug + '-featured.png';
         } catch (queueError) {
           result.imageQueue = 'REVIEW_IMAGE_QUEUE';
           result.imageQueueError = String(queueError.message || queueError).slice(0,150);
@@ -109,6 +110,10 @@ function processDraftInbox() {
         console.error('Draft bridge stopped for document ' + file.getId() + ': ' + String(err));
       }
     }
+    // Images can arrive in Drive after a draft was created.
+    // Recover the image queue later, without recreating or editing any Blogger post.
+    try { backfillWaitingImageQueues_(folder,cfg); }
+    catch(e){ console.error('Image queue recovery stopped: '+String(e.message||e).slice(0,150)); }
   } finally {
     lock.releaseLock();
   }
@@ -289,4 +294,40 @@ function preparePendingImageQueues() {
     console.log(JSON.stringify({docId:file.getId(),queue:q.status}));
   }
   console.log(JSON.stringify({examined,queued}));
+}
+
+
+/** Recover PNG files uploaded after the initial draft was saved; max 5 per tick. */
+function backfillWaitingImageQueues_(folder,cfg) {
+  const store=PropertiesService.getScriptProperties();
+  const entries=store.getProperties();
+  let attempts=0;
+  for (const key of Object.keys(entries)) {
+    if (!key.startsWith('draft:') || attempts>=5) continue;
+    let record;
+    try {record=JSON.parse(entries[key]);}catch(_){continue;}
+    if (!record || record.status!=='DRAFT_SAVED_NEEDS_SETTINGS' ||
+      record.imageQueue!=='WAITING_FOR_PNG' || !record.postId ||
+      !/^[a-z0-9-]+-featured\.png$/.test(String(record.imageName||''))) continue;
+    const found=folder.getFilesByName(record.imageName);
+    if(!found.hasNext())continue;
+    attempts++;
+    try {
+      const doc=DriveApp.getFileById(key.slice('draft:'.length));
+      if(!doc.getName().startsWith('SAVED_NEEDS_SETTINGS__')) continue;
+      const item=parseAndValidate_(DocumentApp.openById(doc.getId()).getBody().getText());
+      const existing=bloggerApi_(cfg.blogId,'/posts/'+encodeURIComponent(record.postId)+
+        '?view=ADMIN','get');
+      if(!existing || String(existing.status).toUpperCase()!=='DRAFT' ||
+         existing.title!==item.title)throw Error('Draft changed before sidecar creation');
+      const queue=prepareDraftImageQueue_(folder,doc,item,cfg.blogId,record.postId);
+      record.imageQueue=queue.status;
+      store.setProperty(key,JSON.stringify(record));
+      console.log(JSON.stringify({docId:doc.getId(),imageQueue:queue.status}));
+    }catch(e) {
+      // No retry of Blogger post creation; this is only a local image queue.
+      console.error('Image queue backfill error for '+key.slice(6)+': '+
+        String(e.message||e).slice(0,120));
+    }
+  }
 }
