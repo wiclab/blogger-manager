@@ -204,7 +204,7 @@ function bloggerApi_(blogId,suffix,method,data) {
       const error = JSON.parse(response.getContentText()).error || {};
       reasons = (error.errors || []).map(e => e.reason)
         .concat((error.details || []).map(e => e.reason))
-        .filter(r => /^[A-Za-z0-9_]+$/.test(String(r)));
+        .filter(r => typeof r === 'string' && /^[A-Za-z0-9_]+$/.test(r));
     } catch (_) {}
     throw new Error('Blogger API HTTP ' + code + (reasons.length ? ' (' + reasons.join(',') + ')' : ''));
   }
