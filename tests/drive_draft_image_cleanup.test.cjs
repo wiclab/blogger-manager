@@ -42,6 +42,7 @@ function build(o={}){
  const folder={getFilesByType(){let once=false;return {hasNext(){return !once;},
    next(){once=true;return file;}};}};
  const scope={
+  MimeType:{GOOGLE_DOCS:"docs"},
   DriveApp:{getFileById(id){assert.equal(id,sourceId);return sourceFile;}},
   DocumentApp:{openById(id){
     return {getBody(){return {getText(){
