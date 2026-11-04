@@ -4,6 +4,7 @@ on:
     paths:
       - "integrations/drive-draft-bridge/**"
       - "tests/drive_draft_bridge.test.cjs"
+      - "tests/drive_draft_image_cleanup.test.cjs"
       - ".github/workflows/drive-draft-bridge-checks.yml"
   workflow_dispatch:
 
@@ -24,4 +25,4 @@ jobs:
           cp integrations/drive-draft-bridge/Code.gs /tmp/byeolsemso-drive-bridge.js
           node --check /tmp/byeolsemso-drive-bridge.js
       - name: Verify draft-only / duplicate / auth failure fixture tests
-        run: node --test tests/drive_draft_bridge.test.cjs
+        run: node --test tests/drive_draft_bridge.test.cjs tests/drive_draft_image_cleanup.test.cjs
