@@ -1164,6 +1164,15 @@ function toPublicPost(
     title:
       post.title,
 
+    // Bounded, public-only intent signals for the two-blog duplicate checker.
+    // Do not publish full article HTML or text in the admin report.
+    topicHints: {
+      summary: String(post.text || "").replace(/\s+/g, " ").trim().slice(0, 260),
+      headings: [...String(post.content || "").matchAll(/<h[23]\\b[^>]*>([\\s\\S]*?)<\\/h[23]>/gi)]
+        .map(match => stripHtml(match[1]).replace(/\s+/g, " ").trim().slice(0, 85))
+        .filter(Boolean).slice(0, 6),
+    },
+
     url:
       post.url,
 
