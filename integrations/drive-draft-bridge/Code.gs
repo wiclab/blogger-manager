@@ -412,13 +412,21 @@ function processImageCleanupInbox_(folder,cfg) {
       bloggerApi_(cfg.blogId,'/posts/'+encodeURIComponent(state.postId),
         'patch',{content:tidy.html});
       const result=bloggerApi_(cfg.blogId,postPath,'get');
+      const persisted=String(result && result.content || '');
+      const persistedImage=/<img\b[^>]*>/i.exec(persisted);
       if(!result || String(result.status).toUpperCase()!=='DRAFT' ||
-         result.title!==original.title ||
-         !result.content.includes('alt="'+escapeHtmlAttr_(original.alt)+'"') ||
-         !result.content.includes(tidy.imageUrl) ||
-         !result.content.includes('data-byeol-featured="1"') ||
-         imageFingerprint_(result.content)!==imageFingerprint_(imageSource))
+         result.title!==original.title || !persistedImage ||
+         !persistedImage[0].includes('alt="'+escapeHtmlAttr_(original.alt)+'"') ||
+         !persistedImage[0].includes(tidy.imageUrl) ||
+         !/max-width\s*:\s*100%/i.test(persistedImage[0]) ||
+         persisted.indexOf(persistedImage[0]) > persisted.indexOf('<h2') ||
+         imageFingerprint_(persisted)!==imageFingerprint_(imageSource))
         throw new Error('Blogger draft image/ALT/content read-back verification failed');
+      state.needsImageUpload=false;
+      state.imageUrl=tidy.imageUrl;
+      state.imageQueue='SKIP_MANUALLY_UPLOADED';
+      state.imageCleanedAt=new Date().toISOString();
+      store.setProperty('draft:'+request.sourceDocId,JSON.stringify(state));
       const record={
         status:'IMAGE_CLEANED',postId:state.postId,
         imageUrl:tidy.imageUrl,
