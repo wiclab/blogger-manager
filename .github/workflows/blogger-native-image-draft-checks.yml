@@ -1,0 +1,31 @@
+name: Blogger native draft image (offline fixture)
+on:
+  pull_request:
+    paths:
+      - "scripts/blogger_native_image_draft.cjs"
+      - "scripts/blogger_native_image_queue.cjs"
+      - "tests/blogger_native_image_draft_browser.cjs"
+      - "tests/blogger_native_image_queue.test.cjs"
+      - ".github/workflows/blogger-native-image-draft-checks.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-image-fixture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: |
+          node --check scripts/blogger_native_image_draft.cjs
+          node --check scripts/blogger_native_image_queue.cjs
+          node --test tests/blogger_native_image_queue.test.cjs
+          node --check tests/blogger_native_image_draft_browser.cjs
+      - run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Verify existing draft only, image and ALT, zero Publish clicks
+        run: node tests/blogger_native_image_draft_browser.cjs
