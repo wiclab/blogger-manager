@@ -10,6 +10,7 @@ on:
 
   # 검사 프로그램을 수정하면 즉시 한 번 실행
   push:
+    branches: [main]
     paths:
       - "scripts/scan.mjs"
       - ".github/workflows/scan.yml"
