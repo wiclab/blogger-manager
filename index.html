@@ -600,6 +600,8 @@
       color: var(--red);
     }
 
+    .blog-scope{display:inline-flex;gap:8px;align-items:center;margin:8px 0;font-size:12px;font-weight:600}
+    .blog-scope select{max-width:190px;background:#fff;border:1px solid #d1d5db;border-radius:10px;padding:8px;color:var(--text)}
     .link-explainer{background:#f1f5f9;padding:10px 12px;border-radius:10px;font-size:12px;line-height:1.65;color:#334155}
     .link-weak{background:#eef2ff!important;color:#3730a3!important}
     .inbound-block{margin-top:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;font-size:11px;line-height:1.6}
@@ -1119,6 +1121,9 @@
 
 
     <p class="link-explainer">받는 링크 = 다른 공개 글 본문 → 이 글 / 나가는 링크 = 이 글 → 다른 공개 글 본문. 메뉴·사이드바·고정 페이지는 집계 제외. <strong>받는 링크 0은 글 오류나 미색인을 뜻하지 않습니다.</strong></p>
+    <label class="blog-scope" for="blogFilter">블로그
+      <select id="blogFilter" onchange="setBlogFilter(this.value)"><option value="all">전체 블로그</option></select>
+    </label>
     <p id="countLine"></p>
 
 
@@ -1327,6 +1332,8 @@ const API_ORIGIN =
 let REPORT = null;
 
 let FILTER = "all";
+let SELECTED_BLOG = "all";
+let CURRENT_INBOUND_SUGGESTIONS = new Map();
 
 let BLOGGER_CONNECTED = false;
 
@@ -1642,6 +1649,32 @@ function visibleRecommendations(
 
 }
 
+
+/* 다른 공개 글에서 이 글로 연결할 추천: 스캐너의 기존 추천을 역으로 조회 */
+function buildInboundSuggestions(posts) {
+  const byUrl = new Map(posts.map(p => [canonicalUiUrl(p.url), p]));
+  const inbound = new Map();
+  for (const source of posts) {
+    for (const rec of visibleRecommendations(source)) {
+      const target = byUrl.get(canonicalUiUrl(rec.url));
+      if (!target || source.blogUrl !== target.blogUrl ||
+          canonicalUiUrl(source.url) === canonicalUiUrl(target.url)) continue;
+      const key = canonicalUiUrl(target.url);
+      if (!inbound.has(key)) inbound.set(key, []);
+      inbound.get(key).push({
+        sourceUrl: source.url,
+        sourceTitle: source.title || "(제목 없음)",
+        score: Number(rec.score || 0),
+        reasons: rec.reasons || []
+      });
+    }
+  }
+  for (const [key, entries] of inbound) {
+    entries.sort((a,b) => b.score - a.score);
+    inbound.set(key, entries.slice(0,3));
+  }
+  return inbound;
+}
 
 function findReportPost(
   url
@@ -2558,7 +2591,26 @@ async function loadReport() {
    블로그 카드
 ========================================= */
 
+function renderBlogFilter() {
+  const select = document.getElementById("blogFilter");
+  if (!select) return;
+  const blogs = REPORT?.blogs || [];
+  if (SELECTED_BLOG !== "all" && !blogs.some(blog => blog.url === SELECTED_BLOG)) {
+    SELECTED_BLOG = "all";
+  }
+  select.innerHTML = '<option value="all">전체 블로그</option>' +
+    blogs.map(blog => '<option value="' + escapeHtml(blog.url) + '">' +
+      escapeHtml(blog.name) + '</option>').join("");
+  select.value = SELECTED_BLOG;
+}
+
+function setBlogFilter(value) {
+  SELECTED_BLOG = value || "all";
+  renderPosts();
+}
+
 function renderBlogs() {
+  renderBlogFilter();
 
   const container =
     document.getElementById(
@@ -2756,8 +2808,8 @@ function allPosts() {
             post => ({
               ...post,
 
-              blogName:
-                blog.name
+              blogName: blog.name,
+              blogUrl: blog.url
             })
           )
     );
@@ -2830,12 +2882,9 @@ function matchesFilter(
     "recommended"
   ) {
 
-    return (
-      visibleRecommendations(
-        post
-      ).length >
-      0
-    );
+    return visibleRecommendations(post).length > 0 ||
+      (Number(post.incomingLinks || 0) === 0 &&
+       (CURRENT_INBOUND_SUGGESTIONS.get(canonicalUiUrl(post.url)) || []).length > 0);
 
   }
 
@@ -2875,15 +2924,11 @@ function matchesFilter(
 
 function renderPosts() {
 
-  const all =
-    allPosts();
-
-
-  const posts =
-    all
-      .filter(
-        matchesFilter
-      );
+  const all = allPosts().filter(post =>
+    SELECTED_BLOG === "all" || post.blogUrl === SELECTED_BLOG
+  );
+  CURRENT_INBOUND_SUGGESTIONS = buildInboundSuggestions(all);
+  const posts = all.filter(matchesFilter);
 
 
   document
@@ -2923,6 +2968,32 @@ function renderPosts() {
               w => '<span class="badge">' + escapeHtml(w) + '</span>'
             ).join('')) || '<span class="ok">정상</span>';
 
+
+            const inboundCandidates = incomingZero
+              ? (CURRENT_INBOUND_SUGGESTIONS.get(canonicalUiUrl(post.url)) || [])
+              : [];
+            const inboundHtml = incomingZero
+              ? '<div class="inbound-block"><strong>이 글로 연결할 다른 글 · 추천</strong>' +
+                (inboundCandidates.length ? inboundCandidates.map(candidate =>
+                  '<div class="inbound-item"><a href="' + safeUrl(candidate.sourceUrl) +
+                    '" target="_blank" rel="noopener noreferrer">' +
+                    escapeHtml(candidate.sourceTitle) + '</a> ' +
+                    '<span class="score">' + Math.round(candidate.score * 100) + '%</span>' +
+                    (candidate.reasons.length
+                      ? '<span class="reason">' + candidate.reasons.map(escapeHtml).join(' · ') + '</span>'
+                      : '') +
+                    '<button class="preview-button" ' +
+                    (BLOGGER_CONNECTED ? '' : 'disabled') +
+                    ' onclick=\'previewInternalLink(' +
+                      escapeHtml(JSON.stringify(candidate.sourceUrl)) + ',' +
+                      escapeHtml(JSON.stringify(post.url)) + ',' +
+                      escapeHtml(JSON.stringify(post.title || "")) + ')\'>' +
+                    (BLOGGER_CONNECTED ? '🔍 수정안 보기' : 'Blogger 연결 필요') +
+                    '</button></div>'
+                ).join('')
+                : '<span class="muted">자동 추천 없음 · 관련성 있는 글만 연결</span>') +
+                '</div>'
+              : '';
 
             const recHtml =
               recommendations.length
@@ -3102,6 +3173,7 @@ function renderPosts() {
 
                 <td class="recommendations">
                   ${recHtml}
+                  ${inboundHtml}
                 </td>
 
               </tr>
