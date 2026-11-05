@@ -693,8 +693,8 @@
       "submitted_at": "2026-11-01T12:48:00+00:00"
     },
     "https://wic12.blogspot.com/2026/10/parcel-delivered-but-not-received.html": {
-      "fingerprint": "2026-10-17T20:57:25.447+09:00",
-      "submitted_at": "2026-11-01T12:48:00+00:00"
+      "fingerprint": "2026-10-17T11:57:25Z",
+      "submitted_at": "2026-11-04T16:30:24+00:00"
     },
     "https://wic12.blogspot.com/2026/10/parking-exit-gate-not-opening-after-payment.html": {
       "fingerprint": "2026-10-17T20:56:54.810+09:00",
@@ -741,8 +741,8 @@
       "submitted_at": "2026-11-01T12:48:00+00:00"
     },
     "https://wic12.blogspot.com/2026/10/running-foot-blister-treatment-next-run-guide.html": {
-      "fingerprint": "2026-10-20T15:06:57.729+09:00",
-      "submitted_at": "2026-11-02T06:42:27+00:00"
+      "fingerprint": "2026-11-04T22:20:53.452+09:00",
+      "submitted_at": "2026-11-04T16:30:24+00:00"
     },
     "https://wic12.blogspot.com/2026/10/running-phone-pocket-belt-armband-guide.html": {
       "fingerprint": "2026-10-24T17:56:47.252+09:00",
@@ -872,6 +872,10 @@
       "fingerprint": "2026-11-04T15:04:40.861+09:00",
       "submitted_at": "2026-11-04T06:55:29+00:00"
     },
+    "https://wic12.blogspot.com/2026/11/acne-picking-dark-spots-scars-vs-moles.html": {
+      "fingerprint": "2026-11-04T22:06:21.772+09:00",
+      "submitted_at": "2026-11-04T16:30:24+00:00"
+    },
     "https://wic12.blogspot.com/2026/11/cash-receipt-self-issued-hometax-register.html": {
       "fingerprint": "2026-11-03T23:58:42.004+09:00",
       "submitted_at": "2026-11-03T17:59:49+00:00"
@@ -926,26 +930,7 @@
     }
   },
   "google": {},
-  "held_batches": {
-    "ff92888acdf24e24b041e89d6241b330": {
-      "entries": [
-        {
-          "fingerprint": "2026-11-04T22:06:21.772+09:00",
-          "url": "https://wic12.blogspot.com/2026/11/acne-picking-dark-spots-scars-vs-moles.html"
-        },
-        {
-          "fingerprint": "2026-11-04T22:20:53.452+09:00",
-          "url": "https://wic12.blogspot.com/2026/10/running-foot-blister-treatment-next-run-guide.html"
-        },
-        {
-          "fingerprint": "2026-10-17T11:57:25Z",
-          "url": "https://wic12.blogspot.com/2026/10/parcel-delivered-but-not-received.html"
-        }
-      ],
-      "prepared_at": "2026-11-04T16:30:21+00:00",
-      "status": "held"
-    }
-  },
+  "held_batches": {},
   "sitemap_registered": false,
   "version": 1
 }
