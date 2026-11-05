@@ -25,6 +25,11 @@
         "clicks": 0,
         "date": "2026-11-01",
         "impressions": 10
+      },
+      {
+        "clicks": 1,
+        "date": "2026-11-02",
+        "impressions": 13
       }
     ],
     "low_ctr_query_count": 0,
@@ -34,23 +39,23 @@
     "site_property": "https://wic12.blogspot.com/",
     "status": "ok",
     "totals": {
-      "clicks": 0,
-      "ctr_pct": 0.0,
-      "impressions": 33
+      "clicks": 1,
+      "ctr_pct": 2.17,
+      "impressions": 46
     },
-    "updated_at": "2026-11-04T09:56:15+00:00",
+    "updated_at": "2026-11-05T09:53:47+00:00",
     "window": {
-      "from": "2026-10-08",
-      "to": "2026-11-04",
+      "from": "2026-10-09",
+      "to": "2026-11-05",
       "type": "daily API values"
     }
   },
-  "checked_date": "2026-11-04",
+  "checked_date": "2026-11-05",
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
   "stale": {
-    "checked_posts": 230,
-    "expired_count": 11,
+    "checked_posts": 232,
+    "expired_count": 10,
     "items": [
       {
         "context": "금액, 참여 매장, 행사 기간, 구매 한도를 함께 봐야 합니다. 핵심부터 정리하면 농축산물 할인은 2026년 9월 3일부터 9월 23일까지 진행되는 일정이 안내되어 있고, 수",
@@ -109,6 +114,14 @@
         "url": "https://wic12.blogspot.com/2026/09/youth-future-savings-calculator-2026.html"
       },
       {
+        "context": " 예정 목록에서 제외한 기록이며, 실제 개최 결과를 확인한 후기는 아닙니다. 지난 공연 8개 보기 2026년 10월 17~25일 · 마지막 회차 시작 시각 경과 김동률",
+        "deadline": "2026-10-25",
+        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
+        "status": "expired",
+        "title": "2026 연말 콘서트 일정｜11월·12월 공연·티켓 가격·공식 예매 안내",
+        "url": "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html"
+      },
+      {
         "context": "을 권장합니다. 서울시 억새축제 공식 안내 3. 10월 하순 행사 기록과 10월 31일 예정 행사 10월 23일~29일 · 종료 ⑦ 서울미식주간 장소: DDP",
         "deadline": "2026-10-29",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
@@ -117,36 +130,12 @@
         "url": "https://wic12.blogspot.com/2026/10/2026-seoul-october-november-events-guide.html"
       },
       {
-        "context": "6일~19일 오전 3시 종료 스위스 스테이지 10월 24일~27일 오전 2시 종료 스위스 스테이지 10월 29일~31일 오전 5시 종료 스위스 최종 5라운드 ",
-        "deadline": "2026-10-31",
-        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "expired",
-        "title": "2026 롤드컵 일정·대진표 총정리｜한국 시간, LCK 경기와 결승 날짜",
-        "url": "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html"
-      },
-      {
         "context": " 결과를 따로 확인하세요. 공식 확인: 국민체육진흥공단 2027년 전국 동시신청 공고 기존 회원은 10월 31일까지 먼저 확인하세요 자동신청을 이용하려면 ",
         "deadline": "2026-10-31",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
         "status": "expired",
         "title": "2027 스포츠강좌이용권 신청｜대상·월 10만 5천원·자동신청 확인",
         "url": "https://wic12.blogspot.com/2026/10/2027-sports-voucher-application-guide.html"
-      },
-      {
-        "context": "준, 이 목록에서 다음으로 예정된 공연입니다. 실제 예매 가능 여부는 공식 예매처에서 확인하세요. 2026년 10월 31일~11월 1일 김재환 콘서트 ‘여백:餘白’ 공연장 블",
-        "deadline": "2026-11-01",
-        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "expired",
-        "title": "2026년 10~12월 주요 콘서트 일정·티켓 가격·공식 예매 안내",
-        "url": "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html"
-      },
-      {
-        "context": " 이미 확정된 다른 예측까지 다시 열린다는 뜻으로 확대해서 읽지 마세요. 2. 11월 1일 오픈과 11월 4일 마감, 몇 시일까? 라이엇 한국어 공지의 남",
-        "deadline": "2026-11-04",
-        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "upcoming",
-        "title": "2026 롤드컵 승부의 신 늦었을까? 토너먼트 예측 일정과 참여 방법",
-        "url": "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html"
       },
       {
         "context": "역과 상세 조건을 확인하세요. 상품권 구매 할인은 상생소비복권과 별도입니다. 충전할 계획이 있다면 2026년 11월 2~6일 디지털 온누리상품권 10% 특별판매의 ",
@@ -175,8 +164,8 @@
     ],
     "note": "Potential dates only: context can be historical or already updated. Do not auto-edit posts.",
     "status": "ok",
-    "upcoming_count": 4,
-    "updated_at": "2026-11-04T09:56:16+00:00"
+    "upcoming_count": 3,
+    "updated_at": "2026-11-05T09:53:48+00:00"
   },
   "warnings": []
 }
