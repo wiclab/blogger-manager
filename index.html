@@ -600,6 +600,12 @@
       color: var(--red);
     }
 
+    .link-explainer{background:#f1f5f9;padding:10px 12px;border-radius:10px;font-size:12px;line-height:1.65;color:#334155}
+    .link-weak{background:#eef2ff!important;color:#3730a3!important}
+    .inbound-block{margin-top:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;font-size:11px;line-height:1.6}
+    .inbound-block strong{display:block;margin-bottom:7px}
+    .inbound-item{margin:9px 0}
+    .inbound-item a{overflow-wrap:anywhere}
     .recommendations {
       min-width: 330px;
       max-width: 420px;
@@ -991,6 +997,7 @@
     
 
     <div id="updated"></div>
+    <p class="link-explainer">표시 수치는 마지막 저장 보고서 기준입니다. <a href="https://github.com/wiclab/blogger-manager/actions/workflows/scan.yml" target="_blank" rel="noopener noreferrer">GitHub Blogger Scan 재검사</a> 후 새로고침하세요. 아래 ‘상태 확인’은 수정 권한 확인용입니다.</p>
 
     <div id="method"></div>
     <div id="reportError" role="alert" hidden style="margin:12px 0;padding:12px;border:1px solid #fca5a5;border-radius:10px;background:#fef2f2;color:#991b1b">
@@ -1076,9 +1083,10 @@
         data-filter="isolated"
         onclick="setFilter('isolated')"
       >
-        🏝 고립 글
+        받는 링크 0
       </button>
 
+      <button data-filter="disconnected" onclick="setFilter('disconnected')">양방향 링크 0</button>
       <button
         data-filter="internal"
         onclick="setFilter('internal')"
@@ -1110,6 +1118,7 @@
     </div>
 
 
+    <p class="link-explainer">받는 링크 = 다른 공개 글 본문 → 이 글 / 나가는 링크 = 이 글 → 다른 공개 글 본문. 메뉴·사이드바·고정 페이지는 집계 제외. <strong>받는 링크 0은 글 오류나 미색인을 뜻하지 않습니다.</strong></p>
     <p id="countLine"></p>
 
 
@@ -1900,6 +1909,12 @@ function applyLocalInternalLinkResult(
   }
 
 
+  if (targetFound?.post && Number(targetFound.post.incomingLinks || 0) > 0) {
+    targetFound.post.warnings = (targetFound.post.warnings || []).filter(
+      w => !["고립 글","받는 링크 없음","받는 링크 0"].includes(String(w))
+    );
+  }
+
   recalculateBlogStats();
 
 
@@ -2625,7 +2640,12 @@ function renderBlogs() {
                       blog.isolatedPosts
                     )}
                   </strong>
-                  <span>고립 글</span>
+                  <span>받는 링크 0</span>
+                </div>
+
+                <div class="number">
+                  <strong>${(blog.posts || []).filter(post => Number(post.incomingLinks || 0) === 0 && Number(post.internalLinks || 0) === 0).length}</strong>
+                  <span>양방향 0</span>
                 </div>
 
                 <div class="number">
@@ -2786,6 +2806,10 @@ function matchesFilter(
   }
 
 
+  if (FILTER === "disconnected") {
+    return Number(post.incomingLinks || 0) === 0 && Number(post.internalLinks || 0) === 0;
+  }
+
   if (
     FILTER ===
     "internal"
@@ -2867,7 +2891,7 @@ function renderPosts() {
       "countLine"
     )
     .textContent =
-      `표시 중: ${posts.length} / 전체 ${all.length}개 글`;
+      `표시 중: ${posts.length} / 전체 ${all.length}개 글 · 받는 링크 0: ${all.filter(p => Number(p.incomingLinks || 0) === 0).length} · 양방향 0: ${all.filter(p => Number(p.incomingLinks || 0) === 0 && Number(p.internalLinks || 0) === 0).length}`;
 
 
   document
@@ -2885,27 +2909,19 @@ function renderPosts() {
               );
 
 
-            const warningHtml =
-              (
-                post.warnings ||
-                []
-              ).length
-
-                ? (
-                    post.warnings ||
-                    []
-                  )
-                    .map(
-                      x =>
-                        `<span class="badge">
-                           ${escapeHtml(
-                             x
-                           )}
-                         </span>`
-                    )
-                    .join("")
-
-                : `<span class="ok">정상</span>`;
+            const incomingZero = Number(post.incomingLinks || 0) === 0;
+            const outgoingZero = Number(post.internalLinks || 0) === 0;
+            const ordinaryWarnings = (post.warnings || []).filter(w =>
+              !["고립 글","내부링크 없음","받는 링크 없음","받는 링크 0","나가는 내부링크 없음"].includes(String(w))
+            );
+            const linkStatus = incomingZero && outgoingZero
+              ? '<span class="badge isolated">양방향 0 · 우선 개선</span>'
+              : incomingZero
+                ? '<span class="badge link-weak">받는 링크 0 · 유입 보강</span>'
+                : outgoingZero ? '<span class="badge link-weak">나가는 링크 0</span>' : '';
+            const warningHtml = (linkStatus + ordinaryWarnings.map(
+              w => '<span class="badge">' + escapeHtml(w) + '</span>'
+            ).join('')) || '<span class="ok">정상</span>';
 
 
             const recHtml =
