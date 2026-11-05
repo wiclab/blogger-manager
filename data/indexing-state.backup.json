@@ -934,7 +934,34 @@
     }
   },
   "google": {},
-  "held_batches": {},
+  "held_batches": {
+    "62f0edb6cec548ba8e60feef5fe960de": {
+      "entries": [
+        {
+          "fingerprint": "2026-11-05T21:42:05.809+09:00",
+          "url": "https://wic12.blogspot.com/2026/11/laptop-usb-c-charger-45w-65w-100w-guide.html"
+        },
+        {
+          "fingerprint": "2026-11-05T21:58:12.418+09:00",
+          "url": "https://wic12.blogspot.com/2026/10/phone-charging-slow-check-before-buying-charger.html"
+        },
+        {
+          "fingerprint": "2026-11-05T21:54:18.453+09:00",
+          "url": "https://wic12.blogspot.com/2026/11/laptop-battery-draining-plugged-in-usb-c.html"
+        },
+        {
+          "fingerprint": "2026-11-05T07:41:46Z",
+          "url": "https://wic12.blogspot.com/2026/10/moving-day-utility-bill-settlement.html"
+        },
+        {
+          "fingerprint": "2026-11-02T11:16:08Z",
+          "url": "https://wic12.blogspot.com/2026/10/long-term-repair-reserve-refund-moving-out.html"
+        }
+      ],
+      "prepared_at": "2026-11-05T21:11:50+00:00",
+      "status": "held"
+    }
+  },
   "sitemap_registered": false,
   "version": 1
 }
