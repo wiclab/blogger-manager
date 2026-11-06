@@ -30,6 +30,11 @@
         "clicks": 1,
         "date": "2026-11-02",
         "impressions": 13
+      },
+      {
+        "clicks": 0,
+        "date": "2026-11-03",
+        "impressions": 6
       }
     ],
     "low_ctr_query_count": 0,
@@ -40,31 +45,23 @@
     "status": "ok",
     "totals": {
       "clicks": 1,
-      "ctr_pct": 2.17,
-      "impressions": 46
+      "ctr_pct": 1.92,
+      "impressions": 52
     },
-    "updated_at": "2026-11-05T09:53:47+00:00",
+    "updated_at": "2026-11-06T09:56:13+00:00",
     "window": {
-      "from": "2026-10-09",
-      "to": "2026-11-05",
+      "from": "2026-10-10",
+      "to": "2026-11-06",
       "type": "daily API values"
     }
   },
-  "checked_date": "2026-11-05",
+  "checked_date": "2026-11-06",
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
   "stale": {
-    "checked_posts": 232,
-    "expired_count": 10,
+    "checked_posts": 234,
+    "expired_count": 9,
     "items": [
-      {
-        "context": "금액, 참여 매장, 행사 기간, 구매 한도를 함께 봐야 합니다. 핵심부터 정리하면 농축산물 할인은 2026년 9월 3일부터 9월 23일까지 진행되는 일정이 안내되어 있고, 수",
-        "deadline": "2026-09-23",
-        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "expired",
-        "title": "2026 추석 장보기 할인 기록｜종료된 할인·환급 조건과 계산법",
-        "url": "https://wic12.blogspot.com/2026/08/40.html"
-      },
       {
         "context": " 전국 국립박물관 13곳 한가위 행사 국립중앙박물관 공식 발표에 따르면 전국 13개 국립박물관에서 9월 22일부터 30일까지 박물관별 일정에 맞춰 공연과 전통놀",
         "deadline": "2026-09-30",
@@ -138,6 +135,22 @@
         "url": "https://wic12.blogspot.com/2026/10/2027-sports-voucher-application-guide.html"
       },
       {
+        "context": " ② 승자 – BO5 · 2026 월드 챔피언 결정 모든 일정은 한국 표준시(KST) 기준입니다. 11월 6일까지 종료된 8강 3경기의 결과를 반영했습니",
+        "deadline": "2026-11-06",
+        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
+        "status": "upcoming",
+        "title": "2026 롤드컵 일정·대진표 총정리｜한국 시간, LCK 경기와 결승 날짜",
+        "url": "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html"
+      },
+      {
+        "context": " 최신 공지에서 확인해 주세요. 안내 정리: 2026년 10월 22일. 추석 행사와 별개로 안내된 2026년 11월 2~6일 디지털 온누리상품권 10% 특별판매와 ",
+        "deadline": "2026-11-06",
+        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
+        "status": "upcoming",
+        "title": "2026 추석 장보기 할인 기록｜종료된 할인·환급 조건과 계산법",
+        "url": "https://wic12.blogspot.com/2026/08/40.html"
+      },
+      {
         "context": "역과 상세 조건을 확인하세요. 상품권 구매 할인은 상생소비복권과 별도입니다. 충전할 계획이 있다면 2026년 11월 2~6일 디지털 온누리상품권 10% 특별판매의 ",
         "deadline": "2026-11-06",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
@@ -160,12 +173,20 @@
         "status": "upcoming",
         "title": "2026 서울카페쇼 일반인은 언제 갈까? 입장권 가격·관람시간·준비물·예산",
         "url": "https://wic12.blogspot.com/2026/10/2026-seoul-cafe-show-public-days-ticket-budget-guide.html"
+      },
+      {
+        "context": " 신 최종 점수 확정 예정 대회 진행 중 = 예측 접수 중이 아닙니다. 11월 7일 T1의 8강과 11월 8~9일 4강이 남아 있지만, 해당 경기 전에 ",
+        "deadline": "2026-11-09",
+        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
+        "status": "upcoming",
+        "title": "2026 롤드컵 승부의 신 늦었을까? 토너먼트 예측 일정과 참여 방법",
+        "url": "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html"
       }
     ],
     "note": "Potential dates only: context can be historical or already updated. Do not auto-edit posts.",
     "status": "ok",
-    "upcoming_count": 3,
-    "updated_at": "2026-11-05T09:53:48+00:00"
+    "upcoming_count": 6,
+    "updated_at": "2026-11-06T09:56:15+00:00"
   },
   "warnings": []
 }
