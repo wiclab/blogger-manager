@@ -685,8 +685,8 @@
       "submitted_at": "2026-11-01T09:45:15+00:00"
     },
     "https://wic12.blogspot.com/2026/10/old-home-utility-auto-payment-after-moving.html": {
-      "fingerprint": "2026-10-06T20:53:04.672+09:00",
-      "submitted_at": "2026-11-01T12:48:00+00:00"
+      "fingerprint": "2026-10-06T11:53:04Z",
+      "submitted_at": "2026-11-06T02:46:28+00:00"
     },
     "https://wic12.blogspot.com/2026/10/one-keyboard-two-computers-switch-guide.html": {
       "fingerprint": "2026-10-31T18:15:41.556+09:00",
@@ -892,6 +892,10 @@
       "fingerprint": "2026-11-03T08:12:47.749+09:00",
       "submitted_at": "2026-11-03T02:35:53+00:00"
     },
+    "https://wic12.blogspot.com/2026/11/finger-slammed-in-door-nail-bruise-first-aid.html": {
+      "fingerprint": "2026-11-06T09:05:06.885+09:00",
+      "submitted_at": "2026-11-06T02:46:28+00:00"
+    },
     "https://wic12.blogspot.com/2026/11/game-time-selection-abolition-shutdown-parental-controls.html": {
       "fingerprint": "2026-11-05T16:16:19.498+09:00",
       "submitted_at": "2026-11-05T12:41:53+00:00"
@@ -938,22 +942,7 @@
     }
   },
   "google": {},
-  "held_batches": {
-    "d5ba0fb851a9426b88b1c45647d56e9c": {
-      "entries": [
-        {
-          "fingerprint": "2026-11-06T09:05:06.885+09:00",
-          "url": "https://wic12.blogspot.com/2026/11/finger-slammed-in-door-nail-bruise-first-aid.html"
-        },
-        {
-          "fingerprint": "2026-10-06T11:53:04Z",
-          "url": "https://wic12.blogspot.com/2026/10/old-home-utility-auto-payment-after-moving.html"
-        }
-      ],
-      "prepared_at": "2026-11-06T02:46:25+00:00",
-      "status": "held"
-    }
-  },
+  "held_batches": {},
   "sitemap_registered": false,
   "version": 1
 }
