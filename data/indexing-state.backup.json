@@ -938,7 +938,22 @@
     }
   },
   "google": {},
-  "held_batches": {},
+  "held_batches": {
+    "d5ba0fb851a9426b88b1c45647d56e9c": {
+      "entries": [
+        {
+          "fingerprint": "2026-11-06T09:05:06.885+09:00",
+          "url": "https://wic12.blogspot.com/2026/11/finger-slammed-in-door-nail-bruise-first-aid.html"
+        },
+        {
+          "fingerprint": "2026-10-06T11:53:04Z",
+          "url": "https://wic12.blogspot.com/2026/10/old-home-utility-auto-payment-after-moving.html"
+        }
+      ],
+      "prepared_at": "2026-11-06T02:46:25+00:00",
+      "status": "held"
+    }
+  },
   "sitemap_registered": false,
   "version": 1
 }
