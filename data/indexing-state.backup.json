@@ -629,8 +629,8 @@
       "submitted_at": "2026-11-01T12:48:00+00:00"
     },
     "https://wic12.blogspot.com/2026/10/long-term-repair-reserve-refund-moving-out.html": {
-      "fingerprint": "2026-11-02T20:16:08.181+09:00",
-      "submitted_at": "2026-11-05T12:41:53+00:00"
+      "fingerprint": "2026-11-02T11:16:08Z",
+      "submitted_at": "2026-11-05T21:11:53+00:00"
     },
     "https://wic12.blogspot.com/2026/10/marathon-entry-refund-bib-transfer-guide.html": {
       "fingerprint": "2026-11-05T16:41:04.199+09:00",
@@ -661,8 +661,8 @@
       "submitted_at": "2026-11-01T12:48:00+00:00"
     },
     "https://wic12.blogspot.com/2026/10/moving-day-utility-bill-settlement.html": {
-      "fingerprint": "2026-11-05T16:41:46.805+09:00",
-      "submitted_at": "2026-11-05T12:41:53+00:00"
+      "fingerprint": "2026-11-05T07:41:46Z",
+      "submitted_at": "2026-11-05T21:11:53+00:00"
     },
     "https://wic12.blogspot.com/2026/10/moving-meter-photo-evidence-checklist.html": {
       "fingerprint": "2026-11-05T20:59:03.437+09:00",
@@ -705,8 +705,8 @@
       "submitted_at": "2026-11-02T06:42:27+00:00"
     },
     "https://wic12.blogspot.com/2026/10/phone-charging-slow-check-before-buying-charger.html": {
-      "fingerprint": "2026-11-05T16:26:49.474+09:00",
-      "submitted_at": "2026-11-05T12:41:53+00:00"
+      "fingerprint": "2026-11-05T21:58:12.418+09:00",
+      "submitted_at": "2026-11-05T21:11:53+00:00"
     },
     "https://wic12.blogspot.com/2026/10/phone-repair-backup-reset-cost-guide.html": {
       "fingerprint": "2026-10-06T21:52:16.129+09:00",
@@ -917,8 +917,12 @@
       "submitted_at": "2026-11-03T09:59:23+00:00"
     },
     "https://wic12.blogspot.com/2026/11/laptop-battery-draining-plugged-in-usb-c.html": {
-      "fingerprint": "2026-11-01T00:41:44.363+09:00",
-      "submitted_at": "2026-11-01T09:45:15+00:00"
+      "fingerprint": "2026-11-05T21:54:18.453+09:00",
+      "submitted_at": "2026-11-05T21:11:53+00:00"
+    },
+    "https://wic12.blogspot.com/2026/11/laptop-usb-c-charger-45w-65w-100w-guide.html": {
+      "fingerprint": "2026-11-05T21:42:05.809+09:00",
+      "submitted_at": "2026-11-05T21:11:53+00:00"
     },
     "https://wic12.blogspot.com/2026/11/phone-usb-charging-only-file-transfer-fix.html": {
       "fingerprint": "2026-11-04T14:38:38.129+09:00",
@@ -934,34 +938,7 @@
     }
   },
   "google": {},
-  "held_batches": {
-    "62f0edb6cec548ba8e60feef5fe960de": {
-      "entries": [
-        {
-          "fingerprint": "2026-11-05T21:42:05.809+09:00",
-          "url": "https://wic12.blogspot.com/2026/11/laptop-usb-c-charger-45w-65w-100w-guide.html"
-        },
-        {
-          "fingerprint": "2026-11-05T21:58:12.418+09:00",
-          "url": "https://wic12.blogspot.com/2026/10/phone-charging-slow-check-before-buying-charger.html"
-        },
-        {
-          "fingerprint": "2026-11-05T21:54:18.453+09:00",
-          "url": "https://wic12.blogspot.com/2026/11/laptop-battery-draining-plugged-in-usb-c.html"
-        },
-        {
-          "fingerprint": "2026-11-05T07:41:46Z",
-          "url": "https://wic12.blogspot.com/2026/10/moving-day-utility-bill-settlement.html"
-        },
-        {
-          "fingerprint": "2026-11-02T11:16:08Z",
-          "url": "https://wic12.blogspot.com/2026/10/long-term-repair-reserve-refund-moving-out.html"
-        }
-      ],
-      "prepared_at": "2026-11-05T21:11:50+00:00",
-      "status": "held"
-    }
-  },
+  "held_batches": {},
   "sitemap_registered": false,
   "version": 1
 }

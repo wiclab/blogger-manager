@@ -1,21 +1,21 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-05T21:11:53+00:00",
+    "last_successful_check_at": "2026-11-06T02:46:25+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": 50,
+    "blocked_uncertain_count": 2,
+    "daily_quota_remaining_before": 100,
     "eligible_pending_count": 0,
-    "held_batches_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-05T21:11:53+00:00",
-    "monthly_quota_remaining_before": 2550,
+    "monthly_quota_remaining_before": 2500,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 0,
+    "pending_count": 2,
     "per_run_cap": 100,
-    "published_count": 233,
+    "published_count": 234,
     "queue_summary": {
       "changed_since_submission": 0,
       "first_time_pending": 0,
@@ -26,10 +26,13 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [],
+    "recent_pending": [
+      "https://wic12.blogspot.com/2026/11/finger-slammed-in-door-nail-bruise-first-aid.html",
+      "https://wic12.blogspot.com/2026/10/old-home-utility-auto-payment-after-moving.html"
+    ],
     "state": "ok",
-    "submitted_this_run": 5,
-    "tracked_submitted_count": 233
+    "submitted_this_run": 0,
+    "tracked_submitted_count": 232
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -39,5 +42,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-05T21:11:53+00:00"
+  "updated_at": "2026-11-06T02:46:25+00:00"
 }
