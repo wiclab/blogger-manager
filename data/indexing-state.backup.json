@@ -942,7 +942,26 @@
     }
   },
   "google": {},
-  "held_batches": {},
+  "held_batches": {
+    "a9f0d1296c2141a6b8d00860e33876b2": {
+      "entries": [
+        {
+          "fingerprint": "2026-11-07T11:52:09.377+09:00",
+          "url": "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+        },
+        {
+          "fingerprint": "2026-11-07T11:18:03.856+09:00",
+          "url": "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html"
+        },
+        {
+          "fingerprint": "2026-11-07T11:12:29.721+09:00",
+          "url": "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html"
+        }
+      ],
+      "prepared_at": "2026-11-07T06:30:02+00:00",
+      "status": "held"
+    }
+  },
   "sitemap_registered": false,
   "version": 1
 }
