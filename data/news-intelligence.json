@@ -1,77 +1,68 @@
 {
   "version": 1,
   "site": "https://wic12.blogspot.com/",
-  "generatedAt": "2026-11-06T21:37:11.345641+00:00",
-  "newsGeneratedAt": "2026-11-06T21:37:10.375638+00:00",
-  "newsCount": 212,
+  "generatedAt": "2026-11-07T06:13:52.034763+00:00",
+  "newsGeneratedAt": "2026-11-07T06:13:51.136098+00:00",
+  "newsCount": 174,
   "postsChecked": 234,
   "postCoverage": "complete",
   "postExpectedCount": 234,
   "scoring": "규칙 기반 편집 우선순위, 검색량/검색순위/사실 검증 결과가 아님",
   "ideas": [
     {
-      "id": "75a6245597e946044ce58874",
-      "headline": "연말정산 절세, 연금저축·IRP 한도부터 확인",
+      "id": "77b6afd2a69538ae2da40cf3",
+      "headline": "연말정산 11월 점검…카드·월세·연금 공제 기준",
       "category": "경제",
-      "source": "공감신문",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFAxcDJsbW02aGliRXVFM09tYzU5UlJjLXZ1U2JIOVZkTmY2bXkwVExVRnBzUlFfWkp0TlNUREFNWVhEeVVMYWFRdjBGSnMxTXhzNWk0bFIwQWotU0Q2WFFlWGtCS2kxSkQ0?oc=5",
-      "publishedAt": "2026-11-06T02:19:53+00:00",
-      "score": 76,
+      "source": "비건뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE81dzZZeE1PX2Qzc1FydGtUUjdBSENjODB0cF9ySlk3SkhLdTN2X3YxVXE1dFF3eTlPWjFodmJpazhYWWsxck9lc1Q3U21aQzZhQlJkbERGREpjbXJRTkJlZFFBenNRdw?oc=5",
+      "publishedAt": "2026-11-07T02:16:52+00:00",
+      "score": 82,
       "reasons": [
-        "생활형 핵심어: 연말정산, 연금",
+        "생활형 핵심어: 연말정산, 연금, 카드",
         "독자 질문으로 확장 가능"
       ],
-      "relatedPosts": [
-        {
-          "title": "2026 연말정산 IRP·연금저축 세액공제｜얼마 넣어야 유리할까?",
-          "url": "https://wic12.blogspot.com/2026/11/2026-irp-pension-savings-tax-credit-calculator.html",
-          "overlap": [
-            "irp",
-            "연금저축",
-            "연말정산"
-          ]
-        }
-      ],
-      "reason": "이미 다룬 주제와 유사함: 별도 신규 발행 전에 차별점 확인."
-    },
-    {
-      "id": "2698fda231faffad9f1a8316",
-      "headline": "'중단' 약속한 석탄 혼소에 전기요금 5조...시민 300명 공익감사 청구",
-      "category": "경제",
-      "source": "뉴스타파",
-      "url": "https://news.google.com/rss/articles/CBMiSkFVX3lxTFB1MEpIY2NBWHBwZjRzQ2JFN3c0Tmx2WHI1akoxYTFlMjZMSXM3XzJiQzM5b01wUk9vWXd1blozbk1idjZldW9XRFZ3?oc=5",
-      "publishedAt": "2026-11-06T06:10:00+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 요금, 전기"
-      ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "46fbf7069654ed5340e3744f",
-      "headline": "[현장에서] 기름값과 전기요금은 다를까",
+      "id": "7fb2a442d1f6d3e4b63568db",
+      "headline": "[단독] “좀 놀랐나요? 이제 시작인데요”…韓 몰려오는 中 전기차들",
       "category": "경제",
-      "source": "연합인포맥스",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1Qa0JTQTRiN09OQ3VRVV96ZExldVFIME4xSThjb19zZHJxSDZLYkNibEQ2MGdmOHNtdmdZUkFIdFdEQVdsUUdXSGhVNTVoUXlrcllaVmc0RmU2V3R0S1BPWkdVd19mcUpPYm4zclBDS1k?oc=5",
-      "publishedAt": "2026-11-06T02:14:51+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 요금, 전기"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "07bdc4873fbfb34d9bd758f7",
-      "headline": "‘이탈리아의 경고’…원가 30% 격차에 전기차 생산세액공제 탄력",
-      "category": "경제",
-      "source": "전기신문",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9heVhUV3N6WUJmY013VWpISkRVUU8xcnRLbGg0Ry1MNWJzUDhnWmx1VTBpZHBnaUIwRi1teEVFSUdIcktpMm9UYmRfalNCdHhpUUpqTFNUODlldklQelhhSFRNeEpsb2FIRm53SdIBcEFVX3lxTE56S08yN0RabERmYjV4Q0p2VklSWnlWTS1pemp4R05MZW9vQ1dybzg5c2hwZmxFN2FZbS0yT1VQNnpKNFl2c2pRSzM5NmxVVGdZa1VvVG5vWV9PNWRWT1h0bUFXTlB6NnRDRmdqMG9LSG0?oc=5",
-      "publishedAt": "2026-11-06T00:04:05+00:00",
-      "score": 71,
+      "source": "매일경제",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1meEpYcWZNdHhzUmhxaEFjNGpLYXQ5RXlkWTFwRmQ1aERXQjRjWHVBMEZQUHppNmZ6bUR1RVZ5VmI5eDZvaENsY0lOSGxmX05jd0NEMW1B?oc=5",
+      "publishedAt": "2026-11-06T08:25:00+00:00",
+      "score": 75,
       "reasons": [
         "생활형 핵심어: 전기, 기차"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "c2fd2523966f554115d2c6ce",
+      "headline": "“2월에 토해내지 않으려면”…연말정산 미리보기 12월 18일 마감, 남은 두 달 꼭 할 3가지",
+      "category": "경제",
+      "source": "경제시그널",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBLTmJaaEdGbG85TVp2V01Vdm9lRDNWdnBRc1hDckhQNUJZQ0pzVUpKcEJvN3dMek1zODJLQUZJald4Qmg1LU1yMThLN0JBT3FhMmtQd1JIWVgzbVJkMWhxdld6aEtSbncwLUFybHdKdXA4NTg?oc=5",
+      "publishedAt": "2026-11-06T23:00:00+00:00",
+      "score": 75,
+      "reasons": [
+        "생활형 핵심어: 연말정산",
+        "변경·시점 표현: 마감"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "738dafea9e35b183a729917e",
+      "headline": "[짠富테크] 연금저축·IRP 900만원 넣으면…세금 최대 148만5000원 줄인다",
+      "category": "경제",
+      "source": "뉴스웍스",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBoYUVLVmRjWmZLZXp2VTh5UE9zSmxjdGtVVjlkMVZuOEN2cldpYnJqVU5rTUJuaVg2b1NNSV9jeXBveEhUbWhLeWhTSUtxa1l5U0NlTm1GN2ZKUVJHUXozLTBWdUQwc0ZEOWdSRk8zWdIBc0FVX3lxTFBjeDBlUDBIcjhxd01lZzNfSTE4bGd6cFkwZVppSG5ydE56QVdaWGd3SEpua1phMWNfbHpFVGFOLUtpb0JqalRuS241Tmk3SXdFQ0toZG4yZHhVYjczbnBZcVc2VDl5UWhIR0F6S21GRVo5dzA?oc=5",
+      "publishedAt": "2026-11-07T02:00:00+00:00",
+      "score": 71,
+      "reasons": [
+        "생활형 핵심어: 세금, 연금"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -83,6 +74,20 @@
       "source": "뉴스퀘스트",
       "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5zbU01ZS1kemU1LXI0dklRbUJONkh4ZFZ1N19xcENNeFIyTlVwWjNrSnVXak9wdWMxQW9ENUV1aE02NnlTNUJwTDFXZERFUnhqQjlPdUh4aGJDb0JWbC1GVVN1TzZiZEpzTlh3bFExRQ?oc=5",
       "publishedAt": "2026-11-06T10:55:36+00:00",
+      "score": 71,
+      "reasons": [
+        "생활형 핵심어: 쿠폰, 소비"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "2ec9b42ddaa07b7b98e21f82",
+      "headline": "소비쿠폰 기저에도 버틴 BGF리테일…수익성 개선·외형 성장은 숙제",
+      "category": "경제",
+      "source": "핀포인트뉴스",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBWaThBN2hBTG9ULXBWWm83X001VW8wRndLS0dtVGJfTnRYNkNRWldEdTV5TjlGTDJZa3ZfbFZxRjNYVXlaWEhSTDYyS2ZCcjZUV2ZrTnk3REJyd0xuT0RFSWZYdXV3enFZQkZibnZZR0ZaSzTSAXdBVV95cUxNX3I2OFNZeG91Tm9YZGdNcFp4Qmo5Z3RFNVBVejNGWXVnMm1lOFViU1hLRWNVcDVYRVVaTnEzNVRiWDJtTW02S1FtVHAxa1l1Y3FaemxjYU93V0JCYTNPaGxMQUJrM3lxbkdJeVNDRFlVY3QtN01BOA?oc=5",
+      "publishedAt": "2026-11-07T00:26:19+00:00",
       "score": 71,
       "reasons": [
         "생활형 핵심어: 쿠폰, 소비"
@@ -105,6 +110,20 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
+      "id": "8969085a8e6b9ddfa3f7a2c5",
+      "headline": "지방 이전 생색은 정부가, 손실은 민간이 떠안나… 지역별 차등 전기요금제 ‘후폭풍’",
+      "category": "경제",
+      "source": "독립신문",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1HdVJZR214MnRqZU5QMVdXUkxzRV9JTUJ4UzAtazBGM3BYeVNaS3RodFJkaU1JUUo0d3JOcUxENUdVMWtzT3FoQ1VVbjN5NGFlaDh2a0U2RzRReXRBeTliZVE5c1hLejZ2aFhZ?oc=5",
+      "publishedAt": "2026-11-07T02:16:19+00:00",
+      "score": 71,
+      "reasons": [
+        "생활형 핵심어: 요금, 전기"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
       "id": "8eb3434a39c39cc04af4586d",
       "headline": "한국마사회, 안양 전통시장·골목상권 소비 촉진 행사…온누리상품권 환급",
       "category": "경제",
@@ -117,40 +136,10 @@
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "f76a52527e9e12bda2030d67",
-      "headline": "[속보] 공소청, 경찰이 신청한 강호동 농협중앙회장 구속영장 기각",
-      "category": "경제",
-      "source": "매일경제",
-      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1DWEVpbEVfeW90aU5LTzBMdzB2bnp3UEpMcExGcWI5alF3WGFfdWRvUkw2cEVxT25wRnFnRkNzY3pWeFFYVVZaazI5LXdzRWd1OFdQeQ?oc=5",
-      "publishedAt": "2026-11-06T09:31:22+00:00",
-      "score": 65,
-      "reasons": [
-        "생활형 핵심어: 신청",
-        "독자 질문으로 확장 가능"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "aade85e9c671700f35abd44d",
-      "headline": "시프트업, ‘스텔라 블레이드 컴플리트 에디션’ 스위치2 글로벌 출시",
-      "category": "한국",
-      "source": "지디넷코리아",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1wM004TFhhdmxLYldpU1J5U1ItZC1WWjhXaU0wNnZfNWxzT1BUMEtLOS1LVFd0V1B6bTRNOWVNNkRCRlNVVDJqMWNpdE9UUndFYXRTbk13?oc=5",
-      "publishedAt": "2026-11-06T04:47:11+00:00",
-      "score": 65,
-      "reasons": [
-        "생활형 핵심어: 스위치",
-        "변경·시점 표현: 출시"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     }
   ],
   "updates": [],
   "note": "검토용 제안. 기사나 공공 정책의 내용은 공식 원문으로 다시 확인하세요. 자동 수정·발행하지 않습니다.",
-  "primaryNewsCount": 184,
-  "focusedNewsCount": 28
+  "primaryNewsCount": 154,
+  "focusedNewsCount": 20
 }
