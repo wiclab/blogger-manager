@@ -13,7 +13,7 @@
       "url": "https://qevnaxori.blogspot.com/2026/08/faker-career-stats-nobody-asked-for.html"
     },
     "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html": {
-      "checked_at": "2026-11-03T08:32:06+00:00",
+      "checked_at": "2026-11-07T07:06:28+00:00",
       "issues": [],
       "lastmod": "2026-10-29T01:56:21Z",
       "screenshot": null,
@@ -53,21 +53,13 @@
       "url": "https://qevnaxori.blogspot.com/2026/08/how-many-friends-actually-consider-you-a-friend.html"
     },
     "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html": {
-      "checked_at": "2026-11-03T08:32:06+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
       "lastmod": "2026-10-29T01:56:22Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "nobody",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html"
     },
     "https://qevnaxori.blogspot.com/2026/08/how-many-psychopaths-have-you-met.html": {
@@ -167,7 +159,7 @@
       "url": "https://qevnaxori.blogspot.com/2026/09/augmented-reality-one-degree-error.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/business-class-downgrade-refund-calculation.html": {
-      "checked_at": "2026-11-03T08:32:06+00:00",
+      "checked_at": "2026-11-07T07:06:28+00:00",
       "issues": [],
       "lastmod": "2026-10-29T02:19:15Z",
       "screenshot": null,
@@ -279,7 +271,7 @@
       "url": "https://qevnaxori.blogspot.com/2026/09/could-ai-replace-everyone-human-work-calculation.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/could-genetic-engineering-create-spider-man.html": {
-      "checked_at": "2026-11-03T08:32:06+00:00",
+      "checked_at": "2026-11-07T07:06:28+00:00",
       "issues": [],
       "lastmod": "2026-10-30T05:24:12Z",
       "screenshot": null,
@@ -902,6 +894,16 @@
       "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/bulk-food-waste-break-even-calculator.html"
     },
+    "https://qevnaxori.blogspot.com/2026/10/cheaper-flight-extra-hotel-night-calculator.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-10-20T08:13:48Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/cheaper-flight-extra-hotel-night-calculator.html"
+    },
     "https://qevnaxori.blogspot.com/2026/10/cloud-storage-full-pay-or-delete-photos.html": {
       "checked_at": "2026-11-03T13:18:37+00:00",
       "issues": [
@@ -972,6 +974,16 @@
       "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/delivery-vs-pickup-total-cost-calculator.html"
     },
+    "https://qevnaxori.blogspot.com/2026/10/dishwasher-vs-hand-washing-cost-calculator.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-10-20T08:13:48Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/dishwasher-vs-hand-washing-cost-calculator.html"
+    },
     "https://qevnaxori.blogspot.com/2026/10/dropped-phone-in-water-before-charging.html": {
       "checked_at": "2026-11-06T07:54:33+00:00",
       "issues": [],
@@ -981,6 +993,24 @@
       "site": "nobody",
       "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/dropped-phone-in-water-before-charging.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/10/dumbphone-switch-extra-devices-cost-calculator.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [
+        {
+          "detail": "좁은 문단 (126px, 약 7줄): Tickets, banking, and authentication",
+          "level": "high",
+          "selector": "#post-body-2551747115189822205 > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1)",
+          "type": "narrow_text",
+          "width": 320
+        }
+      ],
+      "lastmod": "2026-10-20T08:13:48Z",
+      "screenshot": "screenshots/60a854f28745-320.jpg",
+      "severity": "high",
+      "site": "nobody",
+      "state": "issue",
+      "url": "https://qevnaxori.blogspot.com/2026/10/dumbphone-switch-extra-devices-cost-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/esim-vs-international-roaming-cost-calculator.html": {
       "checked_at": "2026-11-04T07:29:13+00:00",
@@ -1028,6 +1058,16 @@
       "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/fibermaxxing-cost-per-10g-food-vs-supplements.html"
     },
+    "https://qevnaxori.blogspot.com/2026/10/free-shipping-minimum-spend-calculator.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-10-20T08:13:48Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/free-shipping-minimum-spend-calculator.html"
+    },
     "https://qevnaxori.blogspot.com/2026/10/fresh-vs-frozen-vegetables-cost-calculator.html": {
       "checked_at": "2026-11-04T20:25:19+00:00",
       "issues": [],
@@ -1047,6 +1087,16 @@
       "site": "nobody",
       "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/gaming-pc-electricity-cost-calculator.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/10/halloween-candy-budget-calculator.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-10-20T08:13:48Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/halloween-candy-budget-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/halloween-cost-household-budget-calculator.html": {
       "checked_at": "2026-11-04T07:01:26+00:00",
@@ -1237,6 +1287,16 @@
       "state": "inconclusive",
       "url": "https://qevnaxori.blogspot.com/2026/10/passkeys-vs-passwords-time-savings-calculator.html"
     },
+    "https://qevnaxori.blogspot.com/2026/10/power-bank-real-capacity-calculator.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-10-20T08:13:48Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/power-bank-real-capacity-calculator.html"
+    },
     "https://qevnaxori.blogspot.com/2026/10/refundable-flight-worth-extra-cost-calculator.html": {
       "checked_at": "2026-11-04T07:01:26+00:00",
       "issues": [
@@ -1413,6 +1473,16 @@
       "state": "inconclusive",
       "url": "https://qevnaxori.blogspot.com/2026/10/unlimited-vs-20gb-phone-data-calculator.html"
     },
+    "https://qevnaxori.blogspot.com/2026/10/walking-pad-worth-it-cost-per-hour-calculator.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-10-20T08:13:48Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/walking-pad-worth-it-cost-per-hour-calculator.html"
+    },
     "https://qevnaxori.blogspot.com/2026/10/warehouse-club-membership-fee-food-waste-calculator.html": {
       "checked_at": "2026-11-04T07:29:13+00:00",
       "issues": [
@@ -1430,6 +1500,16 @@
       "site": "nobody",
       "state": "inconclusive",
       "url": "https://qevnaxori.blogspot.com/2026/10/warehouse-club-membership-fee-food-waste-calculator.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/10/what-actually-happens-to-the-things-you-type-into-ai.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-10-20T08:13:48Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/10/what-actually-happens-to-the-things-you-type-into-ai.html"
     },
     "https://qevnaxori.blogspot.com/2026/11/coffee-at-home-vs-coffee-shop-savings-calculator.html": {
       "checked_at": "2026-11-04T20:25:19+00:00",
@@ -1814,6 +1894,26 @@
       "state": "inconclusive",
       "url": "https://wic12.blogspot.com/2026/09/gym-membership-cancellation-refund-calculation.html"
     },
+    "https://wic12.blogspot.com/2026/09/leftover-food-fridge-freezer-discard-checker.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-11-05T07:40:16Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/09/leftover-food-fridge-freezer-discard-checker.html"
+    },
+    "https://wic12.blogspot.com/2026/09/mister-trot-4-audition-video-one-vs-two-songs_01884627881.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-11-05T07:39:25Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/09/mister-trot-4-audition-video-one-vs-two-songs_01884627881.html"
+    },
     "https://wic12.blogspot.com/2026/09/power-strip-daisy-chain-overload-calculator.html": {
       "checked_at": "2026-11-03T13:18:37+00:00",
       "issues": [],
@@ -1921,9 +2021,9 @@
       "url": "https://wic12.blogspot.com/2026/10/2026-lodging-booking-license-check-november-12.html"
     },
     "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html": {
-      "checked_at": "2026-11-06T07:54:33+00:00",
+      "checked_at": "2026-11-07T07:06:28+00:00",
       "issues": [],
-      "lastmod": "2026-11-06T02:55:15Z",
+      "lastmod": "2026-11-07T02:18:03Z",
       "screenshot": null,
       "severity": "none",
       "site": "byeol",
@@ -1941,9 +2041,9 @@
       "url": "https://wic12.blogspot.com/2026/10/2026-seoul-october-november-events-guide.html"
     },
     "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html": {
-      "checked_at": "2026-11-06T07:54:33+00:00",
+      "checked_at": "2026-11-07T07:06:28+00:00",
       "issues": [],
-      "lastmod": "2026-11-06T02:48:31Z",
+      "lastmod": "2026-11-07T02:52:09Z",
       "screenshot": null,
       "severity": "none",
       "site": "byeol",
@@ -1967,6 +2067,16 @@
       "site": "byeol",
       "state": "inconclusive",
       "url": "https://wic12.blogspot.com/2026/10/2027-suneung-day-commute-traffic-guide.html"
+    },
+    "https://wic12.blogspot.com/2026/10/apartment-hot-water-fee-meaning.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-11-05T07:42:23Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/10/apartment-hot-water-fee-meaning.html"
     },
     "https://wic12.blogspot.com/2026/10/appliance-service-visit-fee-without-repair.html": {
       "checked_at": "2026-11-05T07:54:15+00:00",
@@ -2028,6 +2138,16 @@
       "state": "ok",
       "url": "https://wic12.blogspot.com/2026/10/car-inspection-vs-hyundai-kia-checkup.html"
     },
+    "https://wic12.blogspot.com/2026/10/card-payment-not-mine-10-minute-response.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-11-05T07:41:41Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/10/card-payment-not-mine-10-minute-response.html"
+    },
     "https://wic12.blogspot.com/2026/10/card-reissue-recurring-payment-checklist.html": {
       "checked_at": "2026-11-06T07:54:33+00:00",
       "issues": [],
@@ -2057,6 +2177,73 @@
       "site": "byeol",
       "state": "ok",
       "url": "https://wic12.blogspot.com/2026/10/child-support-advance-payment-income-limit-abolished.html"
+    },
+    "https://wic12.blogspot.com/2026/10/circuit-breaker-keeps-tripping-leakage-overload-check.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [
+        {
+          "detail": "좁은 문단 (71px, 약 12줄): 고출력 제품을 동시에 사용하지 말고 제품 설명서의 연결 조건을 확인합니다.",
+          "level": "high",
+          "selector": "#post-body-1487099735393728411 > div:nth-of-type(1) > div:nth-of-type(12) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(3)",
+          "type": "narrow_text",
+          "width": 320
+        },
+        {
+          "detail": "좁은 문단 (71px, 약 13줄): 그 제품의 사용을 멈추고 제조사 서비스나 전기 전문가에게 점검을 요청합니다.",
+          "level": "high",
+          "selector": "#post-body-1487099735393728411 > div:nth-of-type(1) > div:nth-of-type(12) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(3)",
+          "type": "narrow_text",
+          "width": 320
+        },
+        {
+          "detail": "좁은 문단 (71px, 약 14줄): 젖은 콘센트·제품을 만지지 말고 안전한 경우에만 전원을 차단한 뒤 점검을 요청합니다.",
+          "level": "high",
+          "selector": "#post-body-1487099735393728411 > div:nth-of-type(1) > div:nth-of-type(12) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(3)",
+          "type": "narrow_text",
+          "width": 320
+        },
+        {
+          "detail": "좁은 문단 (71px, 약 12줄): 차단기를 반복해서 올리지 말고 해당 회로를 꺼 둔 채 전문가에게 문의합니다.",
+          "level": "high",
+          "selector": "#post-body-1487099735393728411 > div:nth-of-type(1) > div:nth-of-type(12) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(3)",
+          "type": "narrow_text",
+          "width": 320
+        },
+        {
+          "detail": "좁은 문단 (71px, 약 12줄): 사용을 중지합니다. 녹은 부위를 맨손으로 만지거나 계속 사용하는 것은 피합니다.",
+          "level": "high",
+          "selector": "#post-body-1487099735393728411 > div:nth-of-type(1) > div:nth-of-type(12) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(3)",
+          "type": "narrow_text",
+          "width": 320
+        },
+        {
+          "detail": "좁은 문단 (87px, 약 11줄): 고출력 제품을 동시에 사용하지 말고 제품 설명서의 연결 조건을 확인합니다.",
+          "level": "high",
+          "selector": "#post-body-1487099735393728411 > div:nth-of-type(1) > div:nth-of-type(12) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(3)",
+          "type": "narrow_text",
+          "width": 360
+        },
+        {
+          "detail": "좁은 문단 (87px, 약 11줄): 그 제품의 사용을 멈추고 제조사 서비스나 전기 전문가에게 점검을 요청합니다.",
+          "level": "high",
+          "selector": "#post-body-1487099735393728411 > div:nth-of-type(1) > div:nth-of-type(12) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(3)",
+          "type": "narrow_text",
+          "width": 360
+        },
+        {
+          "detail": "좁은 문단 (87px, 약 13줄): 젖은 콘센트·제품을 만지지 말고 안전한 경우에만 전원을 차단한 뒤 점검을 요청합니다.",
+          "level": "high",
+          "selector": "#post-body-1487099735393728411 > div:nth-of-type(1) > div:nth-of-type(12) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(3)",
+          "type": "narrow_text",
+          "width": 360
+        }
+      ],
+      "lastmod": "2026-11-05T07:42:16Z",
+      "screenshot": "screenshots/ecab2bb6ac0f-320.jpg",
+      "severity": "high",
+      "site": "byeol",
+      "state": "issue",
+      "url": "https://wic12.blogspot.com/2026/10/circuit-breaker-keeps-tripping-leakage-overload-check.html"
     },
     "https://wic12.blogspot.com/2026/10/disaster-alert-157-characters-emergency-safety.html": {
       "checked_at": "2026-11-03T08:40:01+00:00",
@@ -2126,6 +2313,16 @@
       "state": "ok",
       "url": "https://wic12.blogspot.com/2026/10/long-term-repair-reserve-refund-moving-out.html"
     },
+    "https://wic12.blogspot.com/2026/10/marathon-entry-refund-bib-transfer-guide.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-11-05T07:41:04Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/10/marathon-entry-refund-bib-transfer-guide.html"
+    },
     "https://wic12.blogspot.com/2026/10/milk-soy-aseptic-carton-recycling-guide.html": {
       "checked_at": "2026-11-03T08:40:01+00:00",
       "issues": [],
@@ -2173,6 +2370,16 @@
       "site": "byeol",
       "state": "ok",
       "url": "https://wic12.blogspot.com/2026/10/monitor-no-signal-hdmi-dp-checklist.html"
+    },
+    "https://wic12.blogspot.com/2026/10/moving-day-utility-bill-settlement.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-11-05T07:41:46Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/10/moving-day-utility-bill-settlement.html"
     },
     "https://wic12.blogspot.com/2026/10/moving-meter-photo-evidence-checklist.html": {
       "checked_at": "2026-11-06T19:57:16+00:00",
@@ -2251,6 +2458,16 @@
       "state": "issue",
       "url": "https://wic12.blogspot.com/2026/10/phone-charging-slow-check-before-buying-charger.html"
     },
+    "https://wic12.blogspot.com/2026/10/power-outage-fridge-freezer-food-safety-guide.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-11-05T07:42:20Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/10/power-outage-fridge-freezer-food-safety-guide.html"
+    },
     "https://wic12.blogspot.com/2026/10/resident-registration-family-label-general-detailed.html": {
       "checked_at": "2026-11-03T08:40:01+00:00",
       "issues": [],
@@ -2308,6 +2525,16 @@
       "site": "byeol",
       "state": "inconclusive",
       "url": "https://wic12.blogspot.com/2026/10/smartphone-battery-drain-iphone-galaxy-check.html"
+    },
+    "https://wic12.blogspot.com/2026/10/smartphone-lost-first-30-minutes-response.html": {
+      "checked_at": "2026-11-07T07:06:28+00:00",
+      "issues": [],
+      "lastmod": "2026-11-05T07:42:49Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/10/smartphone-lost-first-30-minutes-response.html"
     },
     "https://wic12.blogspot.com/2026/10/steam-standard-deluxe-bundle-edition-guide.html": {
       "checked_at": "2026-11-06T19:57:16+00:00",
@@ -2396,9 +2623,9 @@
       "url": "https://wic12.blogspot.com/2026/10/winter-car-windshield-fog-defrost-guide.html"
     },
     "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html": {
-      "checked_at": "2026-11-06T07:54:33+00:00",
+      "checked_at": "2026-11-07T07:06:28+00:00",
       "issues": [],
-      "lastmod": "2026-11-06T03:48:09Z",
+      "lastmod": "2026-11-07T02:12:29Z",
       "screenshot": null,
       "severity": "none",
       "site": "byeol",
@@ -2675,34 +2902,34 @@
   "run": {
     "errors": [],
     "scanned": 24,
-    "screenshot_count": 0,
-    "status": "partial"
+    "screenshot_count": 2,
+    "status": "ok"
   },
-  "run_id": "42284031316",
+  "run_id": "42349784882",
   "schema": 1,
   "sites": [
     {
       "base": "https://wic12.blogspot.com/",
-      "checked_count": 94,
+      "checked_count": 103,
       "id": "byeol",
       "inconclusive_count": 25,
-      "issue_count": 1,
+      "issue_count": 2,
       "name": "별셈소",
-      "pending_count": 140,
+      "pending_count": 131,
       "published_count": 234
     },
     {
       "base": "https://qevnaxori.blogspot.com/",
-      "checked_count": 115,
+      "checked_count": 123,
       "id": "nobody",
-      "inconclusive_count": 31,
-      "issue_count": 4,
+      "inconclusive_count": 30,
+      "issue_count": 5,
       "name": "Nobody Asked Data",
-      "pending_count": 8,
+      "pending_count": 0,
       "published_count": 123
     }
   ],
-  "updated_at": "2026-11-06T19:58:15+00:00",
+  "updated_at": "2026-11-07T07:07:53+00:00",
   "viewport_widths": [
     320,
     360,
