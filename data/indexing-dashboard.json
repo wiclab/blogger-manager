@@ -1,19 +1,19 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-08T13:49:20+00:00",
+    "last_successful_check_at": "2026-11-08T13:49:22+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 5,
+    "blocked_uncertain_count": 0,
     "daily_quota_remaining_before": 94,
     "eligible_pending_count": 0,
-    "held_batches_count": 1,
-    "last_successful_submission_at": "2026-11-08T06:36:31+00:00",
+    "held_batches_count": 0,
+    "last_successful_submission_at": "2026-11-08T13:49:22+00:00",
     "monthly_quota_remaining_before": 2294,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 5,
+    "pending_count": 0,
     "per_run_cap": 100,
     "published_count": 236,
     "queue_summary": {
@@ -26,16 +26,10 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [
-      "https://wic12.blogspot.com/2026/09/auto-transfer-weekend-holiday-withdrawal.html",
-      "https://wic12.blogspot.com/2026/10/credit-card-double-withdrawal-after-instant-payment.html",
-      "https://wic12.blogspot.com/2026/11/credit-card-one-day-late-payment-interest-credit-score.html",
-      "https://wic12.blogspot.com/2026/09/credit-card-payment-afternoon-deposit.html",
-      "https://wic12.blogspot.com/2026/10/rental-home-boiler-repair-cost.html"
-    ],
+    "recent_pending": [],
     "state": "ok",
-    "submitted_this_run": 0,
-    "tracked_submitted_count": 231
+    "submitted_this_run": 5,
+    "tracked_submitted_count": 236
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -45,5 +39,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-08T13:49:20+00:00"
+  "updated_at": "2026-11-08T13:49:22+00:00"
 }
