@@ -1,19 +1,19 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-08T19:00:33+00:00",
+    "last_successful_check_at": "2026-11-08T19:00:35+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 9,
+    "blocked_uncertain_count": 0,
     "daily_quota_remaining_before": 89,
     "eligible_pending_count": 0,
-    "held_batches_count": 1,
-    "last_successful_submission_at": "2026-11-08T13:49:22+00:00",
+    "held_batches_count": 0,
+    "last_successful_submission_at": "2026-11-08T19:00:35+00:00",
     "monthly_quota_remaining_before": 2289,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 9,
+    "pending_count": 0,
     "per_run_cap": 100,
     "published_count": 237,
     "queue_summary": {
@@ -26,20 +26,10 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [
-      "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html",
-      "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html",
-      "https://wic12.blogspot.com/2026/11/laptop-usb-c-charger-45w-65w-100w-guide.html",
-      "https://wic12.blogspot.com/2026/09/revolving-balance-partial-prepayment-50-100.html",
-      "https://wic12.blogspot.com/2026/09/credit-card-revolving-30-percent-12-month-calculation.html",
-      "https://wic12.blogspot.com/2026/11/credit-card-one-day-late-payment-interest-credit-score.html",
-      "https://wic12.blogspot.com/2026/10/credit-card-double-withdrawal-after-instant-payment.html",
-      "https://wic12.blogspot.com/2026/11/credit-card-limit-not-restored-after-payment.html",
-      "https://wic12.blogspot.com/2026/10/massage-chair-moving-disassembly-disposal-cost.html"
-    ],
+    "recent_pending": [],
     "state": "ok",
-    "submitted_this_run": 0,
-    "tracked_submitted_count": 228
+    "submitted_this_run": 9,
+    "tracked_submitted_count": 237
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -49,5 +39,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-08T19:00:33+00:00"
+  "updated_at": "2026-11-08T19:00:35+00:00"
 }
