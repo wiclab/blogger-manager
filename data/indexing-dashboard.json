@@ -1,19 +1,19 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-09T19:03:49+00:00",
+    "last_successful_check_at": "2026-11-09T19:03:52+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 24,
+    "blocked_uncertain_count": 0,
     "daily_quota_remaining_before": 90,
     "eligible_pending_count": 0,
-    "held_batches_count": 1,
-    "last_successful_submission_at": "2026-11-09T07:05:12+00:00",
+    "held_batches_count": 0,
+    "last_successful_submission_at": "2026-11-09T19:03:52+00:00",
     "monthly_quota_remaining_before": 2190,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 24,
+    "pending_count": 0,
     "per_run_cap": 100,
     "published_count": 241,
     "queue_summary": {
@@ -26,23 +26,10 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [
-      "https://wic12.blogspot.com/2026/08/1.html",
-      "https://wic12.blogspot.com/2026/10/2027-sports-voucher-application-guide.html",
-      "https://wic12.blogspot.com/2026/10/2026-lodging-booking-license-check-november-12.html",
-      "https://wic12.blogspot.com/2026/10/2026-seoul-october-november-events-guide.html",
-      "https://wic12.blogspot.com/2026/10/2026-seoul-cafe-show-public-days-ticket-budget-guide.html",
-      "https://wic12.blogspot.com/2026/11/digital-onnuri-10-percent-november-2026.html",
-      "https://wic12.blogspot.com/2026/08/credit-card-payment-date-change.html",
-      "https://wic12.blogspot.com/2026/09/water-meter-moving-no-use-leak-check-calculation.html",
-      "https://wic12.blogspot.com/2026/09/why-rooftops-green-cool-roof.html",
-      "https://wic12.blogspot.com/2026/09/home-water-leak-who-to-call-guide.html",
-      "https://wic12.blogspot.com/2026/10/shower-low-water-flow-check-hot-cold.html",
-      "https://wic12.blogspot.com/2026/11/boiler-hot-water-works-heating-not-working.html"
-    ],
+    "recent_pending": [],
     "state": "ok",
-    "submitted_this_run": 0,
-    "tracked_submitted_count": 217
+    "submitted_this_run": 24,
+    "tracked_submitted_count": 241
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -52,5 +39,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-09T19:03:49+00:00"
+  "updated_at": "2026-11-09T19:03:52+00:00"
 }
