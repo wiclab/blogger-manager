@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-03T07:53:52+00:00",
-  "live_posts_checked": 225,
-  "official_url_total": 323,
+  "updated_at": "2026-11-10T08:23:55+00:00",
+  "live_posts_checked": 244,
+  "official_url_total": 364,
   "sample_this_run": 60,
-  "checked_distinct": 240,
+  "checked_distinct": 291,
   "review_missing_count": 0,
-  "ok_count": 181,
-  "inconclusive_count": 59,
-  "not_checked_count": 83,
+  "ok_count": 214,
+  "inconclusive_count": 77,
+  "not_checked_count": 73,
   "rows": [
     {
       "url": "https://110.go.kr/data/counselView.do?curPage=1&num=A01_660057",
@@ -36,6 +36,43 @@
       "checked_at": "2026-11-02T12:48:28+00:00"
     },
     {
+      "url": "https://1350.moel.go.kr/rtmview.do?id=1000266043",
+      "domain": "1350.moel.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/unpaid-wages-resignation-unemployment-benefits.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 200,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
+      "url": "https://1350.moel.go.kr/rtmview.do?id=1000309035",
+      "domain": "1350.moel.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 200,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
+      "url": "https://1350.moel.go.kr/rtmview.do?id=1000316615",
+      "domain": "1350.moel.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html",
+        "https://wic12.blogspot.com/2026/11/unpaid-wages-resignation-unemployment-benefits.html"
+      ],
+      "source_count": 2,
+      "state": "ok",
+      "head_code": 200,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
       "url": "https://1350.moel.go.kr/rtmview.do?id=1000319344",
       "domain": "1350.moel.go.kr",
       "sources": [
@@ -46,6 +83,18 @@
       "head_code": 200,
       "get_code": null,
       "checked_at": "2026-11-02T12:48:28+00:00"
+    },
+    {
+      "url": "https://1350.moel.go.kr/rtmview.do?id=1000324861",
+      "domain": "1350.moel.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/unpaid-wages-resignation-unemployment-benefits.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 200,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://arisu.seoul.go.kr/",
@@ -63,9 +112,10 @@
       "url": "https://arisu.seoul.go.kr/home/sub?dsn=1704067100-021-131&menukey=7201&mode=view",
       "domain": "arisu.seoul.go.kr",
       "sources": [
-        "https://wic12.blogspot.com/2026/09/home-water-leak-who-to-call-guide.html"
+        "https://wic12.blogspot.com/2026/09/home-water-leak-who-to-call-guide.html",
+        "https://wic12.blogspot.com/2026/09/water-meter-moving-no-use-leak-check-calculation.html"
       ],
-      "source_count": 1,
+      "source_count": 2,
       "state": "inconclusive",
       "head_code": null,
       "get_code": null,
@@ -252,6 +302,18 @@
       "checked_at": "2026-11-02T12:48:28+00:00"
     },
     {
+      "url": "https://easylaw.go.kr/CSP/CnpClsMain.laf?ccfNo=6&cciNo=2&cnpClsNo=1&csmSeq=572&popMenu=ov",
+      "domain": "easylaw.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/atm-cash-deposit-error-money-not-credited.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 200,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
       "url": "https://easylaw.go.kr/CSP/IssueQaRetrieve.laf?issueqaSeq=407&targetRow=1&topMenu=openUl7",
       "domain": "easylaw.go.kr",
       "sources": [
@@ -298,6 +360,18 @@
       "head_code": 404,
       "get_code": 200,
       "checked_at": "2026-11-02T12:45:51+00:00"
+    },
+    {
+      "url": "https://edrm.ei.go.kr/ei/eih/eg/pb/pbPersonBnef/retrievePb0202Info.do",
+      "domain": "edrm.ei.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/unpaid-wages-resignation-unemployment-benefits.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 200,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://etax.seoul.go.kr/",
@@ -420,18 +494,6 @@
       "checked_at": "2026-11-02T12:45:51+00:00"
     },
     {
-      "url": "https://festival.seoul.go.kr/festival/seasonal/list.do",
-      "domain": "festival.seoul.go.kr",
-      "sources": [
-        "https://wic12.blogspot.com/2026/10/2026-seoul-october-november-events-guide.html"
-      ],
-      "source_count": 1,
-      "state": "ok",
-      "head_code": 200,
-      "get_code": null,
-      "checked_at": "2026-11-02T12:48:28+00:00"
-    },
-    {
       "url": "https://fsc.go.kr/no040101?cnId=2226&curPage=153&pastPage=160&srchKey=&srchText=",
       "domain": "fsc.go.kr",
       "sources": [
@@ -466,6 +528,18 @@
       "head_code": 401,
       "get_code": null,
       "checked_at": "2026-11-02T12:48:28+00:00"
+    },
+    {
+      "url": "https://g.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7796&mi=2471",
+      "domain": "g.nts.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/cash-receipt-self-issued-hometax-register.html"
+      ],
+      "source_count": 1,
+      "state": "inconclusive",
+      "head_code": 401,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://g.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7885&mi=6605",
@@ -780,46 +854,10 @@
       "checked_at": "2026-11-02T12:48:28+00:00"
     },
     {
-      "url": "https://lolesports.com/en-GB/news/worlds-2026-primer",
-      "domain": "lolesports.com",
-      "sources": [
-        "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html"
-      ],
-      "source_count": 1,
-      "state": "ok",
-      "head_code": 200,
-      "get_code": null,
-      "checked_at": "2026-11-02T12:48:28+00:00"
-    },
-    {
-      "url": "https://lolesports.com/en-US/pickems",
-      "domain": "lolesports.com",
-      "sources": [
-        "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html"
-      ],
-      "source_count": 1,
-      "state": "ok",
-      "head_code": 200,
-      "get_code": null,
-      "checked_at": "2026-11-02T12:48:28+00:00"
-    },
-    {
       "url": "https://lolesports.com/en-US/pickems/115660540725177488",
       "domain": "lolesports.com",
       "sources": [
         "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html"
-      ],
-      "source_count": 1,
-      "state": "ok",
-      "head_code": 200,
-      "get_code": null,
-      "checked_at": "2026-11-02T12:48:28+00:00"
-    },
-    {
-      "url": "https://lolesports.com/en-US/tournament/115660540725177488/stage/115660540725570706",
-      "domain": "lolesports.com",
-      "sources": [
-        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
       ],
       "source_count": 1,
       "state": "ok",
@@ -840,26 +878,26 @@
       "checked_at": "2026-11-02T12:45:51+00:00"
     },
     {
-      "url": "https://lolesports.com/ko-KR/",
+      "url": "https://lolesports.com/ko-KR",
       "domain": "lolesports.com",
       "sources": [
-        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html",
+        "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html"
       ],
-      "source_count": 1,
+      "source_count": 2,
       "state": "ok",
       "head_code": 200,
       "get_code": null,
-      "checked_at": "2026-11-02T12:48:28+00:00"
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://lolesports.com/ko-KR/news/worlds-2026-primer",
       "domain": "lolesports.com",
       "sources": [
         "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html",
-        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html",
         "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html"
       ],
-      "source_count": 3,
+      "source_count": 2,
       "state": "ok",
       "head_code": 200,
       "get_code": null,
@@ -975,6 +1013,18 @@
       "checked_at": "2026-11-02T12:45:51+00:00"
     },
     {
+      "url": "https://mob.tbcr.hometax.go.kr/jsonAction.do?actionId=UTBCRJA011F001",
+      "domain": "mob.tbcr.hometax.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/cash-receipt-self-issued-hometax-register.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 200,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
       "url": "https://mobileid.go.kr/mip/hps/svcIntrcn/svcIntrcnUser.do",
       "domain": "mobileid.go.kr",
       "sources": [
@@ -999,7 +1049,7 @@
       "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
-      "url": "https://moel.go.kr/news/enews/report/enewsView.do?news_seq=19862",
+      "url": "https://moel.go.kr/faq/faqView.do?seqRepeat=78",
       "domain": "moel.go.kr",
       "sources": [
         "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html"
@@ -1008,7 +1058,7 @@
       "state": "ok",
       "head_code": 405,
       "get_code": 200,
-      "checked_at": "2026-11-02T14:54:16+00:00"
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://myapt.molit.go.kr/",
@@ -1191,6 +1241,18 @@
       "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
+      "url": "https://nts.go.kr/nts/na/ntt/selectNttInfo.do?nttSn=1498",
+      "domain": "nts.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/cash-receipt-self-issued-hometax-register.html"
+      ],
+      "source_count": 1,
+      "state": "inconclusive",
+      "head_code": 400,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
       "url": "https://nyj.go.kr/culture/selectTnResrceListU.do?key=288&si1=23&si2=33",
       "domain": "nyj.go.kr",
       "sources": [
@@ -1239,6 +1301,18 @@
       "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
+      "url": "https://support.google.com/android/answer/2651367?hl=en-GB",
+      "domain": "support.google.com",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/wifi-connected-but-no-internet-checklist.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
       "url": "https://support.google.com/android/answer/6160491?hl=ko-kr",
       "domain": "support.google.com",
       "sources": [
@@ -1249,6 +1323,18 @@
       "head_code": 404,
       "get_code": 200,
       "checked_at": "2026-11-02T14:54:16+00:00"
+    },
+    {
+      "url": "https://support.google.com/android/answer/9346420?hl=en",
+      "domain": "support.google.com",
+      "sources": [
+        "https://wic12.blogspot.com/2026/08/7_0993329413.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://support.google.com/families/answer/15957417?hl=ko-KR",
@@ -1395,6 +1481,18 @@
       "checked_at": "2026-11-02T14:54:16+00:00"
     },
     {
+      "url": "https://support.google.com/pixelphone/answer/2840804?hl=ko",
+      "domain": "support.google.com",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/phone-usb-charging-only-file-transfer-fix.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
       "url": "https://support.google.com/pixelphone/answer/6090599?hl=en",
       "domain": "support.google.com",
       "sources": [
@@ -1405,6 +1503,18 @@
       "head_code": 404,
       "get_code": 200,
       "checked_at": "2026-11-02T14:54:16+00:00"
+    },
+    {
+      "url": "https://support.google.com/pixelphone/answer/6183600?hl=ko",
+      "domain": "support.google.com",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/wifi-connected-but-no-internet-checklist.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://topis.seoul.go.kr/",
@@ -1805,18 +1915,6 @@
       "checked_at": "2026-11-03T07:53:52+00:00"
     },
     {
-      "url": "https://www.fsc.go.kr/no010101/80030",
-      "domain": "www.fsc.go.kr",
-      "sources": [
-        "https://wic12.blogspot.com/2026/10/savings-maturity-weekend-holiday-withdrawal-interest.html"
-      ],
-      "source_count": 1,
-      "state": "inconclusive",
-      "head_code": 403,
-      "get_code": null,
-      "checked_at": "2026-11-03T07:53:52+00:00"
-    },
-    {
       "url": "https://www.fsc.go.kr/no010101/87880",
       "domain": "www.fsc.go.kr",
       "sources": [
@@ -1913,6 +2011,18 @@
       "checked_at": "2026-11-03T07:53:52+00:00"
     },
     {
+      "url": "https://www.gov.kr/mw/AA210LifeSvcInfo.do",
+      "domain": "www.gov.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/hipass-unpaid-toll-lookup-payment-guide.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 200,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
       "url": "https://www.goyang.go.kr/dong/user/bbs/BD_selectBbs.do?q_bbsCode=1071&q_bbscttSn=20261022152837853&q_clCode=18&q_main=Y",
       "domain": "www.goyang.go.kr",
       "sources": [
@@ -1925,6 +2035,18 @@
       "checked_at": "2026-11-03T07:53:52+00:00"
     },
     {
+      "url": "https://www.guro.go.kr/bbs/selectBbsNttView.do?bbsNo=662&key=3477&nttNo=241798&pageIndex=1&pageUnit=10",
+      "domain": "www.guro.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2027-sports-voucher-application-guide.html"
+      ],
+      "source_count": 1,
+      "state": "inconclusive",
+      "head_code": 403,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
       "url": "https://www.hf.go.kr/ko/sub02/sub02_01_04.do",
       "domain": "www.hf.go.kr",
       "sources": [
@@ -1935,6 +2057,18 @@
       "head_code": 200,
       "get_code": null,
       "checked_at": "2026-11-03T07:53:52+00:00"
+    },
+    {
+      "url": "https://www.ice.go.kr/upload/ice/na/bbs_1482/2026/04/b38c68a1f07bfba215f2107e1e040910.pdf",
+      "domain": "www.ice.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/2027-csat-glasses-ai-smartwatch-rules.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.iksan.go.kr/tour",
@@ -1959,6 +2093,18 @@
       "head_code": 200,
       "get_code": null,
       "checked_at": "2026-11-03T07:53:52+00:00"
+    },
+    {
+      "url": "https://www.jbe.go.kr/board/view.jbe?boardId=BBS_0000005&dataSid=1199934&menuCd=DOM_000000102006002000&paging=ok&searchOperation=AND&startPage=3",
+      "domain": "www.jbe.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/2027-csat-glasses-ai-smartwatch-rules.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 200,
+      "get_code": null,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.k-apt.go.kr/",
@@ -2358,18 +2504,6 @@
       "checked_at": "2026-11-03T07:53:52+00:00"
     },
     {
-      "url": "https://www.korea.kr/news/policyFocusView.do?newsId=148972822&pkgId=49500843",
-      "domain": "www.korea.kr",
-      "sources": [
-        "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html"
-      ],
-      "source_count": 1,
-      "state": "ok",
-      "head_code": 200,
-      "get_code": null,
-      "checked_at": "2026-11-02T12:45:51+00:00"
-    },
-    {
       "url": "https://www.korea.kr/news/policyNewsView.do?newsId=148958319",
       "domain": "www.korea.kr",
       "sources": [
@@ -2602,6 +2736,18 @@
       "checked_at": "2026-11-03T07:53:52+00:00"
     },
     {
+      "url": "https://www.law.go.kr/LSW/lsRvsDocListP.do?chrClsCd=010202&lsId=001964&lsRvsGubun=all",
+      "domain": "www.law.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-lodging-booking-license-check-november-12.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
       "url": "https://www.law.go.kr/LSW/lsRvsDocListP.do?chrClsCd=010202&lsId=010014&lsRvsGubun=all",
       "domain": "www.law.go.kr",
       "sources": [
@@ -2716,10 +2862,10 @@
         "https://wic12.blogspot.com/2026/11/game-time-selection-abolition-shutdown-parental-controls.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1029491389",
@@ -2728,10 +2874,10 @@
         "https://wic12.blogspot.com/2026/11/2026-december-car-tax-payment-prepaid-calculator.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1031196225",
@@ -2740,10 +2886,10 @@
         "https://wic12.blogspot.com/2026/11/2026-december-car-tax-payment-prepaid-calculator.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1032817423",
@@ -2752,10 +2898,10 @@
         "https://wic12.blogspot.com/2026/09/driving-after-drinking-weight-body-type.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1033785357",
@@ -2764,10 +2910,10 @@
         "https://wic12.blogspot.com/2026/10/apartment-hot-water-fee-meaning.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1034323109",
@@ -2776,10 +2922,10 @@
         "https://wic12.blogspot.com/2026/09/salary-day-holiday-before-or-after.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1032951711",
@@ -2788,10 +2934,22 @@
         "https://wic12.blogspot.com/2026/11/2026-irp-pension-savings-tax-credit-calculator.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
+      "url": "https://www.law.go.kr/lsSc.do?query=%EC%9C%A0%EB%A3%8C%EB%8F%84%EB%A1%9C%EB%B2%95",
+      "domain": "www.law.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/hipass-unpaid-toll-lookup-payment-guide.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 404,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.law.go.kr/법령/공동주택관리법",
@@ -2800,10 +2958,10 @@
         "https://wic12.blogspot.com/2026/09/home-water-leak-who-to-call-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
+      "state": "inconclusive",
       "head_code": null,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.law.go.kr/법령/전기안전관리법",
@@ -2812,10 +2970,10 @@
         "https://wic12.blogspot.com/2026/10/circuit-breaker-keeps-tripping-leakage-overload-check.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
+      "state": "inconclusive",
       "head_code": null,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.lost112.go.kr/phone/phoneList.do",
@@ -2860,10 +3018,10 @@
         "https://wic12.blogspot.com/2026/11/heat-pump-electricity-tariff-2026-jeju-ess.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 403,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mcee.go.kr/m/mob/board/read.do?boardId=1881100&boardMasterId=939&menuId=156",
@@ -2872,10 +3030,10 @@
         "https://wic12.blogspot.com/2026/11/heat-pump-electricity-tariff-2026-jeju-ess.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 403,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mcst.go.kr/site/s_culture/festival/festivalView.jsp?pRo=91&pSeq=12926",
@@ -2884,10 +3042,10 @@
         "https://wic12.blogspot.com/2026/10/2026-seoul-october-november-events-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 403,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mcst.go.kr/site/s_notice/tv/tvView.jsp?pMenuCD=0307010000&pSeq=2005",
@@ -2896,10 +3054,10 @@
         "https://wic12.blogspot.com/2026/11/game-time-selection-abolition-shutdown-parental-controls.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 403,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mcst.go.kr/site/s_policy/subPolicy/sportstour/sportstour09.jsp",
@@ -2908,10 +3066,10 @@
         "https://wic12.blogspot.com/2026/10/2027-sports-voucher-application-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 403,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mfds.go.kr/brd/m_1256/view.do?company_cd=&company_nm=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&page=1&seq=129&srchFr=&srchTo=&srchTp=&srchWord=",
@@ -2920,10 +3078,10 @@
         "https://wic12.blogspot.com/2026/09/fruit-rice-cake-two-hour-trip-storage-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 500,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mfds.go.kr/brd/m_1256/view.do?company_cd=&company_nm=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&page=1&seq=147&srchFr=&srchTo=&srchTp=&srchWord=",
@@ -2932,10 +3090,10 @@
         "https://wic12.blogspot.com/2026/10/epe-obesity-drug-price-insurance-2026.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 500,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mfds.go.kr/brd/m_227/view.do?company_cd=&company_nm=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&page=29&seq=11410&srchFr=&srchTo=&srchTp=&srchWord=",
@@ -2944,10 +3102,10 @@
         "https://wic12.blogspot.com/2026/09/dish-smells-fishy-after-washing_0699827615.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 500,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mfds.go.kr/brd/m_580/view.do?seq=160",
@@ -2956,10 +3114,10 @@
         "https://wic12.blogspot.com/2026/10/delivery-container-microwave-safety.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 500,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mfds.go.kr/brd/m_827/view.do?company_cd=&company_nm=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&page=1&seq=3609&srchFr=&srchTo=&srchTp=&srchWord=",
@@ -2968,10 +3126,10 @@
         "https://wic12.blogspot.com/2026/09/leftover-food-fridge-freezer-discard-checker.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mobileid.go.kr/",
@@ -2992,10 +3150,10 @@
         "https://wic12.blogspot.com/2026/10/mobile-id-bank-app-issuance-use-loss-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mobileid.go.kr/mip/hps/issuReqstGuidance/issuReqstGuidanceMrc.do",
@@ -3004,10 +3162,10 @@
         "https://wic12.blogspot.com/2026/10/mobile-id-bank-app-issuance-use-loss-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mobileid.go.kr/mip/hps/main.do",
@@ -3016,10 +3174,10 @@
         "https://wic12.blogspot.com/2026/10/mobile-id-bank-app-issuance-use-loss-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mobileid.go.kr/mip/hps/svcCnter/indexSvcCnterList.do",
@@ -3028,10 +3186,10 @@
         "https://wic12.blogspot.com/2026/10/mobile-id-bank-app-issuance-use-loss-guide.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mobileid.go.kr/mip/hps/svcIntrcn/svcIntrcnUser.do",
@@ -3040,22 +3198,22 @@
         "https://wic12.blogspot.com/2026/10/smartphone-lost-first-30-minutes-response.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
-      "url": "https://www.moel.go.kr/faq/faqView.do?seqRepeat=78",
-      "domain": "www.moel.go.kr",
+      "url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=106592&lev=0&m=020402&opType=N&page=1&s=moe&searchType=null&statusYN=W",
+      "domain": "www.moe.go.kr",
       "sources": [
-        "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html"
+        "https://wic12.blogspot.com/2026/11/2027-csat-glasses-ai-smartwatch-rules.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 403,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.moel.go.kr/mainpop2.do",
@@ -3064,10 +3222,10 @@
         "https://wic12.blogspot.com/2026/09/salary-day-holiday-before-or-after.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.moel.go.kr/news/cardinfo/view.do?bbs_seq=20230500426",
@@ -3082,16 +3240,16 @@
       "checked_at": "2026-11-02T12:45:51+00:00"
     },
     {
-      "url": "https://www.moel.go.kr/news/cardinfo/view.do?bbs_seq=20230600834",
+      "url": "https://www.moel.go.kr/news/cardinfo/view.do?bbs_seq=20261100080",
       "domain": "www.moel.go.kr",
       "sources": [
-        "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html"
+        "https://wic12.blogspot.com/2026/11/2026-youth-national-technical-exam-fee-support.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19813",
@@ -3106,16 +3264,40 @@
       "checked_at": "2026-11-02T12:45:51+00:00"
     },
     {
+      "url": "https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19862",
+      "domain": "www.moel.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
+      "url": "https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=20192",
+      "domain": "www.moel.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html"
+      ],
+      "source_count": 1,
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
+    },
+    {
       "url": "https://www.mof.go.kr/doc/ko/selectDoc.do?bbsSeq=10&docSeq=68135",
       "domain": "www.mof.go.kr",
       "sources": [
         "https://wic12.blogspot.com/2026/08/40.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "inconclusive",
+      "head_code": 500,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mogef.go.kr/nw/enw/nw_enw_s001d.do?bbtSn=714268&mid=mda700",
@@ -3124,10 +3306,10 @@
         "https://wic12.blogspot.com/2026/10/child-support-advance-payment-income-limit-abolished.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mohw.go.kr/menu.es?mid=a10706020200",
@@ -3136,10 +3318,10 @@
         "https://wic12.blogspot.com/2026/10/national-health-checkup-lung-function-test-2026.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
-      "get_code": null,
-      "checked_at": null
+      "state": "ok",
+      "head_code": 405,
+      "get_code": 200,
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mois.go.kr/frt/bbs/type010/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000008&nttId=125992",
@@ -3148,10 +3330,10 @@
         "https://wic12.blogspot.com/2026/10/disaster-alert-157-characters-emergency-safety.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.mois.go.kr/frt/bbs/type010/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000008&nttId=129729",
@@ -3172,10 +3354,10 @@
         "https://wic12.blogspot.com/2026/10/living-expense-account-bank-seizure-250.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "redirect_unverified",
+      "head_code": 302,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.molit.go.kr/",
@@ -3196,10 +3378,10 @@
         "https://wic12.blogspot.com/2026/10/ktx-train-ticket-two-month-booking.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "redirect_unverified",
+      "head_code": 307,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.molit.go.kr/mta/USR/NEWS/m_36770/dtl.jsp?id=95089573",
@@ -3220,10 +3402,10 @@
         "https://wic12.blogspot.com/2026/11/digital-onnuri-10-percent-november-2026.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.museum.go.kr/",
@@ -3232,10 +3414,10 @@
         "https://wic12.blogspot.com/2026/09/2026-chuseok-national-events.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "redirect_unverified",
+      "head_code": 302,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.museum.go.kr/MUSEUM/contents/M0701040000.do?arcId=23981&catCustomType=post&schM=view",
@@ -3244,10 +3426,10 @@
         "https://wic12.blogspot.com/2026/09/2026-chuseok-national-events.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.museum.go.kr/MUSEUM/contents/M0701040000.do?arcId=23985&catCustomType=post&schM=view",
@@ -3256,10 +3438,10 @@
         "https://wic12.blogspot.com/2026/09/2026-chuseok-national-events.html"
       ],
       "source_count": 1,
-      "state": "not_checked",
-      "head_code": null,
+      "state": "ok",
+      "head_code": 200,
       "get_code": null,
-      "checked_at": null
+      "checked_at": "2026-11-10T08:23:55+00:00"
     },
     {
       "url": "https://www.museum.go.kr/MUSEUM/contents/M0701040000.do?arcId=23986&catCustomType=post&schM=view",
@@ -3358,6 +3540,18 @@
       "checked_at": "2026-11-02T12:45:51+00:00"
     },
     {
+      "url": "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7793&mi=2472",
+      "domain": "www.nts.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/cash-receipt-self-issued-hometax-register.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
       "url": "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7870&mi=6434",
       "domain": "www.nts.go.kr",
       "sources": [
@@ -3386,6 +3580,18 @@
       "domain": "www.nts.go.kr",
       "sources": [
         "https://wic12.blogspot.com/2026/10/2025-earned-child-tax-credit-late-application.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://www.nts.go.kr/nts/na/ntt/selectNttInfo.do?nttSn=1476",
+      "domain": "www.nts.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/cash-receipt-self-issued-hometax-register.html"
       ],
       "source_count": 1,
       "state": "not_checked",
@@ -3446,6 +3652,18 @@
       "domain": "www.seocho.go.kr",
       "sources": [
         "https://wic12.blogspot.com/2026/11/2026-december-car-tax-payment-prepaid-calculator.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://www.seoul.go.kr/news/news_report.do?bbsNo=158&nttNo=466494",
+      "domain": "www.seoul.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/09/why-rooftops-green-cool-roof.html"
       ],
       "source_count": 1,
       "state": "not_checked",
@@ -3538,6 +3756,18 @@
       "checked_at": null
     },
     {
+      "url": "https://www.work24.go.kr/",
+      "domain": "www.work24.go.kr",
+      "sources": [
+        "https://wic12.blogspot.com/2026/11/unpaid-wages-resignation-unemployment-benefits.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
       "url": "https://www.ydp.go.kr/www/selectBbsNttView.do?bbsNo=40&key=2848&nttNo=420725",
       "domain": "www.ydp.go.kr",
       "sources": [
@@ -3574,16 +3804,16 @@
       "checked_at": null
     },
     {
-      "url": "https://www.youtube.com/playlist?list=PLVXAxS77cLF0",
+      "url": "https://www.youtube.com/@LCK",
       "domain": "www.youtube.com",
       "sources": [
         "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
       ],
       "source_count": 1,
-      "state": "ok",
-      "head_code": 200,
+      "state": "not_checked",
+      "head_code": null,
       "get_code": null,
-      "checked_at": "2026-11-02T12:45:51+00:00"
+      "checked_at": null
     },
     {
       "url": "https://www.youtube.com/watch?v=-ZakZw4PlBA",
@@ -3613,10 +3843,21 @@
       "url": "https://www.youtube.com/watch?v=CMXo4FpNd8U",
       "domain": "www.youtube.com",
       "sources": [
-        "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html",
         "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
       ],
-      "source_count": 2,
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=CUJpJIngEQ8",
+      "domain": "www.youtube.com",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
       "state": "not_checked",
       "head_code": null,
       "get_code": null,
@@ -3635,7 +3876,7 @@
       "checked_at": "2026-11-02T12:45:51+00:00"
     },
     {
-      "url": "https://www.youtube.com/watch?v=JtGCqqk4_3c&t=2s",
+      "url": "https://www.youtube.com/watch?v=JtGCqqk4_3c",
       "domain": "www.youtube.com",
       "sources": [
         "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
@@ -3695,7 +3936,7 @@
       "checked_at": null
     },
     {
-      "url": "https://www.youtube.com/watch?v=Q-zv9Mg6-dM&t=1s",
+      "url": "https://www.youtube.com/watch?v=Q-zv9Mg6-dM",
       "domain": "www.youtube.com",
       "sources": [
         "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
@@ -3734,10 +3975,21 @@
       "url": "https://www.youtube.com/watch?v=UEGOFxU0-zk",
       "domain": "www.youtube.com",
       "sources": [
-        "https://wic12.blogspot.com/2026/10/2026-lol-worlds-schedule-bracket-korea-time.html",
         "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
       ],
-      "source_count": 2,
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=YQChSt601Wc",
+      "domain": "www.youtube.com",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
       "state": "not_checked",
       "head_code": null,
       "get_code": null,
@@ -3781,6 +4033,18 @@
     },
     {
       "url": "https://www.youtube.com/watch?v=cnAIXp23rGQ",
+      "domain": "www.youtube.com",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=h1H5dn84sGs",
       "domain": "www.youtube.com",
       "sources": [
         "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
@@ -3864,6 +4128,18 @@
       "checked_at": "2026-11-02T12:45:51+00:00"
     },
     {
+      "url": "https://www.youtube.com/watch?v=zEbNYJKGGZY",
+      "domain": "www.youtube.com",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
       "url": "https://yangsan.go.kr/car/contents.do?mid=0301000000",
       "domain": "yangsan.go.kr",
       "sources": [
@@ -3876,7 +4152,7 @@
       "checked_at": null
     },
     {
-      "url": "https://youtu.be/YQChSt601Wc",
+      "url": "https://youtu.be/-ci-Ursh0XQ",
       "domain": "youtu.be",
       "sources": [
         "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
@@ -3888,7 +4164,223 @@
       "checked_at": null
     },
     {
-      "url": "https://youtu.be/h1H5dn84sGs",
+      "url": "https://youtu.be/99lMm4kPg0o",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/EZC69nAoOMs",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/FTARtMIcEUQ",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/FmtnVnrbeAE",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/NbvXmaYKLDI",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/Ob_bvHQ8kgA",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/RHmcQbYh-RU",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/VrGmEJQj1TY",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/dIKGNynTfpo",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/eDSvdMJrfws",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/enjWZVxWA0Q",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/fcGG5H8fi3Q",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/fhYondlFq8w",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/lyhJoGKKaOc",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/q08cYDauM2k",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/r503bsF16-o",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/rQTHR3aL0SE",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/sYUfJCKB6PY",
+      "domain": "youtu.be",
+      "sources": [
+        "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
+      ],
+      "source_count": 1,
+      "state": "not_checked",
+      "head_code": null,
+      "get_code": null,
+      "checked_at": null
+    },
+    {
+      "url": "https://youtu.be/vycXZPvZvJ0",
       "domain": "youtu.be",
       "sources": [
         "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html"
