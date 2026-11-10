@@ -1,14 +1,29 @@
 {
   "version": 1,
   "site": "https://wic12.blogspot.com/",
-  "generatedAt": "2026-11-10T12:46:49.777252+00:00",
-  "newsGeneratedAt": "2026-11-10T12:46:48.065577+00:00",
-  "newsCount": 233,
+  "generatedAt": "2026-11-10T21:50:41.901905+00:00",
+  "newsGeneratedAt": "2026-11-10T21:50:40.546462+00:00",
+  "newsCount": 232,
   "postsChecked": 244,
   "postCoverage": "complete",
-  "postExpectedCount": 241,
+  "postExpectedCount": 244,
   "scoring": "규칙 기반 편집 우선순위, 검색량/검색순위/사실 검증 결과가 아님",
   "ideas": [
+    {
+      "id": "2034c0bdfe23be6baaa06db0",
+      "headline": "제네시스, 초대형 전기 SUV ‘GV90’ 출시…가격 1억3950만원부터",
+      "category": "경제",
+      "source": "한겨레",
+      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBoa0psUzBEbDhxVDVxRU5nbTN4ajNiVWRIMU5La3gyTUxaM1p5OHdVekoxSkt3NnJtRFFyanFhUFYySXdXTnhOd0lxU2ozTldOUXhQa3VGaW52WlI0c2pKMjln?oc=5",
+      "publishedAt": "2026-11-10T08:43:00+00:00",
+      "score": 86,
+      "reasons": [
+        "생활형 핵심어: 가격, 전기",
+        "변경·시점 표현: 출시"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
     {
       "id": "d29b08e7a1f62c91568a4ec9",
       "headline": "부산 전통시장 107곳으로 환급행사 확대…온누리상품권 최대 2만 원 지급",
@@ -70,21 +85,6 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "e003f9934e956fff674eaab6",
-      "headline": "제네시스 첫 대형 전기SUV GV90·GV90네오룬 출시",
-      "category": "경제",
-      "source": "연합뉴스TV",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE54dUd5UWtPbW84ZlZpNFlhOWhraFlXMndIMk5CdTVDUnhBUGc0QzRTTTRST0NicG51dVRWNVV5OGNxTmVySDkxSVQxMnIyWDFDZWFfZTJadHZBcEh4Y3lqZGV6MTF5a3M?oc=5",
-      "publishedAt": "2026-11-10T06:14:00+00:00",
-      "score": 75,
-      "reasons": [
-        "생활형 핵심어: 전기",
-        "변경·시점 표현: 출시"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
       "id": "4ea1425971e7ec6000019c89",
       "headline": "카카오뱅크, 연말정산 시즌 맞이 '고향사랑기부제' 서비스 출시",
       "category": "경제",
@@ -95,6 +95,21 @@
       "reasons": [
         "생활형 핵심어: 연말정산",
         "변경·시점 표현: 출시"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "677fc6d67f220bdb6a0188f8",
+      "headline": "한양증권, 홈페이지 개편…RP·채권·연금저축 정보 확대",
+      "category": "경제",
+      "source": "뉴스핌",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5LN0NDclplSmV1YVRCSjBLVzhoTjlFTDg4b1U2RWN5RVd1N1pjOGw0aFBOcDJVTWMyb3cwOWY1SEZNQkhKQTQtT3dGVl9VQWhfTVM4RVc4bTBpTWty?oc=5",
+      "publishedAt": "2026-11-10T00:44:00+00:00",
+      "score": 75,
+      "reasons": [
+        "생활형 핵심어: 연금",
+        "변경·시점 표현: 개편, 확대"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -138,6 +153,21 @@
       "score": 71,
       "reasons": [
         "생활형 핵심어: 상품권, 소비"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "fa60e34dc055028850d12e82",
+      "headline": "\"65세 이상이세요?\" 난방비 바우처 대상자 정리",
+      "category": "경제",
+      "source": "이투데이",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE93UTFYcGt5cHNSV0JlVXZuYUdyRkFmTFBLR3JTcmZzU1VERXJ1Qk12RW0xRFNSdk9LckFFM1JDaXFNVUNoM0ZqTEF2R1ZMVWl5WEkzSG9Jakpldw?oc=5",
+      "publishedAt": "2026-11-10T21:00:00+00:00",
+      "score": 69,
+      "reasons": [
+        "생활형 핵심어: 난방",
+        "독자 질문으로 확장 가능"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -188,36 +218,6 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "b468ac2244dcfc3009b54a09",
-      "headline": "에너지 취약계층 난방비 지원… 대상 맞춤형 보호 추진",
-      "category": "경제",
-      "source": "금강일보",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBfWHVZY0EyNDMwOHo1UzJ2VDI1a0RkN2tRQjdreldnMW52emtyR1JiTEdBdWxxc3BrN2hnM3FlZHZQWTRyVEVmUGFBeURMclF5TktkY0kyTG1LX0V5S1JfOW9JSF9Cb0o1S3c?oc=5",
-      "publishedAt": "2026-11-10T09:43:52+00:00",
-      "score": 65,
-      "reasons": [
-        "생활형 핵심어: 난방",
-        "독자 질문으로 확장 가능"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "a4cc929e0a77f886073c9946",
-      "headline": "정부, '전세사기 보증금 3분의 1 보장'…10일부터 신청",
-      "category": "경제",
-      "source": "KBC광주방송",
-      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5MRDhFM3dYbFdYQ180ME9VQTBhVl82ZzZEQm1WWjh5NGRSUm9RNGtNTDdTUXR6cjN3UHVnZUljRTRldmJsVXlEYXljZjRyWVI0OGhWNmFVWDQtYkxyOXJoWFdB?oc=5",
-      "publishedAt": "2026-11-10T06:15:45+00:00",
-      "score": 65,
-      "reasons": [
-        "생활형 핵심어: 신청",
-        "독자 질문으로 확장 가능"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
       "id": "ec4a605db80ca6f956a81b9d",
       "headline": "최두호 서울시의원 “한강버스 요금 인상, 수요·절차 검증부터 해야”",
       "category": "한국",
@@ -246,10 +246,25 @@
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "ef62193461e8198a0f47a159",
+      "headline": "캡콤에서 에이다 웡의 단독 게임을 출시할 가능성이 있습니다.",
+      "category": "한국",
+      "source": "GameGPU",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQLUxBUjZOOUEyeWdibzBvb1RwRVE0LXVUT1R2R0FrN3FzZUlUaDIzLWtaS0VGSzUwdWZBY3ZGZTZPNGMzVEczVEthaDNFUGNRMDMxclJMcmc1NDhPM04yM1VOQTljUlRmNU9CeVNwYm9JY2NBSTc2VnEwQkFtc21WZHZPUEhEb0huWk9zWGVuTE9zMDAwc09tWQ?oc=5",
+      "publishedAt": "2026-11-10T20:21:14+00:00",
+      "score": 65,
+      "reasons": [
+        "생활형 핵심어: 게임",
+        "변경·시점 표현: 출시"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     }
   ],
   "updates": [],
   "note": "검토용 제안. 기사나 공공 정책의 내용은 공식 원문으로 다시 확인하세요. 자동 수정·발행하지 않습니다.",
-  "primaryNewsCount": 186,
-  "focusedNewsCount": 47
+  "primaryNewsCount": 183,
+  "focusedNewsCount": 49
 }
