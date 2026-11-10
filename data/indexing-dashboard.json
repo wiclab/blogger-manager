@@ -1,21 +1,21 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-09T20:48:41+00:00",
+    "last_successful_check_at": "2026-11-10T04:09:19+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": null,
+    "blocked_uncertain_count": 7,
+    "daily_quota_remaining_before": 100,
     "eligible_pending_count": 0,
-    "held_batches_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-04T16:22:52+00:00",
-    "monthly_quota_remaining_before": null,
+    "monthly_quota_remaining_before": 2100,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 0,
+    "pending_count": 7,
     "per_run_cap": 100,
-    "published_count": 123,
+    "published_count": 125,
     "queue_summary": {
       "changed_since_submission": 0,
       "first_time_pending": 0,
@@ -26,10 +26,18 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [],
+    "recent_pending": [
+      "https://qevnaxori.blogspot.com/2026/11/is-5g-worth-it-vs-4g-lte-calculator.html",
+      "https://qevnaxori.blogspot.com/2026/11/video-playback-speed-time-savings-calculator.html",
+      "https://qevnaxori.blogspot.com/2026/11/youtube-premium-worth-it-time-saved-cost-calculator.html",
+      "https://qevnaxori.blogspot.com/2026/09/could-genetic-engineering-create-spider-man.html",
+      "https://qevnaxori.blogspot.com/2026/09/how-sawing-person-in-half-magic-trick-works.html",
+      "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html",
+      "https://qevnaxori.blogspot.com/2026/09/how-sword-box-magic-trick-works.html"
+    ],
     "state": "ok",
     "submitted_this_run": 0,
-    "tracked_submitted_count": 123
+    "tracked_submitted_count": 118
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -39,5 +47,5 @@
   },
   "schema": 1,
   "site": "https://qevnaxori.blogspot.com/",
-  "updated_at": "2026-11-09T20:48:41+00:00"
+  "updated_at": "2026-11-10T04:09:19+00:00"
 }
