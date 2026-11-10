@@ -1,19 +1,19 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-10T12:42:38+00:00",
+    "last_successful_check_at": "2026-11-10T12:42:40+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 5,
+    "blocked_uncertain_count": 0,
     "daily_quota_remaining_before": 93,
     "eligible_pending_count": 0,
-    "held_batches_count": 1,
-    "last_successful_submission_at": "2026-11-10T04:09:24+00:00",
+    "held_batches_count": 0,
+    "last_successful_submission_at": "2026-11-10T12:42:40+00:00",
     "monthly_quota_remaining_before": 2093,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 5,
+    "pending_count": 0,
     "per_run_cap": 100,
     "published_count": 126,
     "queue_summary": {
@@ -26,16 +26,10 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [
-      "https://qevnaxori.blogspot.com/2026/10/home-printer-cost-per-page-calculator.html",
-      "https://qevnaxori.blogspot.com/2026/11/150-vs-50-shoes-cost-per-wear-calculator.html",
-      "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html",
-      "https://qevnaxori.blogspot.com/2026/09/how-many-people-move-sailboat-by-blowing.html",
-      "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html"
-    ],
+    "recent_pending": [],
     "state": "ok",
-    "submitted_this_run": 0,
-    "tracked_submitted_count": 121
+    "submitted_this_run": 5,
+    "tracked_submitted_count": 126
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -45,5 +39,5 @@
   },
   "schema": 1,
   "site": "https://qevnaxori.blogspot.com/",
-  "updated_at": "2026-11-10T12:42:38+00:00"
+  "updated_at": "2026-11-10T12:42:40+00:00"
 }
