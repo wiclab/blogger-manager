@@ -986,7 +986,26 @@
     }
   },
   "google": {},
-  "held_batches": {},
+  "held_batches": {
+    "3276f288a50e43519b123ebe39d22957": {
+      "entries": [
+        {
+          "fingerprint": "2026-11-11T09:42:06.865+09:00",
+          "url": "https://wic12.blogspot.com/2026/10/switch2-microsd-express-256gb-512gb-storage.html"
+        },
+        {
+          "fingerprint": "2026-11-11T08:58:11.084+09:00",
+          "url": "https://wic12.blogspot.com/2026/10/power-outage-fridge-freezer-food-safety-guide.html"
+        },
+        {
+          "fingerprint": "2026-11-09T13:30:41Z",
+          "url": "https://wic12.blogspot.com/2026/10/2026-seoul-cafe-show-public-days-ticket-budget-guide.html"
+        }
+      ],
+      "prepared_at": "2026-11-11T02:10:22+00:00",
+      "status": "held"
+    }
+  },
   "sitemap_registered": false,
   "version": 1
 }
