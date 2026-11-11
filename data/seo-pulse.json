@@ -55,6 +55,11 @@
         "clicks": 0,
         "date": "2026-11-07",
         "impressions": 6
+      },
+      {
+        "clicks": 0,
+        "date": "2026-11-08",
+        "impressions": 14
       }
     ],
     "low_ctr_query_count": 0,
@@ -71,22 +76,22 @@
     "status": "ok",
     "totals": {
       "clicks": 2,
-      "ctr_pct": 2.25,
-      "impressions": 89
+      "ctr_pct": 1.94,
+      "impressions": 103
     },
-    "updated_at": "2026-11-10T10:29:00+00:00",
+    "updated_at": "2026-11-11T09:53:03+00:00",
     "window": {
-      "from": "2026-10-14",
-      "to": "2026-11-10",
+      "from": "2026-10-15",
+      "to": "2026-11-11",
       "type": "daily API values"
     }
   },
-  "checked_date": "2026-11-10",
+  "checked_date": "2026-11-11",
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
   "stale": {
-    "checked_posts": 244,
-    "expired_count": 15,
+    "checked_posts": 245,
+    "expired_count": 16,
     "items": [
       {
         "context": " 전국 국립박물관 13곳 한가위 행사 국립중앙박물관 공식 발표에 따르면 전국 13개 국립박물관에서 9월 22일부터 30일까지 박물관별 일정에 맞춰 공연과 전통놀",
@@ -161,14 +166,6 @@
         "url": "https://wic12.blogspot.com/2026/08/40.html"
       },
       {
-        "context": "역과 상세 조건을 확인하세요. 상품권 구매 할인은 상생소비복권과 별도입니다. 충전할 계획이 있다면 2026년 11월 2~6일 디지털 온누리상품권 10% 특별판매의 ",
-        "deadline": "2026-11-06",
-        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "expired",
-        "title": "2026 코리아 그랜드 페스티벌, 할인·쿠폰 어디서 받을까? 일정·참여 방법",
-        "url": "https://wic12.blogspot.com/2026/10/2026-korea-grand-festival-discount-coupon-guide.html"
-      },
-      {
         "context": "디지털 온누리상품권 10% 할인｜11월 2~6일 구매 방법·사용처·절약액 계산 생활정보",
         "deadline": "2026-11-06",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
@@ -201,6 +198,14 @@
         "url": "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html"
       },
       {
+        "context": "에 열렸습니다. 정부 통합 안내에 실린 하반기 숙박세일 페스타의 해당 기간과 한우 할인판매 행사는 11월 8일 까지로 안내됐습니다. 같은 분야에 다른 행사",
+        "deadline": "2026-11-08",
+        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
+        "status": "expired",
+        "title": "2026 코리아 그랜드 페스티벌 할인·쿠폰 어디서 받을까? 11월 15일 마감 총정리",
+        "url": "https://wic12.blogspot.com/2026/10/2026-korea-grand-festival-discount-coupon-guide.html"
+      },
+      {
         "context": " 진출 – BLG 진출 – BO5 · 우승 팀 미정 모든 일정은 한국 표준시(KST) 기준입니다. 11월 9일까지 8강 4경기와 4강 2경기가 모두 종료",
         "deadline": "2026-11-09",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
@@ -212,15 +217,15 @@
         "context": "다. 공식 안내에 따르면 현장 판매는 11월 11~14일 , 1일권 정가는 25,000원 입니다. 11월 9~10일에 사전예매 할인 가격으로 계속 살 수 ",
         "deadline": "2026-11-10",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "upcoming",
+        "status": "expired",
         "title": "2026 서울카페쇼 일반인은 언제 갈까? 입장권 가격·관람시간·준비물·예산",
         "url": "https://wic12.blogspot.com/2026/10/2026-seoul-cafe-show-public-days-ticket-budget-guide.html"
       }
     ],
     "note": "Potential dates only: context can be historical or already updated. Do not auto-edit posts.",
     "status": "ok",
-    "upcoming_count": 1,
-    "updated_at": "2026-11-10T10:29:01+00:00"
+    "upcoming_count": 0,
+    "updated_at": "2026-11-11T09:53:05+00:00"
   },
   "warnings": []
 }
