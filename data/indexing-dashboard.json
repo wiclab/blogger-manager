@@ -1,21 +1,21 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-11T02:10:25+00:00",
+    "last_successful_check_at": "2026-11-11T09:48:07+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": 100,
+    "blocked_uncertain_count": 13,
+    "daily_quota_remaining_before": 97,
     "eligible_pending_count": 0,
-    "held_batches_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-11T02:10:24+00:00",
-    "monthly_quota_remaining_before": 2000,
+    "monthly_quota_remaining_before": 1997,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 0,
+    "pending_count": 13,
     "per_run_cap": 100,
-    "published_count": 244,
+    "published_count": 245,
     "queue_summary": {
       "changed_since_submission": 0,
       "first_time_pending": 0,
@@ -26,10 +26,23 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [],
+    "recent_pending": [
+      "https://wic12.blogspot.com/2026/11/kakao-gift-expired-refund-2026.html",
+      "https://wic12.blogspot.com/2026/08/monthly-living-expense-savings-calculator.html",
+      "https://wic12.blogspot.com/2026/11/qnet-exam-cancellation-refund-guide-2026.html",
+      "https://wic12.blogspot.com/2026/09/car-engine-oil-change-low-mileage-guide.html",
+      "https://wic12.blogspot.com/2026/10/2026-korea-grand-festival-discount-coupon-guide.html",
+      "https://wic12.blogspot.com/2026/10/switch2-microsd-express-256gb-512gb-storage.html",
+      "https://wic12.blogspot.com/2026/10/power-outage-fridge-freezer-food-safety-guide.html",
+      "https://wic12.blogspot.com/2026/10/iksan-agape-garden-autumn-visit.html",
+      "https://wic12.blogspot.com/2026/11/2026-card-tax-deduction-25-percent-calculator.html",
+      "https://wic12.blogspot.com/2026/10/smartphone-lost-first-30-minutes-response.html",
+      "https://wic12.blogspot.com/2026/10/head-bump-concussion-warning-signs.html",
+      "https://wic12.blogspot.com/2026/10/fainting-fall-head-bump-emergency-guide.html"
+    ],
     "state": "ok",
-    "submitted_this_run": 3,
-    "tracked_submitted_count": 244
+    "submitted_this_run": 0,
+    "tracked_submitted_count": 232
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -39,5 +52,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-11T02:10:25+00:00"
+  "updated_at": "2026-11-11T09:48:07+00:00"
 }
