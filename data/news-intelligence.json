@@ -1,12 +1,12 @@
 {
   "version": 1,
   "site": "https://wic12.blogspot.com/",
-  "generatedAt": "2026-11-11T16:19:23.980721+00:00",
-  "newsGeneratedAt": "2026-11-11T16:19:22.845525+00:00",
-  "newsCount": 234,
+  "generatedAt": "2026-11-11T22:50:07.651669+00:00",
+  "newsGeneratedAt": "2026-11-11T22:50:06.613715+00:00",
+  "newsCount": 213,
   "postsChecked": 247,
   "postCoverage": "complete",
-  "postExpectedCount": 245,
+  "postExpectedCount": 247,
   "scoring": "규칙 기반 편집 우선순위, 검색량/검색순위/사실 검증 결과가 아님",
   "ideas": [
     {
@@ -25,16 +25,31 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "ececfcb20a305edd2369aa08",
-      "headline": "카카오뱅크, 10만 원 내면 13만 원 혜택… 연말정산 타깃 '고향사랑기부' 출시",
+      "id": "856fdd661da51cc685ad4384",
+      "headline": "오픈AI, GPT 활용한 정책 효과 분석 연구 소개…소비쿠폰 사례 적용",
       "category": "경제",
-      "source": "비즈트리뷴",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1xNE1iMWNnY0lZVnNTeHduUi1XRDBpT2MwMFlBUHVUNzBHV0hiUWlkUmFLbS1IRl9tdFBHUkJqZGlUUEdWSy1EdHp5cVNtRzJiVHFiemRrRC1SRGN6LVJTcXFicDVvUFB3eHI3WVJRU00?oc=5",
-      "publishedAt": "2026-11-11T00:37:48+00:00",
-      "score": 75,
+      "source": "서울경제TV",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1VSFpyNzFfeFViNXNyLWs4STIwWTBTdDBiUkQ5Yks3UUVZSGVCMGVwdzJWanR4TlFuYVk2cEhnOS1paEJQR19fNFRIV1RjMFZQajBXdGZDeWtlWEJFTnNuNDh4NjM?oc=5",
+      "publishedAt": "2026-11-11T03:47:47+00:00",
+      "score": 86,
       "reasons": [
-        "생활형 핵심어: 연말정산",
-        "변경·시점 표현: 출시"
+        "생활형 핵심어: 쿠폰, 소비",
+        "변경·시점 표현: 적용"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "4c8167c8720e9202da784380",
+      "headline": "\"소비쿠폰 지급하면 얼마나 쓸까\"…오픈AI, GPT로 정책 효과 예측한다",
+      "category": "경제",
+      "source": "뉴스탭",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBXRXVYQzhGMmxaZDhsaFFPMUJTcGo0cTFWcDF4eE54OUl3RF80VXFXVHJoU0FUR1QtaGg2M2hLSTlJMEhraEo1XzYyWi1LOU1BN1BrWFUyQ01neWFUZGo5cnlpeTR1anVWdjdWXw?oc=5",
+      "publishedAt": "2026-11-11T22:26:04+00:00",
+      "score": 81,
+      "reasons": [
+        "생활형 핵심어: 쿠폰, 소비",
+        "독자 질문으로 확장 가능"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -54,6 +69,20 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
+      "id": "7b413fa297ddd98d6ee1fd0f",
+      "headline": "\"이러다 안방 뺏길라\" 中 전기차에 韓 무방비...\"세액공제 혜택줘야\" - 머니투데이",
+      "category": "경제",
+      "source": "머니투데이",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE4zaWtkQTFVZ1JQZ01uNWh5dV9kdzBPMjA0WVhCWkxtZFFKdzJfMDhPVmZEUm96RjI5Z0NfREtUUWtFY0J1Z09JeGd5azZzbzEtUDhOOFZJanJqY1Jaby02OUFsekI3dzl1dS1HNmxxc3FWMkJ2SFBOelRn0gF_QVVfeXFMUGUwQXIzZVFlWGY5czhTM1drNzNGZnEwYUFqWXRabkV5RFc0bmVGd3RXVzlIUjVkNkhpYlRTM1ltdE1CckIzRE1CTWoxUUVYOHFtQmZhQUpuOUJrNFQ5aVdsMmx4YUhMOWt4bFN4eFZXZFJ6cW1JWmt2ZjVqamJrZw?oc=5",
+      "publishedAt": "2026-11-11T19:05:00+00:00",
+      "score": 71,
+      "reasons": [
+        "생활형 핵심어: 전기, 기차"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
       "id": "3262a79b6a76345714e35754",
       "headline": "[테헤란로] 전기요금의 '정치화' 끝내자",
       "category": "경제",
@@ -63,20 +92,6 @@
       "score": 71,
       "reasons": [
         "생활형 핵심어: 요금, 전기"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "4c70616ff4afd0931f708806",
-      "headline": "[팀장칼럼] 전기차 세액공제, '국민기업'의 무게",
-      "category": "경제",
-      "source": "뉴스1",
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9GWkE5cG1TbFU3VGl4NGRfUlBtblo2emlFSzVEaVF3WTR5WkdyaThtQXBpd2VxMWdBb2xsY2F3bUZldXVGXzVoN251RUdrN1BtUzZnRDBzVHBONUVMdHJWSjZpcWY?oc=5",
-      "publishedAt": "2026-11-10T22:00:00+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 전기, 기차"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -138,15 +153,15 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "cafbd48d0a833f0459dac917",
-      "headline": "오픈AI, GPT로 '소비쿠폰' 효과 예측 연구 소개…정책 설계 개선 가능성 탐색",
+      "id": "19653d3d00541cd127a5a4a8",
+      "headline": "소상공인시장진흥공단 의정부센터, '온누리상품권 상생 소비촉진 행사' 개최",
       "category": "경제",
-      "source": "메트로신문",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE81d2ZwcTRYWmg3dzA0TFpJb2lGWFhSRnh2OHpGMjFVa054RVF1bUxtWDE4cFpFME4yMG9hM3pRWlU1b3gwbGVoOGYwOWxrXzludkRMTmNNNkNscmE2aWxYWQ?oc=5",
-      "publishedAt": "2026-11-11T06:02:28+00:00",
+      "source": "뉴스티앤티",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBrd2Q0REtfbTJzY18xYVpseFE2cVpKeVBUN1F6ZGcyazdncHQzWXFENzhiNzMyODBWTTBMSXExWFREUXgwM3JoOUttXzRjUkg3YmtOVDVnOFFiWXdUOXZtUEZRck1OcVBVcXc?oc=5",
+      "publishedAt": "2026-11-11T17:00:00+00:00",
       "score": 71,
       "reasons": [
-        "생활형 핵심어: 쿠폰, 소비"
+        "생활형 핵심어: 상품권, 소비"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -166,21 +181,6 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "fa60e34dc055028850d12e82",
-      "headline": "\"65세 이상이세요?\" 난방비 바우처 대상자 정리",
-      "category": "경제",
-      "source": "이투데이",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE93UTFYcGt5cHNSV0JlVXZuYUdyRkFmTFBLR3JTcmZzU1VERXJ1Qk12RW0xRFNSdk9LckFFM1JDaXFNVUNoM0ZqTEF2R1ZMVWl5WEkzSG9Jakpldw?oc=5",
-      "publishedAt": "2026-11-10T21:00:00+00:00",
-      "score": 69,
-      "reasons": [
-        "생활형 핵심어: 난방",
-        "독자 질문으로 확장 가능"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
       "id": "6b5f1377c83ea015a3b2b919",
       "headline": "[달라지는 생활, 인천은?] 10만원 기부하면 전액 세액공제…인천시민은 ‘주소지’부터 확인",
       "category": "경제",
@@ -190,6 +190,21 @@
       "score": 69,
       "reasons": [
         "생활형 핵심어: 생활",
+        "독자 질문으로 확장 가능"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "4a7f2f08e97dfb290a172bb3",
+      "headline": "미 연준, 기준 금리 ‘빅스텝’ 가능성…소비자 물가는 상승",
+      "category": "경제",
+      "source": "KBS 뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBPcFo0NjFNS2NpRXVQeTVHcEpFSFNTWDJURnRRZzNYbkpUR1dxXzkwWVNta2tMbXJkWkNvdlVEeGhLdENsT0N1R2Y1Z0JPR1oxR1dwc05CMlJKMGM?oc=5",
+      "publishedAt": "2026-11-11T19:18:00+00:00",
+      "score": 65,
+      "reasons": [
+        "생활형 핵심어: 소비",
         "독자 질문으로 확장 가능"
       ],
       "relatedPosts": [],
@@ -213,6 +228,6 @@
   ],
   "updates": [],
   "note": "검토용 제안. 기사나 공공 정책의 내용은 공식 원문으로 다시 확인하세요. 자동 수정·발행하지 않습니다.",
-  "primaryNewsCount": 192,
-  "focusedNewsCount": 42
+  "primaryNewsCount": 170,
+  "focusedNewsCount": 43
 }
