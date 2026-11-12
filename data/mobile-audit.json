@@ -618,7 +618,7 @@
       "url": "https://qevnaxori.blogspot.com/2026/09/ios-27-do-you-need-new-iphone-upgrade-cost.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/iphone-duo-1999-cost-per-day-worth-it.html": {
-      "checked_at": "2026-11-07T13:58:18+00:00",
+      "checked_at": "2026-11-12T08:18:12+00:00",
       "issues": [],
       "lastmod": "2026-10-29T01:55:58Z",
       "screenshot": null,
@@ -666,13 +666,21 @@
       "url": "https://qevnaxori.blogspot.com/2026/09/nfl-tackle-vs-car-crash-physics.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/nobody-illusion-001-word-tunnel.html": {
-      "checked_at": "2026-11-07T22:43:10+00:00",
-      "issues": [],
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [
+        {
+          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
+          "level": "review",
+          "selector": "body",
+          "type": "page_load_error",
+          "width": 390
+        }
+      ],
       "lastmod": "2026-10-29T01:56:00Z",
       "screenshot": null,
-      "severity": "none",
+      "severity": "review",
       "site": "nobody",
-      "state": "ok",
+      "state": "inconclusive",
       "url": "https://qevnaxori.blogspot.com/2026/09/nobody-illusion-001-word-tunnel.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html": {
@@ -694,7 +702,17 @@
       "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-001-can-you-beat-your.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html": {
-      "checked_at": "2026-11-07T13:58:18+00:00",
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [],
+      "lastmod": "2026-10-29T01:56:19Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html": {
+      "checked_at": "2026-11-12T08:18:12+00:00",
       "issues": [
         {
           "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
@@ -704,21 +722,11 @@
           "width": 390
         }
       ],
-      "lastmod": "2026-10-29T01:56:19Z",
+      "lastmod": "2026-10-29T01:56:16Z",
       "screenshot": null,
       "severity": "review",
       "site": "nobody",
       "state": "inconclusive",
-      "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-002-how-fast-is-your-finger.html"
-    },
-    "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html": {
-      "checked_at": "2026-11-07T22:43:10+00:00",
-      "issues": [],
-      "lastmod": "2026-10-29T01:56:16Z",
-      "screenshot": null,
-      "severity": "none",
-      "site": "nobody",
-      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-003-click-same-spot-twice.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html": {
@@ -732,23 +740,39 @@
       "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-004-can-your-brain-learn-100-pixels.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html": {
-      "checked_at": "2026-11-07T22:43:10+00:00",
-      "issues": [],
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [
+        {
+          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
+          "level": "review",
+          "selector": "body",
+          "type": "page_load_error",
+          "width": 390
+        }
+      ],
       "lastmod": "2026-10-29T01:56:04Z",
       "screenshot": null,
-      "severity": "none",
+      "severity": "review",
       "site": "nobody",
-      "state": "ok",
+      "state": "inconclusive",
       "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html": {
-      "checked_at": "2026-11-07T22:43:10+00:00",
-      "issues": [],
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [
+        {
+          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
+          "level": "review",
+          "selector": "body",
+          "type": "page_load_error",
+          "width": 390
+        }
+      ],
       "lastmod": "2026-10-29T01:56:03Z",
       "screenshot": null,
-      "severity": "none",
+      "severity": "review",
       "site": "nobody",
-      "state": "ok",
+      "state": "inconclusive",
       "url": "https://qevnaxori.blogspot.com/2026/09/nobody-lab-006-how-small-button-can-you-click.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/nobody-lab-007-find-exact-center-one-tap.html": {
@@ -868,13 +892,21 @@
       "url": "https://qevnaxori.blogspot.com/2026/09/spend-one-bitcoin-in-24-hours.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/streaming-subscription-rotation-calculator.html": {
-      "checked_at": "2026-11-07T13:58:18+00:00",
-      "issues": [],
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [
+        {
+          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
+          "level": "review",
+          "selector": "body",
+          "type": "page_load_error",
+          "width": 390
+        }
+      ],
       "lastmod": "2026-10-29T02:19:26Z",
       "screenshot": null,
-      "severity": "none",
+      "severity": "review",
       "site": "nobody",
-      "state": "ok",
+      "state": "inconclusive",
       "url": "https://qevnaxori.blogspot.com/2026/09/streaming-subscription-rotation-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/surprise-import-bill-real-cost-online-order.html": {
@@ -1046,7 +1078,7 @@
       "url": "https://qevnaxori.blogspot.com/2026/10/audiobook-subscription-vs-buying-cost-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/avengers-doomsday-mcu-timeline-watch-time.html": {
-      "checked_at": "2026-11-07T13:58:18+00:00",
+      "checked_at": "2026-11-12T08:18:12+00:00",
       "issues": [
         {
           "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
@@ -1487,21 +1519,13 @@
       "url": "https://qevnaxori.blogspot.com/2026/10/lose-phone-passkeys-recovery-time-cost.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/meal-kits-vs-groceries-for-one-cost.html": {
-      "checked_at": "2026-11-07T13:58:18+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [],
       "lastmod": "2026-10-30T04:32:42Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "nobody",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/meal-kits-vs-groceries-for-one-cost.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/one-percent-chance-repeated-trials.html": {
@@ -1659,21 +1683,13 @@
       "url": "https://qevnaxori.blogspot.com/2026/10/space-heater-electricity-cost-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/streaming-bundle-cost-2026.html": {
-      "checked_at": "2026-11-07T13:58:18+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [],
       "lastmod": "2026-10-30T04:53:24Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "nobody",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/streaming-bundle-cost-2026.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/takeout-vs-dining-in-vacation-food-cost-calculator.html": {
@@ -1713,21 +1729,13 @@
       "url": "https://qevnaxori.blogspot.com/2026/10/ten-minute-shower-cost-per-year.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/thanksgiving-2026-walmart-vs-aldi-meal-cost.html": {
-      "checked_at": "2026-11-07T13:58:18+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [],
       "lastmod": "2026-10-30T04:35:38Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "nobody",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/thanksgiving-2026-walmart-vs-aldi-meal-cost.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/thermostat-setback-heating-bill-calculator.html": {
@@ -1749,21 +1757,13 @@
       "url": "https://qevnaxori.blogspot.com/2026/10/thermostat-setback-heating-bill-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/tv-antenna-vs-sports-bar-break-even-calculator.html": {
-      "checked_at": "2026-11-07T13:58:18+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [],
       "lastmod": "2026-10-30T04:51:17Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "nobody",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/tv-antenna-vs-sports-bar-break-even-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/unlimited-vs-20gb-phone-data-calculator.html": {
@@ -1996,7 +1996,7 @@
       "url": "https://wic12.blogspot.com/2026/08/7.html"
     },
     "https://wic12.blogspot.com/2026/08/7_01052668583.html": {
-      "checked_at": "2026-11-11T20:11:22+00:00",
+      "checked_at": "2026-11-12T08:18:12+00:00",
       "issues": [
         {
           "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
@@ -2006,7 +2006,7 @@
           "width": 390
         }
       ],
-      "lastmod": "2026-11-11T14:29:27Z",
+      "lastmod": "2026-11-11T22:27:13Z",
       "screenshot": null,
       "severity": "review",
       "site": "byeol",
@@ -2030,6 +2030,24 @@
       "site": "byeol",
       "state": "inconclusive",
       "url": "https://wic12.blogspot.com/2026/08/7_01511384514.html"
+    },
+    "https://wic12.blogspot.com/2026/08/7_0222392275.html": {
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [
+        {
+          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
+          "level": "review",
+          "selector": "body",
+          "type": "page_load_error",
+          "width": 390
+        }
+      ],
+      "lastmod": "2026-10-22T13:52:49Z",
+      "screenshot": null,
+      "severity": "review",
+      "site": "byeol",
+      "state": "inconclusive",
+      "url": "https://wic12.blogspot.com/2026/08/7_0222392275.html"
     },
     "https://wic12.blogspot.com/2026/08/7_0774743741.html": {
       "checked_at": "2026-11-10T08:24:25+00:00",
@@ -2126,21 +2144,13 @@
       "url": "https://wic12.blogspot.com/2026/08/blog-post_544.html"
     },
     "https://wic12.blogspot.com/2026/08/can-farts-catch-fire.html": {
-      "checked_at": "2026-11-09T07:55:34+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
-      "lastmod": "2026-10-22T14:17:30Z",
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [],
+      "lastmod": "2026-11-11T22:25:20Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "byeol",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://wic12.blogspot.com/2026/08/can-farts-catch-fire.html"
     },
     "https://wic12.blogspot.com/2026/08/credit-card-payment-date-change.html": {
@@ -2302,7 +2312,7 @@
       "url": "https://wic12.blogspot.com/2026/09/ai-chatgpt-question-electricity-use.html"
     },
     "https://wic12.blogspot.com/2026/09/ai-data-center-korea-power-nuclear-20.html": {
-      "checked_at": "2026-11-10T20:28:04+00:00",
+      "checked_at": "2026-11-12T08:18:12+00:00",
       "issues": [
         {
           "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
@@ -2312,7 +2322,7 @@
           "width": 390
         }
       ],
-      "lastmod": "2026-11-10T11:52:14Z",
+      "lastmod": "2026-11-11T23:20:26Z",
       "screenshot": null,
       "severity": "review",
       "site": "byeol",
@@ -2471,6 +2481,16 @@
       "state": "ok",
       "url": "https://wic12.blogspot.com/2026/09/computer-24-hours-electricity-cost-sleep-shutdown-calculator.html"
     },
+    "https://wic12.blogspot.com/2026/09/concert-light-stick-buy-at-venue.html": {
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [],
+      "lastmod": "2026-10-22T13:52:03Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/09/concert-light-stick-buy-at-venue.html"
+    },
     "https://wic12.blogspot.com/2026/09/credit-card-cancel-after-payment-refund.html": {
       "checked_at": "2026-11-04T07:29:13+00:00",
       "issues": [
@@ -2574,7 +2594,7 @@
       "url": "https://wic12.blogspot.com/2026/09/first-trail-running-too-hard-recovery.html"
     },
     "https://wic12.blogspot.com/2026/09/google-nuclear-power-20-years-ai-electricity.html": {
-      "checked_at": "2026-11-08T22:52:36+00:00",
+      "checked_at": "2026-11-12T08:18:12+00:00",
       "issues": [
         {
           "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
@@ -2584,7 +2604,7 @@
           "width": 390
         }
       ],
-      "lastmod": "2026-10-24T03:59:58Z",
+      "lastmod": "2026-11-11T23:08:28Z",
       "screenshot": null,
       "severity": "review",
       "site": "byeol",
@@ -2636,6 +2656,16 @@
       "site": "byeol",
       "state": "inconclusive",
       "url": "https://wic12.blogspot.com/2026/09/how-long-should-i-run-weekly-calculator.html"
+    },
+    "https://wic12.blogspot.com/2026/09/instagram-story-screenshot-notification-2026.html.html": {
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [],
+      "lastmod": "2026-11-11T23:37:47Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/09/instagram-story-screenshot-notification-2026.html.html"
     },
     "https://wic12.blogspot.com/2026/09/leftover-food-fridge-freezer-discard-checker.html": {
       "checked_at": "2026-11-07T07:06:28+00:00",
@@ -2780,7 +2810,7 @@
       "url": "https://wic12.blogspot.com/2026/09/rice-cooker-keep-warm-vs-frozen-rice.html"
     },
     "https://wic12.blogspot.com/2026/09/semiconductor-exports-drop-korea-total-exports.html": {
-      "checked_at": "2026-11-10T20:28:04+00:00",
+      "checked_at": "2026-11-12T08:18:12+00:00",
       "issues": [
         {
           "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
@@ -2790,7 +2820,7 @@
           "width": 390
         }
       ],
-      "lastmod": "2026-11-10T12:01:17Z",
+      "lastmod": "2026-11-11T23:29:03Z",
       "screenshot": null,
       "severity": "review",
       "site": "byeol",
@@ -2916,6 +2946,24 @@
       "site": "byeol",
       "state": "inconclusive",
       "url": "https://wic12.blogspot.com/2026/09/wrong-bank-transfer-money-back.html"
+    },
+    "https://wic12.blogspot.com/2026/09/youth-future-savings-calculator-2026.html": {
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [
+        {
+          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
+          "level": "review",
+          "selector": "body",
+          "type": "page_load_error",
+          "width": 390
+        }
+      ],
+      "lastmod": "2026-10-22T13:57:16Z",
+      "screenshot": null,
+      "severity": "review",
+      "site": "byeol",
+      "state": "inconclusive",
+      "url": "https://wic12.blogspot.com/2026/09/youth-future-savings-calculator-2026.html"
     },
     "https://wic12.blogspot.com/2026/10/2025-earned-child-tax-credit-late-application.html": {
       "checked_at": "2026-11-11T20:11:22+00:00",
@@ -3799,6 +3847,16 @@
       "state": "issue",
       "url": "https://wic12.blogspot.com/2026/10/phone-charging-slow-check-before-buying-charger.html"
     },
+    "https://wic12.blogspot.com/2026/10/phone-storage-full-after-deleting-photos.html": {
+      "checked_at": "2026-11-12T08:18:12+00:00",
+      "issues": [],
+      "lastmod": "2026-10-22T13:53:11Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "byeol",
+      "state": "ok",
+      "url": "https://wic12.blogspot.com/2026/10/phone-storage-full-after-deleting-photos.html"
+    },
     "https://wic12.blogspot.com/2026/10/power-outage-fridge-freezer-food-safety-guide.html": {
       "checked_at": "2026-11-11T07:44:35+00:00",
       "issues": [],
@@ -4386,7 +4444,7 @@
       "url": "https://wic12.blogspot.com/2026/11/credit-card-one-day-late-payment-interest-credit-score.html"
     },
     "https://wic12.blogspot.com/2026/11/digital-onnuri-10-percent-november-2026.html": {
-      "checked_at": "2026-11-09T22:59:01+00:00",
+      "checked_at": "2026-11-12T08:18:12+00:00",
       "issues": [
         {
           "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
@@ -4396,7 +4454,7 @@
           "width": 390
         }
       ],
-      "lastmod": "2026-11-09T13:24:28Z",
+      "lastmod": "2026-11-12T00:09:50Z",
       "screenshot": null,
       "severity": "review",
       "site": "byeol",
@@ -4564,9 +4622,9 @@
       "url": "https://wic12.blogspot.com/2026/11/laptop-usb-c-charger-45w-65w-100w-guide.html"
     },
     "https://wic12.blogspot.com/2026/11/mister-trot-4-audience-application-guide.html": {
-      "checked_at": "2026-11-10T08:24:25+00:00",
+      "checked_at": "2026-11-12T08:18:12+00:00",
       "issues": [],
-      "lastmod": "2026-11-09T12:29:06Z",
+      "lastmod": "2026-11-11T22:24:21Z",
       "screenshot": null,
       "severity": "none",
       "site": "byeol",
@@ -4643,20 +4701,20 @@
   "run": {
     "errors": [],
     "scanned": 24,
-    "screenshot_count": 2,
+    "screenshot_count": 0,
     "status": "partial"
   },
-  "run_id": "43094036506",
+  "run_id": "43181730348",
   "schema": 1,
   "sites": [
     {
       "base": "https://wic12.blogspot.com/",
-      "checked_count": 193,
+      "checked_count": 198,
       "id": "byeol",
-      "inconclusive_count": 82,
+      "inconclusive_count": 83,
       "issue_count": 3,
       "name": "별셈소",
-      "pending_count": 54,
+      "pending_count": 49,
       "published_count": 247
     },
     {
@@ -4670,7 +4728,7 @@
       "published_count": 126
     }
   ],
-  "updated_at": "2026-11-11T20:12:36+00:00",
+  "updated_at": "2026-11-12T08:19:03+00:00",
   "viewport_widths": [
     320,
     360,
