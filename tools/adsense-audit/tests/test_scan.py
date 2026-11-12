@@ -29,6 +29,14 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(findings[0]["code"], "HTTP_UNAVAILABLE")
         self.assertEqual(findings[0]["severity"], "critical")
 
+    def test_rate_limit_not_site_error(self):
+        findings = audit.judge({"url": "https://wic12.blogspot.com/2026/11/a.html", "status": 429, "error": ""})
+        self.assertEqual(findings[0]["code"], "RATE_LIMITED")
+        self.assertEqual(findings[0]["severity"], "info")
+        skipped = audit.judge({"url": "https://wic12.blogspot.com/2026/11/b.html", "status": 0,
+                               "error": "NOT_CHECKED_DUE_TO_RATE_LIMIT"})
+        self.assertEqual(skipped[0]["code"], "NOT_CHECKED")
+
     def test_snapshot_report(self):
         with tempfile.TemporaryDirectory() as folder:
             source = Path(folder) / "sample.json"
