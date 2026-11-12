@@ -1,19 +1,19 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-11T18:00:30+00:00",
+    "last_successful_check_at": "2026-11-12T00:57:51+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": 84,
+    "blocked_uncertain_count": 9,
+    "daily_quota_remaining_before": 100,
     "eligible_pending_count": 0,
-    "held_batches_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-11T18:00:30+00:00",
-    "monthly_quota_remaining_before": 1984,
+    "monthly_quota_remaining_before": 1900,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 0,
+    "pending_count": 9,
     "per_run_cap": 100,
     "published_count": 247,
     "queue_summary": {
@@ -26,10 +26,20 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [],
+    "recent_pending": [
+      "https://wic12.blogspot.com/2026/11/digital-onnuri-10-percent-november-2026.html",
+      "https://wic12.blogspot.com/2026/09/instagram-story-screenshot-notification-2026.html.html",
+      "https://wic12.blogspot.com/2026/09/semiconductor-exports-drop-korea-total-exports.html",
+      "https://wic12.blogspot.com/2026/09/ai-data-center-korea-power-nuclear-20.html",
+      "https://wic12.blogspot.com/2026/09/google-nuclear-power-20-years-ai-electricity.html",
+      "https://wic12.blogspot.com/2026/08/7_01052668583.html",
+      "https://wic12.blogspot.com/2026/08/can-farts-catch-fire.html",
+      "https://wic12.blogspot.com/2026/11/mister-trot-4-audience-application-guide.html",
+      "https://wic12.blogspot.com/2026/10/return-pickup-delay-guide.html"
+    ],
     "state": "ok",
-    "submitted_this_run": 12,
-    "tracked_submitted_count": 247
+    "submitted_this_run": 0,
+    "tracked_submitted_count": 238
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -39,5 +49,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-11T18:00:30+00:00"
+  "updated_at": "2026-11-12T00:57:51+00:00"
 }
