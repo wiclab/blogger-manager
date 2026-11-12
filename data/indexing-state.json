@@ -737,8 +737,8 @@
       "submitted_at": "2026-11-04T06:55:29+00:00"
     },
     "https://wic12.blogspot.com/2026/10/return-pickup-delay-guide.html": {
-      "fingerprint": "2026-11-02T20:10:04.962+09:00",
-      "submitted_at": "2026-11-12T00:57:55+00:00"
+      "fingerprint": "2026-11-02T11:10:04Z",
+      "submitted_at": "2026-11-12T23:50:08+00:00"
     },
     "https://wic12.blogspot.com/2026/10/router-electricity-cost-watt-calculation.html": {
       "fingerprint": "2026-10-17T12:05:08Z",
@@ -932,6 +932,10 @@
       "fingerprint": "2026-11-06T09:05:06.885+09:00",
       "submitted_at": "2026-11-06T02:46:28+00:00"
     },
+    "https://wic12.blogspot.com/2026/11/former-employer-withholding-tax-certificate-missing-2026.html": {
+      "fingerprint": "2026-11-13T07:45:46.745+09:00",
+      "submitted_at": "2026-11-12T23:50:08+00:00"
+    },
     "https://wic12.blogspot.com/2026/11/game-time-selection-abolition-shutdown-parental-controls.html": {
       "fingerprint": "2026-11-05T16:16:19.498+09:00",
       "submitted_at": "2026-11-05T12:41:53+00:00"
@@ -998,22 +1002,7 @@
     }
   },
   "google": {},
-  "held_batches": {
-    "3f681959659b4d21b6cb8747338ab3b7": {
-      "entries": [
-        {
-          "fingerprint": "2026-11-13T07:45:46.745+09:00",
-          "url": "https://wic12.blogspot.com/2026/11/former-employer-withholding-tax-certificate-missing-2026.html"
-        },
-        {
-          "fingerprint": "2026-11-02T11:10:04Z",
-          "url": "https://wic12.blogspot.com/2026/10/return-pickup-delay-guide.html"
-        }
-      ],
-      "prepared_at": "2026-11-12T23:50:05+00:00",
-      "status": "held"
-    }
-  },
+  "held_batches": {},
   "sitemap_registered": false,
   "version": 1
 }
