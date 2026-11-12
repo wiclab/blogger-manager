@@ -1,0 +1,33 @@
+name: Byeolsemso m=1 redirect probe
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "tools/adsense-audit/probe_mobile.py"
+      - ".github/workflows/adsense-mobile-probe.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe-mobile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install requests
+        run: python -m pip install "requests>=2.31,<3"
+      - name: Compare standard and ?m=1 redirects
+        run: python tools/adsense-audit/probe_mobile.py
+      - name: Save diagnostic JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: byeolsemso-mobile-redirect-probe
+          path: mobile-probe.json
+          if-no-files-found: warn
+          retention-days: 7
