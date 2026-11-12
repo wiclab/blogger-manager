@@ -998,7 +998,22 @@
     }
   },
   "google": {},
-  "held_batches": {},
+  "held_batches": {
+    "3f681959659b4d21b6cb8747338ab3b7": {
+      "entries": [
+        {
+          "fingerprint": "2026-11-13T07:45:46.745+09:00",
+          "url": "https://wic12.blogspot.com/2026/11/former-employer-withholding-tax-certificate-missing-2026.html"
+        },
+        {
+          "fingerprint": "2026-11-02T11:10:04Z",
+          "url": "https://wic12.blogspot.com/2026/10/return-pickup-delay-guide.html"
+        }
+      ],
+      "prepared_at": "2026-11-12T23:50:05+00:00",
+      "status": "held"
+    }
+  },
   "sitemap_registered": false,
   "version": 1
 }
