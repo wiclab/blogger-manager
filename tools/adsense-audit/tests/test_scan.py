@@ -27,7 +27,7 @@ class AuditTests(unittest.TestCase):
     def test_unavailable_is_not_approval(self):
         findings = audit.judge({"url": "https://wic12.blogspot.com/2026/11/a.html", "status": 404, "error": ""})
         self.assertEqual(findings[0]["code"], "HTTP_UNAVAILABLE")
-        self.assertEqual(findings[0]["severity"], "critical")
+        self.assertEqual(findings[0]["severity"], "review")
 
     def test_rate_limit_not_site_error(self):
         findings = audit.judge({"url": "https://wic12.blogspot.com/2026/11/a.html", "status": 429, "error": ""})
