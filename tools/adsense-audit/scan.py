@@ -137,8 +137,14 @@ def add(issue_list, code, severity, evidence, advice):
 
 def judge(item):
     issues = []
+    if item.get("status") == 429:
+        add(issues, "RATE_LIMITED", "info", "HTTP 429 from audit runner", "요청 제한. 사이트 정책 위반이나 404로 해석 금지. 나중에 소량 재검사")
+        return issues
+    if item.get("status") == 0 and "NOT_CHECKED" in item.get("error", ""):
+        add(issues, "NOT_CHECKED", "info", item.get("error", ""), "요청 제한으로 실제 페이지 미조회")
+        return issues
     if item.get("status") != 200:
-        add(issues, "HTTP_UNAVAILABLE", "critical", str(item.get("status")) + " " + item.get("error", ""), "공개 URL 접속과 리디렉션 확인")
+        add(issues, "HTTP_UNAVAILABLE", "review", str(item.get("status")) + " " + item.get("error", ""), "일시 장애인지 개별 URL이 실제 404인지 반복 확인")
         return issues
     if re.search(r"\bnoindex\b", item.get("robots", ""), re.I) or re.search(r"\bnoindex\b", item.get("x_robots", ""), re.I):
         add(issues, "NOINDEX", "review", item.get("robots", "") or item.get("x_robots", ""), "색인 설정 의도 확인. AdSense 위반으로 단정하지 않음")
@@ -159,9 +165,14 @@ def judge(item):
 
 def scan_live(session, urls, delay):
     out = []
+    consecutive_429 = 0
     for pos, url in enumerate(urls, 1):
         r, err = request(session, url)
         item = {"url": url, "status": r.status_code if r is not None else 0, "error": err}
+        if item["status"] == 429:
+            consecutive_429 += 1
+        else:
+            consecutive_429 = 0
         if r is not None and r.status_code == 200:
             item.update(extract_post(r.text))
             item["x_robots"] = r.headers.get("X-Robots-Tag", "")
@@ -171,6 +182,13 @@ def scan_live(session, urls, delay):
         out.append(item)
         if pos % 25 == 0:
             print("scanned", pos, "/", len(urls), flush=True)
+        if consecutive_429 >= 3:
+            print("Stopping after 3 consecutive HTTP 429 responses (respecting host rate limit)", flush=True)
+            for leftover in urls[pos:]:
+                pending = {"url": leftover, "status": 0, "error": "NOT_CHECKED_DUE_TO_RATE_LIMIT"}
+                pending["issues"] = judge(pending)
+                out.append(pending)
+            break
         if delay:
             time.sleep(delay)
     return out
@@ -287,7 +305,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--snapshot", help="Historical JSON export for offline scan; never labeled current live")
     p.add_argument("--out", default="adsense-audit-output")
-    p.add_argument("--delay", type=float, default=0.2)
+    p.add_argument("--delay", type=float, default=0.8)
     p.add_argument("--limit", type=int, default=0)
     args = p.parse_args()
     session = requests.Session()
