@@ -24,7 +24,7 @@ jobs:
       - name: Unit tests
         run: python -m unittest discover -s tools/adsense-audit/tests -v
       - name: Scan public site
-        run: python tools/adsense-audit/scan.py --out adsense-audit-output --delay 0.20
+        run: python tools/adsense-audit/scan.py --out adsense-audit-output --delay 0.80
       - name: Upload report
         if: always()
         uses: actions/upload-artifact@v4
