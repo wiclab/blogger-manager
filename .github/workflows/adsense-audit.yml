@@ -7,6 +7,10 @@ on:
       - "tools/adsense-audit/**"
       - ".github/workflows/adsense-audit.yml"
 
+concurrency:
+  group: byeolsemso-adsense-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
