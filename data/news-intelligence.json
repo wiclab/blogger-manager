@@ -1,12 +1,12 @@
 {
   "version": 1,
   "site": "https://wic12.blogspot.com/",
-  "generatedAt": "2026-11-13T12:22:24.754116+00:00",
-  "newsGeneratedAt": "2026-11-13T12:22:23.708589+00:00",
-  "newsCount": 194,
+  "generatedAt": "2026-11-13T19:54:27.612907+00:00",
+  "newsGeneratedAt": "2026-11-13T19:54:26.120561+00:00",
+  "newsCount": 187,
   "postsChecked": 251,
   "postCoverage": "complete",
-  "postExpectedCount": 248,
+  "postExpectedCount": 251,
   "scoring": "규칙 기반 편집 우선순위, 검색량/검색순위/사실 검증 결과가 아님",
   "ideas": [
     {
@@ -26,27 +26,12 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "20ef4ee5632b6dddf5ecb66b",
-      "headline": "한국전력, 비용 부담에 실적 부진···전기요금·원전 확대 주목",
+      "id": "3b1b2d08714cfe49ddaddb22",
+      "headline": "영월군, 지방세 전자고지ㆍ자동이체 신청 세액공제",
       "category": "경제",
-      "source": "뉴스웨이",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5kS2h0NFFKMEQ5UERlcUlBbU5WYS1FYUNqRy1mZHRWS2I0TTdyZkFNWDVFNGlJb05kRkNIWVlpY0E3VFlJc1FDa0xSSGNQazdSTXFWSGVDLS1LNzE4NVl3R0Q3UWpTYTNnMFE?oc=5",
-      "publishedAt": "2026-11-12T23:43:27+00:00",
-      "score": 86,
-      "reasons": [
-        "생활형 핵심어: 요금, 전기",
-        "변경·시점 표현: 확대"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "2f8cb2fa5b60bc79a2fe2874",
-      "headline": "영월군, 지방세 전자고지․자동이체 신청하면 세액공제",
-      "category": "경제",
-      "source": "뉴스줌",
-      "url": "https://news.google.com/rss/articles/CBMiREFVX3lxTE5qR2dWWUhNcU5UMmFsb1NwVkY0ekVBRWI4dG9udHd1NmR3Y3hLZFI1X01UOUJLX2JwZXNzanMyLUpybWRp?oc=5",
-      "publishedAt": "2026-11-12T23:12:00+00:00",
+      "source": "참뉴스",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBkQU5MdmJta3JhNmhxb3l2QVg3blkxTS1CV19UT3BlNUc5bDZoSjJmLUtaMXFOY1Y2V0o0STVuR1h2TnJqMk9YeFU5OGdtSUd5djRrVGV6bHdxWVl2Z3M4VzQ4Ri04WmpEUVlj?oc=5",
+      "publishedAt": "2026-11-13T02:38:45+00:00",
       "score": 76,
       "reasons": [
         "생활형 핵심어: 자동이체, 신청",
@@ -66,6 +51,21 @@
       "reasons": [
         "생활형 핵심어: 상품권, 연말정산",
         "독자 질문으로 확장 가능"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "a4a16c8cb9953a7da56201a4",
+      "headline": "[칼럼] 가스요금 용도별 원료비 조정체계, 기업에 부담을 전가하는 제도가 아니다",
+      "category": "경제",
+      "source": "케이에스피뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiREFVX3lxTE9fZVV3OE9mY0dzQWZDS3puNlQtVVFUXzM2TW15ZnlJX0k2N0ZDZ3VmNFYzWEtaWTUySnNxeUZ5WmdUMTA0?oc=5",
+      "publishedAt": "2026-11-12T21:35:00+00:00",
+      "score": 75,
+      "reasons": [
+        "생활형 핵심어: 요금",
+        "변경·시점 표현: 조정"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -142,6 +142,20 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
+      "id": "98297b34cc304268deeeb51d",
+      "headline": "전기요금 그대로인데…한전 영업이익 71% 급감한 이유",
+      "category": "경제",
+      "source": "매일경제",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE41TlFjSzU0R3JETWo1dzZtVGUzWGhTeExJTnRBd0FyOHl1bHdFVi1lcUZqVTRRVDdHUWxDWWNRVWhiM05fRmxZbkhEOXRyYW1hbFFSekRB?oc=5",
+      "publishedAt": "2026-11-13T06:42:12+00:00",
+      "score": 71,
+      "reasons": [
+        "생활형 핵심어: 요금, 전기"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
       "id": "0bbfe97b72b684fe53b16d87",
       "headline": "전력망 위협할 한전 실적 쇼크, 전기요금 정치화의 재앙[사설]",
       "category": "경제",
@@ -156,12 +170,27 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "4a581d901e7323ca0380272b",
-      "headline": "한수원 \"체코 원전 내년 4월 건설 허가 신청 일정대로\"",
+      "id": "c1a93d8c56a79add157b8c14",
+      "headline": "CTX 서대전역 5km 연장…공항·KTX 연결고리",
+      "category": "한국",
+      "source": "충청일보",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9SOWxwTGVkYXJzUjZBRlhZdTR0ZWRNR00zNHhqaDhUNm9NMDhDTmhaOWJWUlVSNklmWFc2SlFTOXBRRUptbmtWMkxqTkNwV2hTbHJVcHFQV2c5RFppMHBtRHItNnBFbThTNG1oQ2J3bmw?oc=5",
+      "publishedAt": "2026-11-13T15:00:00+00:00",
+      "score": 65,
+      "reasons": [
+        "생활형 핵심어: 공항",
+        "변경·시점 표현: 연장"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "051d934f20a6e6f23f5b7ca4",
+      "headline": "지난달 서울 아파트 토지거래허가 신청 3,900여 건…4월의 44%",
       "category": "경제",
-      "source": "MBC 뉴스",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1zN0V4SmRPME55S1ZyX0xPYl85YlJpcGFoQmp3MkVhUzRJVVY4bTBjeWdsMzFMazBCb3hkck5xbUlfZ0dvakJMOXZMX3dvaXVmOW1Qa0RhdTVkQVl2MW83Ukw2RXU0QTRoVzE2NzhjODE4UlVj0gF0QVVfeXFMUE5CTlg5ZHdQUWtROFc3aGRXcmJ2WG16Q1Z1LUhMdW5QQTNyNVhqSTJIZXZhMFZWdmVndDdUbmF6cmt2dlFPVE15aVUyNTMzYjY2QTJzcWJ4Z0t0MWI1VlYtM3lTdXZSTUpPQURlY1pZdkRMSHA?oc=5",
-      "publishedAt": "2026-11-13T05:01:23+00:00",
+      "source": "KBS 뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE93VlRyTURrOFRmQWZNNEFVeGhQWDU0UlBkbFl4TGJhWUFTOXlOb1RxVTlPR3g5OU9VczBHdDVkUDBmTGY2LXZtdjF1RV93amFqRW01d05oa0NoSW8?oc=5",
+      "publishedAt": "2026-11-12T21:01:00+00:00",
       "score": 65,
       "reasons": [
         "생활형 핵심어: 신청",
@@ -173,6 +202,6 @@
   ],
   "updates": [],
   "note": "검토용 제안. 기사나 공공 정책의 내용은 공식 원문으로 다시 확인하세요. 자동 수정·발행하지 않습니다.",
-  "primaryNewsCount": 156,
-  "focusedNewsCount": 38
+  "primaryNewsCount": 147,
+  "focusedNewsCount": 40
 }
