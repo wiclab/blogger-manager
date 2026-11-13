@@ -1,23 +1,17 @@
 {
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "checked_at": "2026-11-12T17:38:55+00:00",
-  "status": "warning",
-  "last_scheduled_run_at": "2026-11-12T10:10:34+00:00",
-  "last_scheduled_success_at": "2026-11-12T10:10:34+00:00",
-  "last_any_success_at": "2026-11-12T10:10:34+00:00",
-  "last_dashboard_update_at": "2026-11-12T10:10:43+00:00",
+  "checked_at": "2026-11-13T01:56:57+00:00",
+  "status": "ok",
+  "last_scheduled_run_at": "2026-11-12T23:49:55+00:00",
+  "last_scheduled_success_at": "2026-11-12T23:49:55+00:00",
+  "last_any_success_at": "2026-11-12T23:49:55+00:00",
+  "last_dashboard_update_at": "2026-11-12T23:50:08+00:00",
   "consecutive_schedule_failures": 0,
   "failure_category": null,
-  "issue_codes": [
-    "schedule_stale",
-    "dashboard_stale"
-  ],
+  "issue_codes": [],
   "expected_interval_hours": 2,
   "warning_after_hours": 5,
-  "issues": [
-    "최근 5시간 내 성공한 예약 실행이 없습니다.",
-    "색인 제출 대시보드가 5시간 이상 갱신되지 않았습니다."
-  ],
+  "issues": [],
   "note": "Scheduled workflow health, not Bing indexing proof. A quota-exhausted successful run is healthy."
 }
