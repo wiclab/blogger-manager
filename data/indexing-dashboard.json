@@ -1,21 +1,21 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-13T01:08:39+00:00",
+    "last_successful_check_at": "2026-11-13T09:37:13+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": null,
+    "blocked_uncertain_count": 3,
+    "daily_quota_remaining_before": 100,
     "eligible_pending_count": 0,
-    "held_batches_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-12T18:22:44+00:00",
-    "monthly_quota_remaining_before": null,
+    "monthly_quota_remaining_before": 1800,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 0,
+    "pending_count": 3,
     "per_run_cap": 100,
-    "published_count": 127,
+    "published_count": 129,
     "queue_summary": {
       "changed_since_submission": 0,
       "first_time_pending": 0,
@@ -26,10 +26,14 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [],
+    "recent_pending": [
+      "https://qevnaxori.blogspot.com/2026/11/how-many-floppy-disks-modern-game-calculator.html",
+      "https://qevnaxori.blogspot.com/2026/11/which-checkout-line-is-faster-calculator.html",
+      "https://qevnaxori.blogspot.com/2026/09/nobody-lab-005-feel-exactly-10-seconds.html"
+    ],
     "state": "ok",
     "submitted_this_run": 0,
-    "tracked_submitted_count": 127
+    "tracked_submitted_count": 126
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -39,5 +43,5 @@
   },
   "schema": 1,
   "site": "https://qevnaxori.blogspot.com/",
-  "updated_at": "2026-11-13T01:08:39+00:00"
+  "updated_at": "2026-11-13T09:37:13+00:00"
 }
