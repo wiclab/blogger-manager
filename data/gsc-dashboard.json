@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-12T07:31:00+00:00",
+  "updated_at": "2026-11-13T07:02:17+00:00",
   "status": "ok",
   "sample_only": true,
   "sample": {
-    "eligible_urls": 248,
+    "eligible_urls": 249,
     "inspected_original": 26,
     "mobile_gsc_compared": 15,
-    "mobile_status_differences": 15,
+    "mobile_status_differences": 14,
     "inspection_errors": 0,
     "counts": {
       "indexed": 0,
@@ -22,21 +22,21 @@
   },
   "http": {
     "checked": 20,
-    "ok": 3,
-    "inconclusive": 17,
+    "ok": 13,
+    "inconclusive": 7,
     "redirect_problem": 0,
     "other_error": 0,
     "canonical_mismatch": 0,
     "noindex": 0,
     "probe_quality": "partial",
     "reason_counts": {
-      "google_challenge_not_followed": 17,
-      "normal_blogger_mobile_redirect": 3
+      "normal_blogger_mobile_redirect": 13,
+      "google_challenge_not_followed": 7
     },
     "previous_anomalies_rechecked": 6,
     "previous_anomaly_results": {
-      "google_challenge_not_followed": 5,
-      "normal_blogger_mobile_redirect": 1
+      "normal_blogger_mobile_redirect": 5,
+      "google_challenge_not_followed": 1
     }
   },
   "alerts": [],
@@ -123,6 +123,14 @@
     },
     {
       "date": "2026-11-12",
+      "checked": 26,
+      "indexed": 0,
+      "not_indexed": 26,
+      "fetch_problem": 7,
+      "http_redirect_problem": 0
+    },
+    {
+      "date": "2026-11-13",
       "checked": 26,
       "indexed": 0,
       "not_indexed": 26,
