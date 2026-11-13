@@ -1,14 +1,30 @@
 {
   "version": 1,
   "site": "https://wic12.blogspot.com/",
-  "generatedAt": "2026-11-12T16:53:03.912664+00:00",
-  "newsGeneratedAt": "2026-11-12T16:53:02.579512+00:00",
-  "newsCount": 229,
-  "postsChecked": 247,
+  "generatedAt": "2026-11-13T01:12:09.869859+00:00",
+  "newsGeneratedAt": "2026-11-13T01:12:08.640871+00:00",
+  "newsCount": 215,
+  "postsChecked": 248,
   "postCoverage": "complete",
-  "postExpectedCount": 247,
+  "postExpectedCount": 248,
   "scoring": "규칙 기반 편집 우선순위, 검색량/검색순위/사실 검증 결과가 아님",
   "ideas": [
+    {
+      "id": "2bb7fd5f9ed1b08d021096b1",
+      "headline": "4대 보험료, 휴일 자동이체 신청·변경·해지 가능",
+      "category": "경제",
+      "source": "덴탈투데이",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9ZbU5GZHFnNG9qWDdrQXNQcF9HQ3p3Tk1LSFowVVU5blgxanBwMnVjVTg4Qy1DZGZQRUM1cmo3UFppdGlCSTZlY0JJLVd4Q3doblRLY1JrUjE2SUIyc2ZNSGU3WXU1Q3Z0?oc=5",
+      "publishedAt": "2026-11-12T20:19:00+00:00",
+      "score": 97,
+      "reasons": [
+        "생활형 핵심어: 자동이체, 보험, 신청",
+        "변경·시점 표현: 변경",
+        "독자 질문으로 확장 가능"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
     {
       "id": "b1ade8eede27883e77cc2e6d",
       "headline": "4대 사회보험료 자동이체, 주말·휴일에도 신청·변경 가능",
@@ -103,6 +119,21 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
+      "id": "20ef4ee5632b6dddf5ecb66b",
+      "headline": "한국전력, 비용 부담에 실적 부진···전기요금·원전 확대 주목",
+      "category": "경제",
+      "source": "뉴스웨이",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5kS2h0NFFKMEQ5UERlcUlBbU5WYS1FYUNqRy1mZHRWS2I0TTdyZkFNWDVFNGlJb05kRkNIWVlpY0E3VFlJc1FDa0xSSGNQazdSTXFWSGVDLS1LNzE4NVl3R0Q3UWpTYTNnMFE?oc=5",
+      "publishedAt": "2026-11-12T23:43:27+00:00",
+      "score": 86,
+      "reasons": [
+        "생활형 핵심어: 요금, 전기",
+        "변경·시점 표현: 확대"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
       "id": "d6eb5675111fdba772477425",
       "headline": "한전 3분기 영업익 71% 급감…전기요금 인상 압박 커지나",
       "category": "경제",
@@ -133,31 +164,30 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "b1252168db63fb541f25c168",
-      "headline": "‘가구당 월 8,000원 절감’ LH, 태양광 잉여전력 요금상계거래 시행",
+      "id": "aeea54d200c7421f3f405089",
+      "headline": "눈길·한파·난방비 걱정 던다…청주 ‘겨울철 생활안전망’ 가동",
       "category": "경제",
-      "source": "솔라투데이",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9peGVfN0EtRlo0MWxDdndzSGtVNFkxU1lVTUo4dVpDM2lnWDdFXzR2N2djS2NUMGRtV3pxcVJMemh1aGU2bVpaSW5TOVBmR2VzSUllaE9DRlpWclZIV3dxN2ZmdzFJVFJKY1ZQazJES0o?oc=5",
-      "publishedAt": "2026-11-12T01:05:52+00:00",
-      "score": 75,
+      "source": "공뉴스",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1MZ0FRQ1hhUE9PZ2paZGU1ZlR4Z29HWHJCcXBBQTdDODZFcmQ5NzRPNV95MVp6YW00REZ0T1pjYnpJbTI1V1piYzE5NzNreV9aR1l4MndTQmFHaWVCQUE1M01ybU5LZE1Jc1M1RQ?oc=5",
+      "publishedAt": "2026-11-12T21:58:36+00:00",
+      "score": 77,
       "reasons": [
-        "생활형 핵심어: 요금",
-        "변경·시점 표현: 시행"
+        "생활형 핵심어: 생활, 난방, 안전"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "3626a8efef6bc87c3ebd2344",
-      "headline": "광진구의회 이동길·최규철·김은희 의원, 전통시장 찾아 온누리상품권 개편안 현장 의견 청취",
+      "id": "2f8cb2fa5b60bc79a2fe2874",
+      "headline": "영월군, 지방세 전자고지․자동이체 신청하면 세액공제",
       "category": "경제",
-      "source": "케이에스피뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE1wbU9YVnFQakgxUmJKaFlOSE5SWmRHSng3ZkxTSGlNaVZuTUlxLXh6TlBtSEZicy1sRjM0VDJaOWVNUFRCQlE?oc=5",
-      "publishedAt": "2026-11-12T07:12:00+00:00",
-      "score": 75,
+      "source": "뉴스파이어",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5BS191d3lPVnBaRGVmUEM0UUNnOFNsbzFDRUpWbE5pVUFzVHdiMnpKdlZ3UF9EdHZOZUNMNDB1UUM2bGNCWmZfcXV1eFdERVdDU1g0Y3J4NXljMS13U2R2TjNTV0djS2FvLWxVTlFJYw?oc=5",
+      "publishedAt": "2026-11-12T23:24:55+00:00",
+      "score": 76,
       "reasons": [
-        "생활형 핵심어: 상품권",
-        "변경·시점 표현: 개편"
+        "생활형 핵심어: 자동이체, 신청",
+        "독자 질문으로 확장 가능"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -181,9 +211,9 @@
       "id": "a286f5cbc81d4e7f364b08e5",
       "headline": "이동길·최규철·김은희 의원, 전통시장 찾아 온누리상품권 개편안 현장 의견 청취",
       "category": "경제",
-      "source": "성광일보",
-      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5aVHZWWHhIQlZaenFtLTlqYmdtazM3cUI4QUpJM2dQc05kdjZLdnhwN0FESjg0Nk1UTWxnVTdhTy1pVEhORWFmOGRjRmQ0c0QxWDZrZQ?oc=5",
-      "publishedAt": "2026-11-12T06:06:48+00:00",
+      "source": "서울로컬뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFB5Q3VXQW12VWtpR29USDVIODFKelpfVmNOdGdtc3RQNEVTZUVsWUNxd1NoaGlfN0x3Q3Y4d0s2eG9zWVpRa0UwdjJrN2E2aTE5RlljMlZqTFA?oc=5",
+      "publishedAt": "2026-11-12T23:27:59+00:00",
       "score": 75,
       "reasons": [
         "생활형 핵심어: 상품권",
@@ -207,6 +237,20 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
+      "id": "e5e3c46badf6b1dd73e00c2d",
+      "headline": "“원전도 재생에너지 인증서에 1조 원”…전기요금 부담 줄일 수 있을까",
+      "category": "경제",
+      "source": "동아일보",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1hYXJOLWhYdmhGamplUDVCb0VvY0FFR25ON3pxNGRlZ1UxWDVMYVpGVWRvbHdHRGZLbTBoX1JfaG9zUXFnMXI4dklKbWlEUGhOOXB1SVExa1B2amRnQ3g1LXNPU25rZVF4OTloWHVEd0pFSTlOSkHSAWZBVV95cUxNcWJaY0FrNVRveEtzemU0dkU3dmdvbFNVRm1hSEEtdHJUMzFJelh3MWt5VU5VR0hqanVaRzNxZERKM2djVmVENDVQcmJUdnptT21RT3pUc2thR1BmNEtQWUV1Mzg3TFE?oc=5",
+      "publishedAt": "2026-11-13T00:49:28+00:00",
+      "score": 71,
+      "reasons": [
+        "생활형 핵심어: 요금, 전기"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
       "id": "9e7785156ea9596eec642f8b",
       "headline": "건보공단, 14일부터 4대 보험료 자동이체 서비스 연중무휴 운영",
       "category": "경제",
@@ -221,26 +265,12 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "2a66cb9d44a425f28ba4cd63",
-      "headline": "한전 3분기 이익 71% 줄어…전기요금 현실화 다시 수면 위로 : 기업·산업",
+      "id": "bbef1a7058f260d1b2557cf3",
+      "headline": "산업용 전기요금 차등화…반도체 공급망 수도권 밖 이전 급물살 타나",
       "category": "경제",
-      "source": "재경일보",
-      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE8yUUtkRTduZ08wbEkwaEROejdVN0hycDdMUjJ2Nl9oTG81dC1vZzhhQ1BSYmdTWUI4ODZxZnhfc3BIb2RnZFFtVmdaMA?oc=5",
-      "publishedAt": "2026-11-12T08:51:29+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 요금, 전기"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "a1c6163bef4ad68872d3113d",
-      "headline": "한전, 3분기 영업이익 급감… 전기요금 동결 발목",
-      "category": "경제",
-      "source": "비즈트리뷴",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9SbG1kSGl6QXJJT3Foc2JjM3lpNkhoWDhOSjJ2cmNITkY5eVJKMTVESDBESWdqSzJvUlpUb0dTWHVwVVFqTVhfbmw0anVsSFlUYUJhTkE4NHE0Nk80cVRpQWR6ZjYtSVpUMnh5OGJjM00?oc=5",
-      "publishedAt": "2026-11-12T10:43:13+00:00",
+      "source": "디지털투데이",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5QalFpekRRWDRGTTBGeWtVcXhLVXV0bzItUV9TakdrV2NSdzRGeXctUURyM0Q5b0l5SVY2RWVPNGJ6blZUazlrWnJuQUE5bmxJVXRBY0ZUM0oxZHN1Nnk0d0x2ejB1MDZUQjdWQUV6TkJKbkk?oc=5",
+      "publishedAt": "2026-11-12T22:30:00+00:00",
       "score": 71,
       "reasons": [
         "생활형 핵심어: 요금, 전기"
@@ -280,6 +310,6 @@
   ],
   "updates": [],
   "note": "검토용 제안. 기사나 공공 정책의 내용은 공식 원문으로 다시 확인하세요. 자동 수정·발행하지 않습니다.",
-  "primaryNewsCount": 189,
-  "focusedNewsCount": 40
+  "primaryNewsCount": 168,
+  "focusedNewsCount": 47
 }
