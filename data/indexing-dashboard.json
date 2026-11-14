@@ -1,21 +1,21 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-14T15:18:26+00:00",
+    "last_successful_check_at": "2026-11-14T20:53:42+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": 95,
+    "blocked_uncertain_count": 7,
+    "daily_quota_remaining_before": 64,
     "eligible_pending_count": 0,
-    "held_batches_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-14T15:18:26+00:00",
-    "monthly_quota_remaining_before": 1695,
+    "monthly_quota_remaining_before": 1664,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 0,
+    "pending_count": 7,
     "per_run_cap": 100,
-    "published_count": 256,
+    "published_count": 257,
     "queue_summary": {
       "changed_since_submission": 0,
       "first_time_pending": 0,
@@ -26,10 +26,18 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [],
+    "recent_pending": [
+      "https://wic12.blogspot.com/2026/10/ai-smart-glasses-phone-use-buying-checklist.html",
+      "https://wic12.blogspot.com/2026/11/samsung-ai-glasses-korea-price-phone-compatibility.html",
+      "https://wic12.blogspot.com/2026/09/credit-card-payment-afternoon-deposit.html",
+      "https://wic12.blogspot.com/2026/10/2026-korea-grand-festival-discount-coupon-guide.html",
+      "https://wic12.blogspot.com/2026/09/auto-transfer-weekend-holiday-withdrawal.html",
+      "https://wic12.blogspot.com/2026/09/leftover-food-fridge-freezer-discard-checker.html",
+      "https://wic12.blogspot.com/2026/10/marathon-entry-refund-bib-transfer-guide.html"
+    ],
     "state": "ok",
-    "submitted_this_run": 31,
-    "tracked_submitted_count": 256
+    "submitted_this_run": 0,
+    "tracked_submitted_count": 250
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -39,5 +47,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-14T15:18:26+00:00"
+  "updated_at": "2026-11-14T20:53:42+00:00"
 }
