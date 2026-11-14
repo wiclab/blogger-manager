@@ -1,124 +1,41 @@
 {
   "version": 1,
   "site": "https://wic12.blogspot.com/",
-  "generatedAt": "2026-11-14T00:55:02.046279+00:00",
-  "newsGeneratedAt": "2026-11-14T00:55:01.105911+00:00",
-  "newsCount": 177,
-  "postsChecked": 251,
+  "generatedAt": "2026-11-14T11:37:00.701969+00:00",
+  "newsGeneratedAt": "2026-11-14T11:36:59.718434+00:00",
+  "newsCount": 147,
+  "postsChecked": 252,
   "postCoverage": "complete",
   "postExpectedCount": 251,
   "scoring": "규칙 기반 편집 우선순위, 검색량/검색순위/사실 검증 결과가 아님",
   "ideas": [
     {
-      "id": "3b1b2d08714cfe49ddaddb22",
-      "headline": "영월군, 지방세 전자고지ㆍ자동이체 신청 세액공제",
+      "id": "297cb7d37747d69135de3295",
+      "headline": "국민건강보험공단, 4대 사회보험료 자동이체 신청 365일 확대",
       "category": "경제",
-      "source": "참뉴스",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBkQU5MdmJta3JhNmhxb3l2QVg3blkxTS1CV19UT3BlNUc5bDZoSjJmLUtaMXFOY1Y2V0o0STVuR1h2TnJqMk9YeFU5OGdtSUd5djRrVGV6bHdxWVl2Z3M4VzQ4Ri04WmpEUVlj?oc=5",
-      "publishedAt": "2026-11-13T02:38:45+00:00",
-      "score": 76,
+      "source": "투위복지뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBfUjQ1ZzlsWkN0X0tmVHh4dzY4Um45dlpraGh6TVk5YlBxV3ZjWjJBYUEzQmdMZHg2NFktcFpnc0w5bTFoQzhkaUZwZkdsWi1ROVE?oc=5",
+      "publishedAt": "2026-11-14T05:45:22+00:00",
+      "score": 97,
       "reasons": [
-        "생활형 핵심어: 자동이체, 신청",
+        "생활형 핵심어: 자동이체, 보험, 신청",
+        "변경·시점 표현: 확대",
         "독자 질문으로 확장 가능"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "b4f62e619460f04e7b152728",
-      "headline": "울산 북구, 고향사랑기부 연말정산 시즌 이벤트...추첨 통해 150명 포인트 상품권 지급",
+      "id": "ec03392fcf1c33d1383dbf5b",
+      "headline": "배민發 수수료 개편, 쿠팡이츠로 확산되나",
       "category": "경제",
-      "source": "경상일보",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5nV1hnc2RqN3lOOFpvMWhaZklzdEo0TS1FbEQ0RElkRFVHLXVVT2NjREtiWldPM3hid0h4YUVCdFNCTlNWVEI4Sm1ZUEctc2xDZHNIVUhRd0pXLWlLcVlETW9zTzJ0UWlVdWgwdQ?oc=5",
-      "publishedAt": "2026-11-13T01:49:50+00:00",
-      "score": 76,
+      "source": "지디넷코리아",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9LY2NDU3pHQVBXdnlpSVZLZWtWVVJNUE8zeEFRakIxVW5DQ0xxWUxCN29XNzZCOHZBbEYtcnMzY3hVUDlMTTBQWmtzRG1tQTRCeUdsMGJn?oc=5",
+      "publishedAt": "2026-11-14T02:27:03+00:00",
+      "score": 75,
       "reasons": [
-        "생활형 핵심어: 상품권, 연말정산",
-        "독자 질문으로 확장 가능"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "144548855cd6d8d93e59d960",
-      "headline": "LH화성사업본부, 지역 내 어르신의 건강한 식생활을 위한 온누리상품권 600만 원 후원",
-      "category": "경제",
-      "source": "화성저널",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9mMTZjZndkRjRfbUEtejB2MmpmRndzMDVmak41U29lcm5WRkU4UnhPV0hUdGxRVlY3MGdMU3RfZksxSVptQ0tEM0xybzduV0hIXzVXd29POXhGTlpHTHZGdFJFbEJPUQ?oc=5",
-      "publishedAt": "2026-11-13T03:32:00+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 상품권, 생활"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "f4ee81005f0eefbb5252ff8c",
-      "headline": "[보험 트렌드] 국민건강보험공단, 4대 사회보험료 자동이체 서비스 연중무휴 운영 外",
-      "category": "경제",
-      "source": "베이비뉴스",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBldG50WE9FZHQyWGZuN2FEdEZMNGluTjVPSDY4akx5amdnX2dhSWdRa2tGRHpWRW9mT3lkMVBZWmVLSGlZRW5FbFhMbTVyR0g2TUo0REFTN1cxRHNQWW5yYVNSeF9oZGZ5b0U0OA?oc=5",
-      "publishedAt": "2026-11-13T03:03:30+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 자동이체, 보험"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "2aa16057922f22e18aa32cd8",
-      "headline": "국민의 일상을 지킨 방파제, 석유 최고가격제 - 카드/한컷 | 멀티미디어",
-      "category": "경제",
-      "source": "대한민국 정책브리핑",
-      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPUzQydnk1cGp0eVN4eENsaFQ0MUdXRklsUUVSWWFHS0pEQUh4WEFDcGxOZVpaOEsyWWhuNGNQeUtmS1Zaa010QlFoOFk4ZjdGNmsycVQ1Wks4d29RdEFCLTJXSkZ0bHRPWElBSUhkamxDVlNFZ0hhQjRXbUhTZVpyb3Y0M3ZFa2NqMUJJ?oc=5",
-      "publishedAt": "2026-11-13T09:34:11+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 가격, 카드"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "21cdb3b23f41cbcd3de095c7",
-      "headline": "미 전역 항공기 이륙 중단‥교통장관 \"관제센터 통신문제\"",
-      "category": "경제",
-      "source": "MBC 뉴스",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE81SzBNZFI2RGwxWUlGTlhRR0pBTG8wMjNfSXBtcm93bW5PN0RZYzVsSV9mQjNwNGN6XzRoeFRkblBrYnRtc1lRNFFvSEZuNnBYUzhUNWZ5SmVBTmI2STFYWnV5bERuUElESC0xOHdoVjRHbGVH0gF0QVVfeXFMTUNWeFFvUGJtTkpaQS1Wb1NzQkJ6a180VnlnU3RWTzFjcDVqY1MxWjRSLVZpRWdVQ1J1ZFNCd1NTMHdhY1BRcXdiR0J2b1JHVDZfZ25aVS1DMVc1X2FkT3hYV1FZYjNaSEN5V0N2MWNVdy1XTmw?oc=5",
-      "publishedAt": "2026-11-13T21:32:10+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 통신, 교통"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "98297b34cc304268deeeb51d",
-      "headline": "전기요금 그대로인데…한전 영업이익 71% 급감한 이유",
-      "category": "경제",
-      "source": "매일경제",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE41TlFjSzU0R3JETWo1dzZtVGUzWGhTeExJTnRBd0FyOHl1bHdFVi1lcUZqVTRRVDdHUWxDWWNRVWhiM05fRmxZbkhEOXRyYW1hbFFSekRB?oc=5",
-      "publishedAt": "2026-11-13T06:42:12+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 요금, 전기"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "0bbfe97b72b684fe53b16d87",
-      "headline": "전력망 위협할 한전 실적 쇼크, 전기요금 정치화의 재앙[사설]",
-      "category": "경제",
-      "source": "문화일보",
-      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE55Q1NPekhrZDVCN0ZPOVgyT1hBLWZKT3cxX2RFYkR5QXZyaGgwRjRTMGFsT2VpeXdaendwbm5ycUh0VjZoVHg1Q0habmUtV0lL?oc=5",
-      "publishedAt": "2026-11-13T03:00:46+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 요금, 전기"
+        "생활형 핵심어: 수수료",
+        "변경·시점 표현: 개편"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -128,7 +45,7 @@
       "headline": "지역별 요금제 논란, 전기요금 왜곡이 낳은 민낯 [기후에너지환경 단상]",
       "category": "경제",
       "source": "에너지경제신문",
-      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9KTURkUWhJTzQxT1NUTENZNFl1Y3c0dDNxSWdsVVVwTk5temp6emNxYnNYeW5HQ0xBWm8tQXc0bW9CUkZYdnBZc1BaejVFMi1IM2RmRUo5V250TVh1TVE?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE0yQjh1VERKM2VyQjFzemxvVFl0cnl3NGVaLXZ2cE5kR3BTb0gyMTE3TW9wZ2JtUlExUDBXZTZpS1hxZzhCYnEyYnRvZjQ0cUhYNUxFZ3VvTXZIb3M?oc=5",
       "publishedAt": "2026-11-14T00:00:00+00:00",
       "score": 71,
       "reasons": [
@@ -138,16 +55,16 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "4a581d901e7323ca0380272b",
-      "headline": "한수원 \"체코 원전 내년 4월 건설 허가 신청 일정대로\"",
-      "category": "경제",
-      "source": "MBC 뉴스",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1zN0V4SmRPME55S1ZyX0xPYl85YlJpcGFoQmp3MkVhUzRJVVY4bTBjeWdsMzFMazBCb3hkck5xbUlfZ0dvakJMOXZMX3dvaXVmOW1Qa0RhdTVkQVl2MW83Ukw2RXU0QTRoVzE2NzhjODE4UlVj0gF0QVVfeXFMUE5CTlg5ZHdQUWtROFc3aGRXcmJ2WG16Q1Z1LUhMdW5QQTNyNVhqSTJIZXZhMFZWdmVndDdUbmF6cmt2dlFPVE15aVUyNTMzYjY2QTJzcWJ4Z0t0MWI1VlYtM3lTdXZSTUpPQURlY1pZdkRMSHA?oc=5",
-      "publishedAt": "2026-11-13T05:01:23+00:00",
+      "id": "c1a93d8c56a79add157b8c14",
+      "headline": "CTX 서대전역 5km 연장…공항·KTX 연결고리",
+      "category": "한국",
+      "source": "충청일보",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9SOWxwTGVkYXJzUjZBRlhZdTR0ZWRNR00zNHhqaDhUNm9NMDhDTmhaOWJWUlVSNklmWFc2SlFTOXBRRUptbmtWMkxqTkNwV2hTbHJVcHFQV2c5RFppMHBtRHItNnBFbThTNG1oQ2J3bmw?oc=5",
+      "publishedAt": "2026-11-13T15:00:00+00:00",
       "score": 65,
       "reasons": [
-        "생활형 핵심어: 신청",
-        "독자 질문으로 확장 가능"
+        "생활형 핵심어: 공항",
+        "변경·시점 표현: 연장"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -155,6 +72,6 @@
   ],
   "updates": [],
   "note": "검토용 제안. 기사나 공공 정책의 내용은 공식 원문으로 다시 확인하세요. 자동 수정·발행하지 않습니다.",
-  "primaryNewsCount": 143,
-  "focusedNewsCount": 34
+  "primaryNewsCount": 134,
+  "focusedNewsCount": 13
 }
