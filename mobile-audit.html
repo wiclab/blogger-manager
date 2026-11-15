@@ -93,6 +93,7 @@ const URL_DATA="https://raw.githubusercontent.com/wiclab/blogger-manager/mobile-
 const URL_SHOTS="https://raw.githubusercontent.com/wiclab/blogger-manager/mobile-audit-data/";
 const RUNS_PAGE="https://github.com/wiclab/blogger-manager/actions/workflows/mobile-audit.yml";
 const RUNS_API="https://api.github.com/repos/wiclab/blogger-manager/actions";
+const REPORT_API="https://api.github.com/repos/wiclab/blogger-manager/contents/data/mobile-audit.json?ref=mobile-audit-data";
 const HOSTS={byeol:"wic12.blogspot.com",nobody:"qevnaxori.blogspot.com"};
 const typeLabels={
  narrow_text:"문구가 지나치게 좁게 줄바꿈됨",
@@ -208,27 +209,46 @@ async function updateRunHealth(){
    const evidence=[detail?.name,step?.name].filter(value=>typeof value==="string"&&value.length).join(" → ").slice(0,150);
    label.textContent=headline+(evidence?" · 실패 단계: "+evidence:" · 세부 원인은 실행 기록에서 확인");
   }
+  return run;
  }catch(_){
   label.textContent=panel.dataset.state==="failure"?label.textContent+" · 세부 원인은 실행 기록에서 확인":"최근 실행 상태를 조회하지 못했어. 아래 검사 보고서와 별개야.";
  }
+}
+function isAuditReport(data){
+ return data?.schema===1&&Array.isArray(data.sites)&&data.sites.length===2&&
+  data.sites.some(x=>x.id==="byeol"&&x.base==="https://wic12.blogspot.com/")&&
+  data.sites.some(x=>x.id==="nobody"&&x.base==="https://qevnaxori.blogspot.com/")&&
+  data.rows&&typeof data.rows==="object";
+}
+async function fetchReport(url,options={}){
+ const response=await fetch(url,{cache:"no-store",signal:AbortSignal.timeout(7000),...options});
+ if(!response.ok)throw new Error("HTTP "+response.status);
+ const data=await response.json();
+ if(!isAuditReport(data))throw new Error("블로그 구분 또는 보고서 형식 불일치");
+ return data;
 }
 async function load(){
  $("reload").disabled=true;$("status").textContent="공개 검사 결과 불러오는 중";
  const runHealth=updateRunHealth();
  try{
-  const response=await fetch(URL_DATA+"?t="+Date.now(),{cache:"no-store"});
-  if(!response.ok)throw new Error("HTTP "+response.status);
-  const data=await response.json();
-  if(data.schema!==1||!Array.isArray(data.sites)||data.sites.length!==2||
-    !data.sites.some(x=>x.id==="byeol"&&x.base==="https://wic12.blogspot.com/")||
-    !data.sites.some(x=>x.id==="nobody"&&x.base==="https://qevnaxori.blogspot.com/")||
-    !data.rows||typeof data.rows!=="object")throw new Error("블로그 구분 또는 보고서 형식 불일치");
+  let data=await fetchReport(URL_DATA+"?t="+Date.now()).catch(()=>null);
+  const run=await runHealth;
+  // Raw GitHub can briefly serve an old branch snapshot even with no-store.
+  const successfulRunIsNewer=run?.conclusion==="success"&&run.id>Number(data?.run_id||0);
+  if(!data||successfulRunIsNewer){
+   const alternate=await fetchReport(REPORT_API,{headers:{Accept:"application/vnd.github.raw+json"}}).catch(()=>null);
+   if(alternate&&(!data||Number(alternate.run_id||0)>Number(data.run_id||0)))data=alternate;
+  }
+  if(!data)throw new Error("검사 보고서 두 경로에서 조회 실패");
   saved=data;$("site-cards").replaceChildren(...data.sites.map(card));
   $("status").textContent=data.updated_at?"표본 검사 결과 로드 완료 · "+(data.run?.status==="partial"?"일부 검사 불가":"최근 실행 기록 있음"):"첫 실제 검사 전 · 초기 화면";
   $("updated").textContent="마지막 검사 보고서 저장: "+date(data.updated_at)+" · "+
     (data.run?.scanned||0)+"개 글 검사 · 실행 기록 #"+(data.run_id||"없음");
   if(data.updated_at&&Date.now()-Date.parse(data.updated_at)>30*3600000){
    $("status").textContent="검사 결과가 30시간 이상 오래됐어 · GitHub Actions 상태를 확인해";
+  }
+  if(successfulRunIsNewer&&run.id>Number(data.run_id||0)){
+   $("status").textContent="최신 검사는 성공했지만 새 보고서가 아직 조회되지 않아 · 아래는 이전 검사 결과야.";
   }
   render();
  }catch(error){
