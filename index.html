@@ -601,7 +601,16 @@
     }
 
     .blog-scope{display:inline-flex;gap:8px;align-items:center;margin:8px 0;font-size:12px;font-weight:600}
-    .blog-scope select{max-width:190px;background:#fff;border:1px solid #d1d5db;border-radius:10px;padding:8px;color:var(--text)}
+    .post-tools,.post-pager{display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap}
+    .post-tools{margin:8px 0 12px}
+    .post-search{display:flex;gap:8px;align-items:center;flex:1 1 280px;min-width:0;font-size:12px;font-weight:600}
+    .post-search input{flex:1 1 auto;min-width:0;width:100%}
+    .blog-scope select,.post-search input,.post-pager button,.post-clear{max-width:100%;background:#fff;border:1px solid #d1d5db;border-radius:10px;padding:8px 11px;color:var(--text);font:inherit;min-height:40px}
+    .blog-scope select{max-width:190px}
+    .post-pager{margin:8px 0 12px;font-size:12px;color:var(--muted)}
+    .post-pager button:not(:disabled),.post-clear{cursor:pointer;font-weight:600}
+    .post-pager button:disabled{opacity:.55}
+    .post-empty{padding:24px;text-align:center;color:var(--muted)}
     .link-explainer{background:#f1f5f9;padding:10px 12px;border-radius:10px;font-size:12px;line-height:1.65;color:#334155}
     .link-weak{background:#eef2ff!important;color:#3730a3!important}
     .inbound-block{margin-top:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;font-size:11px;line-height:1.6}
@@ -1121,10 +1130,21 @@
 
 
     <p class="link-explainer">받는 링크 = 다른 공개 글 본문 → 이 글 / 나가는 링크 = 이 글 → 다른 공개 글 본문. 메뉴·사이드바·고정 페이지는 집계 제외. <strong>받는 링크 0은 글 오류나 미색인을 뜻하지 않습니다.</strong></p>
-    <label class="blog-scope" for="blogFilter">블로그
-      <select id="blogFilter" onchange="setBlogFilter(this.value)"><option value="all">전체 블로그</option></select>
-    </label>
-    <p id="countLine"></p>
+    <div class="post-tools">
+      <label class="blog-scope" for="blogFilter">블로그
+        <select id="blogFilter" onchange="setBlogFilter(this.value)"><option value="all">전체 블로그</option></select>
+      </label>
+      <label class="post-search" for="postSearch">글 검색
+        <input id="postSearch" type="search" placeholder="제목·URL 검색" autocomplete="off" oninput="setPostSearch(this.value)">
+      </label>
+      <button id="postClear" class="post-clear" type="button" onclick="clearPostSearch()" hidden>검색 지우기</button>
+    </div>
+    <p id="countLine" role="status" aria-live="polite"></p>
+    <div class="post-pager" role="group" aria-label="게시글 목록 페이지">
+      <button id="postPrev" type="button" aria-controls="posts" onclick="changePostPage(-1)" disabled>이전</button>
+      <span id="postPageLabel">1 / 1페이지</span>
+      <button id="postNext" type="button" aria-controls="posts" onclick="changePostPage(1)" disabled>다음</button>
+    </div>
 
 
     <div class="table-wrap">
@@ -1333,6 +1353,9 @@ let REPORT = null;
 
 let FILTER = "all";
 let SELECTED_BLOG = "all";
+let POST_SEARCH = "";
+let POST_PAGE = 1;
+const POST_PAGE_SIZE = 25;
 let CURRENT_INBOUND_SUGGESTIONS = new Map();
 
 let BLOGGER_CONNECTED = false;
@@ -2606,6 +2629,7 @@ function renderBlogFilter() {
 
 function setBlogFilter(value) {
   SELECTED_BLOG = value || "all";
+  POST_PAGE = 1;
   renderPosts();
 }
 
@@ -2922,13 +2946,60 @@ function matchesFilter(
    표
 ========================================= */
 
+function setPostSearch(value) {
+  POST_SEARCH = String(value || "").trim();
+  POST_PAGE = 1;
+  document.getElementById("postClear").hidden = !value;
+  renderPosts();
+}
+
+function clearPostSearch() {
+  const input = document.getElementById("postSearch");
+  input.value = "";
+  setPostSearch("");
+  input.focus();
+}
+
+function changePostPage(delta) {
+  POST_PAGE += delta;
+  renderPosts();
+}
+
+function normalizePostSearch(value) {
+  return String(value || "").normalize("NFKC").toLowerCase();
+}
+
+function postSearchTerms(value) {
+  return normalizePostSearch(value).split(/\s+/).filter(Boolean).map(term => {
+    const cleaned = /^(?:https?:\/\/|\/)/.test(term) ? term.split(/[?#]/, 1)[0].replace(/^https?:\/\//, "") : term;
+    try { return decodeURIComponent(cleaned).normalize("NFKC").toLowerCase(); } catch { return cleaned; }
+  }).filter(Boolean);
+}
+
+function matchesPostSearch(post, terms) {
+  if (!terms.length) return true;
+  const url = String(post.url || "");
+  let decoded = url;
+  try { decoded = decodeURIComponent(url); } catch { /* Keep the original URL. */ }
+  const haystack = normalizePostSearch(`${post.title || ""} ${url} ${decoded}`);
+  return terms.every(term => haystack.includes(term));
+}
+
 function renderPosts() {
 
   const all = allPosts().filter(post =>
     SELECTED_BLOG === "all" || post.blogUrl === SELECTED_BLOG
   );
   CURRENT_INBOUND_SUGGESTIONS = buildInboundSuggestions(all);
-  const posts = all.filter(matchesFilter);
+  const terms = postSearchTerms(POST_SEARCH);
+  const posts = all.filter(post => matchesFilter(post) && matchesPostSearch(post, terms));
+  const pageCount = Math.max(1, Math.ceil(posts.length / POST_PAGE_SIZE));
+  POST_PAGE = Math.min(pageCount, Math.max(1, POST_PAGE));
+  const start = (POST_PAGE - 1) * POST_PAGE_SIZE;
+  const end = Math.min(start + POST_PAGE_SIZE, posts.length);
+  document.getElementById("postPrev").disabled = POST_PAGE <= 1;
+  document.getElementById("postNext").disabled = POST_PAGE >= pageCount;
+  document.getElementById("postPageLabel").textContent = `${POST_PAGE} / ${pageCount}페이지`;
 
 
   document
@@ -2936,7 +3007,7 @@ function renderPosts() {
       "countLine"
     )
     .textContent =
-      `표시 중: ${posts.length} / 전체 ${all.length}개 글 · 받는 링크 0: ${all.filter(p => Number(p.incomingLinks || 0) === 0).length} · 양방향 0: ${all.filter(p => Number(p.incomingLinks || 0) === 0 && Number(p.internalLinks || 0) === 0).length}`;
+      `조건에 맞는 글: ${posts.length} / 전체 ${all.length}개 · 현재 ${posts.length ? `${start + 1}–${end}번` : "0개"} 표시 · 선택한 블로그 기준 받는 링크 0: ${all.filter(p => Number(p.incomingLinks || 0) === 0).length} · 양방향 0: ${all.filter(p => Number(p.incomingLinks || 0) === 0 && Number(p.internalLinks || 0) === 0).length}`;
 
 
   document
@@ -2944,7 +3015,7 @@ function renderPosts() {
       "posts"
     )
     .innerHTML =
-      posts
+      posts.length ? posts.slice(start, end)
         .map(
           post => {
 
@@ -3182,7 +3253,7 @@ function renderPosts() {
 
           }
         )
-        .join("");
+        .join("") : '<tr><td class="post-empty" colspan="10">조건에 맞는 글이 없습니다. 검색어나 필터를 바꿔보세요.</td></tr>';
 
 }
 
@@ -3688,6 +3759,7 @@ function setFilter(
 
   FILTER =
     filter;
+  POST_PAGE = 1;
 
 
   document

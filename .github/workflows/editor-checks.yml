@@ -47,7 +47,8 @@ permissions:
 
 jobs:
   editor-smoke:
-    runs-on: ubuntu-latest
+    # Keep the pinned Playwright/Chromium regression on a supported runner.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

@@ -36,7 +36,8 @@ concurrency:
 jobs:
   offline-tests:
     name: Offline audit regressions
-    runs-on: ubuntu-latest
+    # Playwright 1.56.1 supports Chromium on 24.04, not the 26.04 runner.
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
@@ -76,7 +77,7 @@ jobs:
     name: Scan public mobile layouts (read-only)
     needs: offline-tests
     if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 35
     steps:
       - name: Check out approved CMS code
