@@ -1,21 +1,21 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-15T02:05:06+00:00",
+    "last_successful_check_at": "2026-11-15T09:49:19+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": 96,
+    "blocked_uncertain_count": 15,
+    "daily_quota_remaining_before": 80,
     "eligible_pending_count": 0,
-    "held_batches_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-15T02:05:06+00:00",
-    "monthly_quota_remaining_before": 1596,
+    "monthly_quota_remaining_before": 1580,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 0,
+    "pending_count": 15,
     "per_run_cap": 100,
-    "published_count": 258,
+    "published_count": 260,
     "queue_summary": {
       "changed_since_submission": 0,
       "first_time_pending": 0,
@@ -26,10 +26,23 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [],
+    "recent_pending": [
+      "https://wic12.blogspot.com/2026/10/switch2-microsd-express-256gb-512gb-storage.html",
+      "https://wic12.blogspot.com/2026/10/nintendo-switch-online-worth-it-expansion-pack.html",
+      "https://wic12.blogspot.com/2026/10/switch2-existing-games-compatibility-upgrade-pass.html",
+      "https://wic12.blogspot.com/2026/11/switch2-save-data-transfer-after-setup.html",
+      "https://wic12.blogspot.com/2026/11/finger-slammed-in-door-nail-bruise-first-aid.html",
+      "https://wic12.blogspot.com/2026/11/missed-ktx-train-ticket-refund.html",
+      "https://wic12.blogspot.com/2026/09/srt-korail-plus-integration-questions.html",
+      "https://wic12.blogspot.com/2026/10/ktx-train-ticket-two-month-booking.html",
+      "https://wic12.blogspot.com/2026/10/zero-cola-sugar-calorie-calculator.html",
+      "https://wic12.blogspot.com/2026/10/shower-low-water-flow-check-hot-cold.html",
+      "https://wic12.blogspot.com/2026/10/night-running-reflective-bands-lights-guide.html",
+      "https://wic12.blogspot.com/2026/11/phone-usb-charging-only-file-transfer-fix.html"
+    ],
     "state": "ok",
-    "submitted_this_run": 11,
-    "tracked_submitted_count": 258
+    "submitted_this_run": 0,
+    "tracked_submitted_count": 245
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -39,5 +52,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-15T02:05:06+00:00"
+  "updated_at": "2026-11-15T09:49:19+00:00"
 }
