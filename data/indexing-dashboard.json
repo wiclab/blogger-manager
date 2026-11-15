@@ -1,19 +1,19 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-15T09:49:21+00:00",
+    "last_successful_check_at": "2026-11-15T17:22:28+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": 80,
+    "blocked_uncertain_count": 1,
+    "daily_quota_remaining_before": 65,
     "eligible_pending_count": 0,
-    "held_batches_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-15T09:49:21+00:00",
-    "monthly_quota_remaining_before": 1580,
+    "monthly_quota_remaining_before": 1565,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 0,
+    "pending_count": 1,
     "per_run_cap": 100,
     "published_count": 260,
     "queue_summary": {
@@ -26,10 +26,12 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [],
+    "recent_pending": [
+      "https://wic12.blogspot.com/2026/10/running-phone-pocket-belt-armband-guide.html"
+    ],
     "state": "ok",
-    "submitted_this_run": 15,
-    "tracked_submitted_count": 260
+    "submitted_this_run": 0,
+    "tracked_submitted_count": 259
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -39,5 +41,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-15T09:49:21+00:00"
+  "updated_at": "2026-11-15T17:22:28+00:00"
 }
