@@ -3,21 +3,13 @@
   "note": "읽기 전용 표본 검사. 자동 수정하지 않으며 계산기 수식·실제 모바일 기기까지 검증한 것은 아닙니다.",
   "rows": {
     "https://qevnaxori.blogspot.com/2026/08/faker-career-stats-nobody-asked-for.html": {
-      "checked_at": "2026-11-10T08:24:25+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
-      "lastmod": "2026-10-28T08:15:05Z",
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-14T14:29:23Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "nobody",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/08/faker-career-stats-nobody-asked-for.html"
     },
     "https://qevnaxori.blogspot.com/2026/08/how-long-hair-never-cut-100-years.html": {
@@ -77,21 +69,13 @@
       "url": "https://qevnaxori.blogspot.com/2026/08/how-many-friends-actually-consider-you-a-friend.html"
     },
     "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html": {
-      "checked_at": "2026-11-11T07:44:35+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
-      "lastmod": "2026-10-29T01:56:22Z",
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-14T13:52:30Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "nobody",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/08/how-many-people-to-drink-the-ocean.html"
     },
     "https://qevnaxori.blogspot.com/2026/08/how-many-psychopaths-have-you-met.html": {
@@ -287,9 +271,9 @@
       "url": "https://qevnaxori.blogspot.com/2026/09/cheap-flight-baggage-fees-total-cost.html"
     },
     "https://qevnaxori.blogspot.com/2026/09/cheaper-gas-station-detour-break-even-calculator.html": {
-      "checked_at": "2026-11-11T20:11:22+00:00",
+      "checked_at": "2026-11-15T06:04:44+00:00",
       "issues": [],
-      "lastmod": "2026-10-29T01:55:42Z",
+      "lastmod": "2026-11-14T13:36:38Z",
       "screenshot": null,
       "severity": "none",
       "site": "nobody",
@@ -1114,27 +1098,19 @@
       "url": "https://qevnaxori.blogspot.com/2026/10/budget-airline-total-cost-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/bulk-food-waste-break-even-calculator.html": {
-      "checked_at": "2026-11-09T07:55:34+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
-      "lastmod": "2026-11-04T12:46:40Z",
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-15T05:48:18Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "nobody",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/bulk-food-waste-break-even-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/cheaper-flight-extra-hotel-night-calculator.html": {
-      "checked_at": "2026-11-11T20:11:22+00:00",
+      "checked_at": "2026-11-15T06:04:44+00:00",
       "issues": [],
-      "lastmod": "2026-10-20T08:13:48Z",
+      "lastmod": "2026-11-14T14:23:12Z",
       "screenshot": null,
       "severity": "none",
       "site": "nobody",
@@ -1363,9 +1339,9 @@
       "url": "https://qevnaxori.blogspot.com/2026/10/fibermaxxing-cost-per-10g-food-vs-supplements.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/free-shipping-minimum-spend-calculator.html": {
-      "checked_at": "2026-11-11T20:11:22+00:00",
+      "checked_at": "2026-11-15T06:04:44+00:00",
       "issues": [],
-      "lastmod": "2026-10-20T08:13:48Z",
+      "lastmod": "2026-11-14T13:52:29Z",
       "screenshot": null,
       "severity": "none",
       "site": "nobody",
@@ -1665,21 +1641,13 @@
       "url": "https://qevnaxori.blogspot.com/2026/10/smart-thermostat-payback-heating-savings-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/space-heater-electricity-cost-calculator.html": {
-      "checked_at": "2026-11-08T22:52:36+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
-      "lastmod": "2026-10-28T12:34:34Z",
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-14T13:05:05Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "nobody",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/space-heater-electricity-cost-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/streaming-bundle-cost-2026.html": {
@@ -1739,21 +1707,13 @@
       "url": "https://qevnaxori.blogspot.com/2026/10/thanksgiving-2026-walmart-vs-aldi-meal-cost.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/thermostat-setback-heating-bill-calculator.html": {
-      "checked_at": "2026-11-08T07:18:04+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
-      "lastmod": "2026-10-29T01:55:01Z",
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-14T13:05:05Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "nobody",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/10/thermostat-setback-heating-bill-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/10/tv-antenna-vs-sports-bar-break-even-calculator.html": {
@@ -1831,21 +1791,13 @@
       "url": "https://qevnaxori.blogspot.com/2026/10/what-actually-happens-to-the-things-you-type-into-ai.html"
     },
     "https://qevnaxori.blogspot.com/2026/11/150-vs-50-shoes-cost-per-wear-calculator.html": {
-      "checked_at": "2026-11-10T20:28:04+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
-      "lastmod": "2026-11-10T08:32:37Z",
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-12T12:31:25Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "nobody",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://qevnaxori.blogspot.com/2026/11/150-vs-50-shoes-cost-per-wear-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/11/coffee-at-home-vs-coffee-shop-savings-calculator.html": {
@@ -1875,6 +1827,16 @@
       "site": "nobody",
       "state": "issue",
       "url": "https://qevnaxori.blogspot.com/2026/11/dripping-faucet-water-waste-cost-calculator.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/11/electric-blanket-vs-space-heater-payback-calculator.html": {
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-14T12:58:53Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/11/electric-blanket-vs-space-heater-payback-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/11/is-5g-worth-it-vs-4g-lte-calculator.html": {
       "checked_at": "2026-11-10T08:24:25+00:00",
@@ -1910,6 +1872,26 @@
       "site": "nobody",
       "state": "issue",
       "url": "https://qevnaxori.blogspot.com/2026/11/is-freezing-leftovers-worth-it-cost-calculator.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/11/lol-worlds-2027-seoul-suwon-travel-guide.html": {
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-14T14:23:12Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/11/lol-worlds-2027-seoul-suwon-travel-guide.html"
+    },
+    "https://qevnaxori.blogspot.com/2026/11/mail-vs-in-store-return-cost-calculator.html": {
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-14T13:35:51Z",
+      "screenshot": null,
+      "severity": "none",
+      "site": "nobody",
+      "state": "ok",
+      "url": "https://qevnaxori.blogspot.com/2026/11/mail-vs-in-store-return-cost-calculator.html"
     },
     "https://qevnaxori.blogspot.com/2026/11/video-playback-speed-time-savings-calculator.html": {
       "checked_at": "2026-11-10T08:24:25+00:00",
@@ -2106,9 +2088,9 @@
       "url": "https://wic12.blogspot.com/2026/08/alarm-snooze-5-minutes-per-year.html"
     },
     "https://wic12.blogspot.com/2026/08/automatic-transfer-insufficient-balance_0996334948.html": {
-      "checked_at": "2026-11-04T20:25:19+00:00",
+      "checked_at": "2026-11-15T06:04:44+00:00",
       "issues": [],
-      "lastmod": "2026-10-31T08:44:31Z",
+      "lastmod": "2026-11-14T12:25:19Z",
       "screenshot": null,
       "severity": "none",
       "site": "byeol",
@@ -2174,9 +2156,9 @@
       "url": "https://wic12.blogspot.com/2026/08/how-much-feet-sweat-per-year.html"
     },
     "https://wic12.blogspot.com/2026/08/korea-summer-weather-2030-prediction.html": {
-      "checked_at": "2026-11-03T20:06:26+00:00",
+      "checked_at": "2026-11-15T06:04:44+00:00",
       "issues": [],
-      "lastmod": "2026-11-01T07:27:34Z",
+      "lastmod": "2026-11-14T11:51:13Z",
       "screenshot": null,
       "severity": "none",
       "site": "byeol",
@@ -2396,9 +2378,9 @@
       "url": "https://wic12.blogspot.com/2026/09/auto-transfer-weekend-holiday-withdrawal.html"
     },
     "https://wic12.blogspot.com/2026/09/bank-hours-2027-9-30.html": {
-      "checked_at": "2026-11-03T08:32:06+00:00",
+      "checked_at": "2026-11-15T06:04:44+00:00",
       "issues": [],
-      "lastmod": "2026-11-02T11:34:17Z",
+      "lastmod": "2026-11-14T11:19:09Z",
       "screenshot": null,
       "severity": "none",
       "site": "byeol",
@@ -2434,21 +2416,13 @@
       "url": "https://wic12.blogspot.com/2026/09/bump-ice-pack-how-long.html"
     },
     "https://wic12.blogspot.com/2026/09/bus-phone-left-on-bus-what-to-do.html": {
-      "checked_at": "2026-11-03T20:06:26+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
-      "lastmod": "2026-11-01T07:29:17Z",
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-14T08:09:23Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "byeol",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://wic12.blogspot.com/2026/09/bus-phone-left-on-bus-what-to-do.html"
     },
     "https://wic12.blogspot.com/2026/09/car-engine-oil-change-low-mileage-guide.html": {
@@ -2510,9 +2484,9 @@
       "url": "https://wic12.blogspot.com/2026/09/credit-card-cancel-after-payment-refund.html"
     },
     "https://wic12.blogspot.com/2026/09/credit-card-installment-early-payment-fee.html": {
-      "checked_at": "2026-11-03T20:06:26+00:00",
+      "checked_at": "2026-11-15T06:04:44+00:00",
       "issues": [],
-      "lastmod": "2026-11-01T07:27:30Z",
+      "lastmod": "2026-11-14T11:51:10Z",
       "screenshot": null,
       "severity": "none",
       "site": "byeol",
@@ -2846,21 +2820,13 @@
       "url": "https://wic12.blogspot.com/2026/09/seoul-fireworks-festival-one-million-people.html"
     },
     "https://wic12.blogspot.com/2026/09/srt-korail-plus-integration-questions.html": {
-      "checked_at": "2026-11-03T20:06:26+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
-      "lastmod": "2026-11-01T07:28:07Z",
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-15T05:34:33Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "byeol",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://wic12.blogspot.com/2026/09/srt-korail-plus-integration-questions.html"
     },
     "https://wic12.blogspot.com/2026/09/water-bill-doubled-leak-discount-guide.html": {
@@ -3108,21 +3074,13 @@
       "url": "https://wic12.blogspot.com/2026/10/2027-sports-voucher-application-guide.html"
     },
     "https://wic12.blogspot.com/2026/10/2027-suneung-day-commute-traffic-guide.html": {
-      "checked_at": "2026-11-04T07:01:26+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
-      "lastmod": "2026-11-04T06:05:33Z",
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-15T01:07:15Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "byeol",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://wic12.blogspot.com/2026/10/2027-suneung-day-commute-traffic-guide.html"
     },
     "https://wic12.blogspot.com/2026/10/apartment-hot-water-fee-meaning.html": {
@@ -3387,9 +3345,9 @@
       "url": "https://wic12.blogspot.com/2026/10/delayed-headache-dizziness-after-head-injury.html"
     },
     "https://wic12.blogspot.com/2026/10/disaster-alert-157-characters-emergency-safety.html": {
-      "checked_at": "2026-11-03T08:40:01+00:00",
+      "checked_at": "2026-11-15T06:04:44+00:00",
       "issues": [],
-      "lastmod": "2026-11-02T11:19:31Z",
+      "lastmod": "2026-11-14T11:19:07Z",
       "screenshot": null,
       "severity": "none",
       "site": "byeol",
@@ -3763,9 +3721,9 @@
       "url": "https://wic12.blogspot.com/2026/10/nintendo-switch-online-worth-it-expansion-pack.html"
     },
     "https://wic12.blogspot.com/2026/10/october-2026-changes-living-policy.html.html": {
-      "checked_at": "2026-11-03T13:18:37+00:00",
+      "checked_at": "2026-11-15T06:04:44+00:00",
       "issues": [],
-      "lastmod": "2026-11-01T07:29:24Z",
+      "lastmod": "2026-11-14T11:19:08Z",
       "screenshot": null,
       "severity": "none",
       "site": "byeol",
@@ -4210,7 +4168,7 @@
       "url": "https://wic12.blogspot.com/2026/10/youth-jeonse-guarantee-age-39.html"
     },
     "https://wic12.blogspot.com/2026/10/zero-cola-sugar-calorie-calculator.html": {
-      "checked_at": "2026-11-04T07:29:13+00:00",
+      "checked_at": "2026-11-15T06:04:44+00:00",
       "issues": [
         {
           "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
@@ -4220,7 +4178,7 @@
           "width": 390
         }
       ],
-      "lastmod": "2026-10-31T11:28:28Z",
+      "lastmod": "2026-11-15T04:06:38Z",
       "screenshot": null,
       "severity": "review",
       "site": "byeol",
@@ -4348,9 +4306,9 @@
       "url": "https://wic12.blogspot.com/2026/11/2026-youth-national-technical-exam-fee-support.html"
     },
     "https://wic12.blogspot.com/2026/11/2027-csat-glasses-ai-smartwatch-rules.html": {
-      "checked_at": "2026-11-05T07:54:15+00:00",
+      "checked_at": "2026-11-15T06:04:44+00:00",
       "issues": [],
-      "lastmod": "2026-11-05T07:42:44Z",
+      "lastmod": "2026-11-15T01:07:15Z",
       "screenshot": null,
       "severity": "none",
       "site": "byeol",
@@ -4632,21 +4590,13 @@
       "url": "https://wic12.blogspot.com/2026/11/mister-trot-4-audience-application-guide.html"
     },
     "https://wic12.blogspot.com/2026/11/phone-usb-charging-only-file-transfer-fix.html": {
-      "checked_at": "2026-11-04T07:01:26+00:00",
-      "issues": [
-        {
-          "detail": "접근·렌더링 확인 실패: 페이지 응답 또는 최종 호스트가 유효하지 않음",
-          "level": "review",
-          "selector": "body",
-          "type": "page_load_error",
-          "width": 390
-        }
-      ],
-      "lastmod": "2026-11-04T05:38:38Z",
+      "checked_at": "2026-11-15T06:04:44+00:00",
+      "issues": [],
+      "lastmod": "2026-11-15T03:29:44Z",
       "screenshot": null,
-      "severity": "review",
+      "severity": "none",
       "site": "byeol",
-      "state": "inconclusive",
+      "state": "ok",
       "url": "https://wic12.blogspot.com/2026/11/phone-usb-charging-only-file-transfer-fix.html"
     },
     "https://wic12.blogspot.com/2026/11/puffer-jacket-washing-machine-care-label-drying.html": {
@@ -4704,31 +4654,31 @@
     "screenshot_count": 0,
     "status": "partial"
   },
-  "run_id": "43181730348",
+  "run_id": "43683746392",
   "schema": 1,
   "sites": [
     {
       "base": "https://wic12.blogspot.com/",
       "checked_count": 198,
       "id": "byeol",
-      "inconclusive_count": 83,
+      "inconclusive_count": 79,
       "issue_count": 3,
       "name": "별셈소",
-      "pending_count": 49,
-      "published_count": 247
+      "pending_count": 61,
+      "published_count": 259
     },
     {
       "base": "https://qevnaxori.blogspot.com/",
-      "checked_count": 126,
+      "checked_count": 129,
       "id": "nobody",
-      "inconclusive_count": 69,
+      "inconclusive_count": 63,
       "issue_count": 5,
       "name": "Nobody Asked Data",
-      "pending_count": 0,
-      "published_count": 126
+      "pending_count": 3,
+      "published_count": 132
     }
   ],
-  "updated_at": "2026-11-12T08:19:03+00:00",
+  "updated_at": "2026-11-15T06:05:53+00:00",
   "viewport_widths": [
     320,
     360,
