@@ -80,6 +80,16 @@
         "clicks": 0,
         "date": "2026-11-12",
         "impressions": 1
+      },
+      {
+        "clicks": 0,
+        "date": "2026-11-13",
+        "impressions": 3
+      },
+      {
+        "clicks": 0,
+        "date": "2026-11-14",
+        "impressions": 5
       }
     ],
     "low_ctr_query_count": 0,
@@ -89,6 +99,11 @@
         "reason": "노출 대비 클릭률이 낮은 글",
         "title": "2026 서울 10월·11월 행사 일정｜가을축제·먹거리·전시 방문 전 확인사항",
         "url": "https://wic12.blogspot.com/2026/10/2026-seoul-october-november-events-guide.html"
+      },
+      {
+        "reason": "노출 대비 클릭률이 낮은 글",
+        "title": "2026 연말 콘서트 일정｜11월·12월 공연·티켓 가격·공식 예매 안내",
+        "url": "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html"
       }
     ],
     "query_rows_analyzed": 70,
@@ -96,22 +111,22 @@
     "status": "ok",
     "totals": {
       "clicks": 2,
-      "ctr_pct": 1.28,
-      "impressions": 156
+      "ctr_pct": 1.22,
+      "impressions": 164
     },
-    "updated_at": "2026-11-15T09:57:17+00:00",
+    "updated_at": "2026-11-16T10:11:54+00:00",
     "window": {
-      "from": "2026-10-19",
-      "to": "2026-11-15",
+      "from": "2026-10-20",
+      "to": "2026-11-16",
       "type": "daily API values"
     }
   },
-  "checked_date": "2026-11-15",
+  "checked_date": "2026-11-16",
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
   "stale": {
-    "checked_posts": 260,
-    "expired_count": 15,
+    "checked_posts": 264,
+    "expired_count": 18,
     "items": [
       {
         "context": " 전국 국립박물관 13곳 한가위 행사 국립중앙박물관 공식 발표에 따르면 전국 13개 국립박물관에서 9월 22일부터 30일까지 박물관별 일정에 맞춰 공연과 전통놀",
@@ -237,7 +252,7 @@
         "context": "사는 최대 40%로 안내됐으며, 실제 할인율은 판매처와 상품 조건을 확인해야 합니다. 농할상품권을 11월 15일까지 다 써야 하나요? 11월 15일은 이번",
         "deadline": "2026-11-15",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "upcoming",
+        "status": "expired",
         "title": "2026 김장재료 할인 언제까지? 코리아 그랜드 페스티벌 끝나도 배추·새우젓 할인받는 법",
         "url": "https://wic12.blogspot.com/2026/11/2026-kimjang-ingredients-discount-deadlines.html"
       },
@@ -245,7 +260,7 @@
         "context": "연과 공식 예매 안내 11월 14일 오전 기준, 남은 공연과 행사를 28개 항목으로 정리했습니다. 11월 14~15일 회차부터 확인하세요. 연말 콘서트를 고",
         "deadline": "2026-11-15",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "upcoming",
+        "status": "expired",
         "title": "2026 연말 콘서트 일정｜11월·12월 공연·티켓 가격·공식 예매 안내",
         "url": "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html"
       },
@@ -253,15 +268,15 @@
         "context": " 11월 15일 · 종료일과 참여 조건은 프로그램별로 다름 2026 코리아 그랜드 페스티벌 본행사 10월 29일 ~ 11월 15일 본행사 마감일은 11월 15일(일) 입",
         "deadline": "2026-11-15",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "upcoming",
+        "status": "expired",
         "title": "2026 코리아 그랜드 페스티벌 할인·쿠폰 어디서 받을까? 행사별 마감·확인 방법",
         "url": "https://wic12.blogspot.com/2026/10/2026-korea-grand-festival-discount-coupon-guide.html"
       }
     ],
     "note": "Potential dates only: context can be historical or already updated. Do not auto-edit posts.",
     "status": "ok",
-    "upcoming_count": 3,
-    "updated_at": "2026-11-15T09:57:19+00:00"
+    "upcoming_count": 0,
+    "updated_at": "2026-11-16T10:11:55+00:00"
   },
   "warnings": []
 }
