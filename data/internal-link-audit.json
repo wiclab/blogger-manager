@@ -1,17 +1,17 @@
 {
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "checked_at": "2026-11-09T07:58:26+00:00",
+  "checked_at": "2026-11-16T07:58:53+00:00",
   "status": "no_missing_targets_observed",
-  "live_posts_checked": 238,
-  "post_links_checked": 549,
-  "links_to_live_posts": 549,
+  "live_posts_checked": 263,
+  "post_links_checked": 759,
+  "links_to_live_posts": 759,
   "unlisted_target_count": 0,
   "affected_source_count": 0,
   "link_opportunities": {
-    "zero_body_inbound_count": 25,
-    "one_body_inbound_count": 107,
-    "candidate_total": 132,
+    "zero_body_inbound_count": 28,
+    "one_body_inbound_count": 94,
+    "candidate_total": 122,
     "candidates_truncated": false,
     "candidates": [
       {
@@ -79,9 +79,9 @@
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/09/atm-cash-not-taken-refund.html",
-        "title": "ATM에서 돈을 안 가져가면 자동으로 다시 입금될까?",
-        "published": "2026-09-07T10:57:06+09:00",
+        "url": "https://wic12.blogspot.com/2026/09/life-experiment-001-monday-multiple-endings.html",
+        "title": "생활실험 #001 — 월요일 07:30, 오늘 몇 시에 집에 갈까?",
+        "published": "2026-09-06T01:04:19+09:00",
         "inbound_from_other_posts": 0,
         "suggested_sources": [],
         "suggestions_found": 0
@@ -90,6 +90,14 @@
         "url": "https://wic12.blogspot.com/2026/09/pluck-leg-hair-will-it-stop-growing.html",
         "title": "다리털을 계속 뽑으면 언젠가는 안 날까? 핀셋 제모의 실제 원리",
         "published": "2026-09-10T22:14:11+09:00",
+        "inbound_from_other_posts": 0,
+        "suggested_sources": [],
+        "suggestions_found": 0
+      },
+      {
+        "url": "https://wic12.blogspot.com/2026/09/car-hacking-smart-key-digital-key-security.html",
+        "title": "자동차도 해킹될 수 있을까? 스마트키·차량 앱·디지털키 실제 위험 정리",
+        "published": "2026-09-15T23:40:16+09:00",
         "inbound_from_other_posts": 0,
         "suggested_sources": [],
         "suggestions_found": 0
@@ -122,6 +130,14 @@
         "url": "https://wic12.blogspot.com/2026/09/youth-future-savings-calculator-2026.html",
         "title": "청년미래적금 계산기｜월 납입액별 만기수령액·정부기여금 계산",
         "published": "2026-09-23T09:15:47+09:00",
+        "inbound_from_other_posts": 0,
+        "suggested_sources": [],
+        "suggestions_found": 0
+      },
+      {
+        "url": "https://wic12.blogspot.com/2026/09/fruit-rice-cake-two-hour-trip-storage-guide.html",
+        "title": "과일 찹쌀떡 사서 2시간 이동해도 될까? 보관 표시부터 집에 도착한 뒤까지",
+        "published": "2026-09-27T20:20:13+09:00",
         "inbound_from_other_posts": 0,
         "suggested_sources": [],
         "suggestions_found": 0
@@ -195,20 +211,8 @@
         "title": "전기·수소택시 타면 탄소중립포인트 받을까? 시행 안내·참여 조건 확인법",
         "published": "2026-11-03T08:12:47+09:00",
         "inbound_from_other_posts": 0,
-        "suggested_sources": [
-          {
-            "source": "https://wic12.blogspot.com/2026/10/2026-korea-grand-festival-discount-coupon-guide.html",
-            "source_title": "2026 코리아 그랜드 페스티벌, 할인·쿠폰 어디서 받을까? 일정·참여 방법",
-            "source_edit_url": "https://www.blogger.com/blog/post/edit/1659014803305858421/3900071281346941476",
-            "shared_terms": [
-              "받을까",
-              "참여"
-            ],
-            "shared_labels": [],
-            "confidence": "rare_title_term"
-          }
-        ],
-        "suggestions_found": 1
+        "suggested_sources": [],
+        "suggestions_found": 0
       },
       {
         "url": "https://wic12.blogspot.com/2026/11/finger-slammed-in-door-nail-bruise-first-aid.html",
@@ -220,25 +224,17 @@
       },
       {
         "url": "https://wic12.blogspot.com/2026/11/hangover-relief-headache-nausea-guide.html.html",
-        "title": "숙취 해소 빨리하는 ｜두통·속 울렁거림·구토 증상별 대처법",
+        "title": "숙취 해소 빨리하는 법｜두통·속 울렁거림·구토 증상별 대처법",
         "published": "2026-11-08T13:59:58+09:00",
         "inbound_from_other_posts": 0,
         "suggested_sources": [],
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/08/3.html",
-        "title": "매일 3분 줄이는 출퇴근 지하철 동선 최적화 방법",
-        "published": "2026-08-23T21:11:35+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/08/7_0774743741.html",
-        "title": "아침 시간을 여유롭게 만드는 방법 7가지｜하루 15분 절약 계산",
-        "published": "2026-08-25T20:24:28+09:00",
-        "inbound_from_other_posts": 1,
+        "url": "https://wic12.blogspot.com/2026/11/former-employer-withholding-tax-certificate-missing-2026.html",
+        "title": "이직했는데 전 직장 원천징수영수증 못 받았다면? 홈택스 조회·연말정산 해결법",
+        "published": "2026-11-13T07:42:57+09:00",
+        "inbound_from_other_posts": 0,
         "suggested_sources": [],
         "suggestions_found": 0
       },
@@ -287,17 +283,17 @@
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/09/life-experiment-001-monday-multiple-endings.html",
-        "title": "생활실험 #001 — 월요일 07:30, 오늘 몇 시에 집에 갈까?",
-        "published": "2026-09-06T01:04:19+09:00",
+        "url": "https://wic12.blogspot.com/2026/09/semiconductor-exports-drop-korea-total-exports.html",
+        "title": "반도체 수출 10% 줄면 한국 전체 수출은 얼마나 줄까?",
+        "published": "2026-09-06T09:36:00+09:00",
         "inbound_from_other_posts": 1,
         "suggested_sources": [],
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/09/semiconductor-exports-drop-korea-total-exports.html",
-        "title": "반도체 수출 10% 줄면 한국 전체 수출은 얼마나 줄까?",
-        "published": "2026-09-06T09:36:00+09:00",
+        "url": "https://wic12.blogspot.com/2026/09/atm-cash-not-taken-refund.html",
+        "title": "ATM에서 돈을 안 가져가면 자동으로 다시 입금될까?",
+        "published": "2026-09-07T10:57:06+09:00",
         "inbound_from_other_posts": 1,
         "suggested_sources": [],
         "suggestions_found": 0
@@ -311,41 +307,9 @@
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/09/google-nuclear-power-20-years-ai-electricity.html",
-        "title": "구글이 원전의 절반을 20년 동안 쓰면 전기가 얼마나 될까? 계산해봤습니다",
-        "published": "2026-09-10T08:55:12+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
         "url": "https://wic12.blogspot.com/2026/09/driving-after-drinking-weight-body-type.html",
         "title": "소주 한 병 마시고 12시간 자면 운전해도 될까? 체중·체질별로 따져봤다",
         "published": "2026-09-15T00:32:05+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/09/mister-trot-4-audition-video-one-vs-two-songs_01884627881.html",
-        "title": "미스터트롯4 지원영상 1곡 vs 2곡? 5분 구성·촬영·제출 체크리스트",
-        "published": "2026-09-15T14:59:38+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/09/car-hacking-smart-key-digital-key-security.html",
-        "title": "자동차도 해킹될 수 있을까? 스마트키·차량 앱·디지털키 실제 위험 정리",
-        "published": "2026-09-15T23:40:16+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/09/srt-korail-plus-integration-questions.html",
-        "title": "SRT가 없어졌는데 수서역 기차는 그대로? 코레일+ 통합 후 헷갈리는 8가지",
-        "published": "2026-09-16T12:39:54+09:00",
         "inbound_from_other_posts": 1,
         "suggested_sources": [],
         "suggestions_found": 0
@@ -431,25 +395,9 @@
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/09/fruit-rice-cake-two-hour-trip-storage-guide.html",
-        "title": "과일 찹쌀떡 사서 2시간 이동해도 될까? 보관 표시부터 집에 도착한 뒤까지",
-        "published": "2026-09-27T20:20:13+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
         "url": "https://wic12.blogspot.com/2026/09/google-maps-timeline-export-route-map.html",
         "title": "인스타에서 본 내 이동 경로 지도 만들기: 구글 타임라인 확인부터 파일 내보내기까지",
         "published": "2026-09-27T20:36:04+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/09/bus-phone-left-on-bus-what-to-do.html",
-        "title": "버스에 핸드폰 두고 내렸을 때? 10분 안에 해야 할 일부터 분실물 찾는 순서",
-        "published": "2026-09-28T22:29:31+09:00",
         "inbound_from_other_posts": 1,
         "suggested_sources": [],
         "suggestions_found": 0
@@ -514,14 +462,6 @@
         "url": "https://wic12.blogspot.com/2026/10/long-term-repair-reserve-refund-moving-out.html",
         "title": "이사할 때 장기수선충당금 돌려받는 방법, 세입자라면 관리비에서 꼭 확인하세요",
         "published": "2026-10-06T09:20:57+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/10/taxi-phone-lost-reward-dispatch-fee.html",
-        "title": "택시 휴대폰 분실 사례금·배차료, 꼭 줘야 할까? 안 받는다면 지급 여부와 반환 순서",
-        "published": "2026-10-07T12:28:43+09:00",
         "inbound_from_other_posts": 1,
         "suggested_sources": [],
         "suggestions_found": 0
@@ -599,14 +539,6 @@
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/10/shower-low-water-flow-check-hot-cold.html",
-        "title": "샤워기 수압이 갑자기 약해졌다면? 샤워기·온수·집 전체 확인 순서",
-        "published": "2026-10-12T13:29:18+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
         "url": "https://wic12.blogspot.com/2026/10/door-lock-dead-battery-emergency-power-guide.html",
         "title": "도어락 배터리 방전으로 문이 안 열릴 때｜비상전원·건전지 교체·출장 확인 순서",
         "published": "2026-10-12T13:57:48+09:00",
@@ -618,14 +550,6 @@
         "url": "https://wic12.blogspot.com/2026/10/2026-seoul-cafe-show-public-days-ticket-budget-guide.html",
         "title": "2026 서울카페쇼 일반인은 언제 갈까? 입장권 가격·관람시간·준비물·예산",
         "published": "2026-10-13T16:27:03+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/10/smartphone-lost-first-30-minutes-response.html",
-        "title": "휴대폰 잃어버렸을 때 30분 안에 해야 할 일｜유심·은행앱·간편결제 차단 순서",
-        "published": "2026-10-15T13:01:40+09:00",
         "inbound_from_other_posts": 1,
         "suggested_sources": [],
         "suggestions_found": 0
@@ -711,14 +635,6 @@
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/10/power-outage-fridge-freezer-food-safety-guide.html",
-        "title": "정전됐을 때 냉장고 음식 먹어도 될까? 냉장·냉동식품 버릴지 판단하는 기준",
-        "published": "2026-10-19T09:50:38+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
         "url": "https://wic12.blogspot.com/2026/10/circuit-breaker-keeps-tripping-leakage-overload-check.html",
         "title": "집에서 차단기가 자꾸 내려간다면? 누전·과부하·고장 구분하는 확인 순서",
         "published": "2026-10-19T10:06:36+09:00",
@@ -759,33 +675,9 @@
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/10/car-insurance-mileage-photo-renewal-timing.html",
-        "title": "자동차보험 갱신 전 주행거리 사진, 언제 찍어야 할까? 마일리지 할인 놓치지 않는 순서",
-        "published": "2026-10-20T09:27:05+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
         "url": "https://wic12.blogspot.com/2026/10/phone-battery-80-percent-charge-limit-guide.html",
         "title": "휴대폰 배터리 80% 충전 제한, 켜는 게 이득일까? 사용 패턴별 판단법",
         "published": "2026-10-20T17:56:24+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/10/mister-trot-4-broadcast-cast-official-viewing-guide.html",
-        "title": "미스터트롯4 방송일 12월 10일? 출연진·심사위원·투표·다시보기 총정리",
-        "published": "2026-10-21T22:05:09+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/10/appliance-service-visit-fee-without-repair.html",
-        "title": "가전 출장수리 불렀는데 고장이 아니라면? 수리 안 해도 출장비 내야 할까?",
-        "published": "2026-10-21T22:25:48+09:00",
         "inbound_from_other_posts": 1,
         "suggested_sources": [],
         "suggestions_found": 0
@@ -839,34 +731,6 @@
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/10/nintendo-switch-online-worth-it-expansion-pack.html",
-        "title": "스위치 온라인, 게임은 따로 사는데 왜 가입할까? 기본·추가 팩 선택 기준",
-        "published": "2026-10-25T19:31:46+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/10/2026-korea-grand-festival-discount-coupon-guide.html",
-        "title": "2026 코리아 그랜드 페스티벌, 할인·쿠폰 어디서 받을까? 일정·참여 방법",
-        "published": "2026-10-25T19:49:28+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [
-          {
-            "source": "https://wic12.blogspot.com/2026/11/electric-hydrogen-taxi-carbon-neutral-points.html",
-            "source_title": "전기·수소택시 타면 탄소중립포인트 받을까? 시행 안내·참여 조건 확인법",
-            "source_edit_url": "https://www.blogger.com/blog/post/edit/1659014803305858421/7926484040852532408",
-            "shared_terms": [
-              "받을까",
-              "참여"
-            ],
-            "shared_labels": [],
-            "confidence": "rare_title_term"
-          }
-        ],
-        "suggestions_found": 1
-      },
-      {
         "url": "https://wic12.blogspot.com/2026/10/blog-post_26.html",
         "title": "김장쓰레기 어떻게 버릴까? 배추·절임배추·쪽파 뿌리 분리배출법 (2026)",
         "published": "2026-10-26T09:48:41+09:00",
@@ -875,25 +739,9 @@
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/10/2027-suneung-day-commute-traffic-guide.html",
-        "title": "2027학년도 수능날 회사도 10시에 출근할까? 11월 19일 교통·차량 통제",
-        "published": "2026-10-26T11:19:46+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
         "url": "https://wic12.blogspot.com/2026/10/steam-game-not-launching-refund-check.html",
         "title": "스팀 게임 샀는데 실행이 안 된다면? 환불 신청 전 확인할 것",
         "published": "2026-10-26T20:32:46+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
-        "url": "https://wic12.blogspot.com/2026/10/salted-cabbage-20kg-kimjang-amount-guide.html",
-        "title": "절임배추 20kg 몇 포기? 김장 주문량과 가족별 준비 기준",
-        "published": "2026-10-27T11:08:13+09:00",
         "inbound_from_other_posts": 1,
         "suggested_sources": [],
         "suggestions_found": 0
@@ -1071,14 +919,6 @@
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/11/cash-receipt-self-issued-hometax-register.html",
-        "title": "현금영수증 안 받았는데? 자진발급 확인·홈택스 등록 방법",
-        "published": "2026-11-03T23:58:42+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
         "url": "https://wic12.blogspot.com/2026/11/humidifier-air-purifier-pm-spike-guide.html",
         "title": "가습기 켰더니 공기청정기 미세먼지 수치가 올라간다? 고장인지 확인하는 법",
         "published": "2026-11-04T00:13:15+09:00",
@@ -1095,14 +935,6 @@
         "suggestions_found": 0
       },
       {
-        "url": "https://wic12.blogspot.com/2026/11/2027-csat-glasses-ai-smartwatch-rules.html",
-        "title": "2027학년도 수능, 뿔테 안경도 안 될까? AI 안경·스마트워치 반입 주의사항",
-        "published": "2026-11-04T15:04:40+09:00",
-        "inbound_from_other_posts": 1,
-        "suggested_sources": [],
-        "suggestions_found": 0
-      },
-      {
         "url": "https://wic12.blogspot.com/2026/11/acne-picking-dark-spots-scars-vs-moles.html",
         "title": "여드름·딱지 계속 뜯으면 점이 될까? 검은 자국과 흉터의 차이",
         "published": "2026-11-04T22:06:21+09:00",
@@ -1114,6 +946,93 @@
         "url": "https://wic12.blogspot.com/2026/11/hipass-unpaid-toll-lookup-payment-guide.html",
         "title": "하이패스 요금이 안 빠졌다면? 미납통행료 조회·납부 방법과 10배 부과 기준",
         "published": "2026-11-09T13:20:22+09:00",
+        "inbound_from_other_posts": 1,
+        "suggested_sources": [],
+        "suggestions_found": 0
+      },
+      {
+        "url": "https://wic12.blogspot.com/2026/11/boiler-hot-water-works-heating-not-working.html",
+        "title": "보일러 온수는 잘 나오는데 바닥이 차갑다면? 난방 안 될 때 확인할 6가지",
+        "published": "2026-11-09T21:52:30+09:00",
+        "inbound_from_other_posts": 1,
+        "suggested_sources": [],
+        "suggestions_found": 0
+      },
+      {
+        "url": "https://wic12.blogspot.com/2026/11/2026-youth-national-technical-exam-fee-support.html",
+        "title": "2026 청년 국가기술자격시험 응시료 50% 지원｜대상·큐넷 신청방법·연 3회",
+        "published": "2026-11-10T13:24:38+09:00",
+        "inbound_from_other_posts": 1,
+        "suggested_sources": [],
+        "suggestions_found": 0
+      },
+      {
+        "url": "https://wic12.blogspot.com/2026/11/qnet-exam-cancellation-refund-guide-2026.html",
+        "title": "큐넷 원서접수 취소·환불 방법 2026｜100%·50% 환불 기간과 입금일",
+        "published": "2026-11-10T13:38:21+09:00",
+        "inbound_from_other_posts": 1,
+        "suggested_sources": [],
+        "suggestions_found": 0
+      },
+      {
+        "url": "https://wic12.blogspot.com/2026/11/unpaid-wages-resignation-unemployment-benefits.html",
+        "title": "월급 밀려서 퇴사하면 실업급여 받을 수 있을까? 2026 임금체불 인정 기준·신청방법",
+        "published": "2026-11-10T16:36:02+09:00",
+        "inbound_from_other_posts": 1,
+        "suggested_sources": [],
+        "suggestions_found": 0
+      },
+      {
+        "url": "https://wic12.blogspot.com/2026/11/credit-card-payment-checklist.html",
+        "title": "오늘 카드값, 지금 뭘 해야 할까? 결제일·미납·이중출금 확인표",
+        "published": "2026-11-13T20:22:01+09:00",
+        "inbound_from_other_posts": 1,
+        "suggested_sources": [
+          {
+            "source": "https://wic12.blogspot.com/2026/08/credit-card-payment-date-change.html",
+            "source_title": "신용카드 결제일 바꾸면 카드값 두 번 빠져나갈까?",
+            "source_edit_url": "https://www.blogger.com/blog/post/edit/1659014803305858421/208683918255232576",
+            "shared_terms": [
+              "결제일",
+              "카드값"
+            ],
+            "shared_labels": [],
+            "confidence": "rare_title_term"
+          },
+          {
+            "source": "https://wic12.blogspot.com/2026/09/auto-transfer-weekend-holiday-withdrawal.html",
+            "source_title": "자동이체일이 토요일·일요일·공휴일이면 언제 빠질까? 카드값·보험료·적금 출금일 확인표",
+            "source_edit_url": "https://www.blogger.com/blog/post/edit/1659014803305858421/6734752996179587204",
+            "shared_terms": [
+              "카드값",
+              "확인표"
+            ],
+            "shared_labels": [],
+            "confidence": "rare_title_term"
+          }
+        ],
+        "suggestions_found": 2
+      },
+      {
+        "url": "https://wic12.blogspot.com/2026/11/apartment-land-share-registry-check.html",
+        "title": "아파트 대지지분 확인하는 법｜등기부등본에서 내 땅 몫은 몇 평?",
+        "published": "2026-11-13T20:55:51+09:00",
+        "inbound_from_other_posts": 1,
+        "suggested_sources": [],
+        "suggestions_found": 0
+      },
+      {
+        "url": "https://wic12.blogspot.com/2026/11/reconstruction-contribution-calculation.html",
+        "title": "재건축 분담금은 어떻게 계산할까? 조합 안내문에서 볼 숫자 3개",
+        "published": "2026-11-13T21:11:29+09:00",
+        "inbound_from_other_posts": 1,
+        "suggested_sources": [],
+        "suggestions_found": 0
+      },
+      {
+        "url": "https://wic12.blogspot.com/2026/11/samsung-ai-glasses-korea-price-phone-compatibility.html",
+        "title": "삼성 AI 안경 65만 원부터｜12월 10일 출시, 내 갤럭시·아이폰도 될까?",
+        "published": "2026-11-15T02:22:47+09:00",
         "inbound_from_other_posts": 1,
         "suggested_sources": [],
         "suggestions_found": 0
