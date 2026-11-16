@@ -1,21 +1,21 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-15T23:06:13+00:00",
+    "last_successful_check_at": "2026-11-16T07:10:29+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": null,
+    "blocked_uncertain_count": 22,
+    "daily_quota_remaining_before": 100,
     "eligible_pending_count": 0,
-    "held_batches_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-15T17:22:31+00:00",
-    "monthly_quota_remaining_before": null,
+    "monthly_quota_remaining_before": 1500,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 0,
+    "pending_count": 22,
     "per_run_cap": 100,
-    "published_count": 260,
+    "published_count": 263,
     "queue_summary": {
       "changed_since_submission": 0,
       "first_time_pending": 0,
@@ -26,10 +26,23 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [],
+    "recent_pending": [
+      "https://wic12.blogspot.com/2026/09/fan-laundry-or-window-drying.html",
+      "https://wic12.blogspot.com/2026/09/bath-towel-how-many-times-before-washing.html",
+      "https://wic12.blogspot.com/2026/10/water-meter-freeze-prevention-apartment.html",
+      "https://wic12.blogspot.com/2026/10/electric-heating-pad-monthly-electricity-cost.html",
+      "https://wic12.blogspot.com/2026/10/car-warning-lights-clickable-guide.html",
+      "https://wic12.blogspot.com/2026/10/car-insurance-mileage-photo-renewal-timing.html",
+      "https://wic12.blogspot.com/2026/11/car-accident-fault-ratio-dispute-insurer-request.html",
+      "https://wic12.blogspot.com/2026/10/winter-car-windshield-fog-defrost-guide.html",
+      "https://wic12.blogspot.com/2026/10/window-condensation-mold-winter-apartment.html",
+      "https://wic12.blogspot.com/2026/10/one-keyboard-two-computers-switch-guide.html",
+      "https://wic12.blogspot.com/2026/08/7_01511384514.html",
+      "https://wic12.blogspot.com/2026/10/tire-pressure-warning-winter-check.html"
+    ],
     "state": "ok",
     "submitted_this_run": 0,
-    "tracked_submitted_count": 260
+    "tracked_submitted_count": 241
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -39,5 +52,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-15T23:06:13+00:00"
+  "updated_at": "2026-11-16T07:10:29+00:00"
 }
