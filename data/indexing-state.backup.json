@@ -1082,7 +1082,26 @@
     }
   },
   "google": {},
-  "held_batches": {},
+  "held_batches": {
+    "5450cd5f1ccb4bee859ec0a5ed1f45eb": {
+      "entries": [
+        {
+          "fingerprint": "2026-11-17T14:14:25Z",
+          "url": "https://wic12.blogspot.com/2026/10/ktx-train-ticket-two-month-booking.html"
+        },
+        {
+          "fingerprint": "2026-11-17T14:04:28Z",
+          "url": "https://wic12.blogspot.com/2026/10/disaster-alert-157-characters-emergency-safety.html"
+        },
+        {
+          "fingerprint": "2026-11-17T22:47:50.489+09:00",
+          "url": "https://wic12.blogspot.com/2026/11/2026-kimjang-ingredients-discount-deadlines.html"
+        }
+      ],
+      "prepared_at": "2026-11-17T22:36:20+00:00",
+      "status": "held"
+    }
+  },
   "sitemap_registered": false,
   "version": 1
 }
