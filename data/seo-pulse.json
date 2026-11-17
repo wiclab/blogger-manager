@@ -90,6 +90,11 @@
         "clicks": 0,
         "date": "2026-11-14",
         "impressions": 5
+      },
+      {
+        "clicks": 0,
+        "date": "2026-11-15",
+        "impressions": 3
       }
     ],
     "low_ctr_query_count": 0,
@@ -111,22 +116,22 @@
     "status": "ok",
     "totals": {
       "clicks": 2,
-      "ctr_pct": 1.22,
-      "impressions": 164
+      "ctr_pct": 1.2,
+      "impressions": 167
     },
-    "updated_at": "2026-11-16T10:11:54+00:00",
+    "updated_at": "2026-11-17T11:14:12+00:00",
     "window": {
-      "from": "2026-10-20",
-      "to": "2026-11-16",
+      "from": "2026-10-21",
+      "to": "2026-11-17",
       "type": "daily API values"
     }
   },
-  "checked_date": "2026-11-16",
+  "checked_date": "2026-11-17",
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
   "stale": {
-    "checked_posts": 264,
-    "expired_count": 18,
+    "checked_posts": 268,
+    "expired_count": 17,
     "items": [
       {
         "context": " 전국 국립박물관 13곳 한가위 행사 국립중앙박물관 공식 발표에 따르면 전국 13개 국립박물관에서 9월 22일부터 30일까지 박물관별 일정에 맞춰 공연과 전통놀",
@@ -165,7 +170,7 @@
         "deadline": "2026-10-16",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
         "status": "expired",
-        "title": "미스터트롯4 방송일 12월 10일? 출연진·심사위원·투표·다시보기 총정리",
+        "title": "미스터트롯4 첫 방송 12월 17일 밤 10시｜출연진·심사위원·투표·다시보기",
         "url": "https://wic12.blogspot.com/2026/10/mister-trot-4-broadcast-cast-official-viewing-guide.html"
       },
       {
@@ -199,14 +204,6 @@
         "status": "expired",
         "title": "디지털 온누리상품권 10% 할인｜11월 2~6일 구매 방법·사용처·절약액 계산",
         "url": "https://wic12.blogspot.com/2026/11/digital-onnuri-10-percent-november-2026.html"
-      },
-      {
-        "context": " 공식 서비스에서 점수 반영 상태를 살펴보는 것이 좋습니다. 2. 2026 롤드컵 8강 최종 결과 11월 4일부터 7일까지 진행된 8강 4경기는 모두 종료 됐",
-        "deadline": "2026-11-07",
-        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "expired",
-        "title": "2026 롤드컵 승부의 신 늦었을까? 토너먼트 예측 일정과 참여 방법",
-        "url": "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html"
       },
       {
         "context": "는 모두 한국에서 진행합니다. 서울 결승은 2023년 고척스카이돔 결승 이후 4년 만입니다. 수원 11월 2~7일과 서울 11월 13일은 지자체 발표를 ",
@@ -257,7 +254,7 @@
         "url": "https://wic12.blogspot.com/2026/11/2026-kimjang-ingredients-discount-deadlines.html"
       },
       {
-        "context": "연과 공식 예매 안내 11월 14일 오전 기준, 남은 공연과 행사를 28개 항목으로 정리했습니다. 11월 14~15일 회차부터 확인하세요. 연말 콘서트를 고",
+        "context": "입니다. 공식 일정상의 기록이며 실제 개최 여부를 확인한 후기는 아닙니다. 지난 공연 12개 보기 2026년 11월 13~15일 엑스디너리 히어로즈 〈IMPULSE〉 ",
         "deadline": "2026-11-15",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
         "status": "expired",
@@ -265,18 +262,18 @@
         "url": "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html"
       },
       {
-        "context": " 11월 15일 · 종료일과 참여 조건은 프로그램별로 다름 2026 코리아 그랜드 페스티벌 본행사 10월 29일 ~ 11월 15일 본행사 마감일은 11월 15일(일) 입",
+        "context": "확인 받아 둔 쿠폰 가격 비교 FAQ 지금 장보기 본행사 종료 후에도 남은 할인 일정 축제 전체는 10월 29일~11월 15일 에 열렸습니다. 수산물과 김장용 농축산",
         "deadline": "2026-11-15",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
         "status": "expired",
-        "title": "2026 코리아 그랜드 페스티벌 할인·쿠폰 어디서 받을까? 행사별 마감·확인 방법",
+        "title": "2026 코리아 그랜드 페스티벌 종료｜남은 김장 할인·상생소비복권 당첨 확인",
         "url": "https://wic12.blogspot.com/2026/10/2026-korea-grand-festival-discount-coupon-guide.html"
       }
     ],
     "note": "Potential dates only: context can be historical or already updated. Do not auto-edit posts.",
     "status": "ok",
     "upcoming_count": 0,
-    "updated_at": "2026-11-16T10:11:55+00:00"
+    "updated_at": "2026-11-17T11:14:14+00:00"
   },
   "warnings": []
 }
