@@ -1,83 +1,53 @@
 {
   "version": 1,
   "site": "https://wic12.blogspot.com/",
-  "generatedAt": "2026-11-16T18:41:25.776329+00:00",
-  "newsGeneratedAt": "2026-11-16T18:41:24.888626+00:00",
-  "newsCount": 237,
-  "postsChecked": 265,
+  "generatedAt": "2026-11-17T02:59:10.645241+00:00",
+  "newsGeneratedAt": "2026-11-17T02:59:09.488571+00:00",
+  "newsCount": 216,
+  "postsChecked": 267,
   "postCoverage": "complete",
-  "postExpectedCount": 263,
+  "postExpectedCount": 265,
   "scoring": "규칙 기반 편집 우선순위, 검색량/검색순위/사실 검증 결과가 아님",
   "ideas": [
     {
-      "id": "fa2fc270165084607e96ff1a",
-      "headline": "SK이터닉스, 태양광 구조화 규모 증가 수혜…\"산업용 전기요금 인상에 PPA 수요 급증\"",
+      "id": "9a0c526a826e3f047ea2734f",
+      "headline": "겨울 추위 앞둔 목욕·숙박업계 \"난방비에 전기요금 인상까지 겹칠라\" 한숨",
       "category": "경제",
-      "source": "프라임경제",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9oLVNMQmFiS2N0YjE4TFQtdVZMOWdpak9DbFIxOEZiRXVIM1B0YTd1ay1wOTU4V0l6WThRLVB6djBuMnY1ZTEyWDk1RHk1bUxRd1NRTThuU2gxX1FyWU1ZYlhIN3JuY2M4cTV1Nw?oc=5",
-      "publishedAt": "2026-11-15T23:04:32+00:00",
-      "score": 86,
+      "source": "와이드경제",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE8yNEJpQ3ZsWURaZzJiRGhNZlRoQlN3ZXZhdld4aTNuMmJFOHp3SnFJRktXWHpRckRnX2VqQWJTN21WdHBVWUVjZTFWSnVmS2hJRDRjMnQ1UU5iQWdxVllsc295dktqNVhVZXk4Xw?oc=5",
+      "publishedAt": "2026-11-17T01:51:48+00:00",
+      "score": 92,
       "reasons": [
-        "생활형 핵심어: 요금, 전기",
+        "생활형 핵심어: 요금, 전기, 난방",
         "변경·시점 표현: 인상"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "81f6c8f0d15d545f172fc170",
-      "headline": "중국산 전기차 보조금 수혜 확대…국내생산세액공제 입법 논의 골든타임 [안방 흔드는 中 공습]",
+      "id": "d4580ab0fff0106d12a79866",
+      "headline": "\"韓, 中 전기차 안방 됐다 아시아 최다 수출국\"…세액공제 시급",
       "category": "경제",
-      "source": "이투데이",
-      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFB5dDJfdUdjb0UxUHdCZnNIOEJXaVRjekRZOG5wcGZ0NXl1Q19keG52bVh4ckp2Ul8ycHFJSUhqTDRVRWxUajNrempIc0pkX0JBUTRlMg?oc=5",
-      "publishedAt": "2026-11-15T20:00:00+00:00",
-      "score": 86,
-      "reasons": [
-        "생활형 핵심어: 전기, 기차",
-        "변경·시점 표현: 확대"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "1fdc90e8e9fa3c2215b6f90e",
-      "headline": "[사설]석유 최고가격제-전기·가스요금 동결, 출구 전략은 어디에",
-      "category": "경제",
-      "source": "아시아경제",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9YWThVUjh2RWNFM3pyVGZzMXhDc2dIemFJMmlzUVhMOXZXQ2pPbFcyeTRDYVR3dWpDOEJSSkhRYUMyRmN6LTAyOGN3SjV6V0ZSRWJFbGt1dHcyRkdpVld6TQ?oc=5",
-      "publishedAt": "2026-11-16T02:00:00+00:00",
-      "score": 77,
-      "reasons": [
-        "생활형 핵심어: 요금, 가격, 전기"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "cc05ec0a84669778be04a93a",
-      "headline": "[확대경]지역방송의 재난방송 역할, 중앙정부 지원 필요",
-      "category": "경제",
-      "source": "강원일보",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBNRDVUNlpBTkl2LVZ3TWU0LXlkRVNCaGpnWERXUUZvcW9mUjNPZm1EMmV2TW1LM2RxV3c3X3dScVZOdTBLNVdEemRhUVlYNnpRSVkyazdReFhEOFU?oc=5",
-      "publishedAt": "2026-11-16T15:00:00+00:00",
-      "score": 75,
-      "reasons": [
-        "생활형 핵심어: 난방",
-        "변경·시점 표현: 확대"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "c871edd9759454070a74c877",
-      "headline": "[EE칼럼] 지금이 전기요금 올릴 때다",
-      "category": "경제",
-      "source": "에너지경제신문",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5BMHZ0Mk9ITWJvUmZnM0hLejJIOUJELWtCNGtUS2ViN0d2ZnU3emJocXltTVY1SWFscmV2SE1Cc0thdDRheV9Jc05Mai1SSU9vX2pxM1loVGFsTXc?oc=5",
-      "publishedAt": "2026-11-16T01:58:00+00:00",
+      "source": "뉴스1",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5ES2pidWR4VkJBN2E5cVUwX3k4NWhJWm1pZFVNM3N4c2VZTThvMDV3Z2tLcy1sVjBJX2lmcDZxU3I1c1pMSGlaZnp1MkJlNm1qSjhQQTJhYThMVkNiT3RURQ?oc=5",
+      "publishedAt": "2026-11-17T02:41:03+00:00",
       "score": 71,
       "reasons": [
-        "생활형 핵심어: 요금, 전기"
+        "생활형 핵심어: 전기, 기차"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "dc60700e31a18c70d8063a64",
+      "headline": "10월 글로벌 전기차 판매 209만대…전년 대비 8% 증가",
+      "category": "경제",
+      "source": "한국무역협회-KITA.NET",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNUW5XN2hvVmY0ZVdWeWRTQ0F2YnJQT2xhcUxlekdQUUgyUmx6a1lfM0dYSGZJQUdVVll3MkZMcFE5aTVVWkczR0R5TzhKZjR5QUxmMUJiU2JhX0ZYWlgyZWNHdFBpR2ZsSTlpV1UwNEJsU3pLajRQQTZETnktaDdVTDl4SjdVcVhKdDd5RGpTaWdvZ3JPY0lQejNlRmw4UjFlMWdOUGxTME5CVG0yTW5CM0YwcURaSXdxWGhfOTFoOXhKeXJQQnVKVmNncWZDNlgyS1BLMTZB?oc=5",
+      "publishedAt": "2026-11-17T00:50:58+00:00",
+      "score": 71,
+      "reasons": [
+        "생활형 핵심어: 전기, 기차"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
@@ -97,114 +67,43 @@
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "d9d28cc41a69a7c987c8e482",
-      "headline": "대전시설관리공단, 연간 전기요금 4억 원 이상 절감…에너지효율 개선 성과 인정",
+      "id": "1115ae33bbd24d2343bc3c5d",
+      "headline": "中 전기차 수출 '세계 4위·아시아 1위' 된 한국…국회, 국내생산세액공제 추가 '본격 논의'",
       "category": "경제",
-      "source": "충청시사신문",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1NUW5pMDc2UEtyQ3pPWDVtSU5uSkJPb3JOaHNDSWw4QzZSQ0RRS0xJV0pJYjh1OHl3cXF1dVVkRm9BQnNvWnpQZmxLc2xiYml0RU5mYVRyLWRGNEJYQkNieV8wNWFaUjh3NE5R?oc=5",
-      "publishedAt": "2026-11-16T04:31:11+00:00",
+      "source": "전자신문",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBMNUhPUTlQSmVJUWFCYnRSckNudG1QbXgxOHR4MWtEdm1Rd2xyS3VKLXhqU3VscHprZ29ZODhYbXk1dkdyc3MzdGRmV3lVQQ?oc=5",
+      "publishedAt": "2026-11-17T01:23:32+00:00",
       "score": 71,
       "reasons": [
-        "생활형 핵심어: 요금, 전기"
+        "생활형 핵심어: 전기, 기차"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "109c2ba9740a44a4a5dda485",
-      "headline": "데이터센터, 주민 마음 얻으려면…\"전기요금 낮출 해법부터\" - 머니투데이",
+      "id": "0b8f3547525bac91e2dc5326",
+      "headline": "에쓰오일, 에너지 취약계층 겨울철 난방비 지원금 2억 2000만원 후원",
       "category": "경제",
-      "source": "머니투데이",
-      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1VZ0pkNmdOaWVRVTdGMEVuUzRzQmxQNmFBbEFsanZZSktiTWRrMXF0dHBfb2lRbHk3LUdzdjRZS1A3NktOYXBzTzBxaUxCY3RLODlrUUJxcmVnODg5VmpCOEd0U2lWMUR4OHR0SDVSZGVfTTdUcmhBLXdB0gF_QVVfeXFMT0JzZm1JSmE2ZWU0aklXRFV3TDJSQ0owTGZRWjM3ZGVyMGR3MWNEQVUzT2xoR2tUSHBId2VnSnZETEdKdjlPMlhGSW5NSmpkM3U5VnFpaV9UTld3bUN2aHlzeWNoVGpZdnJzaFljN0Nzb3g0dVJmZmRWblVWOG9MMA?oc=5",
-      "publishedAt": "2026-11-15T20:10:00+00:00",
+      "source": "뉴스1",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBzOC1HdGlNa2JHYVFqT1VHcXhDZ1NmR0FFLVlOYkVndUlCT2tKamFpM3EyOXFnNG9qTW00Y1RpeFhmVHlrTWhyanludHljZG00b2FNRGdnTEIwb3ZETlVqMGpCdmg?oc=5",
+      "publishedAt": "2026-11-17T01:14:16+00:00",
       "score": 71,
       "reasons": [
-        "생활형 핵심어: 요금, 전기"
+        "생활형 핵심어: 지원금, 난방"
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     },
     {
-      "id": "ed7d859cbd1d7237baaa7d28",
-      "headline": "부산시, 영구임대주택 낡은 조명 무상 교체…취약계층 전기요금 부담 줄인다",
+      "id": "294c81e17ae6178bd3e05db1",
+      "headline": "(라이프) 보일러 1도 낮추면 얼마나 아낄까…난방비 절약습관",
       "category": "경제",
-      "source": "코리아이글뉴스",
-      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9QZlNPTktESW5uaG4xT2duWTA2bWZZVU56ejgtSm9nMy1NeTVTYVFZb3pscGhXeW1vbmM0dTB4WDFnZmFuYnBTT1JTWkxZRWc3MWs5cWhRamZ5TUFrOXVWb2RfNDBhblBMZk1zdDJxQ1RxVTA?oc=5",
-      "publishedAt": "2026-11-16T02:35:00+00:00",
-      "score": 71,
+      "source": "전기신문",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE54Z3ZfY2V5YzZRWkd1VHl6RU1RY1BQelE5eTlmbDVJek40N2hLT2pUa1M4dUJYNXctSWRlX0JaZ21yUkFXeWUxSFZfeDRrMnNITUJKb1VBblIyVXdzalpCRGM3SjhjWVlEbnFXNdIBcEFVX3lxTE81bGRDWHRpMVNzVm0ta05hWEpBb2hxXzFtaURVd0FUZ1JJMEZZaXVqTXlqa05EeTlmekVZeGZnWjFuUHQxdjBxako4ZGlFLXZSTVlJaFdwR1N3TFFuVXNIdHBhdGc4NUJtbFdUYXh4NGM?oc=5",
+      "publishedAt": "2026-11-16T23:57:33+00:00",
+      "score": 70,
       "reasons": [
-        "생활형 핵심어: 요금, 전기"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "c70b1cd27be2a5c05d4330ee",
-      "headline": "서울시의회 오현주 의원, 친환경급식비로 전기ㆍ가스요금까지…해마다 점검해도 부적정 집행 반복",
-      "category": "경제",
-      "source": "코리아투데이뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE5zLTRvbXJwT0NfODBEYndUUEctMEdQOUtaUkhVM3VYVUpnTnRsV0YzT19faDBRaGZ1TG1EeDctOWZQX1lHTHBJ?oc=5",
-      "publishedAt": "2026-11-16T03:43:00+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 요금, 전기"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "cb3427003a0b3c1cd8a45899",
-      "headline": "오현주 시의원 “친환경급식비로 전기·가스요금까지…부적정 집행 2년 새 65% 증가”",
-      "category": "경제",
-      "source": "서울뉴스통신",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1uRU15dDZmeWNTbGJ1Ty1ROVkwTUxTeHdmNV9ESWdBVFcxSDRSOHdlU1JGZnEteVE4U1diak9BLXczZ1J2Zjg3WUZHODF3SC1yeEd2RjhUMHZrcnNIUWtrVVFTRUxJUkNtZGVB?oc=5",
-      "publishedAt": "2026-11-16T01:53:21+00:00",
-      "score": 71,
-      "reasons": [
-        "생활형 핵심어: 요금, 전기"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "7cda4d5c2c7abda6756f7fa3",
-      "headline": "전기차 불타고 스마트폰 폭발…배터리 압력이 원인이었나",
-      "category": "기술·AI",
-      "source": "중앙일보",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBTUHlDZ1JLdkhxV0Z5WFBTZmd3WjQtR2NsUTBpd080eWF6cUhjM0NPWm9uMHdlVE9XR0dyaDY5WWF6WW5EYXNRTzE2bkFQalY1TWR3NHFB?oc=5",
-      "publishedAt": "2026-11-16T04:21:24+00:00",
-      "score": 68,
-      "reasons": [
-        "생활형 핵심어: 전기, 기차, 배터리"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "0e7856f0640f6dbfcd5f7d01",
-      "headline": "독감·코로나 백신 함께 맞으면 이상반응 늘까…동시접종의 안전성과 기준",
-      "category": "생활·건강",
-      "source": "바이오타임즈",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE96Y2pyZWIteW5YaUdjU3RoUUhKRHVTQlROVXVXUmhGM09LbThoM2hYZUxfMFZ5RTQ2a253S1BhWWFmYmtJM00yd0w3SWNQUHZvUlJqVHNpTy1NSnM2N2Jpc25CeGlZMF83RU40WA?oc=5",
-      "publishedAt": "2026-11-16T06:37:43+00:00",
-      "score": 65,
-      "reasons": [
-        "생활형 핵심어: 안전",
-        "독자 질문으로 확장 가능"
-      ],
-      "relatedPosts": [],
-      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
-    },
-    {
-      "id": "550fff716854a5575abf51cf",
-      "headline": "미 법원, 삼성·하이닉스 ’D램 담합소송 중지 신청’ 기각",
-      "category": "경제",
-      "source": "연합뉴스TV",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5PYWs4Zl9OcHdjVWVqYnlDU3RJenlsZHFJZDVHaEdCOGR1N2dVSWx1aEg0M2ZxYnAxdl9vT0tjZXFrQVR3Z2M3X181bjNIcXlCVEJIano5MXRfcnBUMVNoeE1KZERTYnc?oc=5",
-      "publishedAt": "2026-11-16T08:15:00+00:00",
-      "score": 65,
-      "reasons": [
-        "생활형 핵심어: 신청",
+        "생활형 핵심어: 난방",
         "독자 질문으로 확장 가능"
       ],
       "relatedPosts": [],
@@ -224,10 +123,25 @@
       ],
       "relatedPosts": [],
       "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
+    },
+    {
+      "id": "cb2bec2768095483c7df0ec1",
+      "headline": "영국 NHS, ‘GTA6’ 출시 앞두고 \"게임 중 틈틈이 쉬어야\" 당부",
+      "category": "한국",
+      "source": "지디넷코리아",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9SR3l3blFMaFVZNTFYX2Z4VTVQS2FHWnhydHd6dnEyQjRJb0FMNDQ3SWxOUEJwWk5CdmZ0WXpocXFjR2FFUWJCMDRTcVNEZTVhTGZ1SFd3?oc=5",
+      "publishedAt": "2026-11-17T00:29:04+00:00",
+      "score": 65,
+      "reasons": [
+        "생활형 핵심어: 게임",
+        "변경·시점 표현: 출시"
+      ],
+      "relatedPosts": [],
+      "reason": "독자 질문형 신규 글감 후보. 중복·사실관계 추가 확인 필요."
     }
   ],
   "updates": [],
   "note": "검토용 제안. 기사나 공공 정책의 내용은 공식 원문으로 다시 확인하세요. 자동 수정·발행하지 않습니다.",
-  "primaryNewsCount": 196,
-  "focusedNewsCount": 41
+  "primaryNewsCount": 177,
+  "focusedNewsCount": 39
 }
