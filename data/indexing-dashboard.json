@@ -1,21 +1,21 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-17T03:06:00+00:00",
+    "last_successful_check_at": "2026-11-17T13:46:44+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": 100,
+    "blocked_uncertain_count": 17,
+    "daily_quota_remaining_before": 92,
     "eligible_pending_count": 0,
-    "held_batches_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-17T03:06:00+00:00",
-    "monthly_quota_remaining_before": 1400,
+    "monthly_quota_remaining_before": 1392,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 0,
+    "pending_count": 17,
     "per_run_cap": 100,
-    "published_count": 267,
+    "published_count": 268,
     "queue_summary": {
       "changed_since_submission": 0,
       "first_time_pending": 0,
@@ -26,10 +26,23 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [],
+    "recent_pending": [
+      "https://wic12.blogspot.com/2026/10/water-meter-freeze-prevention-apartment.html",
+      "https://wic12.blogspot.com/2026/11/2027-csat-glasses-ai-smartwatch-rules.html",
+      "https://wic12.blogspot.com/2026/10/2027-suneung-day-commute-traffic-guide.html",
+      "https://wic12.blogspot.com/2026/11/2026-csat-student-discounts-2027.html",
+      "https://wic12.blogspot.com/2026/11/2026-card-tax-deduction-25-percent-calculator.html",
+      "https://wic12.blogspot.com/2026/10/avengers-doomsday-marvel-timeline-watch-time-guide.html",
+      "https://wic12.blogspot.com/2026/11/avengers-doomsday-korea-green-carpet-2026.html",
+      "https://wic12.blogspot.com/2026/11/kimchi-fridge-kimchi-freezing-storage-mode.html",
+      "https://wic12.blogspot.com/2026/11/credit-card-one-day-late-payment-interest-credit-score.html",
+      "https://wic12.blogspot.com/2026/10/2026-worlds-lck-swiss-schedule.html",
+      "https://wic12.blogspot.com/2026/10/worlds-2026-pickems-late-start-knockout-guide.html",
+      "https://wic12.blogspot.com/2026/11/mister-trot-4-audience-application-guide.html"
+    ],
     "state": "ok",
-    "submitted_this_run": 7,
-    "tracked_submitted_count": 267
+    "submitted_this_run": 0,
+    "tracked_submitted_count": 251
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -39,5 +52,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-17T03:06:00+00:00"
+  "updated_at": "2026-11-17T13:46:44+00:00"
 }
