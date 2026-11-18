@@ -95,6 +95,11 @@
         "clicks": 0,
         "date": "2026-11-15",
         "impressions": 3
+      },
+      {
+        "clicks": 0,
+        "date": "2026-11-16",
+        "impressions": 5
       }
     ],
     "low_ctr_query_count": 0,
@@ -116,22 +121,22 @@
     "status": "ok",
     "totals": {
       "clicks": 2,
-      "ctr_pct": 1.2,
-      "impressions": 167
+      "ctr_pct": 1.16,
+      "impressions": 172
     },
-    "updated_at": "2026-11-17T11:14:12+00:00",
+    "updated_at": "2026-11-18T10:46:05+00:00",
     "window": {
-      "from": "2026-10-21",
-      "to": "2026-11-17",
+      "from": "2026-10-22",
+      "to": "2026-11-18",
       "type": "daily API values"
     }
   },
-  "checked_date": "2026-11-17",
+  "checked_date": "2026-11-18",
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
   "stale": {
-    "checked_posts": 268,
-    "expired_count": 17,
+    "checked_posts": 271,
+    "expired_count": 15,
     "items": [
       {
         "context": " 전국 국립박물관 13곳 한가위 행사 국립중앙박물관 공식 발표에 따르면 전국 13개 국립박물관에서 9월 22일부터 30일까지 박물관별 일정에 맞춰 공연과 전통놀",
@@ -172,14 +177,6 @@
         "status": "expired",
         "title": "미스터트롯4 첫 방송 12월 17일 밤 10시｜출연진·심사위원·투표·다시보기",
         "url": "https://wic12.blogspot.com/2026/10/mister-trot-4-broadcast-cast-official-viewing-guide.html"
-      },
-      {
-        "context": "동신청 동의를 했더라도 증빙을 확인받는 방문 신청이 필요할 수 있으므로 관할 지자체에 문의하세요. 10월 31일까지 동의하지 못했거나 자동신청이 완료되지 ",
-        "deadline": "2026-10-31",
-        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "expired",
-        "title": "2027 스포츠강좌이용권 신청｜대상·월 10만 5천원·자동신청 확인",
-        "url": "https://wic12.blogspot.com/2026/10/2027-sports-voucher-application-guide.html"
       },
       {
         "context": "는 종료됐습니다. 2026년 추석 전후 임금체불 집중 청산 기간에 안내된 연 1.0% 한시 금리는 2026년 10월 31일까지 적용되는 내용이었습니다. 11월 이후 ",
@@ -230,7 +227,7 @@
         "url": "https://wic12.blogspot.com/2026/09/youth-future-savings-calculator-2026.html"
       },
       {
-        "context": " 사전등록 시 무료입장입니다. 등록 완료 여부와 적용 조건을 확인하세요. 서울건축박람회 공식 개요 11월 11일~14일 · 종료 ⑰ 서울카페쇼 장소: 코엑스 ",
+        "context": "30 요금: 당시 입장료는 10,000원이었고 사전등록 시 무료였습니다. 서울건축박람회 공식 개요 11월 11일~14일 · 종료 ⑰ 서울카페쇼 장소: 코엑스 ",
         "deadline": "2026-11-14",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
         "status": "expired",
@@ -244,14 +241,6 @@
         "status": "expired",
         "title": "2026 서울카페쇼 일반인은 언제 갈까? 입장권 가격·관람시간·준비물·예산",
         "url": "https://wic12.blogspot.com/2026/10/2026-seoul-cafe-show-public-days-ticket-budget-guide.html"
-      },
-      {
-        "context": "사는 최대 40%로 안내됐으며, 실제 할인율은 판매처와 상품 조건을 확인해야 합니다. 농할상품권을 11월 15일까지 다 써야 하나요? 11월 15일은 이번",
-        "deadline": "2026-11-15",
-        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "expired",
-        "title": "2026 김장재료 할인 언제까지? 코리아 그랜드 페스티벌 끝나도 배추·새우젓 할인받는 법",
-        "url": "https://wic12.blogspot.com/2026/11/2026-kimjang-ingredients-discount-deadlines.html"
       },
       {
         "context": "입니다. 공식 일정상의 기록이며 실제 개최 여부를 확인한 후기는 아닙니다. 지난 공연 12개 보기 2026년 11월 13~15일 엑스디너리 히어로즈 〈IMPULSE〉 ",
@@ -268,12 +257,20 @@
         "status": "expired",
         "title": "2026 코리아 그랜드 페스티벌 종료｜남은 김장 할인·상생소비복권 당첨 확인",
         "url": "https://wic12.blogspot.com/2026/10/2026-korea-grand-festival-discount-coupon-guide.html"
+      },
+      {
+        "context": " 지금 먼저 볼 혜택 11월 17일 추가 · 메가박스 영화 7,000원 , 월미바다열차 평일 반값 11월 21~22일에 끝나는 혜택 · 용인 10CM·소수빈",
+        "deadline": "2026-11-22",
+        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
+        "status": "upcoming",
+        "title": "2026 수능 수험생 할인 총정리｜2027학년도 수험표 혜택·무료입장·동반 할인",
+        "url": "https://wic12.blogspot.com/2026/11/2026-csat-student-discounts-2027.html"
       }
     ],
     "note": "Potential dates only: context can be historical or already updated. Do not auto-edit posts.",
     "status": "ok",
-    "upcoming_count": 0,
-    "updated_at": "2026-11-17T11:14:14+00:00"
+    "upcoming_count": 1,
+    "updated_at": "2026-11-18T10:46:06+00:00"
   },
   "warnings": []
 }
