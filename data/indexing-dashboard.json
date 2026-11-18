@@ -1,21 +1,21 @@
 {
   "automation": {
-    "last_successful_check_at": "2026-11-17T22:36:22+00:00",
+    "last_successful_check_at": "2026-11-18T03:50:56+00:00",
     "run_state": "ok",
     "schedule_expected_interval_hours": 2,
     "stale_after_hours": 5
   },
   "bing_submission": {
-    "blocked_uncertain_count": 0,
-    "daily_quota_remaining_before": 75,
+    "blocked_uncertain_count": 18,
+    "daily_quota_remaining_before": 100,
     "eligible_pending_count": 0,
-    "held_batches_count": 0,
+    "held_batches_count": 1,
     "last_successful_submission_at": "2026-11-17T22:36:22+00:00",
-    "monthly_quota_remaining_before": 1375,
+    "monthly_quota_remaining_before": 1300,
     "note": "Bing API URL receipt only. This does not prove crawling, indexing or visibility.",
-    "pending_count": 0,
+    "pending_count": 18,
     "per_run_cap": 100,
-    "published_count": 268,
+    "published_count": 269,
     "queue_summary": {
       "changed_since_submission": 0,
       "first_time_pending": 0,
@@ -26,10 +26,23 @@
       "recent_updated": 0,
       "without_modified_timestamp": 0
     },
-    "recent_pending": [],
+    "recent_pending": [
+      "https://wic12.blogspot.com/2026/09/water-purifier-rental-cancellation-fee.html",
+      "https://wic12.blogspot.com/2026/11/former-employer-withholding-tax-certificate-missing-2026.html",
+      "https://wic12.blogspot.com/2026/11/cash-receipt-self-issued-hometax-register.html",
+      "https://wic12.blogspot.com/2026/11/2026-card-tax-deduction-25-percent-calculator.html",
+      "https://wic12.blogspot.com/2026/11/2026-monthly-rent-tax-credit-documents.html",
+      "https://wic12.blogspot.com/2026/10/winter-car-battery-check.html",
+      "https://wic12.blogspot.com/2026/10/2026-black-friday-overseas-shopping-customs-checklist.html",
+      "https://wic12.blogspot.com/2026/10/2026-energy-voucher-winter-application-guide.html",
+      "https://wic12.blogspot.com/2026/10/boiler-away-mode-setting-guide.html",
+      "https://wic12.blogspot.com/2026/10/2027-sports-voucher-application-guide.html",
+      "https://wic12.blogspot.com/2026/10/2026-lodging-booking-license-check-november-12.html",
+      "https://wic12.blogspot.com/2026/11/puffer-jacket-washing-machine-care-label-drying.html"
+    ],
     "state": "ok",
-    "submitted_this_run": 3,
-    "tracked_submitted_count": 268
+    "submitted_this_run": 0,
+    "tracked_submitted_count": 251
   },
   "metric_definitions": {
     "clicks": "Visits from Bing search result clicks, not equal to indexed URLs",
@@ -39,5 +52,5 @@
   },
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
-  "updated_at": "2026-11-17T22:36:22+00:00"
+  "updated_at": "2026-11-18T03:50:56+00:00"
 }
