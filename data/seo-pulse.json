@@ -100,6 +100,11 @@
         "clicks": 0,
         "date": "2026-11-16",
         "impressions": 5
+      },
+      {
+        "clicks": 0,
+        "date": "2026-11-17",
+        "impressions": 9
       }
     ],
     "low_ctr_query_count": 0,
@@ -121,22 +126,22 @@
     "status": "ok",
     "totals": {
       "clicks": 2,
-      "ctr_pct": 1.16,
-      "impressions": 172
+      "ctr_pct": 1.1,
+      "impressions": 181
     },
-    "updated_at": "2026-11-18T10:46:05+00:00",
+    "updated_at": "2026-11-19T10:47:20+00:00",
     "window": {
-      "from": "2026-10-22",
-      "to": "2026-11-18",
+      "from": "2026-10-23",
+      "to": "2026-11-19",
       "type": "daily API values"
     }
   },
-  "checked_date": "2026-11-18",
+  "checked_date": "2026-11-19",
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
   "stale": {
-    "checked_posts": 271,
-    "expired_count": 15,
+    "checked_posts": 272,
+    "expired_count": 16,
     "items": [
       {
         "context": " 전국 국립박물관 13곳 한가위 행사 국립중앙박물관 공식 발표에 따르면 전국 13개 국립박물관에서 9월 22일부터 30일까지 박물관별 일정에 맞춰 공연과 전통놀",
@@ -155,12 +160,20 @@
         "url": "https://wic12.blogspot.com/2026/09/mister-trot-4-audition-video-one-vs-two-songs_01884627881.html"
       },
       {
+        "context": "축산물 할인 9월 3~30일 참여 매장의 국산 신선 농축산물 최대 40% 할인 수산대전 추석특별전 10월 4일까지 대형마트·전통시장·온라인몰 등의 수산물",
+        "deadline": "2026-10-04",
+        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
+        "status": "expired",
+        "title": "2026 추석 장보기 할인 기록｜종료된 할인·환급 조건과 계산법",
+        "url": "https://wic12.blogspot.com/2026/08/2026-chuseok-grocery-discounts-refunds.html"
+      },
+      {
         "context": " 승차권 예매 기간 확대 2026년 10월부터 통신사 최적요금제 안내, 청년특례 전세대출보증 확대 10월 6~8일 여권 묶음배송, 임금체불 사업주 처벌 ",
         "deadline": "2026-10-08",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
         "status": "expired",
         "title": "2026년 10월부터 달라지는 생활제도 10가지｜기차표·통신비·청년 전세대출·양육비 총정리",
-        "url": "https://wic12.blogspot.com/2026/10/october-2026-changes-living-policy.html.html"
+        "url": "https://wic12.blogspot.com/2026/10/october-2026-changes-living-policy.html"
       },
       {
         "context": "날 종료 일정 안내 종료된 2026년 행사·혜택 기록입니다. 개천절·한글날 연휴(10월 3~5일, 10월 9~11일) 중심의 방문 일정은 종료됐습니다. 일",
@@ -179,20 +192,20 @@
         "url": "https://wic12.blogspot.com/2026/10/mister-trot-4-broadcast-cast-official-viewing-guide.html"
       },
       {
+        "context": " 받으려는 경우 등에는 통장사본을 요청받을 수 있습니다. 11월에 신청한다면 월 단위 지급의 경우 8월 1일부터 10월 31일까지 양육비가 들어오기로 한 계좌의 거래",
+        "deadline": "2026-10-31",
+        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
+        "status": "expired",
+        "title": "2026 양육비 선지급제 소득기준 폐지 | 월 최대 20만 원 신청 조건과 서류",
+        "url": "https://wic12.blogspot.com/2026/10/child-support-advance-payment-income-limit-abolished.html"
+      },
+      {
         "context": "는 종료됐습니다. 2026년 추석 전후 임금체불 집중 청산 기간에 안내된 연 1.0% 한시 금리는 2026년 10월 31일까지 적용되는 내용이었습니다. 11월 이후 ",
         "deadline": "2026-10-31",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
         "status": "expired",
         "title": "월급이 안 들어왔는데 기다리라고 한다면? 임금체불 증거·신고·대지급금 순서",
         "url": "https://wic12.blogspot.com/2026/10/unpaid-salary-evidence-complaint-payment-guide.html"
-      },
-      {
-        "context": " 최신 공지에서 확인해 주세요. 안내 정리: 2026년 10월 22일. 추석 행사와 별개로 안내된 2026년 11월 2~6일 디지털 온누리상품권 10% 특별판매와 ",
-        "deadline": "2026-11-06",
-        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
-        "status": "expired",
-        "title": "2026 추석 장보기 할인 기록｜종료된 할인·환급 조건과 계산법",
-        "url": "https://wic12.blogspot.com/2026/08/40.html"
       },
       {
         "context": "디지털 온누리상품권 10% 할인｜11월 2~6일 구매 방법·사용처·절약액 계산 생활정보",
@@ -259,18 +272,26 @@
         "url": "https://wic12.blogspot.com/2026/10/2026-korea-grand-festival-discount-coupon-guide.html"
       },
       {
-        "context": " 지금 먼저 볼 혜택 11월 17일 추가 · 메가박스 영화 7,000원 , 월미바다열차 평일 반값 11월 21~22일에 끝나는 혜택 · 용인 10CM·소수빈",
+        "context": "은 브랜드라도 지점마다 할인 기간이나 사용 방법이 다를 수 있으니 방문할 곳의 조건을 확인하세요. 11월 19~22일 먼저 볼 혜택 19일부터 강화 옥토끼우",
         "deadline": "2026-11-22",
         "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
         "status": "upcoming",
         "title": "2026 수능 수험생 할인 총정리｜2027학년도 수험표 혜택·무료입장·동반 할인",
         "url": "https://wic12.blogspot.com/2026/11/2026-csat-student-discounts-2027.html"
+      },
+      {
+        "context": "족할 때 따로 신청하는 제도입니다. 두 신청 절차 바로 보기 11월 27일부터 무엇이 달라지나요? 2026년 11월 26일까지 연간 최대 6일 중 최초 2일 유급 2",
+        "deadline": "2026-11-26",
+        "reason": "본문에 종료/행사 기간으로 보이는 날짜 발견 · 사실 확인 필요",
+        "status": "upcoming",
+        "title": "난임치료휴가 4일 유급, 2026년 11월 27일부터 달라지는 기준",
+        "url": "https://wic12.blogspot.com/2026/10/infertility-treatment-leave-paid-days-2026.html"
       }
     ],
     "note": "Potential dates only: context can be historical or already updated. Do not auto-edit posts.",
     "status": "ok",
-    "upcoming_count": 1,
-    "updated_at": "2026-11-18T10:46:06+00:00"
+    "upcoming_count": 2,
+    "updated_at": "2026-11-19T10:47:21+00:00"
   },
   "warnings": []
 }
