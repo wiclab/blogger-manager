@@ -565,8 +565,8 @@
       "submitted_at": "2026-11-19T13:47:53+00:00"
     },
     "https://wic12.blogspot.com/2026/10/circuit-breaker-keeps-tripping-leakage-overload-check.html": {
-      "fingerprint": "2026-11-18T22:50:18.565+09:00",
-      "submitted_at": "2026-11-18T22:15:30+00:00"
+      "fingerprint": "2026-11-18T13:50:18Z",
+      "submitted_at": "2026-11-19T22:23:33+00:00"
     },
     "https://wic12.blogspot.com/2026/10/credit-card-double-withdrawal-after-instant-payment.html": {
       "fingerprint": "2026-11-18T08:04:50Z",
@@ -817,12 +817,12 @@
       "submitted_at": "2026-11-11T09:48:09+00:00"
     },
     "https://wic12.blogspot.com/2026/10/steam-game-not-launching-refund-check.html": {
-      "fingerprint": "2026-11-18T19:03:47.744+09:00",
-      "submitted_at": "2026-11-18T13:22:11+00:00"
+      "fingerprint": "2026-11-20T07:18:13.827+09:00",
+      "submitted_at": "2026-11-19T22:23:33+00:00"
     },
     "https://wic12.blogspot.com/2026/10/steam-standard-deluxe-bundle-edition-guide.html": {
-      "fingerprint": "2026-11-18T21:50:47.588+09:00",
-      "submitted_at": "2026-11-18T13:22:11+00:00"
+      "fingerprint": "2026-11-20T07:17:50.025+09:00",
+      "submitted_at": "2026-11-19T22:23:33+00:00"
     },
     "https://wic12.blogspot.com/2026/10/stiff-towels-after-washing-fabric-softener-checklist.html": {
       "fingerprint": "2026-11-19T12:39:14Z",
@@ -1040,6 +1040,10 @@
       "fingerprint": "2026-11-04T14:25:53.014+09:00",
       "submitted_at": "2026-11-04T06:55:29+00:00"
     },
+    "https://wic12.blogspot.com/2026/11/gstar-2026-steam-sale-demo-guide.html": {
+      "fingerprint": "2026-11-20T06:52:37.220+09:00",
+      "submitted_at": "2026-11-19T22:23:33+00:00"
+    },
     "https://wic12.blogspot.com/2026/11/hangover-relief-headache-nausea-guide.html": {
       "fingerprint": "2026-11-19T09:32:15.646+09:00",
       "submitted_at": "2026-11-19T03:48:06+00:00"
@@ -1142,30 +1146,7 @@
     }
   },
   "google": {},
-  "held_batches": {
-    "3295ccf334f94475bf1173727ffd2b4e": {
-      "entries": [
-        {
-          "fingerprint": "2026-11-20T06:52:37.220+09:00",
-          "url": "https://wic12.blogspot.com/2026/11/gstar-2026-steam-sale-demo-guide.html"
-        },
-        {
-          "fingerprint": "2026-11-20T07:18:13.827+09:00",
-          "url": "https://wic12.blogspot.com/2026/10/steam-game-not-launching-refund-check.html"
-        },
-        {
-          "fingerprint": "2026-11-20T07:17:50.025+09:00",
-          "url": "https://wic12.blogspot.com/2026/10/steam-standard-deluxe-bundle-edition-guide.html"
-        },
-        {
-          "fingerprint": "2026-11-18T13:50:18Z",
-          "url": "https://wic12.blogspot.com/2026/10/circuit-breaker-keeps-tripping-leakage-overload-check.html"
-        }
-      ],
-      "prepared_at": "2026-11-19T22:23:31+00:00",
-      "status": "held"
-    }
-  },
+  "held_batches": {},
   "sitemap_registered": false,
   "version": 1
 }
