@@ -1,196 +1,644 @@
 {
-  "generatedAt": "2026-11-18T07:42:23.855675+00:00",
-  "date": "2026-11-18",
+  "generatedAt": "2026-11-19T01:54:48.132725+00:00",
+  "date": "2026-11-19",
   "windowHours": 24,
   "failedCategories": [],
   "quality": {
     "version": 1,
-    "rawFetched": 205,
-    "uniqueAfterDedup": 189,
-    "published": 189,
-    "removedAsDuplicate": 16,
+    "rawFetched": 187,
+    "uniqueAfterDedup": 172,
+    "published": 172,
+    "removedAsDuplicate": 15,
     "truncatedAtCap": 0,
-    "distinctSources": 75,
-    "topSourceCount": 15,
+    "distinctSources": 66,
+    "topSourceCount": 17,
     "categories": {
       "한국": {
-        "fetched": 33,
+        "fetched": 34,
         "displayed": 22,
         "uniqueSources": 15,
-        "newestPublishedAt": "2026-11-18T07:31:08+00:00"
+        "newestPublishedAt": "2026-11-19T01:40:00+00:00"
       },
       "해외": {
-        "fetched": 26,
-        "displayed": 25,
-        "uniqueSources": 14,
-        "newestPublishedAt": "2026-11-18T07:17:00+00:00"
+        "fetched": 21,
+        "displayed": 21,
+        "uniqueSources": 13,
+        "newestPublishedAt": "2026-11-19T01:29:33+00:00"
       },
       "경제": {
-        "fetched": 49,
-        "displayed": 45,
-        "uniqueSources": 23,
-        "newestPublishedAt": "2026-11-18T06:49:23+00:00"
+        "fetched": 46,
+        "displayed": 44,
+        "uniqueSources": 27,
+        "newestPublishedAt": "2026-11-19T01:26:00+00:00"
       },
       "기술·AI": {
-        "fetched": 23,
-        "displayed": 23,
+        "fetched": 16,
+        "displayed": 16,
         "uniqueSources": 10,
-        "newestPublishedAt": "2026-11-18T05:39:00+00:00"
+        "newestPublishedAt": "2026-11-19T00:23:10+00:00"
       },
       "문화": {
-        "fetched": 38,
-        "displayed": 38,
-        "uniqueSources": 23,
-        "newestPublishedAt": "2026-11-18T06:48:57+00:00"
+        "fetched": 43,
+        "displayed": 42,
+        "uniqueSources": 19,
+        "newestPublishedAt": "2026-11-19T01:40:00+00:00"
       },
       "생활·건강": {
-        "fetched": 36,
-        "displayed": 36,
-        "uniqueSources": 25,
-        "newestPublishedAt": "2026-11-18T06:35:00+00:00"
+        "fetched": 27,
+        "displayed": 27,
+        "uniqueSources": 21,
+        "newestPublishedAt": "2026-11-19T01:24:00+00:00"
       }
     },
     "note": "RSS headline counts only; source diversity is not independent fact verification. Duplicate similarity is approximate; monetary, date and outcome differences are conservatively preserved."
   },
   "items": [
     {
-      "title": "비상도민회의 \"새만금신공항 소송 항소심 판결 환영...국토부, 상고 포기하라\"",
-      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9rTzBkOW9yVkoyTktwYlFYRFpyY1BBYjlHWVd2OXI5YkpHWnFvbnVQWjUyTWZ1NXppNXZTRWlVUjQ2MTl4OGprRHpwMXJPNUVnUG8zek5IN2tBMmNJVVFqWDl6V1NMTG42Y1RzXzZfZDZxek0?oc=5",
-      "source": "헤드라인제주",
-      "publishedAt": "2026-11-18T07:31:08+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "‘중국 보호막’ 쓰고 APEC 나타난 푸틴, “서방 대러 제재는 실패”…시진핑과는 50번째 회담",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBYNmRqVzZKWDViRnFiNWp6SG5VLXhoN19uUmNKQXFUN0dzMllrV0N4ck1BUzh3SmNzRFRyWTZacGxzNjdNdmVJbXl4dHc0SkxBV3o3Z0tQbTgzUdIBX0FVX3lxTFBXUGFTaWFCdDIxNVhsakxOdlNCcU9FcDRpWkl4dF9vNHc3WFhWOXNWRnh0Ml84UHdpQkNmQl9tRkJDVEFGSGJUTTgwbS1saGhER0V2TDU5S2NEcXliS2Zn?oc=5",
-      "source": "경향신문",
-      "publishedAt": "2026-11-18T07:17:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "대구시. 서문·칠성·팔달신시장 공영주차장 3개소 실시간 주차정보 제공",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFAzQlp2Zl9jQ2UyNGQ4VHFqaUp2S3RERGhhZEtFclZRN3NlSzRjYXRvTmlxQkp3RXVmN0tsWUNuZnRwVUROa1dSQ2Rndko3Y3Y2dm9FdW9kQndMX2tIR1R2ajQ0d3JnQQ?oc=5",
-      "source": "데일리대구경북뉴스",
-      "publishedAt": "2026-11-18T06:49:23+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "무뇨스 현대차 사장 \"젠슨 황 떠나도 엔비디아와의 협력 매우 중요\"",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFA0QjBJVFQ1SWtTQXEtWlNxOVFlZHJjbU9VLVhzeTRSMnhzX3h3V3BzS0ZPWHE1WmhXYjhrazRkb082TkRhaldIQ1B6Tl83MWF2ME1DbWh3eWtPMERSZE9ic3ktcFZ3b1k0LWRWVHRoSjFjajRHUWp6SC1oTDZqTUE?oc=5",
-      "source": "Chosunbiz",
-      "publishedAt": "2026-11-18T05:39:00+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "드니 빌뇌브가 로버트 패틴슨을 제임스 본드로 캐스팅한 이유",
-      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQb09hb0d4TlBRc0E3ZVVsLXZJUVQxRDZPOU50TWxzLWtVYXJsT1M5ZTNNSl9VRk40Mk55bTY0YzdDVWFPQUVHWnZHRnozU0ZTTmlXUlpLM0pTOU1nZy1uNkpDZUlVV3p5Um5zOV9rOThEekc1TkZWejN1eWw1M0pNeUc3eWM3R2JzMnZwSzVMdWdkc1RGbDNUeG9EdHp4dE5oYXFJ?oc=5",
-      "source": "Hypebeast.KR",
-      "publishedAt": "2026-11-18T06:48:57+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "“코 뚫리는 데 10초”시원해서 10년 썼다가…수백만원 날린 英 여성의 후회",
-      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9KLUpNZXdqOTFIOUNmcHNuMmZEOHRiN1QzWElQTVk0eUg1MzBzekpkaE1oSjBJbWthaGZVNkVfYXVxeExIY0hhczVCdUpqdw?oc=5",
-      "source": "전자신문",
-      "publishedAt": "2026-11-18T06:35:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "미·중·러 회담 앞두고 ‘푸틴의 다리’ 일부 붕괴…우크라 드론 공격",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPVkF0a2R5T0VNX244THBQOWtIek5hb2tmSXVnM1E5ZlNvRDB3eW1ORUZMNUl2LS1lcVUyTnMyZm5jWjQwSU1HdXpDM282c1ppLXJIcXliUjlfT0lfbEc1bFM4bC1zdWpPSVhTdkMyY2ExSWpoQmhSc3BidkREN1dKYkVn?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-18T05:43:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "\"엔비디아, 2022년 알리바바와 앨리스 황 연결해 줘\"",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1Ed21PcDl2Rmxqbk5zNzJhZ0o3bTVFc1dBZWJSMldBb2x1czRkM1E4VWVKby1OU2UteEpIQlV2OHZ4TE5pZVo0NUFCaExzcTdfMTlGTmxXel9kYmd6UGJEQ05IWEVKdllWc1BLVDdUTFd3VjJl0gF0QVVfeXFMT3NYSzR2U3VTdEt0MGVvWUtRQmRGY3llWXhCdGN6N2FkQ0h3c2ZyS2FtbXE4LTVIam10XzZER0NSeFJLZHY5aUtOamlpMy04Wl80bmZoSEJOY2hHZlpQNWcxWDg5emQ0M3ZKdHNFa21vZTZTTGw?oc=5",
-      "source": "MBC 뉴스",
-      "publishedAt": "2026-11-18T06:39:50+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "“당장 패치 어려울 때 뭘할지 AI가 알려줘”... 취약점 홍수시대, AI스페라 제안은?",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9WQXFNRUxDeVE4VnBidmdqSlRmQ1o2cG0yTHJYeXVwUzNra2hWYW85MHpKYUpqV1RCM2NyYktWQVYyNUplTVdRV2JpTXEyQ1F5TXA3WDRFdDBJVGFyWnp4V1RnUnV3c1FGVDVR?oc=5",
-      "source": "보안뉴스",
-      "publishedAt": "2026-11-18T05:37:26+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "'보검 매직컬2'도 고경표 편집…‘음주운전’ 연예인 퇴출 청원까지",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBGM2I3cWxsNU9NRWZQWUxNNVc5eFVpZDRqdVMwZzFHRDJHSjlGV3BFMEhKclp5TGFjNTRBcUU5RlpHWEJGRDZac2Z4V18zekE3SUt4bVh6eWJXcjg?oc=5",
-      "source": "경기일보",
-      "publishedAt": "2026-11-18T06:27:20+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "“마음 힘들수록 AI에 고민 털어놓는다”⋯정신건강 고위험군 20.7% 이용",
-      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE1GTS1ocXphZXp5dVZpV00zQ3QtUmlRbkM5NWNnUmRsVFRFOTNobGhFbGZITjdoY1RiMnU0QktkMzl6dw?oc=5",
-      "source": "코메디닷컴",
-      "publishedAt": "2026-11-18T05:58:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "\"진지하게 읽은 내가 바보\"…리트 만점자 책에 환불 요구 확산",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE54U2hoUEFwS2FOTXpMdnJjU2ktWG9OaWhXbGJ0XzAxQWowOFJJZXlSNl9VUExZRHd5OFg4eEptb3dEUjJxVFJSX1FkMkVtYjRFYjBLckkwbWF6T21MTmF1Wkdod05URm8?oc=5",
+      "title": "빅뱅 승리, 만삭 아내와 공항서 포착…내년 1월 출산 예정",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFA3S0l2a2Fnc09SbTlvb0xCQUZiYzh3TnFTbUdoS01WVXNfa3Q2YkdIN0h1bUR0bUxBZ0dCZlhXM3RCcTdCWWZ0UzRQREFST2dxM3JMd2hJSWFIeEczODhycGY5T3VncVE?oc=5",
       "source": "연합뉴스TV",
-      "publishedAt": "2026-11-18T07:14:00+00:00",
+      "publishedAt": "2026-11-19T01:40:00+00:00",
       "category": "한국"
     },
     {
-      "title": "北, 조용원·푸틴 만남 보도…쿠르스크 참전 '혈맹' 부각",
-      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5pMTJZazUydVRLZjNTcTdfVmJNVnRyX2JUNXFNMEtycElKWVpJRFhodFpsdTltVW82SVUzRzVobGc4cnlrSzkyclBzQl8wOHR0Smc1Mno1SHhfZEFu?oc=5",
-      "source": "뉴스핌",
-      "publishedAt": "2026-11-18T05:06:00+00:00",
+      "title": "美항모 조지워싱턴 페르시아만 일대서 철수…중동에 2척 남아",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9KUGFBZEgyamVUbW5kQ21Odm1jZE1KTDFXZzBxQUhTakRqVjhHbjFjeTFPemJkVlB5ZTJxOGVQNlZ1MkY2YlR5OHloQ2ZOWmowS3VkaGJGaURBNEHSAWBBVV95cUxNNjk3eXNYcWNzVi02aDZfbnAxREp1RlZ4dHZ2eUhSeFZOMHNLTHJUY2JuT2EtblpXMFI2U0FRWGl4WnpRd2k4alpHZ05GQlRZUV9VWmpqbUlDN19FUTd4eE4?oc=5",
+      "source": "연합뉴스",
+      "publishedAt": "2026-11-19T01:29:33+00:00",
       "category": "해외"
     },
     {
-      "title": "수출도 주식도 AI 의존…반도체 호황 꺾이면 '이중 충격'",
-      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNclZNdldrNnJZaG5ZU3JBbUZ5WkQ3WTJ6cjNEUFZoS1BPXzRJRlNILVlTNFdVMGxpbThyMVdKRGpXN0tUUmxQbEJGVW9uZXFHdFFva1l0SmNYLW1aRDBiU1Bjd3l4cEhTWFBXSndYQnQtYnpxWWNzLTN4MXlZWWJWdFZ3SjBrdGxfMk1TV0ItY2FTMVdVdVVxWUFHczc2NTY0QzM2V2NReHB5QjZwMS1ncTNPTUt3alIzXzJZdHg2UlNSQ2Mwd2tNal9SMmlxaGdpc0ZuelRR?oc=5",
-      "source": "한국무역협회-KITA.NET",
-      "publishedAt": "2026-11-18T06:35:07+00:00",
+      "title": "금융권 투자한 해외 부동산 ‘부실 우려’ 반년 새 27% 늘어",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5ISXF1UDNJX2c2U1VVaDBZMlZFUWlIQnJla3l1b0otT28zUlJvQlBQSjhYQVBPekczVXJENjFXN0lCNzhXYjdoNmlKaGtBZTJaaTJNaGE0dmdZZw?oc=5",
+      "source": "경향신문",
+      "publishedAt": "2026-11-19T01:26:00+00:00",
       "category": "경제"
     },
     {
-      "title": "젠슨 황 딸, 메가스피드 사태 개입…“막강한 영향력에 누구도 ‘No’ 못했다”",
-      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFA0eWtxZzJOQnhCUGJXa2ZCVjloOVNtSkZER2FISTlHSEdxdXAwZlFpbUZwMTVGTy1kcm1wY0RzWlhPX0VraXc2QzVJamNwak9WbEkxUTJUc3NWWnVJbzRPUVRnSExyU2hhc2tBRFB5OA?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-18T04:58:00+00:00",
+      "title": "파이썬 켤 때마다 작동... 마이크로소프트 AI 에이전트 개발 패키지에 계정 탈취 코드",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE0zcDBmUXJZZHZtamliamtuTzBqeDlKU0RMWXU0LTJzMF9HV0hBbExzUmZPQXpuRkltdEtSQ0s3SXNxak5NeEV2NUp6X1J5cS1nVk5KSFdSbG1vOER6SnBiNmZ1RUczSFFsaTJV?oc=5",
+      "source": "보안뉴스",
+      "publishedAt": "2026-11-19T00:23:10+00:00",
       "category": "기술·AI"
     },
     {
-      "title": "\"포기하지 않은 여러분 대단해\" 앤더블, 수능 하루 앞두고 따뜻한 응원",
-      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPRElDQm9zY0d1ZEVqY2NST0ZESXVyd1A1bGxwVnU3MHZvQXo2T1I0SUotcjFERHI1a3dUd1MwNG9EYTJncVQ0bVJLZ3RpOVNJVGlIWm9jNG84aEFiU211WUhjM1d2djFqZ1lpRkdyUW9aUnIwaVJZbmYwcXY0bG1XdWE2ZzVRS3B3X0E?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-18T05:48:00+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "[현장] 레켐비 치료, 대학병원 넘어 개원가로…환자가 기대하는 효과는 어디까지인가",
-      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9SZ3lYcU9XaW9zZjhrQXRJNXhIZlZ5aGExeXJMOU5JUm5XUzNod1R1bV9kclNqVmRWVk9vXzRYMU9BZld6VDNpRDhXVkJ3SnJ4bEE0a3JXTi1qbktoR3lBb1Z5bGZSTkk4Q0JMdVRPNlIyQQ?oc=5",
-      "source": "디멘시아뉴스",
-      "publishedAt": "2026-11-18T05:57:52+00:00",
+      "title": "서울대병원, 당뇨병콩팥병 표적 나노입자 개발",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBmMnkyMXdxLVJSdmNwNHZpQjhyMDAxTGs4U0NkanEwTE9tMnFQclVzVmUtWjdSX180UlZfUVlMUjJvc19Uc1ZDVGdOcUZrNGRLMzU0eW53?oc=5",
+      "source": "MEDI:GATE NEWS",
+      "publishedAt": "2026-11-19T01:24:00+00:00",
       "category": "생활·건강"
     },
     {
-      "title": "추경호 대구시장 무죄 판결에 대구 정치권 공방",
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBvYklLallGZkhGd0lIclBnZzQ5dVJfdUR5eUl2X3RpVXlTa19fRTZhYzZldVZfSWNVTFZlR09zZHdHRV90bVdKTDRBdHFQelhXZkF2QjFUNzV2NTRGNHBNakFfd1k?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-18T06:46:00+00:00",
+      "title": "위성이 포착한 7㎞ 녹색 구름…정체는 ‘물고기 정액’ [우주서 본 지구]",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBIRkJCR0FLRFB4SGNZbjVxVUFZRU9XSzVtczdjYzBValZPa0lVencyTThUVXFOYy1tc2pGUjRDR29EcW5iLVZiLWJpQmJCdEVNVElnUlFB?oc=5",
+      "source": "지디넷코리아",
+      "publishedAt": "2026-11-19T01:39:21+00:00",
       "category": "한국"
     },
     {
-      "title": "시진핑 “중국의 발전을 누려라”…APEC 행사에서 시장 개방·혁신 기회 제공 약속",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBWaGVNdUJfeEw0X1kwVXp0c2FRVXN2UjNMUHRFTW1NbEc4bW5BTHE0LTJxdG1EY0dNMmZGLXBDcHdIazhXNTVhNS05LVZuWk9pdDJaSzdKMTJ6Z9IBX0FVX3lxTE0yRlVPaFFQaWZlcUFSX2pfaWI2cHA4bWR2NU1HZC1qZm1xZS00T2xaX1czQ3FjQnFUVlBpanZqVFhUdHNsTjVJNDNMT0xjdDZvSHVkTDhmdldpZUR4bjFR?oc=5",
-      "source": "경향신문",
-      "publishedAt": "2026-11-18T04:36:00+00:00",
+      "title": "연이틀 트럼프 마주한 이 대통령…청와대 “북미 대화, 미지의 영역”",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFAxWjZYcHhNV0pqczhJWkQ4WExuLUhCX0NaeGlXRTRyVjZHeHFVMmhtSkNPUjZielB2c0FOVmMtNlAxakRJTURSanBvekdWYmE1NWwwM3czLTl0RDNaSmFUazdoN1dveDhZS0xz?oc=5",
+      "source": "한겨레",
+      "publishedAt": "2026-11-19T00:06:00+00:00",
       "category": "해외"
     },
     {
-      "title": "로컬 창업가 600명, 전국 무대로 - 카드/한컷 | 멀티미디어",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5DVEZ1UEJlRS04eHZDenlYZkVIcm1INjBoV3RuVENvZ0lwR20tbFc4MzRJN1pFdlJpZ2RxODVfNGktOUdIMHRweXBZU3ZHQ1RJQm93WEZtR1FEdzFJdTR5X2pzOVExdnFUT00wUjhR?oc=5",
-      "source": "대한민국 정책브리핑",
-      "publishedAt": "2026-11-18T06:11:15+00:00",
+      "title": "나스닥100 선물, 앤트로픽 상장 기대에 상승세…美 국채금리↑",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1BS3dVSzVhZExKakdaYTdCMHZmNkQ0QlZGTVJCN3I5U20yVVZCTkI5eWVaQlVNX01EUThzbjFxT1lSVE9zeHVCaEI1LTFMTm1yb05tTUlsVVYxODhmWFYwWFRnekZlSGtUTENRS2dQak0?oc=5",
+      "source": "연합인포맥스",
+      "publishedAt": "2026-11-19T01:14:17+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "코인판된 증시에 뺨 맞은 진짜 코인판",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOTzg1alp3T25KWFhGTDRma2RlUmtnVFFmdVYtT0ZhYmV6bXh5N0RiOWlYOXBGUHVVcExjeW9RUEJ4cGcybjJGVG81cHpKZGxVd2RpNHZDeURDNnV6YXRFMWR4UFR3bVFjcHBCUTlMV202TmFuWVg1S0ZSd29vUmU2dFVVVlZ1Vzh4Z1g4?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-19T00:01:00+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "방탄소년단, 오늘부터 아시아·호주 투어…9개 도시·26회 공연",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1GNTZ2VVlwY2gyYWZ5TktKb3ExZHZnMWtDTHNjLVRHWEJIQ2R0MWJMNnoyU0l5YXdMdkdQUHIzamdoUDJaM3pXamliMzlsVnY5THUyUmFSOGtLdmUyaFRkRUptYk43Zw?oc=5",
+      "source": "KBS 뉴스",
+      "publishedAt": "2026-11-19T00:55:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "“키 작은 사람의 흔한 습관” 박세미 밝힌 ‘양반다리’의 관절 위해성",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBVQzV4ZlNEdWhibE9pWlJqU0tzcVUyN3lldzNHRWhlaURqM2ltN3BwYzBoNE5qUjdzeENNOWZMUXU0NGJhQVR1d3ZaYTcyd0RWclA5M2k1b1hmVEFFbWlWTDJRUXBBclhsQXFrRVFuckpmQ1ZFZWJjZDVTb3A2Tm8?oc=5",
+      "source": "헬스조선",
+      "publishedAt": "2026-11-19T01:19:18+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "허구연 KBO 총재, 만장일치로 3연임…2029년까지 이끈다",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE40TUUyaXlGdkhXdVppcU0zRDdwSE45MGJENXZ3VlFWWmNkSkVMUWpCSFVoZlhsd1EzWHRMTHI4bkdqZG13R3lvM0c2SzdqOThsTHg0ZXRBdUtHcUkycFVKLWZYMXZUUQ?oc=5",
+      "source": "KBS 뉴스",
+      "publishedAt": "2026-11-19T01:35:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "20시간 이코노미 타고 APEC 참가…멕시코 대통령 소탈 행보 주목",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1KUDZlT0QtV0lfTUlCc1hwdVpPV1B4bU5FYUIwYmx1bVVwN0FZS1oxTlNIQlpuNmhEMXh0VmhTeXUtMDZsV0xhSThhUTQ5V3pNdEJ3SWcwaERfbkdROHZrTS1Td3NTRWs?oc=5",
+      "source": "연합뉴스TV",
+      "publishedAt": "2026-11-18T23:57:00+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "[주거실태조사] 가팔라진 집값 사다리…수도권 저소득층 PIR 19.5년",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE8yVnpyMU5yUkhtT2pZUUlMQllTWjhvS3VNNVNOaUFHRVNYSmdTMGs4a3BWMzUxVGphc1poQXJ4ajVoUU5Xd2k3NXZ5YkhLdXJWVVp1QkhOelFzbGYyeGdqQ2J3MzZzYTBxZ3hRbDY1OTdHZw?oc=5",
+      "source": "KB Think",
+      "publishedAt": "2026-11-19T00:35:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "웹서버 '엔진엑스'서 치명적 취약점…전세계 웹사이트 30% 비상",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9IVTlvX2R5SkZpdkNNQ1JCMWpMRGgtZ3hGcExQRksyenkxd2dLNkxRV2hoZWk1QldjSWUyY2w4cUVhN2V6ZFZOMGxteUJMUUFWQ0ZBNVE5Q2JzWWfSAWBBVV95cUxNWnpxbzRWNjZUbGE5M05jeHlqaENvVnhZT1dNUVVuS2drRzVMSEVGYlFGUTVYc0NMQW5qV0FrQWtFS0dTVGFUNmFNcnpKZWpGQVJ0QjFUS29LYm56UENnelo?oc=5",
+      "source": "연합뉴스",
+      "publishedAt": "2026-11-18T23:10:45+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "[단독] 韓 돌풍 AI 피클, 미국서 AI안경 만드려다가 가짜 논란",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5ITDYzUkYtbnRBVlNqLU5XcGNmcC1zZWtad3EyOFAwNXRhbGVUY3VnYnlCa0RXcnRMM2xpRnpmLUVVYTV6Tl9WVmZmQVJ1R0lJbGc?oc=5",
+      "source": "매일경제",
+      "publishedAt": "2026-11-19T00:40:10+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "“노인요양시설 감염예방, 손위생 교육 중요”",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5DZXV1TGJZelh1amt2d0tvbklIdTdxclU1YktteDNfQWd0NWd5WWloeFJzRW9UUk4xdVNxTXdtalZfem05cXE0LVkyQUVGU1U5blRqeXgtY2o1VDlUZmFhVy1LamFQS3JsUjA0?oc=5",
+      "source": "재활뉴스",
+      "publishedAt": "2026-11-19T01:16:02+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "中, APEC 만찬에 바닷가재·생선찜 등 광둥요리와 중국산 와인",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBRZ2xUSFd1LVh4Q0stNkhHNXJaeUgyR1d2UFVYWmFkMXpRRGFJSGtDV1BnN3kxXzNEaTd4cUY4WlJwcW5Wb2J1S0JfdzA4RG9HWTN3TUdOQUs5VmfSAWBBVV95cUxPYWNHckl5S1dxZU9aWG93ZFU5MW5qamZtV0JLOHJ1Y09JaEw1enlCWHR4R1dpVzdPbnExUDVaSlRXYWNYT2k4QTFSYkgtUEpQcDRxcmFSZHJfbFZqeGxMbXY?oc=5",
+      "source": "연합뉴스",
+      "publishedAt": "2026-11-18T23:56:35+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "대한전선 사장 \"기업 성과·임직원 성장 선순환 만들 것\"",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9GYks2TmZDVkZMTE5GeEQwOEVGY1JjdzhZZ2o2cGVEbXZXTk5vc3JBd3pIaGFIcXhEMDJWcndzQ1hUbXczZ294SjAzVW5TVjFRMXlrbWdVR3F0OXPSAWBBVV95cUxQejNQRU90b3VCa3dHdzg5S1BBdHo0dWtxbHQ1cFFKY1gwWVJHTUk5ODhLMExnc0VsUnhaOXo2Zmw0bUZUYTRuZDZyX3lGV1ZYZzJ0TFJQejNzX2R6ZHV3bVI?oc=5",
+      "source": "연합뉴스",
+      "publishedAt": "2026-11-19T00:12:51+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "앤트로픽 공모가, 예상 넘긴 83달러…기업가치 1.5조달러 전망",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBRZTJzRU9aOW5FWGQxR2Z3dVAwYllXY3pXZmRqVUFxYnRtdWg2cG1MdlZnTjFoampjNEpoc0YzNE9mdUloSjY0MTM4S3dnTjQ3dWRJR0RrRjBsdGF1cW9Zc0U0dzZ3WGxicHhPLTRrbw?oc=5",
+      "source": "한겨레",
+      "publishedAt": "2026-11-18T22:46:00+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "[K컬처 리포트] AI 노래 ‘꿈꾸던 어른이 되었나요’ 멜론 1위…어떻게 봐야 할까",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1QNUxxY3pGZGNpZ3pVUy1DVEp0UjlHOC1FbW1mMnF1Q2FDUnluN2NyQ1NyWkNWU3JoM19lYjRWWlBzOERBbW9SZS04MzVOVVo4TVlYX2dCVEJ2d1ZlY0dibWdSTkctc3J0ZFJxTFQzM2wxQQ?oc=5",
+      "source": "비즈한국",
+      "publishedAt": "2026-11-19T00:39:38+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "마운자로 끊은 뒤 환각·조증…입원한 두 남성에게 무슨 일이?",
+      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE9uZGJPeEtLTlp3T0xCR25yT0kwdExyaEo4RFdVVUZoWnRfLW5qblppd1FPVkNaZkoyaFJOWnM2OHo4UQ?oc=5",
+      "source": "코메디닷컴",
+      "publishedAt": "2026-11-19T01:11:00+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "미국 첫 흑인 하원의장 눈앞…민주당, 제프리스 후보로 선출",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE8xay1HS21kX2F3Q0tXRHpwZllEZUFseEhRUUMxSXZKM1ZjN2FxRFZBc3BQRE9Xd2Y1MHNuZ2c4aHM4aHg2d28xZE8tdFVCVWJqRFJRSWhEZjBzV2MwTUtHdmZxeTdjT29aM084cXdqcw?oc=5",
+      "source": "한겨레",
+      "publishedAt": "2026-11-18T23:28:00+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "\"지루한 보험 광고 공식 깼더니 1500만 뷰 터졌다\"…제일기획의 '대박 실험' - 머니투데이",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5fWDIxTGJFNFJ1X2EzMTlrSUVwYldpS010VWVjcllacF84UHZET2hJWWpzUjhfM2RiTDZBcjA3cW5pcGF6WnVoRU9XNkxOVElaRDU1UXBHUmsxYllfeUt2OWNkT2NycmfSAWxBVV95cUxPb3FtZjZUZmFJSmU1a05TUkpmNmZyVFZHUW41R3JsMEFoN0pIbXpaODAzZXNhM1lfVVB5YnFCcm0tSWdITjBGQWRTUVlYcGpjR3ZaaXQ0eFpqY2VRWTh4TEUycVQ5M3pEb1FwcWw?oc=5",
+      "source": "머니투데이",
+      "publishedAt": "2026-11-19T00:02:52+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "“도면 몰라도 말로 설계하고 금속 깎는다”…‘바이브 코딩’ 넘어 ‘바이브 제조’ 확산",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOVmh4OGJWYWdURlZoYlBwX3Q5cDQtdGpMdnk3WnJ2RFlVSWxBQkZ2TC1tenBKMF9pVkd5Ni1Pc3F5YXVGQVh3MWNzYVRBRFlDUW52WXpJZ2hnVzRyYnk3OGZZUEJhU1RiSFpWY1BGNk03SzU0VmJRY2lFU05rMXBFck80aw?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T22:04:17+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "'폭설'·'임영웅 | 아임 히어로 더 스타디움 2', 개봉 첫날 1위·2위 [박스오피스] - 머니투데이",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBQUnFWYzBlV2FlakxoRTk4cWFrZXRzWURDVmM0RktnaDJwdFQxTllUZ1R5OXVoZ2tyeHl2QWI5QXVlbnpBMkF4UDJRTkpvdnhUM2dWZkJYanpBZmhmaU5pS1lLS0NHd0tsbVdCMEZXV2VOUjjSAXhBVV95cUxOTnF5YWQ1OHlqam5kNGN3dWdIYllERnRNbVdITDc3ZndYTmcyMERjZ1lQX0FFX193U0x4M1BiQmF1QUQwYUNhZ0NKUGpOWHVpQnlQalE1WFl4VVNfbENSM2xqcnlOV2xlc3pZcElQWGx5d00wZ2JQcjk?oc=5",
+      "source": "머니투데이",
+      "publishedAt": "2026-11-19T00:17:45+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "은행잎추출물, 간헐적 파행 환자 최대 보행거리 개선 확인",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1JWndVd0hCYUFORUZESUNOLTBKTHRId2Y1VERlclc2X1A2RlZiN19YNUY5MVA3czJxYThmR0pidUpPcGJ1eElMZUpsQnNXM3llOTNoOFZ3?oc=5",
+      "source": "현대건강신문",
+      "publishedAt": "2026-11-19T00:54:00+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "프로야구 키움, 알칸타라·데이비슨·히우라와 재계약",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE11VG9SVGlOa0ZOWmlick54dXdGbkEzUmNpTW5mVTd6cFdSYjBJVDFJcmJlODdjMGFqbUxzSU9Xbl92dDBhWmVwekNYYWt2YWlEYm55MXRlbFlOa3fSAWBBVV95cUxQeGE2WC00TndDVGVWcmVweVRxUmJpY1lnanBzZElfQnhWQXFQUVZLX3FzM3Exd3M4UlZXNjBVWGZ6dDlHVzc2Q0daU3FZN3pKem1KT3BiZHc5MEZsamhySXY?oc=5",
+      "source": "연합뉴스",
+      "publishedAt": "2026-11-19T00:35:02+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "조용원, 러 상원의장과 회동…방러 일정 마치고 귀국",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5ZNzJBV0cyZDAtZ0hkcVBvUHFJelZxTGVmMFRzN2FXUTF0bjdzcVpEOUEwOVh2c0Zlcm9wNmtENTEzTHM2MzNoLW1kUVVYZlZSQmcwTjhRWjVoZw?oc=5",
+      "source": "한국경제",
+      "publishedAt": "2026-11-18T23:11:25+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "9월 서울 아파트 매매 실거래가 0.57% 상승… 동남권은 1.81% ↓",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPOHBKbktpbkFxb3NUNW05UElSTk0tM0JqQ2Z4dFBsTzFEb2F3SDhtOGVaczBXVEY1ekcxNDV1VDNIa2Rodk5STThyV2pRNlJON2dxdy1jaU1BU3I3cUVkbmZPWGlSV3RqY1dGQkVyQnZFZUFZSEtFb3ZSV2phS19Dd1NqZ1RmcTZwZjFyUWFnQ1FoNTNhQkVIM9IBrAFBVV95cUxQaTc5TVNqNVhiaTJKZkNqR1VTNC1mNEVlSTFvSE40YzJ2b0NHbk9kWWF4QnY2QUZqWlhRWnlkNWRweXoydTNiN0tOLTR4ajlYd3BrZVhfS0gyLUg1U0gxcnJBLTdBbm9fR2JwS1JwY0gyazFfbGpmNmFsRl9GWkJFaEhFZEFBYWpsRWpnc0UxeXViSGVDbEg2SDVFUFRrM002MmxXM2hwcVY4UWNq?oc=5",
+      "source": "Chosunbiz",
+      "publishedAt": "2026-11-18T23:57:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "한국 기술 빼돌려 어디 가나 봤더니…압도적 1위 '이 나라' [털리는 대한민국]",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE0xUzZlLVlxbmZGTk9rbUdmbFdTUE41S3V4QnhRenc3UWQ0Z3NOWHBwd2NjNnlOdmktNS1DY2hsV1RRR3R0bXByMUVSbWJ3d0llWkdDcXo2R1QwUQ?oc=5",
+      "source": "한국경제",
+      "publishedAt": "2026-11-18T21:01:04+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "베이조스, 새 제임스 본드 선정 관여…\"패틴슨이 바로 본드\"",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9jaUFLMG9vTGJLRVl1OFp3Q0ZqRnpaSnY4ampqVEpCOHJuVm8xZkZ6eW1FU18xZ3NnS2ZZczVoLTRsTnBHcWFUTnFUVUdqQmY5UldsUXFMOFVSUEXSAWBBVV95cUxQQVNKUlRZaWRhbjN5aUVjTExUa1QyWHMyeE9JM0FDZENTSG8tZmtmQTFwUTBVSUZ0VFdFYTcweENIQnRUVVpQMThtNFhiektIZWozRkY0Ym9GYVkxYW5vUXo?oc=5",
+      "source": "연합뉴스",
+      "publishedAt": "2026-11-19T00:09:29+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "이정래 의사 “인간=달리는 구조”...“한 시간 걷는 것보다 5분 뛰는 게 낫다!”",
+      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTFBnMG9ZRF9yRXFDQ2dMZmwwTi1SRzNuekVlXzdNaGdiUVhvSDJVQmMzR0o5a3J1NXFkUjUxU1pUb0t1Zw?oc=5",
+      "source": "브레이크뉴스",
+      "publishedAt": "2026-11-19T00:38:00+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "2027학년도 수능, 사교육 유리한 문항 배제…“공교육 중심 변별력 확보”",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBQUDlOME5TNlZLLVlRZ0xFNlFIUEFvOXEtcmN5bGJyamxDRWR1SFBicTZUWXhVZllyc3htOWZQTHBjVkdrenduYzZLV1RzeUtIZnRIQUsyejFZSTQ?oc=5",
+      "source": "경기일보",
+      "publishedAt": "2026-11-19T00:33:32+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "푸틴·다카이치, 30분간 대화···우크라이나 전쟁 이후 러·일 정상 첫 대면",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFA1MjJNZ1l5dDd1Y2Jmdmhhd1J5aFIwRlNZeTRla3JPZVBnZTI5T1RVZ3EwZ0x0M0Mzc0hKNW9HZ1M4ekJKQkE5SEN4Smx0djNKTTBjbUpkSFNsZ9IBX0FVX3lxTE44SnFPamdBX08tdGhBSmxqQ0R2LTRSak5HTEVhVHRRZWRFUi14MHYzWjRaU0EzdHdRTFhoX0VIbEp4ZzdMamNaMDNCQVRTTFZNdmlhQWJLdWdQVkRELW1V?oc=5",
+      "source": "경향신문",
+      "publishedAt": "2026-11-18T22:55:00+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "급여적정성·기등재 재평가 12월 동시 심의...내년초 결론",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE14QjdjOUhidG5tTHI0RFcxQ2Z4WjI4cGd2c2VST2VTckRoUHotQkRDM0pRRkhMVDZjaTQ3Zzg0SVQ4VE5oTTc0QVhGUnlzdWF5NFVCVmVR?oc=5",
+      "source": "데일리팜",
+      "publishedAt": "2026-11-18T23:49:06+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "중국이란 호랑이 키운 美 빅테크… 30년 공생의 종말",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOZDV4VHN4RzFXODFya0FlQ1Jja190UEI3TXByRno4RG5SM0t4YnNvT0JKNm9BUlBlQXdoUVhCT2o2YVBZZThDaWdXQVl2OVA1bnBtZTIzeTNKNHd6d000ekVvWE5IX0NtVEJTNktnWEdadG5UUmZnelRwZkFnWUlWSzJ0VHVmdlow?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T18:00:00+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "가족 살던 집인데…박지윤 \"최동석, 이혼소송 중 여성과 성관계\" - 머니투데이",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5xWXFaak1VWG9TVVphRXlSdTk2bnYycmtmX3FYMGxZUmhpYlM0dE0zNnc3M0pocEdPSnU3YVJBWjk2OHFfOHFEMUU2SjNSbDFQUTJ4S2hLc0dtQlVLZHB5QnU1NGVYa1luWnNZ0gFwQVVfeXFMTVN1TDZuWHdFYzlIb1hqMXdqa0p2Q3R2bEZNMl80LTk2WlRTTnBGQW4xdWxGSko4bFd5TGRMaXVJVzBicHJtNF9INnVhQnlqd1czZTNKdWJ2cFMyN3Zva1VvbDhnTGhZeExaNkNIZlNvRw?oc=5",
+      "source": "머니투데이",
+      "publishedAt": "2026-11-19T00:03:07+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "혈액 검사로 알츠하이머병 ‘빠른 진행’ 환자 가려낸다",
+      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9YVllzNDFJVjBGdkRTUDVacTBJRi05MzU5Rjc0WmlvcEhpZUZpTTBVZG5IZGtPWEo1TkJUdWRDR2Z2TXhuSDNZd1FudEVERG5W?oc=5",
+      "source": "후생신보",
+      "publishedAt": "2026-11-18T23:54:00+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "우리형닷컴, 우리형 Qi2 25W 착붙 미니 맥세이프 보조배터리 출시",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFA2Y01CTXBuT25ObFE4MXdwcTQ4VVU0cW4zYlg3UUF4bUs3TkhGV1FiMm9XZmF4UFRaYnlYclBMSi1HNHk3T0pMdjFXR0RxMDBRRzZhTDl0d05xU1l2NkHSAWNBVV95cUxOUjAyWDdjZjhoVjRUU0hxMXZ0Y2JCTUhNVkdFZ3dEYllCaWVBUFhLd3F4UFUwSExldjBjc0EtMzI4M2N3SnNwQjQ1WEk3WnQweV9tUVltNFJyZXJzWUZHUUwyNUE?oc=5",
+      "source": "스포츠경향",
+      "publishedAt": "2026-11-19T00:24:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "\"우크라 드론 공격 강화하자…러 11월 정유량 절반 가까이 감소\"",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1JSWtEZFlxdThVZVRJVldSLVp1TGpjMFFIcHJtbEVfeTNDTzVidFRINEs5MTZVRG93OU1HbnE5OVFjZThsdTlpZWVyR2xnVDJMOTJwZFlxMFBzVGtDQUE?oc=5",
+      "source": "뉴스1",
+      "publishedAt": "2026-11-18T22:42:05+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "미국, ‘중국 AI 모델 사용’ 기업 공개 의무화 추진",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9iT3Z5UHBSQWxTTGY2VExXVnFYeUt2dlBPamNYamNScXVlYnFFckZnTDFNemlITk9iOV9oMEZSWnI5TVM0RUFDTkx5UzZSWHhRcTdjWDdPSXNVR1U?oc=5",
+      "source": "KBS 뉴스",
+      "publishedAt": "2026-11-18T23:49:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "기초 부족한데 ‘생과2’ 1문제만 틀려…리트 만점자, 수능도 부정 의혹",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9EZ0FjM04wU0N6dFNnbktLb0F0YWRXSmlKUWtCekxrWTVyZm42VVhjeGk4c0xHNmQzYUwtU1J2RVFoUUUxTTQ5Z1ZDWHV1ODhaTnhOcUloc1QzdXNUaVlwM1pNaGs5VHRGVDRaaWFyT0pkUQ?oc=5",
+      "source": "한겨레",
+      "publishedAt": "2026-11-18T10:28:00+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "황석정, 강박증·우울증 고백…“반려견 훔이, 나의 은인”",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBPSHJwMFE1ZnYzMkNEbTFsR000WDA0VlhoS3F5NWtyOXotQkVNQ0d0eWNOWVFYZ1BsbWk3d3RkbTlYRnBnVzdTbTY2V0NPcHVjWVVUeXpIR04?oc=5",
+      "source": "세계일보",
+      "publishedAt": "2026-11-18T23:49:20+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "단백질 섭취량 줄이면 ‘노화 속도’ 늦출 수 있어",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE11YzNRUU9CTFBROFJRaHdpel9tTndaSF92cE9xR19BcU00WUtWSjBOTFNEMklVM2NQa3lNYWpBQ1V0SWxEM3NSN1VqdFZKano5UTdMMDJzSXBoR1h1R2tISWJfM2dMYTR2OU5XRF9R?oc=5",
+      "source": "뉴스타운",
+      "publishedAt": "2026-11-18T23:44:48+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "[시사금융용어] 샌프란시스코 선언",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBZNXVsOVdQNmNnbmZkS1JWa083VmZPdUozTV9sT1RvOXBnUDdOVlhxbjZtdDc5SFdhZmVScmlDTUZ2WWxOakFDS2lITDZldmJCNElQTUxNOU5pU3VqZk1aZTNZNDV3c2FVWWw5cU9ZTl_SAXRBVV95cUxQeEhCcHJGUE4wZms5aUl5V2RlSXZxN0ZkYzNmcm9DckJ6WW5CMm9PZFA1S1BEd19WRXRPbkZ6X3dDLTRSclAwSTh3VUg0eEQ4Mlppbk8wMXhiNW5XWFZCN2ppa1JtVDJ3cFlQbUVwRGdzUHd4Yg?oc=5",
+      "source": "연합인포맥스",
+      "publishedAt": "2026-11-18T22:30:10+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "부동산플래닛, 토지 공간특성 분석 ‘복합 임베딩’ 기술 특허",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQckFhdVJHU05BSFVGZi1Va0VjQWx3aU9DbDhQU1pTUDZxUzdoNllnQXJTYmlia3ZDVFJvbnVQOFRCTFZ5OXFNQ2ZpWVB6V0VnXzNsNloxQzc3YWh6dnV1alhUSXlKY3d4bG5DNHJ2RHdSaVBUMENlMTg1NlFzdVZKcmFJZzNMOTVSTG1paDhOSkFHSHllbFNfYtIBrAFBVV95cUxOQWdLNng3RmJnVnlwUnE4dC1ONzA0MUN2OG4zMDBrZ3NxSndNQmJ0eEpZc2l0RmJxWm1ESEdrSzVNUUNwa1A2bGJHbzdMQWhpY1ItWjAyZE5wWmlGbXByNWxpQlJXWHJwdFpaS1dHUGJyQ1NTS1JpblpQV19wOXZBZ2tULW5rUXBxenhCTEwzRFFXbndZTnk4cmtRMlpJVE82dHZHSmQ0QjhMUlRU?oc=5",
+      "source": "Chosunbiz",
+      "publishedAt": "2026-11-18T23:06:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "LG그룹, 이르면 19일 임원 인사…사장단 안정 무게 실을 듯",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOUDJVY2tCNWF5VUg3UEhhN1FyaEZjUkRMWkx6Qm0tWFdYZkdtTHFqTFNCWHVmc3QyS0hLdzNiN0pwRTJQUExlaGoweVZJZXlnVlVyVVhqTE40REw3MldmNU9nYUdNOWQ4Tk5zUDhkWmo5YWhyWDhiZmU3SWJjSWpjYQ?oc=5",
+      "source": "이데일리",
+      "publishedAt": "2026-11-18T08:58:30+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "삼성증권 \"하이브, 日 엔터사 키홀더 인수로 수익원 확대 기대\"",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9hQmV2RHQ1U2ZrOE9oMmV3QTFTNURxZ0Z6aUNiMW90RjlVVkhhSWhKOEJpMnc2M3VpVWpUa0s5UGpFVjQ1TlB4akZWdzhRS0RVSzZkd1RmUzR4b0nSAWBBVV95cUxQOWJMcWRqQ0RXamJubTd6WHh4NHFtRHhJdjVJWHdhRDIzazQzdzI0NTRDSi1qY2tucGlKX1pmY3g3RnJKaG9ZNkhaYmFheFViTFlVRnhrNzBmNkZVYkVQZ1I?oc=5",
+      "source": "연합뉴스",
+      "publishedAt": "2026-11-18T23:32:19+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "임신 중 중증 빈혈, 급성 심부전 발생 가능성 약 5배 높아",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE4wcjl1dEZmZklVMng4ZVpmelZQcWppT1d1dlZORVBqUkplQkRHVjV1VGtjUXB5d29HN0dZWWJTcFBIczBqUFBVb3VuMnpQN18yNm4zOURZWHFDc3VNbFhObEQ0RE5TU3FlR01ucQ?oc=5",
+      "source": "메디컬투데이",
+      "publishedAt": "2026-11-18T23:42:19+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "김민석 \"한덕수 상고심, 의외의 결과 나오면 즉응 결정\"",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE4zMzdtcFFHRWtQZExVaDR3SFFuOE5qVDczcUhRQzcwTnVJdTJpNUFZRHZISjJmVTVKamZPbmVHenVyRjFjQ0dQUEpmdE9XUzB6Z3BtY0V4T3JhQ3dSTkt5d3puNHpQajQ?oc=5",
+      "source": "연합뉴스TV",
+      "publishedAt": "2026-11-19T00:06:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "이 대통령, 푸틴 러 대통령과 10여분 회동…“한반도 정세 악화 방지 의견 일치”",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1oM2FnSExGTnA0TDNyaVUzSWFJU0lEalZDMkNZNV9KQUJvLWhZam5GTlNJVDE1Y2swRmFlNXB4ZU84ZHk5cnBqOWtIc0xoeU9FM0pKN3ZWYjdmZ9IBX0FVX3lxTE9PSHVaR09RUjVkRU4yLVdkUVVSdThTcGtURGU1eExCMy1LS0JOdXpBVzZXY3EwcTdrcktGemJlajBJTWw5MmdGb0tXdk04MTNXUGhDSEtadzh2R25pWU1z?oc=5",
+      "source": "경향신문",
+      "publishedAt": "2026-11-18T22:01:00+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "미 연준 이사, '빅스텝' 필요성 또 언급...\"충격 줘야 할 수도\"",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBleEZKSGQ3amRuMGZEZEMwMjExQ1praEQ0WDlyTnpfM08yNFFLcFpvTUdZVWZZZWpBWm8zWWdpWTBzbjlLQmFmdEZFUEFEdzZLV2lGcllSUllQX3BlNXc?oc=5",
+      "source": "YTN",
+      "publishedAt": "2026-11-18T21:28:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "수정테이프에 카메라 숨겼다... 세무사 수석 기막힌 커닝 수법",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbXpFTlNidDlWOWRMcWpFT1ZSa3FEdjBtUUlMQzBRQ1pGX0JGa0pVR09RTnlUdzltRWVjQ3FJWW85OHpERjRxdGFISUZkTkVIT2JERkc3cWpra2FBNUdidDNIRVlkUkhZbXlfZmJaZVp6c1JHb09wNFdKQnhYMnM3anE0QVZ4dENFTzF1bFpYeWs?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T08:33:00+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "서인영, 신혼집 비용은 예비 남편과 반반…27분 만에 2812만원 긁고 1400만원 코트는 환불",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNR045MnRzeHFTX2w3SzhmWmV2R0tMc2NFemptNngwY0doRDBoZjRVNXJ5OXd2cFBzZUFpVDJGQk9NaFZaTkllX0FBSjFFTDlCYVAxeW5lTXdvNk1ydExzdG1ZUDk4OG9pMml5dG9wSEhkejktUkNTam9ydVhJVnF1TnQ1b2UtTGFJVjFuQkFnSQ?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T23:19:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "“이래서 뼈말라?” 문가영… 첫끼로 만들어 먹은 ‘이것’은?",
+      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE1fdk9Sc1c1UTM3elZHR2hEbjRUaVlhTHVmVG80XzVZMEc4U1FkWTJhRUxKVXVQMmRYbWhSMFpjOU53Zw?oc=5",
+      "source": "코메디닷컴",
+      "publishedAt": "2026-11-18T23:05:00+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "정치인으로 변신한 MLB 400홈런 타자… 취임 전부터 화제의 중심에",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNZTdfWF9QQXRGUjNQSkw3NmhiVE9TYmNvNFhfTWw2QzhQT2lOUEpNVjhYMEpwY1RkTEZaLWhMY09Lc0l3azN2U0FnbXNBd2N1Q09vOXptRzhsNlNnMk1acTNfT0MzZ3oxM2VHcXNBMzREcTR1Y0E3Rl9ldUJEZ1ZYUDRpdzM?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T21:23:00+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "\"개장은 10시, 프리마켓 휴무\"…수능 날 바뀐 증시 시간표",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE55dnpFRnFFWXJWaDFud3RUUEFJdkxNUFZRYlYzeVNzMElZS2dyeF9zNmRSd3l0MEVCd1AtNk5Sb2hGV1ZhUklYMzh5UkdZXy1UWGFEdWpEUnpRWUZoOFpZ?oc=5",
+      "source": "뉴스1",
+      "publishedAt": "2026-11-18T21:00:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "GST, 머스크 '테라팹'에 스크러버·칠러 수천대 공급 타진",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1VSkh6YkNhbnJlN3Q2UUE4TnJtbUhQMFJOSXBtVy1YSkhhSFphVHRkRnBKOUdnWWlYZ1NKMGI3a05BQWhtTjI4cEtFcWhKNFlFUlAwV3JOa0VXWEVRLXRWZnFIQ1dXdw?oc=5",
+      "source": "디일렉",
+      "publishedAt": "2026-11-18T08:24:20+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "[사진]더윈드 안찬원 '오늘은 수능 수험생'",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQMGlpNTRQa3N5Sk0yZHdyT3JaN05ORjA4ekdNTkFmeDVCUGZwaWs3dUxnZHE0X0d6RFR0NUhrWlBETlFqSVNYRGhlZW1VTW8wUlh5SVNfV0o2bW1vRjAxcmJMMEM0amFONlBKYS1rbllZMmd3ZUpZVGR2d1RVLXNyUlB4TEFzeWF3bTlmM0Exc2xkRy15YWtr?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T22:57:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "[건강 칼럼] 겨울철 감기, COPD·기관지확장증·폐섬유화증 환자에게 더욱 위험해",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxON0txazNvZDBaOE9aZ3VXXzVqejg1d2ZuZUZCNDhkRnVUZFE3ZDRwTTJ3b09rcGNlN3JDdHRGTUwzV0oyWGRvTFVKLWctZkN6MzMtLXQtUlF1NGY5TnV6ME82RHNJRktVaGprRHBkQUFwMTNGQVlZX2tUVFdKUzZjTg?oc=5",
+      "source": "이데일리",
+      "publishedAt": "2026-11-18T21:26:02+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "미국, 유엔 북한 인권 규탄 결의안 기권‥21년 만에 처음",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9wZjFtYnZKUG5LOElCRlE1TWUxN1JwdXJFYVBJcVNDdC0wSVRTcEotblpiNm5DalZjRlhvZTRqU3hTaGF0a21CbW5HSmRBcmFuRXJLTWl1SmJ3NG51U1lCQU9qNUpnT3RlMnY2NGRRV0ZYdUpU0gF0QVVfeXFMTk42MDBwVDVsM0Y2Qm1aWDJUalZpM0Jkd2puVHZoMHVWZjlGQTRIczdKWVdrTTh0Y0xBSU9heGhlNW96YzExQ1BsaHU1OGRvZExkUlZQRWI0M0NuLVdGSTN5YmFmMGIwb0g5REhzbEVQc2U4UDk?oc=5",
+      "source": "MBC 뉴스",
+      "publishedAt": "2026-11-18T21:09:31+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "MEDI:GATE NEWS : 의료 AI 보상 도입 여부보다 어떤 효과 냈나…기업·투자업계 보상 예측 가능해야",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE44cUM0UW5MSTYyN2g2YXB0Wm13b2tlZTJVUXN0RUp5VElZM0x6N1k4YjBaWG1LcFNtbkU5dGVKejVEbjR5eXR0bUczTTg2Y2g0OUE3T2lhbw?oc=5",
+      "source": "MEDI:GATE NEWS",
+      "publishedAt": "2026-11-18T19:07:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "“큰 일 배짱“·“애국자“…앨리스 황에 중국 누리꾼들 ’찬사’",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE4xb25yLU5oVUNSYmd2aHdieTJnODRwdkxyQXR1U3o3MlpoTGt0c0N1QUg0U29QM1hNTjNPV2JnUlEtd3BwOGV2SENGU3NSZjdzUUZBM21TSlRYMUwxYUZueE9mZWEwdUU?oc=5",
+      "source": "연합뉴스TV",
+      "publishedAt": "2026-11-18T07:59:00+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "'쥬얼리' 김예원, 못 알아볼 뻔...\"코 살짝 올렸다\" 성형 고백 - 머니투데이",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBQOTFTWE1NWEhZeTZCYjdXcUF1dFpRMUF1bjNMaEQ2NWswZWhJWFZZa2dERERhdFNsRmQzZ2cyWFloOWpDc2MtN1V2UllQcXQ3V2t1eXhmRU9ESjNQZ2JxTWJTSVl5aC1hM01JYWtQWnZaZ2vSAXhBVV95cUxQWUd6OHFVQnc5V1dlQTJIUm9GNkctRHNCYU9fa3ZMTmFLM2lRbHNCN09LRkE2N1JJRXh4UlRINktvcGpWWW9rWDk4QnZ4M3FFRWdPVkw3RkVLVnVRMVRvUVVlaVJFV2ZzVlpIV0IyWGVwZ05IM0tiRGs?oc=5",
+      "source": "머니투데이",
+      "publishedAt": "2026-11-18T22:27:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "루게릭병 치료 길 열리나…신경세포 죽이는 단백질의 비밀 밝혀 [헬스LAB]",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBSb3hFbmljNjEydnIzZGFWR2N2WDkxX2xKMV91UDZ4cTQyWU9VRjZ4Q0taV2dtTWxNYW5lMFVEcElPNGN4Rm9pZFcwMEhDWkRjTF9jSjFsSFJjdw?oc=5",
+      "source": "파이낸셜뉴스",
+      "publishedAt": "2026-11-18T20:00:00+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "\"고양이 돌보면 섬 무료 숙식\"…그리스 자원봉사 프로그램 화제",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5oRGRCN1VCY2Rpd0RaRnRkUjZvb000U0NFblRBMmZSaEhsQnBScGF6ME15N3M5WDhILWVRTGJxVUJoTUFKaG5kemMzSzY1SHFnaS01R09jRndXRG5FVVl4WTVOZnMtdFk?oc=5",
+      "source": "연합뉴스TV",
+      "publishedAt": "2026-11-18T20:01:00+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "오천피 이끈 기관… 삼전닉스는 숨돌리기 - 머니투데이",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBRWXVxSmFXRHNNYTFBcG5tcGZNeUFCbWU2REVRTVBvSTlNdlhRRzFSMk1kSXU3QVF5VDhmUnJQRHA0LXp3azhrYi1mbTNzVGRwSjZUU0lpSGhhLUo4YVBkeVFrX25GZHNx0gFuQVVfeXFMTWxqMzhYdm9DSWREdEhVOE55ZHlZajdrRGtfbnhETEJaZTNhd0pUR3RZODc4Y0JBQVRMQjJ6OHZCdUE3M3lsUlNNNEdWdDB0cExQYUphVl9SeU94dHU3MFZhLUFzLUdpTEpzTldjUUE?oc=5",
+      "source": "머니투데이",
+      "publishedAt": "2026-11-18T19:00:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "아틀라스 이어 또 CES 주인공?…급등한 로봇주, 더 오를까",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFA3NU5ISzVyM2VVeFNQcThXb1BmX043WVliZ1g4dEdZNnl0ZWwtV3Y5TC00ekxSdk5yUVAtbmNXeGkwV3JZVTRoNGhHVFJKMW1HdF92cWJPeklOZw?oc=5",
+      "source": "한국경제",
+      "publishedAt": "2026-11-18T07:43:25+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "‘재혼황후’ 이세영 “8kg 쪘었는데 최선을 다해 예뻐지려 관리” (유행쇼)",
+      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBHclpOUE4zZ01ocU1MRi13ZG13OU9OWEFaV1cxQ3dxQ2ZmVXNjVHRXWHl1Q1BFVTZxcXZoalpaZHdKSFBzSVdzUUdjZ2lHcmpzLWRwb0pmU3JoclloUkxBODY3cVBfMVhaQzFmWUMxbmgzRmxCbzZ1eTNMbw?oc=5",
+      "source": "뉴스엔",
+      "publishedAt": "2026-11-18T22:24:32+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "영국 필러 시술 뒤 숨진 여성…부검의 “뇌·폐·심장 혈관서 젤 물질”",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9QQVlSUExBMGtUczZGN0FOQ3Y3OG9JQUJHVG5TQUwydU14VjJEZldQSG9kNVNqOHZtcUNfWXhyTHhSLThFTGxwX3VSQ1I2NXo3Rk9B?oc=5",
+      "source": "유스연합",
+      "publishedAt": "2026-11-18T19:00:51+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "“나라에서 돈받으면서 놀아요”…노는 청년 100만명인 이유[아하영국]",
+      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBCekFWeUFvMl9fdTQ2SFpzYjNqSzFUbjlhZkN1VmhydUNkWnk1cmJDbGFIVFFTX1d4bzVUSVY2MlIySUk2QXBMbzdCeVk5X2xR?oc=5",
+      "source": "문화일보",
+      "publishedAt": "2026-11-18T19:58:50+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "미국 사이버 보안국도 자바 취약점 경고...\"즉각 패치 적용\" 권고",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE83ZWNkZ2tfbGxYTGNMd0lsNkRnR2JsVFBhUExMS09wZGRkamxTWFFHSDhFQV9Zc0gxcFFfd0tpX01KOEJGN0JxVm1pZWZvZi10T25nZHJBS2p3eVdjREE?oc=5",
+      "source": "YTN",
+      "publishedAt": "2026-11-18T16:44:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "“9000만원 깨졌는데 지금 살까”…비트코인, 매수 전 확인할 변수는",
+      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE4tYlN2dlFOVVo4NmE1Q2wyU2lnZFBjTm5fZUloeElDR1NmSlp0clo3aWRZanEzd2xWeUpIdUcyNHZROGdEQkZKRFRtek1xX2dnenRGaQ?oc=5",
+      "source": "매일경제",
+      "publishedAt": "2026-11-18T07:28:26+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "이적 \"정재형, 유튜브 찍더니 콘텐츠 괴물 돼\" [RE:TV]",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE0zRThEWmhXWmZybGRvN081UDY0WGZjelMwT2RkTlRhbFdDeWt2eEhIQmMycEhEUzBRei1SUlAtc1d5SnFma25URHZQNHMxYi1vb3IwaDBENGJCbHBMQkMzeQ?oc=5",
+      "source": "뉴스1",
+      "publishedAt": "2026-11-18T20:30:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "“대장에 암세포 있다는 신호”… 내과 의사 경고한 ‘위험한 대변 증상’",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE4tell0SjliQV9Nam9QMXlxeFN1ZHNqWmxuLS1nT1RwX0MyOXJmbHdSMk5lZWkzMWJ6RlFid2ZnTUVyVUhWMUh6NkVxcC1ueWNINFRXTnRNb2tLMExMcWZYOURQN29qX3QzMWZQUURBVXRLQXRkM19uZjBVVFlxNVU?oc=5",
+      "source": "헬스조선",
+      "publishedAt": "2026-11-18T18:00:00+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "루비오 미 국무장관 “워싱턴에 임박한 위협 없어”…이란 ‘더티밤’ 보도 부인",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5oY1lTcWZtTkdsZVpSQlIydTN4Y2hfZ1hsVVhzeWFUTnJ6cmFXTjkydWlQby0tbXBvbnd1VW50ZzVRMUxPTjE4X0lFU3lnTU1ncEdyVDdnVzgtOS15UFdSQkY3SkXSAWdBVV95cUxPNW82RDBIVmVjT0hTWVJfUERsTXg5akxGLTlEb3JobTFoOFhCMDZTSnMyN1FqNHdBenZ1SWtoLVBzdkV3WmRlNXBaODhyejdXRTNZbUpGMWJaVmpZSkFadFlXa1hNX2FJ?oc=5",
+      "source": "VOA 한국어 홈페이지",
+      "publishedAt": "2026-11-18T16:43:24+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "도이체방크, 정보 유출로 개인정보 보호 조사 받아",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9tTE5udlVYdnRoN3BoZ1pUOHVuU2VveUZzc0tMUF9kOEFRNTNRT3Z4Wi11cFZjSXg3ZlFBY0JRZ0FlT21aNGdTVkxBZTRuZmJtSjd3NExWREVHOXZJR0ZaZjRvNWZ5T0RUVFBwdUxOZ05CS1I5eWUw?oc=5",
+      "source": "Investing.com 한국어",
+      "publishedAt": "2026-11-18T15:09:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "무뇨스 현대차 사장 “젠슨 황 떠나도 엔비디아와의 협력 중요”",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFA0QjBJVFQ1SWtTQXEtWlNxOVFlZHJjbU9VLVhzeTRSMnhzX3h3V3BzS0ZPWHE1WmhXYjhrazRkb082TkRhaldIQ1B6Tl83MWF2ME1DbWh3eWtPMERSZE9ic3ktcFZ3b1k0LWRWVHRoSjFjajRHUWp6SC1oTDZqTUHSAZMBQVVfeXFMTXZrRTBuV0o1eUN2ZWo1RGVGWWo1ZnJDcS1FTlRzb3NQSWIwdGdGaktxVGQyejFVRFd0dmlObmZzeDZURXNqbWROTVZJZTVzRmhRaGNXV0REaFVKeGJWTDhvZnZUUE9OSm83LWs1dW1TeWhxVW5ZenAzZE05QzcybGszcHh0bXN4RmNKNWhKTXZnS3dZ?oc=5",
+      "source": "Chosunbiz",
+      "publishedAt": "2026-11-18T07:15:00+00:00",
+      "category": "기술·AI"
+    },
+    {
+      "title": "\"온갖 연예인 다 만나봤지만, 차예련 성격 장난 아냐\" 백화점 직원 폭로",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9wSWVNTXFFdXRtckNrLXQ4Ylhvbkg3WWdCOGl5MDJ3MW8wRG51OERoYkc3WTNsZGh2cVZ2empKbVhpdk1CdWFCT2lpRW04d2ZYcVZhTmY5cGVjTHhzLUpHaVg2elg?oc=5",
+      "source": "뉴스1",
+      "publishedAt": "2026-11-18T20:00:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "영화 《군체》 속 좀비, 실제로 존재할 수 있을까?",
+      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1OZHI1RmNTMThXUnhRVzkteVlSSmszWHdrTXdzQkx4Z2NsOHZSUWtveDNtbTJfMDIyT1gxNW5ZR2JOSE1lN0NtWUJvdw?oc=5",
+      "source": "개미신문",
+      "publishedAt": "2026-11-18T17:48:42+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "“졸업장=챗GPT 수료증”…AI가 흔든 대학 시험, 오히려 적극 쓰라는 곳까지 등장 [이윤정 기자의 소소월드]",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE0wUDV3eExYLUhRTlI0RjRJcHlpTTZpcDQzR2ZfTTMwX2dRR1EtX2YtYUkwOWZyRExmMWM4N1VvcnREYkNQTG5qVy1uc1l4UnZnbURVY3FORHhSQdIBX0FVX3lxTE12elNMaURVODZoVHRSRmRuU1hWYnI1Wk54WldkZEZpS1dXQ3hGaWJDSHZFMEpNQ0dIbVU1UWY0d1RCVWxmOTBlMTEyTDJsZkxQU3FCdU5ycFkyM1F5b3M0?oc=5",
+      "source": "경향신문",
+      "publishedAt": "2026-11-18T23:15:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "中서 트럼프 만난 멕시코 대통령 \"무역 협상 큰 진전 있어\"",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5fS3E4OEZRRFhUeXc5S012NC03bFZoY2g0WHVjVnNlY1h4SlAyemZfMEJpOFJ3YzRHZGlORHJGSXlXemhISURVNFlxX3dHbmFNZ2FsM25wLTh2WHPSAWBBVV95cUxQNnJmbFhyLVZTcUtQbTJySnRvaFMyS2RDWU9XcXVPQ3FOQnVSV0lxZjJscjZMWC1mb1FXZ3dtQ1JyM2FMUE9sdkpxcFNSVmhlVFhPZGR2YWFvem5wSDA1Y2Q?oc=5",
+      "source": "연합뉴스",
+      "publishedAt": "2026-11-18T15:27:52+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "대출 규제에 강남 갈아타기…잠실 ‘엘리트’ 30억선 휘청",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5aRUlOQ2lxSTBLRGRWUDM1ZTUwR1pFbktqMGk4RVpGUElpTUJyY0p6MjhGdGx3R3Nla0hrV0VudFZ3LS1DdlRfYmNxMEtoUWZRRE1PZURR?oc=5",
+      "source": "중앙일보",
+      "publishedAt": "2026-11-18T15:02:00+00:00",
       "category": "경제"
     },
     {
@@ -201,59 +649,164 @@
       "category": "기술·AI"
     },
     {
-      "title": "디즈니+, 한국 진출 5년…“한국 콘텐츠 투자 확대·스포츠로 영역 넓힌다”",
-      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9NbkNZVWxwTEgwVG1BQ2w1MWtBNzdmaG1jQS1mNjlINDlsdEkxc0lCMFFlX0lVTGt3LUNxb1ctc3JJemR0T1AwaFF3UWxqZw?oc=5",
-      "source": "전자신문",
-      "publishedAt": "2026-11-18T05:06:21+00:00",
+      "title": "이재시·이재아, 연프 최초 쌍둥이 자매…\"이상형 정반대\" [RE:TV]",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1JS1Y2OENHOEN1bWhCcHFuNm05VU5rVlNKck5kOURGa2huQktPSElJTTZfMXdPbi15MU5kekdjaV9GNmdmWGdqdHViZVpiZVZnbHRDNFhHcnBiN0VYa1YzcQ?oc=5",
+      "source": "뉴스1",
+      "publishedAt": "2026-11-18T19:50:00+00:00",
       "category": "문화"
     },
     {
-      "title": "[의료칼럼] 가을철 불청객 '알레르기 결막염', 눈 건강 지키는 법",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1pb2R6QzlrTXA1TllNNDI5MXhaZEg4S0ZrX1oyM0s4Z3FLckNRTmlMbk0wX043VTdLTnVlMWYzU0c4N1lEak13TGwzM0M0WlA1UUpUWGh4dkJkYzFRUVVYdQ?oc=5",
-      "source": "아시아경제",
-      "publishedAt": "2026-11-18T05:45:32+00:00",
+      "title": "“각설탕 9개 수준”… 의사도 놀랐다는 ‘혈당 치솟는 음료’",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1FWGZacVVDYVk0NHlPajZmS29TUWhySWtEbUZnNS0xdVlIb0YwWEptUzVtQWQ3dkQwazBsd2w4Z0xZczNDMUtFeUpYdkNEM3d4T0dWeTVzZ3VuWVJfZnlVVjBEYnlsRXBVdFZvMmtkWlRxelhHUi1yRnMtOVhtc28?oc=5",
+      "source": "헬스조선",
+      "publishedAt": "2026-11-18T17:00:00+00:00",
       "category": "생활·건강"
     },
     {
-      "title": "이란, 미·중·러 정상회담 전날 쿠웨이트 미군기지 타격",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFA4eElkQy1kZjZNR3lHR0kyWUxoR2l3QTFCc2hOSzdHWFlzWXRCZlFick5EQmNXM0x4U1Z3S3M2eUtFdXRuTzhld1pLaHZ5M1o4MVpRUW1xVm9taWfSAWBBVV95cUxNanE1YUFZWFZtbjdjVEQ4NkxheklYNVkxRlJZc0F3UVJLSFBRNzdFZDRRWlB0anF5NmVsWFRtS1pPZEl5am5STHI0MHkyRC13YUtiNmdWMEpvVzZxbXgtMzQ?oc=5",
-      "source": "연합뉴스",
-      "publishedAt": "2026-11-18T04:31:19+00:00",
+      "title": "[속보] 이 대통령, 순방 중 ‘조작기소 특검법’ 재가",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE8waUs0RzVCRzU1aVZlaF9xd0tKc21pZlhyeTV2R05BeGE5OHo0U1JzOWZoTmZoZVJFMUQ0QWlCZzFKTlAzSG5hSEVsV216ZUsydzNOTnB4MGY4N2xzWnJnNDVaNTEyTUN0ejZuTmFOY0ZhSGlM?oc=5",
+      "source": "한겨레",
+      "publishedAt": "2026-11-18T23:08:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "IAEA사무총장 \"북 영변 핵시설 증축 외부 공사 완료\"",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBZM0pEX01nS2s3dmJ0YUIzMERJZlhvemExRnh1MW9PMmNDS0gteUdCbThhT1FIcGFBTkFEbjBsTFptdGxwNDU4RWpSRnNieXZUckh5bnEtMnl6SUxPSWQ1b3Frd182Nzg?oc=5",
+      "source": "연합뉴스TV",
+      "publishedAt": "2026-11-18T12:50:00+00:00",
       "category": "해외"
     },
     {
-      "title": "수출 날고 내수는 부진...제주, 3분기 상품.서비스 소비 동반 감소",
-      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1KUm9GdEs2cmRfRmhxdTIxQTRpTjBzYlFBM3Z6d3VqT0RvdnFxMVVSTHN1Y3A2Q2VqZVdsdzg2ZzQ5MnNBZEY5Y2pqRnExTmVDWTF3bmRoN3EtSjAwWkFmWDQ3eXdLOWlnUWxrY1VaQ1Y5eDg?oc=5",
-      "source": "헤드라인제주",
-      "publishedAt": "2026-11-18T05:57:24+00:00",
+      "title": "한국보건산업진흥원, 독일 바이오유럽 2026 한국관 운영",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9RaHBHTDNCcW9LbHprSGJWaE94SHdKdnhDVVNtSXo5REZqVXBmcDlvcllpcVh0Q1E3cWxtUWxNNHRqcWpxTTdYRjZhaUZCN1hXelpJdWZR?oc=5",
+      "source": "MEDI:GATE NEWS",
+      "publishedAt": "2026-11-18T14:08:00+00:00",
       "category": "경제"
     },
     {
-      "title": "현대차 아틀라스, 자동차 밖 첫 시험대는 ‘美 반도체 공장’",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPR1Y5TjZpdExDN2pLYzEwZmRpa2V5YjNZOVhpNkNkV1FFaGxrMkpnc0RsZTlsaXNwa1ZKVWR5Z3gyeXA1MUFwNWIzcFRGaU5ENlhGWFl0dFA1T0pNUW5lV2hqLXVNYXdnelFfaG5YdTh3UjA5eDh2MUR2aGJZbFdTRkN4ZzhiSlROU3VSVmVYVQ?oc=5",
+      "title": "‘재즈 디바’ 30년… 국악 품고 나서야 내 소리 찾았죠",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNUUtJaXhzd0o4am9ZMG5CdXN4eEVRMVRfNS1zWV9DNW1iR0JXUFRYUy01MEt5endVb0VnV0lwd1A1XzZONXYtV3ZGQnYyTkgzRUh4UjBaOE5Wa3FROGgyWWJIcC1ramk5QV9zbDByMV9uYjFMd0JrRV9fVDlkSV8xOEdaNFNEZ2g2UUppcHVRZldmbGR3?oc=5",
       "source": "조선일보",
-      "publishedAt": "2026-11-18T01:43:00+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "“방송서 숱하게 잘려” 장영란 비호감 시절 극복하고 94억家 주인 됐다(언니만)",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBpLWF0V1ZSZGZKV05mdmlnNWphanRhRHRVMzNSelI4VUI1LWhDVXg1TDlMMXVabE1aTFNRMnJXS0tjQkFmRFdVWHNWRW5EMVhlcVFIbTNLd2pucVZJR3NkOURTUlJQRjdL?oc=5",
-      "source": "뉴스엔",
-      "publishedAt": "2026-11-18T05:02:39+00:00",
+      "publishedAt": "2026-11-18T15:43:00+00:00",
       "category": "문화"
     },
     {
-      "title": "[칼럼] 독감 뒤 폐렴 의심신호는?",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFA2V0ZfNTRoS1J6ZGVWY01ZNV96SXFXaTBxWnVXOHp3UnBRQ0hXTFF6dWppQ0R3RHJ2ZnpGczNpRF8yZnpXNEQzWFBwRlhRcGZZT2lzd2VrYmJ3LV9feTJsUmp1UkcyRlVRLTg3bg?oc=5",
-      "source": "메드월드뉴스",
-      "publishedAt": "2026-11-18T05:32:57+00:00",
+      "title": "“스마트폰 오래 보는 아이, 오히려 두뇌 능력 좋다?…8년 추적 연구의 반전”",
+      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBUV3NGaG1SbDlDbE5ITVFWQWs0SzNxWGNvWF9oMGFVM2lxUV9ZNlRSNEM4M1V4eERyVm1JZEIwN1R2ZlhvczFsVlgxYUVxQl9C0gFTQVVfeXFMUEV6LW5GZ3JWN3VscUEzMjhtcjVKeXY0X0ppbTY5S3FqdnNMSGRUcExZblQ1UW5Fc1BmVEppTmJUUWw4RXNhOGMtdm8yMHphQ0JNZnM?oc=5",
+      "source": "VOA 한국어 홈페이지",
+      "publishedAt": "2026-11-18T16:48:49+00:00",
       "category": "생활·건강"
     },
     {
-      "title": "이 대통령 \"수능 문제지 AI 업로드 전수조사…부정행위 철저히 엄단\"",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBsbjY0V09Sc2JpV25qbmU5TVpQT1pNYmlNMWZpNkkzbVZwS2xOcHZMdENUbnQtNEU3T3RQQ2txTlFWdlhPcWNaa09wS2sxc2xMb0JmX1hMUnpLSkV4UXN3blhwRU5BX3ItUVVpSA?oc=5",
-      "source": "대한민국 정책브리핑",
-      "publishedAt": "2026-11-18T06:19:52+00:00",
+      "title": "[속보] ‘리트 만점자’ 이진우씨, 공개 검증장 약속 시간에 안 나타나",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQYVpLeVpCUkZyTVE5ZmFrTEloamRieG9CSEhzZjltLVk4ZjFlaFFvbHhPaGFSLW5vakNKU3RKaTNFempsUFpvQlNyQklHVTZ5ZHE1S1pjcndrellTYkNFdjZjaW5QX0F4Z2t2Q2xOTl9ZYk1fR2VwNVNOVXU2Tm5GM3NoQXpBdw?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T23:03:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "트럼프-시진핑, 반도체·희토류 해법 나올까",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFB5Ri15MHZXXzI0YUQteHJRMzFQeGVWenZuOGtIYVpUZk1Ob0FCYmE4ckJIRVZ5dXJRYUZPV0pod3A5UnVmU21aZ0NiSG9yWXUxSm52WnJfZnduUQ?oc=5",
+      "source": "한국경제",
+      "publishedAt": "2026-11-18T09:06:46+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "한국아스트라제네카, 린파자 HRD 양성 난소암 급여 확대 간담회",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1SM2hpeDNnU0wzTkxOS0JXNDIwUjdiRVB1bUY2NjlxUGo0Z3d5Wl9faGJINk5OcC1ueExFLThteWYxVFhpMDh0V0pWeWJmamowb3V2eE9yUQ?oc=5",
+      "source": "MEDI:GATE NEWS",
+      "publishedAt": "2026-11-18T13:51:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "[오늘의 운세] 2026년 11월 19일 오행별 행운의 컬러",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5YUmhYOTBuZk9ZV3FpbWowUWgwUEg3cjBoZTJiSjhtT29EWlR5UGs1aTdFMDA0aHJ0X3VucUgwZEdTWW1EUjlpcDY3ci0zQ2NkNEY1dThOMEpUdw?oc=5",
+      "source": "한국경제",
+      "publishedAt": "2026-11-18T15:00:01+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "파킨슨병으로 사라지는 뇌 신경세포, 줄기세포로 만든다",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNR01ha0psU3N5R0ZBM29XcHBOQVV5OVI5M2lDTXRxU05DZWp3ZGNFWUIwVGlHWWNCeDVkMS1tXzNaOWV3Qi1iWnNsd2xNS3EwZ25pekdJUnlJYld1MjhsNXF3VklBMnJnTjhCdDJGYWVraV9DQjNzOE13N196Y1Z0ekVzc291eHJGb0RhbU5STTc?oc=5",
+      "source": "BRIC",
+      "publishedAt": "2026-11-18T15:25:30+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "우주탐사선 보이저1호 ‘1광일’ 돌파 새 우주 이정표",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9qeFlWTGdmOURWOW9FeDZWRUxxYUFkQjZRVWkzeHFGc1dJeXRBeENLeElwbjl0dDJtSmV4bnhIRld6SFRRaVlxWnc1cktxYzRJWEx1RVpMbU1uRHNsOXc?oc=5",
+      "source": "포커스온경제",
+      "publishedAt": "2026-11-18T22:17:39+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "프랑스, 두달간 고물가·고교생 시위서 1만5천명 체포·구금",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5oWFNBMmhzWGt2b2VIQ1pJaExCSDlxVFdGalVkRVI4T3hPVmRHWl9yWXVYTkh6OW9tanFXcVJIQ2I5TlF1SUlJTWNtR3VIc1J0eWtLaHBqTUJBVjDSAWBBVV95cUxQSnZhYTNiQnFNWGl3NHVPNmFqR01OcGFlMGdNY2RveE00UUdRQTc0bl9WajFCVnhZbWk4NGI5NV9BR3lUMkxkejlZQU9nU05iWER5eTBLY0xtVk9VMjdEVTk?oc=5",
+      "source": "연합뉴스",
+      "publishedAt": "2026-11-18T06:58:42+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "수젠텍, 메디카 2026서 글로벌 파트너 전용 포털 공개",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5SNjAyU3JzbmNkbVpyNlJhX09pVkpuWE5ZenljdmEtQnBOVElUOWVFMkZ4cjI3WWZCOWVSNTBHTVI5cFZHV3dHY09hZHhFd2taV2owUHo2WQ?oc=5",
+      "source": "MEDI:GATE NEWS",
+      "publishedAt": "2026-11-18T13:47:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "\"언제 이렇게 컸지?\"…KCM, 영어로 수업 듣는 둘째 딸 서연이 보더니 결국 '눈물' ('슈퍼맨이')",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNVXE3V3lqMnVodGJGOTl6V0p4R2ZqbEhZQ2E1OFUyNm05dVpUdy1YMW5RVFV6MkNhVElSazE4bHVjZ3Z6M0I5eW5Hd0JsbFdVN1ptSUFaNHdnZ0hmYjRhNmVfSmpnbUxOMGZUQkhxMDllVjVQZ3A4MDBaZ0JpOFFiVldsazU5bHdGWkNXSTFDTnNjLTjSAacBQVVfeXFMUGRBNnhpbFB5R1E2X2lieXhTV3V2cFZzUEZEZGFoVnpwMnF6VXJIWWxsTlhjWERfWV9OaDYxOWlsX1RLcGZsbTdQdjIzV185VXIxUnlWZ0Vkc2I4c0E0bzRMYzFpZ2M3dXhXSnpYeGpOeWI3c04wY1dLckxUelFoQUFyMWV0eE8tOGdyMk1VRXRIeWNwcHdDTlB5YWxGWk80Wm9oN1BTUUk?oc=5",
+      "source": "Chosunbiz",
+      "publishedAt": "2026-11-18T13:20:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "자주 넘어지고 젓가락질 서툰 아이…혹시 ‘발달성협응장애’?",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9qZGZJSS1GMmpZU0k5eWUwTDNNLS14NFd2NkNLYmJsanA3Q05zUTFGWlJPUFRLOUtrSGVBaHJXaEdaRXUzX3ZaRFBfbWhDang2TWE4QjhDSTF6dnlUMUNpUWNmai1wWDE1dWtJ?oc=5",
+      "source": "헬스경향",
+      "publishedAt": "2026-11-18T14:24:11+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "李, 취임 뒤 푸틴과 첫 대면...북핵 문제도 논의",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQNWZyS1dDWFQwYTNzb0xHeUMyeVY5dVZwcmZ6N2pzU2pyTmM0Snl5Mk1Ib0hiME9PSzgwdHZKcVdpZV93Q2pHQ3ktWTROZnJybEs4b2YxamRFcno2NnB5X1Q1QUVIbUxvbHZzQkF5TFR2a3N2ZU5nUTdDeXF4dzBILU1EMFZxdy1vQ1dqRlRVUDg?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T22:02:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "“음식 달라” 아마존 고립 원주민들, 마을에 나타난 이유",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBMYVhULWROMEVfMXhJSlJGRXlwdk4zMHk2VlI0QWNuaGNzb1RpMXlOcTNRemFfNTVyR2lFbjVnSGFxNHBJbGdUVmxxbUtWcmlIX0xwTDBCTzk2N21rQURrb2g1Y01Yc2dIM2c?oc=5",
+      "source": "천지일보",
+      "publishedAt": "2026-11-18T04:24:19+00:00",
+      "category": "해외"
+    },
+    {
+      "title": "광화문에서 성심당 픽업…오늘부터 ‘K-빵지순례’ 벌써 오픈런",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFA2cEJHQUhOY2tVZ012UEhacmVzNEZnVHJEcGk5YjktMldDT2dRZDZGLWdWc3MzUHBEbng0TDNSNnRaQ041dHNQaThVajN4ZGdKQzFLeTg5V3JwSzVlaHkwYzMzN0VTNURU?oc=5",
+      "source": "한겨레",
+      "publishedAt": "2026-11-18T13:11:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "장서희, 친딸의 “이딴 핏줄 물려준 걸 부끄럽게 알아” 막말에→”역시 내 딸” 흡족 (‘욕망의 덫’)",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBZQnpYXzdOV0VGYm5zRGhBam9sX0VNX2JpejE3dng4M1lLdWtTenlScHJ5R1d5NkdUT0dIR3NtYlFFLUItenJFNzZ3SW9TNjQ0S21YUnZMWEFvWTdvRUR6Y1o3Yw?oc=5",
+      "source": "MHN스포츠",
+      "publishedAt": "2026-11-18T12:57:03+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "대장암 항암치료 단골 부작용 ‘손발 저림’...말초신경병증입니다",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9GUXN6eXY5cTJCUWVvWGFxSDAtQnUxQm1nenZhNi0yTmJKVzJTblMtd3pmeDQ1cEg2VERfNVVqLUFoc2cwSHNFVTRhc3l2aGY1cHpMdjFtSkRqSDZGelBLZXpDMUlxMFVBcnhv?oc=5",
+      "source": "헬스경향",
+      "publishedAt": "2026-11-18T14:20:36+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "\"중국 문 열리나\"…하루 만에 '30% 폭등' 불기둥 쏜 종목 [분석+]",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5IUk9WSUdEX3RZckVxZm5CcHVBT3JrZ3Z2SkVDZXd6SGtOUHYxYWJzMVhINWRqbW9GNE5HUjFJY3UyQnhPRUxoa2U4dENkMVdJZ0NtNlNyZThHZw?oc=5",
+      "source": "한국경제",
+      "publishedAt": "2026-11-18T21:30:08+00:00",
       "category": "한국"
     },
     {
@@ -264,6 +817,356 @@
       "category": "해외"
     },
     {
+      "title": "전인장 前 삼양식품 회장, 벌금 내려고 주식 470억어치 판다",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQVzZObjNXclNKSnZxcGloQTFRbzVQZTV1bE5BTjFtb1Y0UUVVYlRBMEZyaWZETTNaSHdxMGN4bXJjSlVaNGg1QjFfdkN0YzV3WnpvSlpjSEVZdjI3dHpmRVZtbU5LeGJMdHFzcUVaQUJpQlNpM25mZnVXdzZ1R3RSN3RUU2JJLTRDd2c?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T11:10:43+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "'문무'가 열고, '신의 구슬'이 받는다…안방극장 사극 라인업",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9tNTc4Rm5VcTUzR0I3d2VaczdMODJNZFprOVp2cVZ2WjVhbjRpSjFBanRIU1lyNnBCQjAzVDJiNmYwb00zY3ZndHJxbTR4OHlkZS1wbUVRckp6SUU?oc=5",
+      "source": "하퍼스 바자 코리아",
+      "publishedAt": "2026-11-18T11:59:38+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "\"얼굴에 나비가 앉았다고?\" 내 몸이 나를 공격한다",
+      "url": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE9DYUtGU2h6X0M5Q3J5RjB6Uk1yalFxOW5RWDRzakU4eTVleWxQaC0wRWZjRE5jSV9rYlhsamlzY1BnRV9ZSDFVN3pEUzI?oc=5",
+      "source": "브런치",
+      "publishedAt": "2026-11-18T12:00:02+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "韓 모레노 감독 계약연장 물음표… 日 모리야스는 박수 받으며 퇴장",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9BR0kxZ1hFWWh6M3piVW9LWG1CSW5tRjByaVBfaFdiT0lLQ2JkcU1fR3FlbDk1RkxVdjctdDNyMUFlUWFIbFpyaGU2TDdlMjhDZ0ZNZVE2RzVIT2MyaTdXN3lnNmFHTU9zQU1fM3FLR3NBTTY10gFmQVVfeXFMUGlwemhKek9sQTdtZjFUYjRFVHRRS0xTYkJvM0ZSc0NzUTF5TDQ0OE45NTJDOFlVZHQ5VnNsaFJheFBPZGtOUHRVRGU2NTFDQmxvVUlkRklWNVBYZzhaR2hnODc2Z09n?oc=5",
+      "source": "동아일보",
+      "publishedAt": "2026-11-18T19:30:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "젠슨 황 없는 엔비디아 실적, 시장 전망 웃돌아…삼성·하닉 주가 반등",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE4zUzBZQTU5RmY0Q2tkRHhTNEtHMmNMVWp2aWxrZk5FQkZ5Ql8wcVZHRXRaT1JMMXNSYkNXZFpFN0l5UnVSVTh6Wm44b3ZYdkNQTmpjYnRjTzFhTm85Sy0zX3VZNE1iZF85cmc?oc=5",
+      "source": "한겨레",
+      "publishedAt": "2026-11-18T10:24:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "\"5개월 독학, 공인중개사 합격\"…'자격증 31개' 걸그룹 합격 재조명 - 머니투데이",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5JTVNjQzR2dFllYi1RQTVkempQMFBGUV9xMS1fXzd6bHR0T1VsUk9sUkZkbmFZYS1lSXFRb1VZLU1Tb0lnY2JUbFk4YmZMMHNCYXBFdGxyUkZHQ3cyaXZQYWhMRGFsaklWVTFF0gFwQVVfeXFMUDdCRHp0dGxSWXdSTXRjMG9JY1cyR21GM2RsWEtLNy05TGtZWnFsT3ZaUHpGa0xWd25vdEJoQUFKZkNOZFFQbmNXTVlucDJrVmNqWURfR0pOTk9XZy1kZUJLWkk2cjI2aTFiNi0xTmV5SQ?oc=5",
+      "source": "머니투데이",
+      "publishedAt": "2026-11-18T10:48:02+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "젊은 층·여성도 안심 못 하는 탈모…유형별 원인 파악·조기 치료 중요",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9ITmhYbWNkWXJzZzNXV01adDk5NlFQTlpoTVlHY1A4TFA4MFVpeHJlTWRVMEtUcktGMWpEeHB1dGtNNDE0UDRkakVjMHctalJJTkROR09ucXHSAVRBVV95cUxObDRRWllLVWVXYkRNdTFFcC1VUGF5YXpfU2NDdXMyelJOY0ZleFhBbFc2cXJkQ2Iyb1ZkcHIyWGtaR0RmeGkzM21HSHowUnBiWDRSR00?oc=5",
+      "source": "세계일보",
+      "publishedAt": "2026-11-18T12:00:00+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "KDI 경제전망, 2026 하반기",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9pblpaQ0VMNGhsMG82U01NZ04yWWcxVThrQzFVU2RtZFR6RC1aaDBkRGNwbU9RSVkwTzI3cEZ2Q2xmSWxTQmRyV25XR3NDUzJXOFBUQ2FvNlkzRGFJM0I2QlpMSkxoUGpGQXhZ?oc=5",
+      "source": "KDI 경제교육·정보센터",
+      "publishedAt": "2026-11-18T09:41:47+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "인천공항서 여성 강하게 밀친 아이돌 매니저 추정 영상 확산",
+      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1SeHVmcUp3SDZZXzFPU0VzOXdlamhYODAtVW5xek5wcUpzdmF1cGN0OU1KY1FwSzBYM195ckM2a2RSbFBwYm5CX3VLQjN0bU5ZTWdBaA?oc=5",
+      "source": "뉴스1",
+      "publishedAt": "2026-11-18T09:34:35+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "카놀라유 놀라운 건강 효과 4가지... \"올리브유보다 나쁜 콜레스테롤 더 감소시켜\"",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBsYkpJYUtwWm14d0NHdkdZLWpBRndndG5ob2RuaHljV2hoYzY1cHJvcnJCbGktY1BQbDI4XzE3OURFd1dBblFlZWktM0dybFFwVEMxT1U2QWppMk9IWEtLcXV1RnhTdFdFdWc?oc=5",
+      "source": "하이닥",
+      "publishedAt": "2026-11-18T11:00:00+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "엔비디아는 이상무…하지만 한국 반도체 주가는 ㅠㅠ [핫클립]",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE0zT3JhRElzcWdxOEo2bGw1V3JPVGpvbldlRG83Q25Cd3Ixa1EzNlpmdE5sVndJQUs1bEE3RHI0NUpCbnpTcWloZGZHU3Naa1h2Z3Rpa01WN0gySmhpaDBTY0J2Mnc1UQ?oc=5",
+      "source": "KBS 뉴스",
+      "publishedAt": "2026-11-18T09:15:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "장원영, 디즈니 공주님이 여기 있네…홍콩 밝힌 비주얼",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBvTUVtbHpMU0trQTFSdld2ZEcyY09BemJJM2Jvcm1aX2tJdmZOUWFkVzJmam55ODhPNXR4bHlUN3Z0dC0yYnpFQ1VFYkV4YjNlTGx0STFlZXNZdw?oc=5",
+      "source": "한국경제",
+      "publishedAt": "2026-11-18T08:50:36+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "주의: RSV에 감염된 어린이에게서 폐렴 합병증이 발생할 수 있습니다.",
+      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5aQ2JFUm9kN2I5YnNEX1pBbDdKV05iV05WODBZSlJFTjJOS2MzOF82VlpjeDFJd3Qxd1NLUkNkWFZhZk5nb01kSDEyT2ExTkIzRk5xV1hMY2VYbGU2SUlHTF83OFhZN09MdkhSdlhpRnZGeVdzd1MzQ0RCLUs?oc=5",
+      "source": "Vietnam.vn",
+      "publishedAt": "2026-11-18T10:29:31+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "\"통신 차단\" \"1억 포상\" \"연필만\"... 李정부가 초래한 수능 대혼란",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNVHNQX3RQMDlHRnFwU3R4QlJsUWoyaGdQczhYRjV6ZWt3V0t6RVZTOWlkakYxLWxiTEdZeWUzb2dYcmZuMFV5aDFVT3phdjhIci0xeVZ1X3Z4QUhudkh3RjRnZDBBcl84LXQtVnZuR0FEXzhSZTRXODVidXlMZ1pNcHFUd0UxNWc?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T15:57:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "중소제조 현장 AI 혁신 확산 촉진…스마트공장 구축 지원",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQaW1jU0xIbFN4TGJmRFdaa0hTWTFCSnNUdnkyMUx2Qk84dFVXdUhmOFdoT21nalNBSHVOcXo2LXJpaDRHNktVT1YzTkdYanQ4ZTJVakY1OHU4MThCQTFTNTdJRTktWDc4bEYtWWx2QzNzRG1vSnBtZTB5cTBKWnFYRGVGcTQwLTM2bUE?oc=5",
+      "source": "대한민국 정책브리핑",
+      "publishedAt": "2026-11-18T08:49:42+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "범접불가 아우라…'완전체 컴백' 핑클, 압도적인 카리스마 새 프로필 공개 [N샷]",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE82bTV6Nnk2Q2tGRzFPNlNSSzdfN3B3RFpFZHJsSHlzRnhST0s0bGJMVnlRdjB5WGFBejI1aC1DUVpyUmlqLXZnRFp2Uk5VcVhlTDYzM3pFQTZyY0JEejFoTDRzWXY?oc=5",
+      "source": "뉴스1",
+      "publishedAt": "2026-11-18T08:11:43+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "미국, 26년 만에 ‘홍역 퇴치국’ 지위 상실…한국은 안전할까 [건강한겨레]",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1ScjJVYU1XR1hQMEdaZnZVMkdzMmJZZFZjM1lUbThuMzNtTDFRTWpQd1l0VFRIcWtvdThXOFFOTmVOcUxtWVowS0ZIMGMxeDZqdGNaSEdCMUZwdWI0bENBcXozVVhhZ2JwU2xv?oc=5",
+      "source": "한겨레",
+      "publishedAt": "2026-11-18T10:18:00+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "수시 먹통, N수생 최다, AI 커닝… 08년생 ‘고난의 수능’",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQX2hfTFpDNWw1SGxWXzFHa3ppaHU5Ymc5NHBKbS1ELW9XcmZqdnFjaGdZTFh2eXlKclY1WDhBRjZDczEtWnd5RnJiSzBQUUhmdEF2Q0JGMnItSWJfbzZ3R1gwd25aeXA0eEJidTcwcW9FUU1SWjREZWNtZ1ZoelR2OTh5dFNwN0U?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T15:53:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "엔비디아와 손잡은 삼성전기, 주가 8% 급등한 이유는?",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBwVW1mQ2xyOUhObzUwSFBpc01BcjlpWXBwUy10VXZ5NHRENHhuZ3h0bGFyaktDanptY0RjWUE0eGs5VUlKYnhCbFJMLUNUdEVDVW9EMGFzNWs?oc=5",
+      "source": "네이버페이 머니스토리",
+      "publishedAt": "2026-11-18T08:37:01+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "베스티, 11년 만에 '컬투쇼' 완전체 출격 \"꿈인가 싶어\"",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1jQUFUYkFuNHV5ZkZRWlZFTDNpSVVuM2o4NDByLTRLWktOVkZGNnlfb1pXSEhzRVd5WGFCUlNoVEk3QTlyNlhaYmUwRElDVElheHlRUnA0RQ?oc=5",
+      "source": "뉴스1",
+      "publishedAt": "2026-11-18T08:09:55+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "알츠하이머병 단백질 지도 구축…기존 연구서 놓친 세포별 변화 78% 새롭게 확인",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9td25JWVNvekxicnM3amR3UzFESnBCOU5pZTdQU2VKdnlMOFZwTmlIZTRIQTFvaGdZc2VGcThEU3g3MWxIX3ZSVGhSeTJBR0lTa3NmQlJ5eTV6Y0VUeFRxWHlZNGFMNnBZalB1TQ?oc=5",
+      "source": "메디컬투데이",
+      "publishedAt": "2026-11-18T09:22:19+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "'빅 리그'가 원하는 韓 2008년생 김예건, 이강인 향한 존경심 폭발 \"플레이 스타일이 마음에 든다…많이 배우고 있다\"",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPWnhhdTRORlNMOV9QNnVpWXRwNzBUdFNvVGhXd1JkVk9sUkRlSDFJcWxFX2c2UmdBWnpGeVFoeXJuYmFRVWM1cVFVQXhPVzg5Y1g2N2xieV9ZQnlNU0tBWkFXcFRPTFV0d1M1eFFoTkRGX0NaYVd6Q3hwSWQxbGN5STV3SQ?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T14:58:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "[공지사항] 붉은사막 2026 게임대상 수상 안내 | 붉은사막",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9JRmZvQjliTllycmxqQUpXeWdhTXpmOEdpanVjZXNkZHBPYTl6NXpHVVhBend3R0tuMEZYMmFpV1I4MWR6WGJTcUdCQVFVVlBKb3BWdGZJb280UzZVdG5kd2luM3VHbWlKeUtpQ2tQTEJXS0ZVQU1ra1JwaVlGQ00?oc=5",
+      "source": "펄어비스 공식 홈페이지",
+      "publishedAt": "2026-11-18T08:35:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "황민현·투어스, 2027 수능 수험생 응원…\"차분하게 실력 발휘하길\"",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE01WEU0d2pfUzlEU1FhYVd1UWlfTnd0QTF2S244RXp5ckhRdlEwWFl2ZkxkMmt4X2l0c3UtcVJETnRBZTQ5QXJ0R0hyaWs5LVBiVEoyZ3Q0NGxsX05T?oc=5",
+      "source": "뉴스핌",
+      "publishedAt": "2026-11-18T07:57:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "허리둘레 너무 굵거나 가늘어도 사망 위험 증가…한국인 1725만 명 분석",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1jc19VN0pBRjdUU1J6RkNmN0otN2pJVHh0N3NnRHJvZWh0NzR0NUlUSTRYX1hvSms4Rm1LMnB2cmJ1X2FwNFc2VGN2bWFMbU1wOGFPTHRzNm13SWIzRllPbFhwbFBzVkl0Z1NocQ?oc=5",
+      "source": "메디컬투데이",
+      "publishedAt": "2026-11-18T08:59:39+00:00",
+      "category": "생활·건강"
+    },
+    {
+      "title": "'이동국 딸' 이재아, 쌍둥이 언니 인기에 밀렸다..\"이재시 없으면 나도 괜찮아\"('내새연3')",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPWUlnYl9id2NvSDNnd2NNWDJMVDFXOGJ2SWxzRzVqQXpXZnFSQ2ppdWJjTXlEOGlwcUJxcldSWTBYM29kMmY5LS04XzNfclRRcnByaG1qemI5aUFOanptdVNMY3B0SjJ2dFpnYnh4cURobGJkc0NueGUxM1lSNXJoN0VjanEtSGlwbC00U0VIdw?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T13:32:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "대형 금융사 보안 취약점 점검 연 2회로…연결 시스템도 전수점검",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE92dnJZLVlBTFdGT0FROXdJZFlmdF9zVE5pOEFtSnFld1NKLUpMSktPbExZckFNUjU5NEhfU3VuRXFodU1jM2tnNjlHZVFYM2pzUExldnV0V1o5Sk81bTZ4VXJOY2hJeGc0QjdmSQ?oc=5",
+      "source": "대한민국 정책브리핑",
+      "publishedAt": "2026-11-18T08:33:38+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "200억 벌어도 회사엔 4억만?…이정재 '10대 0' 계약 파장",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5iRGFvVE5RTHNmT3N6UHZuX2twMHNwOWZqTnljMUhtMUszVWlNVFZWYXlkZ0pFbmgxUE9fMjlPbk1PZDV3MF9uX1ZkSldVUzdiY1J1Vm5TeWx3QQ?oc=5",
+      "source": "한국경제",
+      "publishedAt": "2026-11-18T07:23:28+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "배종옥 첫 공포영화 ‘완벽한 집’ 25일 개봉…장규리와 호흡",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9DYUx3bEE4QldBcFFLNHdwUlNGVGptQTZnZnZKWkpYQ2tRUjlvZmtzenppT0RfcXRQcl9tMlhCRTNSemlaZHFIN19MTmNobzRpQkVEMlltd1RWcjg?oc=5",
+      "source": "KBS 뉴스",
+      "publishedAt": "2026-11-18T07:22:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "엔비디아 실적콜에 등장한 이 남자…젠슨 황 후계자 될까",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5ZUGUxd2lQY1ZFTDFqRGFSbWNJWERMd1BXaWU3dmRVUFZoVmNNYkItRnhyeFIxTDNFZkJidW81cFJkaWZUSTFDNVdkM2NzbkZOMUtNLWZR?oc=5",
+      "source": "지디넷코리아",
+      "publishedAt": "2026-11-18T07:12:49+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "'이혼' 황재균, 웃통 홀딱 벗고 여성과 밀착 '브이'…드러난 근육질 몸매",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQYXJWVDR0dVhVc2hBcUFaVVRodXE5ZzVyTEJ0SC0xOUxPX0VfYTNLVERlN28zQ0VoZlpWU2cyT1NscGNfeWQ3MWoyRmNGOWlSLVJnTmZmUVN0eWJwWTNOdHhXSnI2T3l1UDJwQVhUejdUS2RSdUN2cnIyRWR0V2N2YU55NGwxajBGeHoxRWhmNUxNc1V3?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T07:01:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "GTA6 출시 D-1…사전 예약 1500만장, 증권가 '매수'",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1ISHZCcWVPSzRoaE9seFNSOGEwTDhZUUc0b3RPWld5V3FVb1pFQldCNEhwbE9hQW5xUlhIR2JxYVdRb01wb3BOUnFSZDhyLTJNdWg2SXVaMEs5Y3JVTUJsM25RSFpjVHUxeGl1Ykh3RQ?oc=5",
+      "source": "위키리크스한국",
+      "publishedAt": "2026-11-18T08:14:19+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "포스코그룹, '배터리 1위' 中 CATL에 리튬 공급",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBMMzdFdUFfbFgxYl9Bc0t4ai1YeXBzZEhlRWJwQlNhTm9sMXAtTm1ZVk9VTXdjdE5YSkYwU1pwOEFURGltaXBrSmhDN2huUTk4MFgtYWp3?oc=5",
+      "source": "지디넷코리아",
+      "publishedAt": "2026-11-18T07:05:11+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "김태호 PD, 디즈니+와 ‘여행 연애’ 예능… 송은이, ‘고백하면 손절이야’ 제작",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE82cFl5QUxBbHhfdlUtZWZtdXdNWkJGU3FGVEl3bW5QdUg0TFRoSWRhYVlYbTNqM3BFN0NwZnQ2bkR2eU1FMHB2MUJJTWxFaERWM2xlTmlrblFQQnRPUDdqSmJCRlpYOVMxSFVPQXVBTE0?oc=5",
+      "source": "미디어오늘",
+      "publishedAt": "2026-11-18T06:55:08+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "국군사관학교 2029년 출범…1·4학년 통합, 2·3학년 군별 교육",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9PVXZEWl9KcG8wWHQtcmxmY1g1WlhrTDVUMGJkaExoY3N5Ulh3dWh6RjlQN1RmQVA0RWRfR2d5Mk1UQkZYRlhpRHdETklPdUVTUlVmUWxyRllxUXBleTlDY2tJbWZWMDhFbkoxdw?oc=5",
+      "source": "대한민국 정책브리핑",
+      "publishedAt": "2026-11-18T06:55:55+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "수출도 주식도 AI 의존…반도체 호황 꺾이면 '이중 충격'",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNclZNdldrNnJZaG5ZU3JBbUZ5WkQ3WTJ6cjNEUFZoS1BPXzRJRlNILVlTNFdVMGxpbThyMVdKRGpXN0tUUmxQbEJGVW9uZXFHdFFva1l0SmNYLW1aRDBiU1Bjd3l4cEhTWFBXSndYQnQtYnpxWWNzLTN4MXlZWWJWdFZ3SjBrdGxfMk1TV0ItY2FTMVdVdVVxWUFHczc2NTY0QzM2V2NReHB5QjZwMS1ncTNPTUt3alIzXzJZdHg2UlNSQ2Mwd2tNal9SMmlxaGdpc0ZuelRR?oc=5",
+      "source": "한국무역협회-KITA.NET",
+      "publishedAt": "2026-11-18T06:35:07+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "[김한수의 오마이갓] 최불암이 세례명으로 ‘프란치스코’를 선택한 이유",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPekFZMEZybm9aWnQ0QjBqckJ6TmxBSkhLVzY3T1JCVUlhX2ZmbnNBaU40OXlfazRld1ZsYWFGVlNjMkFHak9wWnBGc0Z6dGRPOVExQVdKQ2ktLWVrb2luWkhWUUlBbTRycTFtbDNiQmtia2FTcDFkR3p2X3VKcGN2VWMtaEpuMGhONVNiUndaSzEyNzRE?oc=5",
+      "source": "조선일보",
+      "publishedAt": "2026-11-18T06:55:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "3분기 가계 빚 2030조원, ‘빚투’ 감소에 증가세는 축소",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE16V2x3WVZpSlZJemR5TWN0YlVaRm1EYkg0X3JnRHhnUjhBU0haUzBVRy16SkE5UFNPV2RBY2ctUGg3ckt2cHNYdGotTDNZaDVnV0JXanlwcnpnZw?oc=5",
+      "source": "경향신문",
+      "publishedAt": "2026-11-18T05:59:00+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "\"엔비디아, 알리바바와 앨리스황 연결…中 AI칩 확보에 도움\"",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1feW1BUTc3V3pVT0dtX1FhUlJZSk95WWRzbEE0MEJsN2FGNDdvZmM2RVM0YmNINGF6SlR3NmlfWEhiVmFhY21mNTN0bTg4LVJZWTNwakU4bS1COEE0WWg3RU5PdjhTMms?oc=5",
+      "source": "연합뉴스TV",
+      "publishedAt": "2026-11-18T06:19:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "리센느 MMA 탈락에 국회 청원까지···“심사위원 0점 테러했나” [가요판]",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1fVkhrTUwtOWZRWTIyc1FLSF9QallrajNUM1AzSnFYUDI3a09WUTd2UWVkSk1kTUdPVTcyUHVhNHdVMG51dGFlT3ZsOHdvbTNtR2lCLUwxcDg0UFlGRGfSAWNBVV95cUxNTzRqdlZ4dHQ1SV8wdHZERE1RSUEtd2EwMm5mMG4xSm05THBPNzU5ekJfZTVIWnJRbUhXZVVWdGJaUE1HZS1hb2JGS0xKMVZnZllFdHVlV2ZhcGtEcmx2SnpQUEE?oc=5",
+      "source": "스포츠경향",
+      "publishedAt": "2026-11-18T06:54:00+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "[속보] ‘계엄 해제표결 방해’ 혐의 추경호 1심 무죄",
+      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1ZN1hBYVVfRzV3S0pGZUp5TTJ3MHZDV0FRU1RBNWpxd0JfRzV1alhYeDhyNGZQbWNFU3BjYl81NVl3MENOVGJRQWpvZzdaYXF1LXNBMw?oc=5",
+      "source": "매일경제",
+      "publishedAt": "2026-11-18T05:18:18+00:00",
+      "category": "한국"
+    },
+    {
+      "title": "롯데바이오로직스, 인천 송도1공장 오늘 준공식…“바이오 경쟁력 높일 전환점”",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1lRmdoXzYwZFF6VXBUMHBDckx6dk9ZLTdKV0s1U3NlemRfQUN2azBkeWlzSk5Wa1o3TWRpOTlTU3liNms5dWpwQUJ4T3JUYXdaWUUyMGhEamptUUk?oc=5",
+      "source": "KBS 뉴스",
+      "publishedAt": "2026-11-18T06:18:34+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "'보검 매직컬2'도 고경표 편집…‘음주운전’ 연예인 퇴출 청원까지",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBGM2I3cWxsNU9NRWZQWUxNNVc5eFVpZDRqdVMwZzFHRDJHSjlGV3BFMEhKclp5TGFjNTRBcUU5RlpHWEJGRDZac2Z4V18zekE3SUt4bVh6eWJXcjg?oc=5",
+      "source": "경기일보",
+      "publishedAt": "2026-11-18T06:27:20+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "미래에셋생명 해킹 유출 1만 명 넘어‥스트리미 2천 명으로 늘어",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5tTGlVc1ZpMTh6YnV6M2dGdHJOd3FPUmNma1BNQnpGNVFua2oxb24tdlVpQUdSQ29oRlVRMjZBS0RWU3N0YkxUM1ZhV2g2X1MtbHVhWkJETWVYa3ZLQWdMcTAwZE9UdEphaEI1cmVra1ZLem020gF0QVVfeXFMTTMyNjVyNDZvZzlaNTdWYXZpd1ZfT2o0VlEyWmdEYklrMXNaUzMwUVhjTFlmVTZISzJuRVg3YWRlT3FVWTNHSHVSZVNRSTFGNS1OTHZueGJEaVhvdmV4M1FOdW9DR2Y4UFN2Wng5bGQ1TVdHZlk?oc=5",
+      "source": "MBC 뉴스",
+      "publishedAt": "2026-11-18T06:01:50+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "[포토] 카리나 '인형 미모'",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9hMmdab1FySmc3U0c3cS1pT0ZjVjU4NjhWMkZkSDVteGJhYWhrR3VScUp3UHh2aF9CajJSR05aTlMteU1DdWd1eWV2OHpMS1prdnlLRjJuMjjSAVRBVV95cUxPdHpnM3FWSTh5QXZ5MUJTeGNXWTNtVzRiaENieG03TjlXOWhVUlJNaFNfT1F0bmVTZERiZjNlZ0lnRWktTHpucjBod3c3SGhPNEVpOHQ?oc=5",
+      "source": "세계일보",
+      "publishedAt": "2026-11-18T06:20:33+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "김효진, 남편 사업 실패에 이혼 위기…\"분노 대상은 나였다\" - 머니투데이",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1zdUxvLWlUbUhseEEyWFhmbFIzdWJjaVJFdF8yZ1NwZGdOVjNFSWRZbkdEbXZMTnBaNzBmWTFkaHh3OU5TMmoxZWlVaUxHZlBxR1hZZjUwTzRCTnF2WlFrd1pKM2RxZlM3bDJJQ1dMcFY1aUXSAXhBVV95cUxOQXpJb1psWm5ZTEZISkFtOFQ3X21xb0s5X3hWQ3k2SUlWbkY5S0VwaDF6NlVGc3hkQmE3QU1LZ0NHRTFUc1FEeHRjb0tsYzJzNE5RMzFRZ1hsVERXV3VNV1ZyRTBwTVhKbkMtR1FCeG1YRGlseC1YUzE?oc=5",
+      "source": "머니투데이",
+      "publishedAt": "2026-11-18T05:21:28+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "수출 날고 내수는 부진...제주, 상품.서비스 소비 동반 감소",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1KUm9GdEs2cmRfRmhxdTIxQTRpTjBzYlFBM3Z6d3VqT0RvdnFxMVVSTHN1Y3A2Q2VqZVdsdzg2ZzQ5MnNBZEY5Y2pqRnExTmVDWTF3bmRoN3EtSjAwWkFmWDQ3eXdLOWlnUWxrY1VaQ1Y5eDg?oc=5",
+      "source": "헤드라인제주",
+      "publishedAt": "2026-11-18T05:57:24+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "브로드웨이서 돌아온 '시카고' 아이비 \"현지서 배운것 펼칠게요\"",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5QZUpxM2FVdXpWSDZKU0RHSkhuWTlpd0FSZV9ZN2ZIaVo3T2l4b1dreTk0bjE4Tmw4Q3g5QkNSaHUwY1hLNmNmcjVfY1VsakhTNThwR3NXakRoTTDSAWBBVV95cUxNUXZFZEx5MndHRVpGSGsyc1h1WWlibjV2Yk9obWxHY3VXVEZnaVJtRk9RWm5BX3N0dUJZM25mQzFYSnh4VG9mdW95S0dsbllJbE5DOGk4SlM2dTdhbHo2THk?oc=5",
+      "source": "연합뉴스",
+      "publishedAt": "2026-11-18T05:18:18+00:00",
+      "category": "문화"
+    },
+    {
+      "title": "화이자 CEO도 경계한 '中 바이오'…\"AZ도 릴리도 아니다, 2030년 주요 경쟁자\"",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9NaF9fR0x5ZEFiNVZDd3dEWmkxMDkzVkkxNUJCTjVqalZscjNPY0RGTEc2MXlldWxxbk5ISnRJbkxnWmthbGFzU0wyZThkbnB4eWV6X1p3?oc=5",
+      "source": "MEDI:GATE NEWS",
+      "publishedAt": "2026-11-18T05:57:00+00:00",
+      "category": "경제"
+    },
+    {
+      "title": "[속보] ‘풀소유’ 기안84 주관사는 세금 ‘무소유’···모모랜드 전 대표까지 체납 명단",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1PVDBtOXJkSnVCeUhyY1FLOG8xUHJxZVNJTm9Od3oxWDFQeGtvLUNaX2U5MWswQnRUa1c5emh2WVVvM2FsdDUtZXJfSWV2TkRPc0VieGpONnRpTXcwMGfSAWNBVV95cUxPZ0dwLUtIbEpDU1p5OUZaN0tURzVVa3d3bUphYzV1WXhnVkNVcUhNR3lhMkM2a3NhU2dxZ3hQcXFUZEgybWt1aEQ0bF9VSU5rZG1FMGFQaG16Mjc3UmNCc2k3ZGc?oc=5",
+      "source": "스포츠경향",
+      "publishedAt": "2026-11-18T05:07:00+00:00",
+      "category": "문화"
+    },
+    {
       "title": "피지컬 인공지능(AI) 테스트베드 4곳 개소,지역 기업에 개방하여 실무인력 양성에 활용",
       "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFB4OWlXb0JFR0xvZ0FtWENJMVd1Q2ktTEw2OEVqT3ZDWVZOZGxRWGFzRVRqaGhMUUdveGxmTDh0RjJRaWJPYUczVWhzWVd1MGdVOU1URmpkZ18tZlZsR1hSTW5FYVV0Q2RpdFp1ZURvdFQ0b0Y0YkVB?oc=5",
       "source": "고용노동부",
@@ -271,116 +1174,25 @@
       "category": "경제"
     },
     {
-      "title": "\"갤럭시S27 울트라, 카메라 이렇게 생겼다\"",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBIdXJTSElVaHg2azJYYXhINHJOUmZ6b2Zhck9HLXl3MWwtUG0zR3BxR3UzeEJjbjZrRVV4emhlNFRNZkdEQ09nY19QZzdfTEhlUm5vLWhn?oc=5",
-      "source": "지디넷코리아",
-      "publishedAt": "2026-11-18T00:08:30+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "“월화수목금 불륜 상대 달라, 이게 흔해”..장나라, 충격 이혼 사례 폭로 (‘살롱드립’)",
-      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNdE1pRzFXNVJUMHFTeU9ERmFERnFMLVhyUHBBLTI1aW0yVThsVV8wTEkxTWQtRUZGVWRmNC1DZnB4bllhUmk3bEhacDAyeC1HdllZUVRPdk5QSGx6Unc1bF9iS0w4RHdPeXViZ3hSemtILTFINzZzLThrTG8zdFFEYlVMUXoxanc4S1A2bDk5QlNDUW_SAacBQVVfeXFMTXQ4YkVzTW9oZEd0ajFLVzVLTG03dVNvOU5idU9iVS1UYV9oS1l1YXFJa2FHQWROVXJXcHBjdGZDZmtrNVIzVzRhb0ZySWVRU1h2SVBKWjhRaFh0Y1FMM3lPa2w3MW9EdUIyRWN0enZzbGpqTGlrTE5qODRNSE9IbzZ0YXRZMnlmNXh5WnduNGNIa3B2SGdvRmVVeV9ya1BlM3dacnNxVmM?oc=5",
-      "source": "Chosunbiz",
-      "publishedAt": "2026-11-18T04:57:00+00:00",
+      "title": "뮤지컬 '플릭스!', 자립 준비 청소년 공연 초청…야나와 문화나눔",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBPdHNBdGJYNHhNTDU4X3lBcl9GSUFjb2lYb00zMWZPRlJ5NkdYMldGcU90MFFqb1pnQmNiTklfT3JrRF9BaWl6UXl6UHQ5QUg2S056aDF2SEpRMm5m?oc=5",
+      "source": "뉴스핌",
+      "publishedAt": "2026-11-18T04:39:00+00:00",
       "category": "문화"
     },
     {
-      "title": "“AI가 작성한 퇴원요약서, 의사 보다 낫다”⋯정확성·완성도 높아",
-      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE85Z0VoaUFyMXpJczlLMTFibFdqZktibTFiSFpwYXFDa1ZNYjRtNGRUS0Z2elI2V010ZEVhQjk4N1J2Zw?oc=5",
-      "source": "코메디닷컴",
-      "publishedAt": "2026-11-18T05:27:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "정청래 \"최민희 해명·진심 믿어‥징계는 당에 도움 안 돼\"",
-      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFB2d3hXbmVTcnFUa1VmOFotNUZvY3ZJX3Z2aEJwTEd3S3NWc1NUNkxZQW1kX0VnQm1nNTlnWFJyS3VZQXA1eF91RHRRbFVncTRBOVF4MjBCa2FEZnVkNzZWVzNFaGVHQXh2UmVnbVBubzdsMlRRWDNRM9IBeEFVX3lxTE11MFE5X09UUzZFMVJJa2pMWjM0SmJJZGFhMWdXbkZxbW9MdUFueURzekVmTEFLemctQTBzR2VHMlJqbDBWMlg1VHR4SVRPNWRrYUVvRXlLSXlOUWQzNERzMzdwelUwak9YV2dDQ08tZUVRbHJrbHpiRQ?oc=5",
-      "source": "MBC 뉴스",
-      "publishedAt": "2026-11-18T05:21:18+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "美국무 \"북미회담 아직 안 잡혀…트럼프는 진지\"",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1ObHQ2eFBrQkJaSmFxSk5ZYXN5d09RNmY2TEhiM3pfaHpJQi1GUnBEdmpReXZad1JfdG5VTlgxQ04tX241ZHAwc0dWTFNVejIyMGVYZFdiU29yWWpmQmpqcVNWcWR0ZXc?oc=5",
-      "source": "연합뉴스TV",
-      "publishedAt": "2026-11-18T02:23:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "자바 취약점, 패치만으론 부족…내부망·위탁 서비스도 점검해야",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5MUXNQX1JMY0pHUWVWc1ZZY3FFZDFLTW8xNy1LSDljNUIyZVZCSi1FWHhZWmJqenVtWTZ1NnpIcFNDVGJDQXJfZno0NEF6UmdVOTlVRlRiYlhlSDTSAWBBVV95cUxQTk5Lb2R1dnpSTktBYmFLZlh4VnBka3RLQVdXX3AwYUdOLVVuNDl0N1VhT1JFZXMtSGlCTGpXQnNtUDhFNGxnOU9CakoyaEx1TmFBQzRHbmEtdlRCWTgzVWE?oc=5",
-      "source": "연합뉴스",
-      "publishedAt": "2026-11-18T05:16:22+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "“MS 다음엔 애플” 내부 업데이트 오류로 아이클라우드·애플페이 장애…‘완벽한 생태계’의 역설",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPVG5yaUx4QTlSMjZTTVN3eDVyVXJSak91Q3FPTWxkaU9Oa21FaW0zSFkwbmlLY2M4dUJsYXRlYkZ0c29fRk5DN3NxdHVzNTFrQkl1cEdKODNTM0hVZG5Nb191dXpJTVl5eGpMX3FKS0VvdnRoZkVzbjE2UDlnXzRURUx30gGWAUFVX3lxTE1kcVZzaEhSRnQ3ZmNuZmlXTFNudkdQakREYnRNV3EwTGFuMElHaEdOSGRoTHpFYnBjaURXcjJBUkZaalZqdXZEeXdyRTF5dWJ3ZVJJeGloZ09xYk54Yjg3bHlXanhINHlULTNrSk15aE1JTEpHaC1GR0hqZFRXaHhSajNESmZ4MDJLR193OEFXTGdiSkdhZw?oc=5",
-      "source": "Chosunbiz",
-      "publishedAt": "2026-11-17T23:26:00+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "데뷔 10주년도 거뜬…NCT DREAM, 정규 6집으로 11연속 밀리언셀러",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5IZXFzMmk4cHVaaFJUdWk2M29idWRUM3BaQ0EtU1k3XzdaOEx0VnE5U3ZOQVhtUHRnSE42d045dl8xSkxqRmJNOHJlWDVRaFFwOS02LURNRXY1NVNZbG43dFFmV3c5RElkeEowV0x3?oc=5",
-      "source": "스포츠동아",
-      "publishedAt": "2026-11-18T04:36:12+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "동의생리학회, 추계학술대회·만성피로증후군 국제심포지엄 성료 > 뉴스",
-      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9sMEZUMGlGTjkwREdOR3dLTFJvck12THJmR2lydXAtcjUzcDRCemdlZkpLZ3ZwbDNsbGt3SnVXWE1Fd1lUakdUNEZKYXk5dkhNQ3k1TUtsM3RKVlZTbnhBOXZaY0N5UjctaHZPWlNXeWxwQQ?oc=5",
-      "source": "한의신문",
-      "publishedAt": "2026-11-18T05:24:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "美해군장관 대행 \"이란전서 사용기한 지난 토마호크 점검 후 사용\"",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9DelhEZVdZVGxscWZqdEF2NTdoakt6Wk10WV9GMlBEUEhVekZFaWJsMFN2eVdrNFpMYUJoWC1vTjBCZ2Y5ckdGZWIwcWw5cFpUQk11WDVPc0lHdw?oc=5",
-      "source": "파이낸셜뉴스",
-      "publishedAt": "2026-11-18T01:27:16+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "금감원 \"운용사, 금융권 '약한 고리'…외부접점 빠짐없이 점검\"",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9uaTdZSTdQWmFZNVIyVXhKY3hLOVdWZmMweU5obDNqbEQycDl6Zk1KNzk0YThiSnplallic2JZeExxemx2bFpWY2gtdnFlUTA5dXB2cUVma281SEp5NzBXal9qUHNLaDloby1tbW1NZnI?oc=5",
+      "title": "KB금융, 부문장직 폐지하나…이재근式 '시스템·분권화' 지배구조는",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE01OV90b2VadjdqbFhrWXhiSHVBVTlWeWZWOUcyaTVReDc5V0pkSzNKdkxQVks4bnZqMUhNd253MkNGNDM3VThpVDM5UmZTMURURmpPVmZRQURDX0hkVF9OSTRxSmlaaExaLWQyclF5MUw?oc=5",
       "source": "연합인포맥스",
-      "publishedAt": "2026-11-18T05:11:44+00:00",
+      "publishedAt": "2026-11-18T05:21:00+00:00",
       "category": "경제"
     },
     {
-      "title": "[자바 취약점 비상] 오라클, ‘자바4셸’ 등 RCE 취약점 11건 긴급 패치... “즉시 업데이트 필수”",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFB3N1BLZjAzNjRUc3g0X3Bfb2lOb3o3MlZILUthNExpUW1IdUtaSFQ4c1R3OUx4MkFCWkEyc1VLVUxkTHVsNGNmNUMwXzhraGp2aGRONVNpNG9mc0ZKS2gtOU5ybFE3LWxMdnlR?oc=5",
-      "source": "보안뉴스",
-      "publishedAt": "2026-11-17T23:08:26+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "'폭설' 구교환 \"예측불가 얼굴로 기분 좋은 혼란 주고 싶어\"",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9CYU5fV2ZvM1diSERQUmdyalVmeWRidURqcnF4cXN4dDNuSDBfMXYyUEVxWEZrSDFETEEyLTczMlpCZ3dFbkRoSmlhU3hjNkttaWh1YmpwM0thUTjSAWBBVV95cUxNck9ZdVF2WEFGVzEtWjhBMDJCcDZoOHZ6bG5sWFUwbXlwVzlJMzdULXhaSHFWZTJfTkxnTVBRRkJmMzFJU2c4bHgtTEVBaXBjXzgzZXdXYnpZd3ZwTGp3cm0?oc=5",
-      "source": "연합뉴스",
-      "publishedAt": "2026-11-18T04:06:45+00:00",
+      "title": "가족 잃은 기분...'불륜의혹' 양홍원, 아내 사진도 삭제 - 머니투데이",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5TYUctWWgyREJYT19GVEFMQmR0dl9WelY2X3RtQnVVT3JUZUQ2WmlUWkpTU21PN25ITjZKWmp6N3RNSl9wX0R0YU94M3FxbzI4bVltOUdxLVRIOERsS1NRT2RQbTV3OFd3TDJrZ1BCbXdXbG_SAXhBVV95cUxNbVRqLTd5RWoyakZ1TW5vaEQ4SEYxX01rcFBiek1MeUN6cHM4aHkwSVhnTUtrRkJFQlBocmpnVzZCSEliR3Z2ZFhqaGlMNHpZTllHRWMzaXUzc3lCU2o2U1J0UVo4RFB1MjNMR085M2h0d3k5NTZ5RGs?oc=5",
+      "source": "머니투데이",
+      "publishedAt": "2026-11-18T02:17:32+00:00",
       "category": "문화"
-    },
-    {
-      "title": "알츠하이머 치매 ‘빠른 진행’, 간단한 혈액검사로 확인 가능",
-      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFByM1MyNC1CdnpSamhBWXBjMjFVREZrSnVmTU9CUzJQLUtZS0ppSjlVdUJYbUxSOU9XNDNGTlA1N1NqaTJublFobUE3d1A1TkRWeXF6ZTRsSnpCTmVhMDBpWVc4VXRTTWhMOTZJRDRxeERQQdIBdkFVX3lxTE1WZTI4VFZLV090TE16VGJtVTU5TGhYVTMyMFVselpvd0tqRy04Y1NvaFZod09Cb19FRXRsNnFjUGhmOUdYZ2JjT3UxeEN5WFFPd0lKSmM4dng1Y2hTdUd3MnBzVzNfSUg1Rm1oWnVEZFE1a3IwbEE?oc=5",
-      "source": "코리아헬스로그",
-      "publishedAt": "2026-11-18T05:11:57+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "혈액 검사로 알츠하이머병 ‘빠른 진행’ 환자 구분",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9VQ3N3bXlESUFNNGhzWXY5bUcwRGxiNThub3RmZm5qbVNpZzhhbndTNmoyNWY1UE5vU3N4WnJkR3c3dEJlZEQ3bVRZZjRxN2VSd3g0d3l4encyVWtSN3lPeURudExKcXZpaWI4?oc=5",
-      "source": "재활뉴스",
-      "publishedAt": "2026-11-18T04:51:54+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "파푸아뉴니기 총리, 시진핑 만나 \"대만대표부 폐쇄 쉽지 않았다\"",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9sZVMtZVhWZkZzNVlReVE1ZEdoUHc1bkFfaExKazhmWElNel9WeXlocVl6bnBQR19JdUd6ZkRUQ0d4d0MtUUZrejlnSUFFcExsU2hsY3pZcU5vU1nSAWBBVV95cUxNYnZvWTUtLXN6dG1UOVRuRi16LTNkZWxEZ0V2M0drTG9CQkNlSHdRSC1Id3BZYXZXWHBTYjZOY25mTVF4MFF3SXk3d1Z1WTlyOUtUWU5OWERFWXhCcDlKT1U?oc=5",
-      "source": "연합뉴스",
-      "publishedAt": "2026-11-18T01:16:12+00:00",
-      "category": "해외"
     },
     {
       "title": "배터리 선도도시 포항 국제컨퍼런스 개최…캐즘 대응 미래 전략 모색",
@@ -390,354 +1202,39 @@
       "category": "경제"
     },
     {
-      "title": "엔비디아, '젠슨황 내연녀' 싱가포르 매출 왜 숨겼나",
-      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNUURoa25tRlF0RjNDSGFUdlpNSkZfcHAtMlBRaktQc05uelBPVVpvMVhWczNFNzAyM2VNcjZaZ1N0SXd6UnRyV3B1SUZmXzRsSFlfc3hwRXh4aWJkX0drYUFLdE45a2pDcTdmOGdlNDBuQnUzQXFwdU9qc2ljc25zdQ?oc=5",
-      "source": "이데일리",
-      "publishedAt": "2026-11-17T22:45:39+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "‘사운드:트랙’ 주종혁 “단막극 작업, 독립영화 떠올라…끝나고 나면 뿌듯”",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9WWVVQRDFRM1FWbGZ3UWxqb0c3ZUFMZVBCN0VLWXBIcVQzV2lGeVJiakZPaE5hX3hnTHZ0MWtKdGI2cVFBN2dTRDRnYktZci1kamppX2VQemVqWEc0aFJNVjVremZRTzItSG1yOVhn?oc=5",
-      "source": "스포츠동아",
-      "publishedAt": "2026-11-18T03:30:06+00:00",
+      "title": "김명민, 뉴질랜드 이민 준비한 이유…“임신한 ♥아내, 태아 성장 속도 더뎌”",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5CSWtibmw4Q3M2YlVKSko3Z3VQcWMxd0RMd1d3b0JRQ2oydEJZOFU1WE5lV2FqQ3Q0bDJCQXV2RlFybklsOFozM1FLZ2FJWGFPeDd4UDh4a3ZISkJTRy1MTmRlQWVEeFdxSFHSAW5BVV95cUxPQl9IYzJpZDdtM0Zna3JvdDNYZWk4X0QzVlA4cGFGYl9CdXpsOTRBUllrY3RhXzd5eFk1bnBlQ2Nsd0NFeXAwNEJfdjBodm1LQjU4blNUUXVIbWJHNTB2QWhpNThENDMyQWI1R0diQQ?oc=5",
+      "source": "앳스타일",
+      "publishedAt": "2026-11-18T02:13:46+00:00",
       "category": "문화"
     },
     {
-      "title": "발바닥까지 아픈 무지외반증…발허리뼈 높이가 수술법 선택의 단서",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE16TlZxbnkyeG9uT25XN05Eb0ZRalJnUXZNOHNwN1hmUUlld3FSVWptWElOdXpmZS1lTWUwVTRlcWVvY0FUYXI4dkhrcTY4WllHVUp4V2hZSThTYkVySDdSbVVSZDdYcTNpb25EbWl3?oc=5",
-      "source": "간호사신문",
-      "publishedAt": "2026-11-18T04:20:44+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "전 부인 친구에게 왜…땅콩 알레르기 여성에 ’이것’ 보낸 미 남성",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5CVWp5SnRHOFo0UGRVWUJxRmUtQzFVcVNTdGFrTWstNDFEQ2EtSEktMUNNcXdieVp4RDFUcnl5WUo0ZlRtbzAxU2NzbUw4VmZmZnZTYVlrU25sbFE0bWZwcEM4Y3ozUFU?oc=5",
-      "source": "연합뉴스TV",
-      "publishedAt": "2026-11-18T00:34:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "2천조 넘은 가계 빚, 6분기 만에 최소 증가폭…판매신용은 급증",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5UejBTZDl1ZUtvSm1wYkllbFcxQUlDWjZQblNfcHpiS0UtN3VlTDZRdTRvLTNESTRSRDQyV0dVb0Y0VDdyRjh2MThySUNqem1HbWI3am1CdFByYWRIRXZuZnhiZ0FuTmhSWVFJRXRvd3Y?oc=5",
-      "source": "연합인포맥스",
-      "publishedAt": "2026-11-18T05:00:00+00:00",
+      "title": "'5000억 달러' 수출 눈앞 'K-반도체'…美 통상 압박 '제2의 일본' 되나",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQZndIN3dwSUtwUmlQV011eEZweFhyU0V5a1diTDZkdGFQRVM5cDhWVVl3TE5iU0o3SVVtdXJ3LTQ5dGgyZnY3bnQ4REJ2NW9pQ3NvT1VueVJ1cE5NTzhUZ1Y0YkpoSFc3WnpqZnNLSlBScUVqVGdtS0FZNlNERUpnUzlhemNvaWF2V05JVlQ2QXM3MU9mNWlwZVdpR0RtdzQ0X3VmRzRESV9GcGd1UGlHZFFyNmc3VExhZUtpY3JSb05FSG1ULTZuRkRjM1BaMEJ5UUxkRThR?oc=5",
+      "source": "한국무역협회-KITA.NET",
+      "publishedAt": "2026-11-18T04:41:39+00:00",
       "category": "경제"
     },
     {
-      "title": "[속보]엔비디아 \"삼성전기와 기판 신규 계약 체결\"",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1PaGdXS2pqTi04eXVWeE1laVFud0FuYmk5ZkgzcjJnWTZRNHZZUjdwZkJiWUhrcTlhWWd3WXVJSTlPalp3dDFNSC1BTWt4QkVlWkR1R1Q2aVlHY1l5WHJYTg?oc=5",
-      "source": "아시아경제",
-      "publishedAt": "2026-11-17T22:44:11+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "김태호 PD, 디즈니+와 손잡고 '연프' 만든다..\"기존 연프와 다를것\" 자신 [공식]",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOM3hXS0MzakFxakVLbUlhM0dsZkNSWDFRd1d5bXdwUkM5YXRoR0RNNnAybHlPX2ZmMXctYTA4OFF3bGRoUjZhazZBeTZJSEhIYkZSOU1hMHhQNHhHbTFNTnVEOS0wTjhEMEFvT1ZWdmZSX282SFVaZDhhenk1bzVyeXprS2xZQXhDWkt3QVZ0SQ?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-18T03:09:00+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "밥 대신 크로스핏… 점심시간 고강도 운동하다 '근육 녹는다'",
-      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1iczFLbHdjTEdOclVsdWI0SGpYN1dOOFgyMDM0YlhVU3BVXzNLS3RsQW10MTBtdkxSNnI5RUhSOFRhNnE1NXkzclNsSmI5bURHQWEtVmtNZno5aXlXUTVDU2Fnc19CalR2YnJQdFJCUQ?oc=5",
-      "source": "케이트렌디뉴스",
-      "publishedAt": "2026-11-18T02:54:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "LPG선 피격, 선원 1명 실종",
-      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9UdnF2M2tqLXE0dEU4SmFPeE92Z2lfVzFFODJISGNTanZMbXpVM01xX3YzZ3JUNmFZc0lOWEZCZzhJY3V0TnhRUUY1dmY0aDJYYzBJaWZ2LS1La2Q3UFdYT2xnWFpTY0wyYzFMQ3hBMnRlRFE?oc=5",
-      "source": "한국해운신문",
-      "publishedAt": "2026-11-17T23:25:16+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "성심당도 광화문에 온다…‘K-베이커리 페스티벌’ 18일 개막",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFA2cEJHQUhOY2tVZ012UEhacmVzNEZnVHJEcGk5YjktMldDT2dRZDZGLWdWc3MzUHBEbng0TDNSNnRaQ041dHNQaThVajN4ZGdKQzFLeTg5V3JwSzVlaHkwYzMzN0VTNURU?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-18T04:48:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "오픈AI, 세계 2위 성능 'GPT-6.2 아스트라' 출시...API 20% 인하",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBLODJHa2ZHQkZNQk5fLTJXd19LcENWRGJKNnJqdUMxNEgxam80OGdGT3pvbkpsTnpMX2MxOEpSY0w2ZmZMNkZ0R0hYOTBaaUJHTk1oMW5ZaE1yMWNzTlBaeHNWS2Iybi1xOWc?oc=5",
-      "source": "AI타임스",
-      "publishedAt": "2026-11-17T21:48:40+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "[방송소식] KBS 3부작 다큐 '죽음의 비즈니스' 25일 첫 방송",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE96M2pHR0t4YW9DTjRIZGxNS1hMMHR4Qzd1R1MzblctbXdFQVZzdHdSWTEtX2tDOTN4RjlLaGJrdkVVOW44YmxlUEdDOElwcmY3R2RFWHNOWjlqTXfSAWBBVV95cUxNSVlHb3BoZWJGcFZodE10c1JqQXFoN2k2UW1KSDlrWUk2b2FSYzdLbGZzZ2g2R2pRSEFLLUYwSGF1Sk5Tdm0zSE1TSHBOcnpXWHFjZzBuLUpNX2FTLXIzeHA?oc=5",
-      "source": "연합뉴스",
-      "publishedAt": "2026-11-18T01:54:02+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "당뇨병콩팥병 환자의 신장 섬유화 반영하는 혈액 단백질 신호 발굴",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE03LW1GRjUtWExEWktwNW11dElVbjNJREpmNERMVER0YU5QT1dUMHF1NWR1MG96cXJ0RFRRUGZXRVF4RFJiNVg2eHozY1FvdDk5WXlmaTM2M3Q3blpqYy1vZ0xVRkNTOHFOY0E?oc=5",
-      "source": "병원신문",
-      "publishedAt": "2026-11-18T02:23:50+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "李대통령·시진핑 3번째 만남, 中 선전서 34분간 정상회담",
-      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPbWdUcFJPandPUmhabjUwd25ibVhSQnZHTHFaSmpTdzZZVThhNU1JTXl4UkZHUEkwQmVkVUtzc3NPYlFYN3pON285MVRMQ1FhQUpZcmNHQTNOMXB2VUt3YWY3c0FrUzFxam1EYmlLYl8wcEFKUW1DMWI0dnJpamxkM3N5TUpVejlGaWFzYkZjMmQ?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-18T04:03:00+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "외교 2차관 \"한미협력 가속 위해 규제 간소화·비자개선 필요\"",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE55LVhCM051N1dRdjNWZlZ5cEVRVVYtNHd0eHFpVWhJeTRHeV9IeFZldVp3WERTaXRLX3lmbmpxaU0tTWZOdFJJLVBDSDNjWC10ODF0bk9NUUE5N1RKLU5tN0RMdDVOVFpNSTZiV3dlcC1PZUJy0gF0QVVfeXFMUDhVbTJrX3JrWlhEalAtanFRZUdFTWpxa0VWSnVqa3dyYVlMT1RsUFFMMEt3RGNxclZhZEFNMEl4QV8wWnQ0Z3NxQjVWWnNrd3NqSXJkT0NfNENXMXgwVzk1UG5ycmJHcE1uUFRaZTkybkg5cFY?oc=5",
-      "source": "MBC 뉴스",
-      "publishedAt": "2026-11-17T21:08:21+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "사라진 제주~수도권 뱃길 2년 만에 ‘부활’",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE56VmNsZ01DWGlBQlNSVy1lV1lTYU9RbFZlajZtc3ZwSFlFOTlrQ1N1dllLSjd1TF9mbjZSS1lVTUwtVHJWZW9Tb2lEWmhMU1ZyVV9DbTdJVTZqWExGOXdMRzhpbnVoNjktVTln?oc=5",
-      "source": "제주의소리",
-      "publishedAt": "2026-11-18T04:31:21+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "젠슨 황 없는 엔비디아, 14분기 연속 사상 최대 실적...전년보다 두 배 증가",
-      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOZUZjb1pESGUyN2pYbUpPUWtpNE9sMWhsUnNnaERHMkdzV0RhaHFWVmNTcjFxc0Nucnc5UDByLUh6aWhOUlEyalkwQ1pwQ0NDb1pCanJsMktWU0VSWVM0ZG42VHU2SjVKUWJXa3ZZWDducUN6Ti04em1zQjd1TnN1bWJJUQ?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-17T21:40:00+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "“AI 썼다 밝히면 0원, 숨기면 수령”…차트 점령한 AI 음악, IP 해법은",
-      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBlWS1LUEZLdHc3dWtPSzdYZFF6N3Z3ckpyRzJzRU9hWDdpczN1YTc3Mkx5Ml9wMkRpZXJLbHBGR1V5YUY0clJPM3BibllmUQ?oc=5",
-      "source": "전자신문",
-      "publishedAt": "2026-11-18T01:31:37+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "해 짧아진 겨울철, 한국인도 비타민D 보충제 먹어야 할까? [건강팩트체크]",
-      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1kS2NEOTVJYUNYMnFXcWRpZWtlUU9GeU42cVk0ajVqTU4wNDE5dnlEZHV4M0psSThtY3ZuT21ZM09MUHUtVHVtRkZRTWp6MjZOT3RjeFJOVWV0RFZaOU5yWjVvZUtiemdTYWlvdzhRY9IBZkFVX3lxTE5ZdzlRUkhyVmpKQkdCWGxuVGlLQkt4bTEwMThoazlqX2pNY0dBb1JhVVQ3OXdmUUk0OV9ubXdmOGw5b05Hd0taSkQxbDRKamlxdXdSMHdmSjY3NHAwWUs0UjBEc3pWdw?oc=5",
-      "source": "동아일보",
-      "publishedAt": "2026-11-18T01:37:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "피코파크 '소닉' 35주년 컬래버 게임 론칭",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5kLTh3cXRMMzYwWERLSkIyTFJVdmxUMW1rZktVRXRaRWstQXV1dFktNnd3OTdmNGNaUTBwR0ZYQ2dHQkstSkoxWlR1QlVucjBwZW44T0l0Y2Q5TndRT1BHSHgycnNTRzJoUEtsRQ?oc=5",
-      "source": "더게임스",
-      "publishedAt": "2026-11-18T02:43:18+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "미 정보당국자 “북한, 쇠퇴 아닌 강해지는 국가”…대규모 추가 파병은 없어 – RFA 자유아시아방송",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQS25ndFFuZlRfLWxnUU51UHR2MjhVU0kxZFVPT0tlWEY4SVZKdndzWmlnZF9UeGtGLXFIVzRzOGxWSlQ2c1VtWlp3WnJZTng0VFpDa1RkYTh1LTBGeVNXUjhlQzVDQXl0V0NVbVZ0RTFRU1hhREhuaHQxdjlsYkFLTHFmUnhXYlZZNkN4RkcxdWlNZ0ZSRnhF?oc=5",
-      "source": "Radio Free Asia",
-      "publishedAt": "2026-11-17T21:00:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "실적 대박에도 주가 폭락…개미들 울린 '숨은 악재' 있었다 [분석+]",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFA3Nlp3Y3BEZndKZXJ3dmtxQkFMT0EyNVM4Y21mVnJmOEpWZ3BHRkg4ekJ5UWF0elAyYldRUlF3SWU1NG9OOUNRVFg2MURLRkM0NXFEU09ITHRVdw?oc=5",
-      "source": "한국경제",
-      "publishedAt": "2026-11-18T04:30:01+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "MS, ‘가성비 AI’ 공세...GPT급 코딩 성능에 비용 40%",
-      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5oamp2b2hCd0FJRFRGMjNtS0NSSXJfeXJUdDJSTllWejNmUFZTZWlDNDBYazBieDBaeTgwc3FCdTVjbWdsRWEwMUNCeDBBZw?oc=5",
-      "source": "매일경제",
-      "publishedAt": "2026-11-17T21:31:37+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "이즈나 정세비는 서울예대 수시 합격···바쁜 와중에 수능 치르는 08년생 아이돌은 누구?",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE4weURHOHVidUVkLS0wTzNrWXR2a3NzT29ndEI4Rk1ldUVTTXpJaFNaMHRBOXZJZE1WbGZDakJ1anQ5RG5McnZnaGFmQXhpUGNuY3ljZzZwZjZVd9IBX0FVX3lxTE9VcjJ0OWV2VlB6OWpmUlhraUJSM1NGT1hRTDF6aGVwNWcwaE1wb1BEVE5QTnNNU09CUE5SUFJCdjdrU2lCZjIta2V3X2lyc25CZHNxYURxbXRzX21wMmtz?oc=5",
-      "source": "경향신문",
-      "publishedAt": "2026-11-18T01:31:00+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "살빼려 맞았는데 치매까지 막아준다?…위고비·마운자로 뜻밖의 효과 [매일비타민]",
-      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1yLUJxNFNFV0N0OW9Sck90ZGt4Sk5KSXlvRnd4TU9BZHZoVkFtV0ZDRmwwSGpfQnBYMmpnbENCTkNwQ085NWhMMnBselVfV2VCdlZXVldxRDFMQTZ4WC1wUkZ3?oc=5",
-      "source": "매일신문",
-      "publishedAt": "2026-11-18T00:54:05+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "러 \"한미 훈련 탓에 한반도 긴장 높아져\" \"푸틴, 李대통령 만날 것\"",
-      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxON3VRcE5ja1c1SWdrZzJkRnRpRFZIZzJkQ1Z6V3M5U3VlbXY4Rmo0Y0t6STVDMUVMWnk3LXN4Sml6YmxaWVVlZ3A5RFhsVVZzZm5pdTNfd0lIUHpXXzl5MGp4STRSb2NlemNsYUs4YzN1ak9DUDU1WmE3aHJuMHpoSUxmeFBORTJOckVPVXdfams3Wko0eE1KQ1RVa01MUQ?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-17T20:56:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "상장사 절반 이상 3분기 적자…석 달 새 424곳 늘어",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9EZk5pdVJJRGIwTmhydE9ISnQwMXNRT3pZb3dzV1NkVGZhendDdnNEVkZMekU2U2FUckNXcHo5T25GTkN4bjZBZExhWldZUzdFdWlWLUpWaU1kUFNFYngzeTJmZEJ1em5YeVItcVJmNmg?oc=5",
-      "source": "연합인포맥스",
-      "publishedAt": "2026-11-18T03:00:21+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "[스타트UP] 카메라 영상으로 3차원 공간 구현…건설 넘어 국방 노리는 ‘네오와이즈’",
-      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNN3dtTXJPblU3UnJ6V00xRGpnN2lVellLeERMeWs2YWo0eTZtV3U1S3JJeXJmSEI5YW5jTTVYXzV1X21Nb2czQW9UWUpYb1N6RlI5SExfU3h4NFNJQjNOOFlDVHBsZExqS280bXl4V0VJcTNGSHhsMTViejVaemI3SUZLbklDSGtpeUtJbWEwVzbSAaQBQVVfeXFMTnFKRjVHc2ppYkd5ekkxYWM4ZUpDMk1WT1g2ZExaZHJ4dllIdVZpMXAtbEp3N2tVXzJVOTFmTTZTZ1ZycHhCY3c0OTlUWDQtNWxEbW4wMzN3a0N0aXJ5NjVNNjZud0lqVzZMdU1oQ05mdVFTQ2E4V24zZ0dCRHVZc2hERzA0Y0w4Mkd6VEpNSU9TQ2pwdUY1aHRiXy11dVlRQTRpdkg?oc=5",
-      "source": "Chosunbiz",
-      "publishedAt": "2026-11-17T21:05:43+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "\"싸가지 장난 아님\" 추가 폭로…입 닫은 차예련, SNS 댓글창 열어둔 강철멘탈[Oh!쎈 이슈]",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQSVVaaTE4ZVE5RnRfY091Mmh3SnE0dDZrNEtNZTMwZlpTTzV4NkEyS1JWX0RKcXRnMDBRT25sTm1JUjRGWkxDbHlONUYwWTNjRDVJUTI5ZWVpR29WeG83ektVOThtZmVpakFHMkl3UWUwOWdmMlRVQTJwamQtQW4wX20tc1JRSDZvdFVGSTdfdw?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-18T01:13:00+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "“유명 방송인도 아침 공복에 꼭 먹는다”… 질병 없이 천천히 늙는 비결은 KCA 주스?",
-      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTFAxOHhNdy15UnFucWFqVGdGMDJTeExYdGRIZWVRUDVkdkoycTdCU29pemlGeWgtWVhGN2h1ZnZMTmxhdw?oc=5",
-      "source": "코메디닷컴",
-      "publishedAt": "2026-11-18T00:05:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "SSG랜더스, 오태곤과 3년 총액 11억원 FA계약 체결",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPYUVXMWJsS0ROaVV4cWZwbmFYc29xTHlxWGFfNjl5SUtFczVVVl9PWUgwV0ZtT2VpWm04RUF6MFZQNXBPNUZScC00dnhZaHNvdlZXQ01GZmRRaGd2SFNaM2NWZXVRTHE0NnY1d0xCQlhrM0ZhZG5obENKdTRMUlAydzVOOVN6M3FPMmJBbUxQaVJKNWZoWkNZ?oc=5",
-      "source": "신세계그룹 뉴스룸",
-      "publishedAt": "2026-11-18T02:22:52+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "\"공공부문 임금 올려달라\"…프랑스 전역서 파업·시위",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBfZDlQdHphUDNQbzc1UEZvd3NZNEp4ZUpac05TY0pDUHJvYUNzOGFqR05vTGFjVEVOOFE5Wjl1ZG1jbUJyRzE0UjBTREtHR2x3ZkpQbnJyV29iZTZ2cVZfQzNOdmVNdVk?oc=5",
-      "source": "연합뉴스TV",
-      "publishedAt": "2026-11-17T20:14:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "KDI \"올해 성장률 3.8%, 내년엔 3.9%\"...반도체 호황 따른 '수출·설비투자 호조' 지속",
-      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFA1NF81eGl5NmNYbWVVSmhRblVvWDdlVk4wdVdmYzJUZHF6QWV0VkgzalF2cG81aDMyeUQ5UExjYmhrcnlER204ZEtqUS1XS3lWbGF4YUNfUnZCYTd3dUE?oc=5",
-      "source": "YTN",
-      "publishedAt": "2026-11-18T03:00:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "\"왜 이렇게 아이폰이 많아요?\" 농담했던 이재용…현실은 달랐다 [트렌드시그널]",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBwMl9tMnRUSlFrY0x6cjZuRlVPekRCMGFFS2h2VzZSaWhnTUpwX25fSS13WnpURE9mZ3ZETDV1UUgyZ3VqYVRWN1VzalhMeXE0dWdVZ1k5OC13Zw?oc=5",
-      "source": "한국경제",
-      "publishedAt": "2026-11-17T21:00:12+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "오상욱♥하루카, 이 정도면 공개 열애 아니야?",
-      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9kRW9DT201UUNpc3NGbEFZQW5DSktKTFZ6WFA4c21VazZkUEdpM1IzSktSVm9yYUVSWlZ2UjBBWmJGYktoYS1zLUZ2YkQxSWZ3eTBxTjhxY2wybzB1WGfSAWNBVV95cUxNQ004anhWQTZxS0NRay1yYzNFVkU0U0VFVDVvN1RmSlU2TG5Va0l3cUJTSnhpLThNZlJNb0ZGTk4xU2NVZDg5VzIzOW8tdnRtZnVBeHBSaER0dkJIb3FKaTE1U2c?oc=5",
+      "title": "잘 나가던 ‘100일의 거짓말’, 친일파 미화 논란 확산…종영 앞두고 무슨 일 [스경X이슈]",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5EYXllVGVvQkR4TXBuS1BFTjJQUWZ5RnB5Y0tQV2U3RERKTHBNNWV6Y1I5TURkYTdldzJWVW1ZT3NRUkdTR0RKWVhnMFpidGtRZ2wzR0tRNmlJVVdmQ1HSAWNBVV95cUxNSDg3VVdRVEdBQ21SRVdZTUozeFVVRzVnVkZ5bGctOVE2N3VNSVppcVFJd2x1d3diREFaSFZaUnIza0x0UU5TWXZHMHZKTnBMVUdNNXVWQUFwbUdYYm5hazRKVnc?oc=5",
       "source": "스포츠경향",
-      "publishedAt": "2026-11-18T00:52:00+00:00",
+      "publishedAt": "2026-11-18T02:04:00+00:00",
       "category": "문화"
     },
     {
-      "title": "음식 골고루 먹으면 당뇨병 위험 남 44%·여 27%↓",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1hNlFhb2JnV2F0N0l6OGVjdGRPUktIdWZfelpMRGtGWXR2MU1JdWRnWE1sMlhQNHFYaXlyd2Ryc3lLcDVZTmY5U05JN0tsSXlwdWswXzZYRXhSMlFUT05DSXF0WFZtaFpF?oc=5",
-      "source": "문화투데이",
-      "publishedAt": "2026-11-18T00:04:39+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "‘게임하러 휴가 8만3000일 예약’ GTA6 19일 나온다…구원투수일까, 블랙홀일까",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5PVENOOVlJQi1QMllNejhHNHA5TDZSSHZFMzlxbE56ejFjVWpubF9ZSFN4dTFDZE11OWgzZmZEOXNmNFg5WW9Nb2VXRnRFZFNvOXI0Y1FRLU9oUdIBX0FVX3lxTE53WTdUZ2g0UngzbHJiUEstdGFUUGJKYmNEWFQzaEhBaEkxSjFUOFhaNTBacnhSaWJwTnJHbktUVFEzTDVFWUlMeFV5cHpOaUhRMEZVOW13YWVZeFYzS0tB?oc=5",
-      "source": "경향신문",
-      "publishedAt": "2026-11-18T02:00:00+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "동생이 바다에 빠뜨린 졸업 반지…47년 만에 주인 품으로",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1yNTYya2VGaHhqQmNjaWxmYzl0YmdwenZUQmJ0S042bFNXbnA5VlZOSHVrSlNxNmYzWTJJRVZtMVBpSThDdXdOU29fNzZQY2R3dUcxb0JXWXZsbjY5dXFtMjFnMV9PUFU?oc=5",
-      "source": "연합뉴스TV",
-      "publishedAt": "2026-11-17T20:01:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "오롯이 나를 다시 감각하는 곳…오감으로 웰니스 익히는 '다감' 체험기",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5JXzIxNHBHM3dvSkJ1d1NURi1KNDN1djUtQ1Y2VV9sd0Y2QzRUbk5XVGRVRUI2MTBjS052ZE9iM19nR3M4RTAxb0R6WEtXMENwdXpMcTZTa2E?oc=5",
-      "source": "내 손안에 서울",
-      "publishedAt": "2026-11-18T02:35:00+00:00",
+      "title": "노란우산 개인정보 유출 의심 20만명 넘어…주소·연락처까지 노출 의심 By EBN",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE0tdHhBeUFDM2NvbnVYbkhpZWlWZkZjM3duVE1GRy1ibjhKOWRFMjBOX1owajlZNnlCZ2cxQ2pZWUpvNmRIeXNfajhKS3RjdlRublFhOXhCZE5pWVNGcWxveHhDSlU4QUVYSEh0MFRoMEM?oc=5",
+      "source": "Investing.com 한국어",
+      "publishedAt": "2026-11-18T02:36:00+00:00",
       "category": "경제"
     },
     {
-      "title": "‘1분 막장’ 숏드라마에 빠진 한국… 인기 상위권 5개 앱 모두 중국계",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQNlFkYlZ4WlBZTnlBaGhUcDlWNlREVXFZRm5WWjVZSHdnQlgyNWdmdTFzd21MWWF0QW5FcWZsYlpjdC1zZW11OEREN2xSdUtpU2JGRmtUQ0UyUFdmc04wVTh1RndMU1lfNEhKb0s0ZzkwaUN5X0haS2diaVhaVkVuR1h30gGWAUFVX3lxTE1XSy10SFBBMGloNFIxUl9yVVc1aS00WXFMQ21IZXd4RU5NYlBTQUJVNXAzZTlZNUlKTk5UU2s4VzliMFRoRk05SzZtWk40T09kMFlWMFA3MmtyaTd5TjdrSWhueVZMb2dmNXV5YVFoblNnYVcxbWlmaEZ3ZmxzcHVUYzROdTdTZFQ2VXcwOE5DY29UUzlUZw?oc=5",
-      "source": "Chosunbiz",
-      "publishedAt": "2026-11-17T21:00:00+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "사진 지우고 얼굴도 숨겼는데…김종국, 9세 연하 아내 자랑은 못숨겼다",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1mS3FiUzhTREF2RHRRalAtVUktbkdIWG5zdFRacHRtUVFxWmE1VFYyMjRUOGQ3VGxqR25mOGszNWxxRWlhR0cxLThNZVRBNkE5Mng1WVBPQlc?oc=5",
-      "source": "스포츠서울",
-      "publishedAt": "2026-11-18T00:40:31+00:00",
+      "title": "홍여진, 유방암 투병 “살이 타들어가는 고통“ (퍼펙트 라이프)",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9ZNVlSelFJWmlhVE9rWGRlRUNRZzZ4bDR6d3h2YXBiREk5UHlBQzRHWVlkS1dnMS1PcUVBOE56VkpMWmtBaE9fNVdMQzZHLThraEI5YS1XTzJENnVleHJoQmhpeXJfd3VXZllWbmdB?oc=5",
+      "source": "스포츠동아",
+      "publishedAt": "2026-11-18T01:56:42+00:00",
       "category": "문화"
-    },
-    {
-      "title": "통풍 없다고 안심했는데… 요산 수치 높으면 관절염 위험도 커진다",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5qUTFPNTgzOUNEd0FQcnFMSlNNektHV1pQTGdHcmlURGRiYU9EYXF2c1Jpd2d5WHVNb0VXOVRIVDF5cHVUUWp4TmVhdFlNQy1PMDZ4d21QbGw1WDBUTG9CRUZKWU01Y2Zqb3c?oc=5",
-      "source": "하이닥",
-      "publishedAt": "2026-11-18T00:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "경찰청장 후보자 “AI 부정행위 8건 수사 중…수능 부정 발생 시 엄정 수사”",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5VNmhvMG9BMXJLaFFucFlzOHQwUjJUM2ljNjh6SGlnSGhqUi0wWFAxdzVEMFZYSVBicUJOTWw3c0x6M2JCZkw0MkJRakFhLWJMelhWeTV2ZGpsUdIBX0FVX3lxTE5ZVWFTeU1VWmw4YnFzRDVVSjFja0FFWk9tNXU2YmpOTC1xalUwM3cyN3pfWjRKQ1l2dWRUeDYzdVFMckQ3ckVCUzBPN3NxZ1dsNlVINEp1Y3JnOXhUd0ZN?oc=5",
-      "source": "경향신문",
-      "publishedAt": "2026-11-18T01:53:00+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "“이란, 워싱턴에 방사능 테러계획”… 美, 재공습 고려 속 항모 파견",
-      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFB5bkFaT3pmODRoaEZhY3l2N2gzQkRjd3BQY0JJZ2ctUFVVSndyQWVzeHpEUzVzRmlCemtFbTBiS2x0dWFTeVZDQ0hwNTU2Vl9hbFpSU3QyY3hFXzQxajVRU2RNTlVoekNUWlhic05sWFdzT0XSAWZBVV95cUxOM0J4VGV5TnpaVTFic1otenpxeEZ6UkJxbTBzWEZXN0d5RkdNRzZTNThEU2RjZ1dWRjBWdDYtQkZwQ08wckV4akFuT09EV0ptTENoVXk4WlV2NkYwMkhpQUIzN25CYUE?oc=5",
-      "source": "동아일보",
-      "publishedAt": "2026-11-17T19:30:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "벤처투자와 벤처펀드 결성, 역대 최대 실적 달성! - 카드/한컷 | 멀티미디어",
-      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQN3hFWHc4SVBtc3p2aTNxYUZTTHd6R3NpMG5CWkNfd2xTY1c4Rkg2ZDhxeXN6c1d2U1Z1eC1lNHdjMFVVNC1Oc2NEZlNzdFdKSVRZT2NxZGlvdmU5TDR4LXpPbldHMG04OWVHajlZZ0FoQmowLXE1WlBrcGIyT3Z3SmZCeUtJd2ZjeHE4?oc=5",
-      "source": "대한민국 정책브리핑",
-      "publishedAt": "2026-11-18T02:23:56+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "\"美 로봇 회사도 선전서 부품 사간다\"… 99년생 中 창업자가 귀국한 이유",
-      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQci05VGdXeDR3czVGQ1pKM2dPSVlvM2hWNlI3YmZEbm1lUmlGSTctSlIxeUlRM1J1RWFyekNkZ0JpZFFTNUE5WHdSTmdFSVpkLU5kN3F4djlrN1VUQmwzcDA0RzNKTTV1WDZmbGFkNHRhbWtoUVZBUEZzTWlERDRzM3hEcXBmVGRqeHEyenN0UWhOOTVucFg4QldLZkRXdw?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-17T20:51:00+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "'크래시2' 허성태, 웃음+긴장감 다 잡았다",
-      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFA3ZWtxVHU5YkplNGhIV184TzhRUmZPaGFuX18xNl82ZEtDTWdIbUpVNllyekxLbDQ2bU0zOVRKV2J0X1VZQk9vNElhX1dRQQ?oc=5",
-      "source": "전자신문",
-      "publishedAt": "2026-11-18T00:20:51+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "격리실 입원료 급여기준 개정…엠폭스도 적용 대상 포함",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1jcG53bGcwYnhDOEVCNDcwRl91S3FoNlFEeGRja0JNd25FTFlTeFBMWUI0RFdIaERFclV5TFBMdlFuajcwTGQtMVRSN2RxLV9KajRuNlVTdjJxVWU0cGIxZFFMOFkzbkZO?oc=5",
-      "source": "헬스이슈앤뉴스",
-      "publishedAt": "2026-11-18T00:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "젠슨 황의 몰락 불 댕긴 ‘루비오 메모’…그 뒤엔 거대한 암투 있었다",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxObUh4TjN3aHF2ZTJsVkR2YmRUaG1ERk5sZllFaUVYSWdGMEt3RkhJMUtGMWxCRG1COUpGS0JHWnB2UGs2dTE5OTZTaldVZ2V1VHh6NWIwRkxtVzdUcFZ4UzVhTVFVSThpZXA3WnNsZUgxeERRY3o2MElBYWVxM0lkaTdn?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-18T01:53:00+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "트럼프, 방중앞 쿼드 정상회의 첫 참여…인태 '中견제' 결속행보",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1hdW5qLUFYOWxYekJYSGUzYTZtTFhadEhmWVNwNDFKbENXX01tbm02RzNDUzNpZkRvLXpnV3I5djdHdWlNZTA2WUtWbjBLa1k5anRDeVlGaHdWOTjSAWBBVV95cUxNLU1Lb2pjQS1BVl9DeVIzV2VsdkJwTmZaYVdQbE9nUkp4Yi1oTlg3M0pVci1rSUV6UWhaR1dCRTd5YUVzeDhkdGxyTnpUZ0tDcEhjQXgxX0pWeGkzMkZITVo?oc=5",
-      "source": "연합뉴스",
-      "publishedAt": "2026-11-17T16:21:01+00:00",
-      "category": "해외"
     },
     {
       "title": "온코닉테라퓨틱스 “비만약 한계 근육 손실 극복 가능”",
@@ -747,41 +1244,6 @@
       "category": "경제"
     },
     {
-      "title": "아마존 CEO “데이터센터 건설 멈추면 중국에 AI 주도권 넘겨”",
-      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1qZ0p0b3N1TnBiVEEzemdlU3l6RzlhX2tJQVd6dUdYY1RWbFh2VTdlem5OMTRPMlZGYmhvZW9kUThvajNoeWsyd09rNVZVQQ?oc=5",
-      "source": "매일경제",
-      "publishedAt": "2026-11-17T18:01:51+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "박지윤, 최동석 상간소 일부 승소 후 SNS에 악플 피해…댓글 제한",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1FM2J0a1pwNlZXWExWbTdRMllsOWRFY3pRUGVXUEVaalAwR0lqbWM1c1N3Z3RtRzhJMHM5ZXBJTzRKaklRX0JxTTBCTUJlTV9xYlQ0U2hEeF9ldw?oc=5",
-      "source": "파이낸셜뉴스",
-      "publishedAt": "2026-11-18T00:05:56+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "마약이 파괴하는 것은 뇌만이 아니다…정자와 난자, 생식능력까지 무너진다",
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE50c1pHWjZjajQxNDNUeDFLbGNKbHFObWVWZ0JsNDR2X3BWUFowQTVobHg1a2ZWdVhJX3lEQmFLWC1RVlUyMENWeDR3TWNOMV95TUpOUlpRcUh2YzVLOTc2TEdKdnQ?oc=5",
-      "source": "용인신문",
-      "publishedAt": "2026-11-17T23:58:22+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "[수능 AI커닝 비상] 필기구 반입 기준 긴급 변경…'흑색 연필'만 허용",
-      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE95MlJWcVN4TTlxYnVDNjZzTjdscUdHTlptQmpyWWJXNXhnMGFSLWlSNm5WcmhQbUUtbXVMWTd1OGJkcjVobXdCQVBud0JsVzdnQUZlSXVRdmxmcl9S?oc=5",
-      "source": "뉴스핌",
-      "publishedAt": "2026-11-18T01:38:00+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "러 \"우크라 나토 가입 수용 안 할 것\" 미 제안 사실상 거부",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9iUEhVWFZHdjJxeU5feGtzTjFfTUt2NW1xZFVZcUdwM2FlNHJGTGVvSkNTRFo0Qk00dnJSUm1KTVhoV29xeFVaRXZrT3NWcGJGVV9mZnRtTzJjZHBmZGdUUlZKN1N3ZkU?oc=5",
-      "source": "연합뉴스TV",
-      "publishedAt": "2026-11-17T15:49:00+00:00",
-      "category": "해외"
-    },
-    {
       "title": "삼진제약 “치매 치료제 글로벌 임상 3상 성공”",
       "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9PZUFJcXJOUUhYSzZZaW4xakR6Unl5bXA2Y280dnYwTS1LVlExN2FrNEpKMFAtOUJEWkZJLWF6YlN6MnpsWkw5LU1RS0ZSSGN3dWtMS1JTc1U5WnlmVUVhaU1hUlFxVjli?oc=5",
       "source": "데일리메디",
@@ -789,591 +1251,10 @@
       "category": "경제"
     },
     {
-      "title": "러시아에 멸망당해도 ‘재부팅’…에스토니아의 ‘국가 백업 계획’",
-      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOc2JpRG1hd1JaQkx0Q1pHRFdYdHVFR2kyR0o4bkZkMGtxaG1Na21DWG81cjhlUHZleGxuQUlMY1ZvX1A4MVppM0FLd3pKRlY5MkVhS1EwaE11aHdQT180dDlzNGVlMy1HeHhvbXV3RHVWaHpLdmpyZ1lKaldFOTFXOTMteklQcVJOOGZKcWdQbjRlV0J1MW11REFjWkl5UQ?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-17T13:29:42+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "'46세' 배윤정 맞아? 못 알아볼 뻔..'안면 거상' 3주만에 확 달라진 얼굴",
-      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOUV9mYTdLd2sxZUM3WDBaXy11ZWU5UDJoUEE4dTBPOVdhRG9LMUl4NUo5WTNZeUlEeExBclFvR3FBYkFRaldadUVzS0dodldNcXpIQWNvUjh0cWoxaHdOLVFianFtd08zMjE1c3Nza0cxSTYzbHJ3Ui04Q1hRQzhDckpCSVQ?oc=5",
-      "source": "스포츠조선",
-      "publishedAt": "2026-11-17T23:35:21+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "“포만감 높이고 혈당 상승 완화까지”… 치아씨드 효과 제대로 알아보기",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBIOFZDQ042MWhGLUdIUnRSdmlZanFDT1NEekxEZ2Y0OW8zeUhQQ1hRSlFnYVNCVHRIWUM4NUc5cm5EeFkyeG40LXA0ckFaaFJVSGdxWEM3bDFNTUVMMnJRcUJGdlBvYVBOM0E?oc=5",
-      "source": "하이닥",
-      "publishedAt": "2026-11-17T23:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "시신에 무슨 짓…영안실서 적발된 병원 경비원 엽기 행각에 美 발칵 [월드픽]",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNlRSTkRUbS13ODFZS3o2eVFqSzAxS1ZPQ1U2allsRnJnSUZnWnJKSjRXZ19mYk5lX2J3dF9KUGVTR2VycEo4NW1GTUdUNEplb2JKaFpzUS1LdU5SanRZREtxREY1Wl9RYTQ3R1RLX1dfWVRnSFBKZERQa1B1VEtlZ2lqZzhJWkhI?oc=5",
-      "source": "서울신문",
-      "publishedAt": "2026-11-17T14:00:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "5개월 만에 9천→5천 붕괴…AI 악재·외국인 탈출에 ‘실탄’도 동났다",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBXV0w4Z0hyeG9FOGcxUlZyVzc4X01JSU5JZDEtcVM2b3BrOVVSWFNwazJ5MjViYkN6aXdQQUU5NGpiZndDVnhvUExjSHR1Y2QtSkdQRmp5RzhzLWlRQkh0d1BRS2dwY2c?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-17T11:18:00+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "제니, 첫 그래미 후보 소감…\"아직도 실감 안 나\"",
-      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE93RlhGVXRoa0pHcWFESk1rMF9tMmYxNzNYUzVIMm1iVGxGRmFPejVzY2J2YkUtUnFZb3hFb2tCNE1YenlwWk1pWWg0V2lOZEVXSzEzZXF3SzRvRDA2?oc=5",
-      "source": "뉴스핌",
-      "publishedAt": "2026-11-17T23:19:00+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "\"겉보기엔 깨끗한 변기 뚜껑\"… 물 내리기 전 닫아야 할까, 열어둬도 될까?",
-      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9KX2QtNXhGQWlidk1ENGYyNG16a24wYmFLMUJTdGNxWl84R3djLWE0aGNLT2hLTVVhblBLZllIaUNTRTdNX1pRRHhPRWxBdS1UZEFVc080M09uTXV0ZU9WWXdwQnhHUklKeVJjV09CONIBc0FVX3lxTE5oT01HOE5WS1BNTEhvOXp3S3Zfc2FjdDM2NTFRRzNXVDFESm5qYkJDZXNiODY1YzJTdW9TTks2dDhjeExsdThyUXdGaHVOMmRpWEFsdnJWV3NzSnhUdzd5MFdILXdzN0ctYWJpd2FQZzNsN3c?oc=5",
-      "source": "아던트뉴스",
-      "publishedAt": "2026-11-17T22:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "배현진 “수능 부정행위 잡겠단 장동혁, 당내 부정행위부터”",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFA4UEhpeWdBM3RzLTR6QkRwbGpidnFRekRGLXdRVmxUYVNPS3hjeFdBd2lLSWJWVGZfRktkZktfcDdZbkgyUVZ3YUdWR0V2QTJLcUNFOEdOYVdlRHFCeVNLeWhncTdRTWdZTTg5VkVfX0pMZjU0?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-18T01:15:00+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "‘사과 없는’ 젤렌스키, 또 한국 언급…“진화하는 北 미사일, 위협될 것” [핫이슈]",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5aMkxTV1FXRG11UWpCVzJWR1pRSnRwSWZzdmNzTE1XT29pQ3dhSEJUY1AzSVMyVkwxaVBkNmlsdVNLRXZ3Rm1ydFFfbmlpVnVIQ0d0ZG1hajNjd3p1TDJYRkxOWW9sRFhSZl9BN0dWb28?oc=5",
-      "source": "나우뉴스",
-      "publishedAt": "2026-11-17T13:30:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "총리부터 장관·여야 의원까지…지스타에 쏠린 시선",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1ZMU5KUXZWZTlXNjV6dVZxVWhoNUwwbWRvcENGcFh2MTN2VTluS09ZV24yMTYzUVRURV8wd0pGYmwzNENidERUYy1ka19ONEl3WUJxdDN3?oc=5",
-      "source": "지디넷코리아",
-      "publishedAt": "2026-11-18T01:46:59+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "수험생 옷 단추마다 스티커…재난문자로 숨긴 스마트폰 적발한다",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE51Uzd1U01zZ3dLQXYzNkU2TldobGRET2IzM0g0ZmRYcWhBOEJia3pReTcwUHRtTWJwWWt4cUxDUGF6c1diTXRvMkJpMmVZaFVlN21HdVJwQ004djlreEdGWmVhNFlUb1FkUGJMLVMxTkxBVUo1?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-17T09:55:00+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "“형 번호 좀”…먼저 다가간 뷔, 박보검은 몰래 BTS 콘서트까지",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9Vc3EyWTJQRXNUOXpEa3FDYzJ2MGMyNV9xTmszcE9laFJ3OGVXWnh6S3E0T0g1UXYwVnpxalRqLWNGRVpFZk1xd2FrYkt2dzFBTWsta2Y1QmQ?oc=5",
-      "source": "스포츠서울",
-      "publishedAt": "2026-11-17T23:02:46+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "HPV 국가검진 전환, 권고안 개정·시범사업 병행해야",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9qaTNzeklzYlp4RjU1MUtDSUU3MDExaTh5Z3dNTC10Z2JnR2VoUWlHSzJCWTJoRDdZWFFFX29TcjZGeTFwVzBZLU1aYTM0SWprcDcxQmczajBobU5MYi1wRlQ5SElwYk1Lb3c?oc=5",
-      "source": "의학신문",
-      "publishedAt": "2026-11-17T21:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "엔비디아 실적 발표에 '젠슨 황 오른팔' 등장…차기 CEO 유력 후보 부상",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBWTzdlU05POF9QdzQyV0t5dVMyMUFpVHR5dzlVdkN4anZLaGFnTmpUcHpYYmpfRGZTcUsyc19WcHJRTlBOUGttVzRpM1N5bUdldEVRRGR6bGl0MVR2UUF1SEk3dXg0dlhhcWZzd0QxRWY?oc=5",
-      "source": "연합인포맥스",
-      "publishedAt": "2026-11-18T01:43:11+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "[단독] 아이폰 원가 40% 메모리 …'슈퍼甲' 애플, 결국 삼전닉스에 SOS",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBNbHNzbW16dm96Rmp6dHhmM2JyNXdEVkp6WG1YY2ZFS0VIRGI1TElyQ1BkbzNVbEpOWjVORHd0dTFMMkJZb1RueHUxTTU0TzE2OGlDLVpR?oc=5",
-      "source": "매일경제",
-      "publishedAt": "2026-11-17T08:30:10+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "임신설 AI? 52세 디카프리오, '25살 미녀9명' 생일파티 버스 화제[Oh!llywood]",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNT1BDLUFwTEY2Q3BwSHdhb3lPaTF1OE1MVlItSl9UTWhwc0tZUW13WS1tNFpNb1Fjeks1ZkJYTjYxVWNQZXByWTZlT2V0ZkljY3RtcVZORThvb2ZsTDhkQVFyZnNCUmU1eEJwQlBuSnFYVlo1SVp4VDFxejViQUhTZnlxTGoxY0lEclhjV1NIRQ?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-17T22:36:00+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "대한노인정신의학회, 19-20일 ‘2026 국제학술대회(KAGP-IC 2026)’ 개최",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5WandUUXVLeHRJYk9EWDltOFRuNkNyeXdPVGIxVnZ6Qm5hbFRlSUdZYUFFOG5qZ0JvdlFleGUxeDd3QzVLOGFiRkdEVXgxa1M2ZG9DTU1DX1dTMEl2RjgwRUo5SEg5SkJuYzV3?oc=5",
-      "source": "재활뉴스",
-      "publishedAt": "2026-11-17T20:30:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "美, 빅테크 기업들 반대에도 중국 데이터센터 장비 수입제한 추진",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5KeEZsTng2UUdlZUtEQklTdE1JaGZyOW9UYWNZUjh0eENwTmw5N3VIaUExY1NkUHpRLWVTeHRzSXRKd1ctQ0N2SW9neHlVSW53dlQzUzh0Wkdzdng0Q3I4R3RZZk9XY2hHRFVuQkF0WmVxNzR20gF0QVVfeXFMT2J3UFI1WUZRcFBCbWVheEJCSGFtSUNBRnlNLWtYMko3RmItVE5SZ21jYWdYOFJiYnhuNk1hcFJ3SXdWRzctbEoxOUFmY2FpSHZIRjBfeWFkVjJrZU54UnF2NUtXS3VfMGdDZ0JMV3l2anFhV1Q?oc=5",
-      "source": "MBC 뉴스",
-      "publishedAt": "2026-11-18T01:11:51+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "\"트럼프, 와일스 비서실장이 암 걸려 아프자 괴롭히기 시작\"",
-      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNdkFxZjlPd2ZDX2RQRkdGWlRFeWJIVDNOQ0tiY3NfdmlocUxOREdxWnppai0tM1IwOFp4Sl81bzM5UzdaZ2thdm5xbzJpbEdtV0p5QktzUkNSNTdEMjdFN0RXWDdaZjBKZXhiM0dPbGZCdTMzUzlaQzhzU2lybElNUFVMM00yVW1wblYteFU1Q0lxXzM1R3Z5SXpOUVRaQQ?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-17T12:38:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "한국계 교수가 만든 '노에리' 뭐길래…'1500억 잭팟' 터졌다",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBfX0RTUmlWbzkwaTZ6blR1cFFyRklTMXJqWTFmU3Z0ek5rOWR6Qy13aXdqQlFMQ2ZNd1FmUnNfRkRGVUJCcFd5SHdFbEp2ZFJTX0RTWUM0UVFjUQ?oc=5",
-      "source": "한국경제",
-      "publishedAt": "2026-11-17T08:18:14+00:00",
-      "category": "기술·AI"
-    },
-    {
-      "title": "`초동안` 박보영 롤드컵 결승전 인증샷→대학생이라고 해도 믿겠어",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5GMnA5TllIYkxvZXI2T1JPbFZiTG8yVGtnYmIwa0JPZDg1dDEzNUxvOTY2RVlsbkQtcDc1QXdGMTJwYzBGaWlSX2VNT0R6ZlR5amVXczdVelo0N01EQjVtUVVxY1hSdw?oc=5",
-      "source": "마이데일리",
-      "publishedAt": "2026-11-17T22:36:00+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "김밥이 라면보다 췌장에 독?…환자 676명 분석하니 진짜 주범 따로 있었다",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE10TmF1UzVpMTRXeVRGTHMxVEJKSl9mSENXb29NbzRxUld0NDlKeHBIUDA1RmJqa1JINnFnQkVIQjVXdklvejY1T2lUWVc2a2JNOE5nTDJuSDHSAVRBVV95cUxNN2tCU1VUSnp1RktIazRQWVhDYU5QUHBJS1p5VDdINC10Q2RpUXFGdGJObzBUVmcweGIzakFJei1wTzJZNlF3MmR6aWpOSGRxNjd0OFg?oc=5",
-      "source": "세계일보",
-      "publishedAt": "2026-11-17T20:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "[단독] 트럼프 ‘유학생 체류 4년 제한’ 결국 무효…미 법원 “법률 취지에 어긋나”",
-      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFA3LWNzQmlKYjVJZXU0T2hlMXZvdk1fN0IyZzM1S1NxLU1vTUgzdkJMb013SDh4U1ItdU1ibVY3eWRfMGxKVFloZ0ZOSGlLQmVBY0RlMEFSQ01ySllfSzhiNDRudmEwNWQ0MFRUOTZIZw?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-17T10:29:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "“수능날 사용하시려면”…시험 전날 올라온 ‘하루 10만 원’ AI 안경 대여 글",
-      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBMaFFNTnBlbzNqdmIwdXFrMnZITUlIRVFjOEJ2QVNVUzVKR2o1M0lJam9ncHpNX1I2VTRyamt1OXROTHNHbkFpMTZuWFlsbGo2MHloMlJ5QUJnZTQ5NVd5ekFZa3dHRm1GTFdtNnFCMW03eEhzQ3fSAWZBVV95cUxNSUJBY3lnb1haeFBGVDhxeFJNLTRiaXJoOGNJSFIzMW5Ld2s5NmhUOXZnbGZtVU53SHBaUXdwMjNJTE9RdnRIcW4yZkNCY2NPVmg5UHctX3B1WWotN1doRVJUS1UzYXc?oc=5",
-      "source": "동아일보",
-      "publishedAt": "2026-11-18T01:38:28+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "'박성광♥' 이솔이, 은근슬쩍 명품백·외제차 자랑..럭셔리 출근길 \"화장 포기\"",
-      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFB3eGJXcmRpdEd2RFkwS21aQS1GQ1RabEJBanVrQ2Y0V3BwMTlJc2cxeW00Ty1rdHRSekxSXzZLdS1mNFhjNjUxR2FEOGw1QzlSU2luLW41M2Q2bmRjd05YR0puS3p6UnZfQ3loWWRUa0xzQzg?oc=5",
-      "source": "스타뉴스",
-      "publishedAt": "2026-11-17T22:32:48+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "“통밀빵이라 믿고 샀는데 혈당 치솟았다”… 봉지 뒷면 ‘이 글씨’ 확인을",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBhVFRfeEZSYzJJQzJ2VjZJXy01eTZIOS1MQ2FwZ1pDNXJnd2toV0ZlZ3V5a0xDOXRULW0taDNCc2EtR1NyeVYxa1dOOWUzZlRNVUdEVi1QWmpiemdGYXZ3b21ncUhSaWpPLWJYenIxSm9jZi01M29lRkhzUmlFd0k?oc=5",
-      "source": "헬스조선",
-      "publishedAt": "2026-11-17T19:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "코스피 오늘 상승 출발...반도체주 일제히 상승",
-      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBVWnJCZWtDb2tEZlU3MEdIQUlKQUp6VHpHWkRjRkdDZEd6bUNWUy1aZVJFektZclpad3pfdFkzazJTbVQycm1CS0ZKUHEzUWplWTN6S210LXNhc09PZVE?oc=5",
-      "source": "YTN",
-      "publishedAt": "2026-11-18T00:46:00+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "“너희 찾아내겠다”…美 구축함 귀항 날, 두 장교 지목한 이란 대사관 [핫이슈]",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5qdjJ6dmtiODZxeHdVa0RvazhuTkx2OWFDSFlNU3B6cUhzTjBSazZmQldUaUZHVmMyemY3a0hsMGhlNngxanNweVF0SGwwakJJTklpSm9HYklKT3BITXpacTRYOXhhbF9rYkpwd05jckk?oc=5",
-      "source": "나우뉴스",
-      "publishedAt": "2026-11-17T08:30:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "호주 크리스마스섬 뒤덮은 장관…’붉은 게 대이동’ 이유는",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1pU0pEX3A4Q2xZUThPXzhqLXhPT3JnTTUzcVpDdGdfc3h6MllON0VLMDREQWJwcmFKQ2c0MmxEcV81WlkzNjJwVmxWdTJkd3dqbVBxUzViY2FtdFhfZWdfMGJyd3JjeEk?oc=5",
-      "source": "연합뉴스TV",
-      "publishedAt": "2026-11-18T01:34:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "이민정, 미국 저택 주방 공개…대형 가스레인지부터 고급스러운 인테리어까지",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBvWnh6WDNNTVBCQ0pZOUNRX21LOEZpRFE2TmFhdFhPekFjQVdvcXNUQTRQM3V1ZnpodjNfMVJLdlNMR3h6SXl2ZlZpQThBcUJMaFVkd20yd3TSAVRBVV95cUxNcmwyRUt6ODJnSnh6cXE5NHFTdm43dm1CdDFPeEN6VlNEZkhnY0pQYWdlbjdWeTBXMGJMNmtYSzRfNGJuZGpQRkQzTkE1V0dKemVwZU8?oc=5",
-      "source": "세계일보",
-      "publishedAt": "2026-11-17T22:31:09+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "[공간사회학] \"뇌는 집값을 모른다\" 치매 연구가 바꾼 동네의 조건…한강뷰보다 숲뷰 ‘치매 위험 21%↓’",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1pMjZ4VmdLTk1KOTZ1SGV6aDBlWnAzMEtFZ1ZMSjhmN2ZpV1A3cGdqQ2NlTTR6akJNZno5ODBXTHZIelBaTnZBUER0UExBU0dkRTBVZ0U5cENDME9oUHdiWA?oc=5",
-      "source": "뉴스스페이스",
-      "publishedAt": "2026-11-17T17:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "브라질 꺾었던 일본, ‘모리야스 고별전’서 파라과이에 패배",
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5QSGVpazZOV3Y0SkpsVkNHMDg0NjZvRzl1OURHR1cwU1F6UU1IeFFrSjNRTDdDWmlyM1Z2V0pXbzdUN0s5cG5ZckdLeVYyVEdIU3RpYjJHSXZNdGdtM0g3RmpvbXQ?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-18T00:36:00+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "고릴라도 사람처럼 협력… 손 안 닿자 ‘등 발판’ 대줬다",
-      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPRHd6RnBqSERYOXltSHhWdUtGa1hKcFgxU25fNEozalR5T0o4YmMwZDg2cmtXLXNlSHg2bWZPMHQ3Q25BMEhzNDJpcDU4cFNWTUEwWE5IVjhJbkpIRlk1Tkh5MTZZWENyZ2dQOWNWOVdpYk9XZVB2ZEZTV2t1UkpFdXE2VWxUMGh2OXFYQnBuejR0S09GekdwSHZ0ZXlZZw?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-17T08:26:00+00:00",
-      "category": "해외"
-    },
-    {
-      "title": "\"미 증권거래위, 엔비디아 '젠슨황 의혹' 관련 공시위반 조사\"",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5ocFN5eEpMRzIxUDFaUlBkM0RLSWpZLXVHVGxhd1lNakpBYzNKYlJYR0Q1RUluWUk4eksySkNfZm1EMUZFX2VWcENjTnh5OUpHWHRQc2gxT2tmTW1lTFhUR0ZwMWJtWm0wcDJlU3dzRHN1Zlpa0gF0QVVfeXFMUGU3VGZYb2pEbDhUUHFTMG1aSmxmSmVfeV9EeUFJZjFBRFgxMzFVYThxSEltbE0tV2tRdkNQQWRyUjNhWEtRb29COFFocm5PS1NjSzdWVkZ2cTFPMU5SUTF6Q1Rod1FEcnRhbmZWS0dIbDlHa0c?oc=5",
-      "source": "MBC 뉴스",
-      "publishedAt": "2026-11-18T01:17:35+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "[김한수의 오마이갓] 최불암이 세례명으로 ‘프란치스코’를 선택한 이유",
-      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPekFZMEZybm9aWnQ0QjBqckJ6TmxBSkhLVzY3T1JCVUlhX2ZmbnNBaU40OXlfazRld1ZsYWFGVlNjMkFHak9wWnBGc0Z6dGRPOVExQVdKQ2ktLWVrb2luWkhWUUlBbTRycTFtbDNiQmtia2FTcDFkR3p2X3VKcGN2VWMtaEpuMGhONVNiUndaSzEyNzRE?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-17T21:06:57+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "미국, 홍역 퇴치국 지위 박탈…트럼프 취임 후 유아 접종률 급락",
-      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE16ZUtzVDhrUVM5X21TMl9WdjZIT3AxNE9wSTFURngxWDdtczNTRjVjX3hqM2MyLWNBVmRzcG4zektMOVFxTVN6d0h6ZVVnaGhNckFsNU9xRHpaMGFS?oc=5",
-      "source": "뉴스핌",
-      "publishedAt": "2026-11-17T16:57:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "[해외 캠페인] 닌텐도, 스위치 2 전용 게임 '스플래툰 레이더스' 무료 체험판 배포",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9YZ2xURUFCTm9aMWtzU0ZrVmR5NThpVWI4em5pdXo1S3EzMml5LXNzd2xhMy10cTZsVWNuRGtzejIwZl9mRlhDamZpSDM2TFQ0OFNFd0VtZ1lTZlBPTEItenlySnpWb0M2YUFFTDhMWGpwcnVH?oc=5",
-      "source": "캠페인 인사이트",
-      "publishedAt": "2026-11-18T00:30:24+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "\"두 번 육아휴직 후 먹튀 퇴사? 사실 아냐\"… 임현주 전 아나운서, 작심 해명",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5wNURFTjI0cG1nZUlrMnhVbG5yejgwWEJwZ2t5VzU5U0d3ci1tMVFYdU5rN1lqTmo0WDZjSGxCTEF4WktVdnZNcUJyalI4Z0xOS01SMTBFVnUzUQ?oc=5",
-      "source": "파이낸셜뉴스",
-      "publishedAt": "2026-11-17T20:20:00+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "“위장 대장 한꺼번에 무너진다”… 전문가가 ‘만성염증에 최악’ 꼽은 음식",
-      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE83ZGZxXzlMa0ZHVmVDVndYS3VkblBhQjZGY2dqMFdYY1JnTVI2eS1selR4Zld6SXc4VFFCMUMxdExFZw?oc=5",
-      "source": "코메디닷컴",
-      "publishedAt": "2026-11-17T15:04:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "공정위 최근 3개월간 대규모기업집단 소속회사 변동 현황 공개",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBISWhhMkRzNl8wVXpIU2g2TWlwOG1IT3cyQ1dOYW96dmJQTkJZcU9LYlNZTHc3SExMQnM3LUVCLXl2V3p3ZWdYcGtCTGUtZVBOb3JYaVpMUjRoam5CeGg3cHR4ZkVCVW1td3c?oc=5",
-      "source": "Daily NTN",
-      "publishedAt": "2026-11-18T01:00:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "[지윤철학원의 오늘의 운세] 2026년 11월 18일 수요일 띠별 운세",
-      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1qSy1HU0tNOEgwQmV5Vlo0YzQ2Y0hMajdGRU1rQXVvNTdZbVVOMXo0Z01IY3VZQlZxcGdxbkdTSVZaTENZa2NtUjgxaGNHSVVRbzE4Q0dVZHY4NXhDZnc?oc=5",
-      "source": "뉴스투데이",
-      "publishedAt": "2026-11-17T18:33:00+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "히비스커스차의 놀라운 효능 4가지…\"체지방률과 허리 관련 지표 개선\"",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE40R2lVcTFMRUpQQW55eFU3WFdxVGZrX2ZWZXdmMUpXdTdOVmh4WFlWdFFhMnE4NVROdXZsc2FMQXhmMFk1MEh0UzBPOENicC1GSk11ckU3cTcwejl1RUp0YWRfbFJZdUp4eFE?oc=5",
-      "source": "하이닥",
-      "publishedAt": "2026-11-17T12:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "A매치 최다골 경신+월드컵 탈락+7번 선수까지...'60호골 불발' 손흥민, 롤러코스터 같은 2026년 대표팀 여정 마무리",
-      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPR05fa3JrN1F6d3dMOHVZNlpZaVJMZUJGdGxidUthVHpIQ1FEUVJuUVhuZzdEWTJkUGVPNm1lM01kQ2Z6VVE5Q095dWpCdjlPLThUaTlDTFMxLVVhRzBxU1Iwdk5Eb0liUGM4REQ3THBKZ2g2NDJDY3FucEFZNklveDM3cw?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-17T21:40:00+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "‘신경과 전문의 장민욱♥’ 50살 강성연, 재혼 후 더 어려진 외모",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9LYm5iWjZTZnNfMm9DWGZSM2tQelY0aFpxM3ZFMEV2b3pEa2VEZUFXOC1KOW5DTTJNdlI0TDNvcDhoblU2eVVLY1lPTjNuUEZnMW9GM2RqcFd5eGtQb0E0MVY0Y05FZw?oc=5",
-      "source": "마이데일리",
-      "publishedAt": "2026-11-17T18:04:19+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "[사회/보건] 베트남 뎅기열, 건강한 젊은이도 위협…예방 강화 필요",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5tbWtfZHFhMVBiY1NLaTFIVXNLd1ptX1NFWHdYWE5zb1pMc1RTTmtqOF9TV0hzaXdWQmtmT1RnQ2w3Y0ZrVkI0YnVmSHI1V3p1VnRBQl9FdFN4Wm9lb1lvOFdNQUlvZ2ZTT3hOQXk4MzE?oc=5",
-      "source": "굿모닝베트남미디어",
-      "publishedAt": "2026-11-17T11:10:59+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "젠슨황 없는 엔비디아, 3분기 매출 155조원…전망치 뛰어넘어",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBDaFBNS2pIbHh4TGU5LVMyb2RuV0FkOWNIZ2JKMUxmemp4bHFvQ0pWbG1sMW0xZ3BORzNUZHZFUHN1MmhZODBnRnBySndpbk1YNWhaVnpVMHZiWlXSAWBBVV95cUxQSF9BdE5tSTRkMFoyVDFxZW9qNkRWWWxyM0U1OUtNR3AwWnhuSkhTVFlRa3prbDJlbEhnTU42UXR3a054TG9pU2hwUi16N0pXTzZrcXJQRGIwTjR4UHhHbkE?oc=5",
+      "title": "13년 기다린 'GTA 6' 자정 출시…사전 판매 1천500만장 육박",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1BZTE4ei0zNlVKQjNMMmZzSlVTbERTaFlITG5lYXBwMDlKWWNiUGsyZmVnalJ4MUo0RDhZdjhJWEtraE5wQTR5dlhDRlF2Zy1kRGhzOG80dzJVTlHSAWBBVV95cUxNVVNHS3dhQW03MEhkRExyclBaX29jT01wSzlvSTFJNUxyQ29pT0ZSTUtCdzhDaHFhZkd3SG1ENjJPcEZibzFZNHdFN2tqbVdJSnlUZzdYcDR6Qm1HVEp4UEs?oc=5",
       "source": "연합뉴스",
-      "publishedAt": "2026-11-17T21:31:07+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "257억 킬로미터 너머 꺼져가는 불씨, 보이저 1호는 어떻게 성간 우주의 침묵을 견디는가",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOdUhWbzRwcV8wdmVIUzRsT2luNTdFSk1BanlSY2FRaVpoOWh3VkhWWHI2bkVqM2FuWkN5TWVKLUplMWFLaWcyVUVDSVlpcnAxNUJ0WXhFR0x6LVVCM2tjT3ZRYkpxS2kwX3ZUbU02SXlsMUk3QnBUaDB2LWRJNjEzWkM0NVNUT1hnRGlMNGxDUQ?oc=5",
-      "source": "사이언스타임즈",
-      "publishedAt": "2026-11-18T00:33:42+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "이 대통령 “재난문자 수능 시험 중 수시 발신 검토...부정 신고시 1억원 포상”",
-      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBUVF9SZEJGSEswMnFCbTVqNngtODlkRnkyWGh3UzZrOHJGUktaX19NNFQtWE5RZWdGTlBqMkd1N0U5d3VHSlFSMkRXV25jMHc3VzJPTg?oc=5",
-      "source": "매일경제",
-      "publishedAt": "2026-11-17T12:38:25+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "뇌출혈, 저녁·밤에 발병하면 장애 정도 더 높다?… 후유증 줄이려면 ‘빠른 대처’가 관건 ②",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5jc0d1X05HR0ZVVHdreFR1QUZGaERUU2ZGc0hVY2IwZThtUEFwLVZPS3p4bnNTZ1pNX1VhdUxQN01IM3lLN3ROa250VFRaUU54bmVnNktWSnhmUWhSMV9FRjJQS1F5eXlobWc?oc=5",
-      "source": "하이닥",
-      "publishedAt": "2026-11-17T10:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "양의지 2년 55억 두산 잔류… FA로 290억 ‘야구 부자’",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE91c3VGbkpreWwzRUhQcXlVODFkclJfZDlIUm55OVQyOXR4bURENFlqalN2WUJaUndoX1FrRFNEY3JhS2lqWW9ud3lHc2F3V2hQVkRUMHd6bFdRMmZGM2VfTVoyQkxuRHVPWVVlSEoxQUhWbVJI0gFmQVVfeXFMUEd2WEdkMWN5amVYeTZ1akVRc2p0dTdKTXRnQ0xpdGRLQnA3a3JHbUc0RjNVSkpqUVkyaUQ2QnNCa2YyWGlYV1gwcVZCdmRHRFpzZEV4ejRwMXNYVzFBNll5U0hvRTRn?oc=5",
-      "source": "동아일보",
-      "publishedAt": "2026-11-17T19:30:00+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "삼성전기, 엔비디아향 기판·MLCC 공급 확대…AI 동맹 강화",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9wQUNkdm9WbUZIVVpWNkNBcEkxTWkzUVlMam1DSjl6QzVfTEhsbENkc3I4RW9pNUlXemk0TEhTX0Jab1V4bFZ3bjNKdUd4S2xtUXNlX2VB?oc=5",
-      "source": "지디넷코리아",
-      "publishedAt": "2026-11-18T00:29:47+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "이효리·옥주현·성유리·이진 뭉쳤다, 완전체 핑클 컴백 임박 [DA★]",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE15dXd5YjJmX1Z4WHkwQ3BlLXpqeFpMV0NFSnVIOTZCVG1ycWpMSWFvcXhZQmZxbzFYTEhDZjA1aVdhR3lHRE5Mc0pCMklBRkRMbDc3X3lHZUtjMkJFTWZMdmNDNEpmNFBZSkZ0R0t3?oc=5",
-      "source": "스포츠동아",
-      "publishedAt": "2026-11-17T10:54:51+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "“살찌고, 대장암 위험 증가”… 풍자가 다이어트 중 ‘꾹 참은 음식’ 한 가지",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9kTGZqMzYtenptODc0UkNXM3ZIUVlJeWVRWnA1X2ctUHQtY2NRbVFLTG9EVHo4VjI5RXRNVWptYWllXzM1SG9jbVZ5WVRmeHl6cmZEV29UTG9wVG1aaDBLWUt3YW1DZmV3QjN2b0piYThJQWF1ME1SWlhuU0ktbjg?oc=5",
-      "source": "헬스조선",
-      "publishedAt": "2026-11-17T10:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "“내 정보도 유출됐나”…미래에셋생명 해킹 피해 눈덩이, 정보유출 1만명 훌쩍",
-      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1VWEp2N1h0RFNuT0JDSk1GY0FuN2diRHlwaTdrLTlJTUtSWVZndURsT0dKZHhBRXZWUmM4d1NvdjlVQkpJODNBVFRaaUp2NmdFRGo0cg?oc=5",
-      "source": "매일경제",
-      "publishedAt": "2026-11-17T23:54:32+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "장나라, ♥6세연하 촬영감독에 먼저 고백…\"긴시간 연애 안해 용기냈다\" [마데핫리뷰]",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE80b3BfUngtZldwWHJSbmRZTTdycGNXTEFXam1fMGpwZ1NMeVktX1ZSZkZWRHJvaWNXNFBveHpORWFzVVM4TDJIUzlTTnBFTXJnMGZVSnBGU0R6SHVfSURoRFVyQVVQdw?oc=5",
-      "source": "마이데일리",
-      "publishedAt": "2026-11-17T10:33:49+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "가슴에 붉은반점·가려움증 21세女⋯유방암과 피부염의 갈림길은?",
-      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE5TWGR3LTZkaV80LTl6VkJhRzAydGNyS1BSdy1Qd3V3amQ1bWIyR0JnMzNkdE9nLXRXT0x3Y0NnN0YyQQ?oc=5",
-      "source": "코메디닷컴",
-      "publishedAt": "2026-11-17T09:01:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "조국, 일본 입국 거부당해… 공항서 5시간 머물다 귀국",
-      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNanFsSWptSUhiX2dyX2txSFVoSXhYWXkwQzFrcklIdWdOUjBrN2RMWlRIRUhWUlpEMlZINVA4eVlWOVFxa2RuVkNJcmNHSHlELUdmYUFLczVLRVcydTR0ZE9QR01fYXl5eWw0WmhHdU5zcDJsakl5eG4zeUMtemo4OTBTUWdQdw?oc=5",
-      "source": "조선일보",
-      "publishedAt": "2026-11-17T15:48:00+00:00",
-      "category": "한국"
-    },
-    {
-      "title": "트럼프 \"열 달 내 중국 희토류 추월...한국 덕분에 LNG 사업 승인\"",
-      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9ldXVPdWZoREotV1p0RUY0bElPQ2l1M1l5WHVGXzNwUEctejRzb1pJWWtid0RiTlFVT1BjdzlqUmpuajF4MHNDUE5MQ1ItdWtTZThqWGJHTVRqeFByWFE?oc=5",
-      "source": "YTN",
-      "publishedAt": "2026-11-17T23:38:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "김숙 \"김강우, 우리 집 비밀번호 아는 유일한 남자\"",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBzYlVnaHczOHZ4NHllNExNaVJZS2ZMdHRuN0F5a2JBeDdDWmVBeVVILWVJVk1mSlhTeFVPa1dBazdGS2lOS0NlTTVqVWxVRVplUXNVRGF5TWV4bkMwM0tuamRFeTVzVGxvODhfY2tB?oc=5",
-      "source": "국제뉴스",
-      "publishedAt": "2026-11-17T10:11:39+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "“비만 주사 근 손실, 10년치 노화와 맞먹는다?”… 근육 운동 꼭 필요한 이유",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBfaldHSDdnZ3IxQUQtMjQ4T1gtSV8zMml5ZjNpemNrMGN1THlFUzBhSGxHSW9WbGJPdHhXMHFHeEhWZTBPZ3RKYjNoMjFaOWRDRURCalZXNUhad2pOaGF1alo1eXNvZzl5V3c?oc=5",
-      "source": "하이닥",
-      "publishedAt": "2026-11-17T09:00:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "MS, '마이크로소프트 IQ' 공개…\"사내 데이터 이해하고 실제 업무 수행\"",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9ZSVYxMXFZOFpENmMxeGQxajhfWm5zcFdXNTh3Sm1zb0E1MFVLaXhRM2JfSF92ekJQZTV3QkhPVWh4eGhTMG5aUXpkc2p2d0dKV1Y4Q2FB?oc=5",
-      "source": "지디넷코리아",
-      "publishedAt": "2026-11-17T23:36:49+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "“충격과 감동을 동시에!” 장항준 감독이 ‘왕사남’ 스태프에게 쏜 26억 🎬",
-      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5yOUtVQlctVVVqYkVOa1ZfQTFnMlJ4MUhkUUI0ZEJhMGZxQ2Fvb1ZuSlNOcFhyTURZWmtVQlRqSl9YMzIwTGRUTmp3clFJTGJUajN3?oc=5",
-      "source": "뉴닉",
-      "publishedAt": "2026-11-17T09:46:08+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "“혈관·근육 지키는 영양소 다 들어가” 문가영이 새벽에 마신 ‘음료 한 잔’",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFA2RjFLb3RJUlJXT2hESjE4cGFEbzBtTGdtUE9EdHNvUVdKMU5iWnFRM29fdUZVRTk5SmwzeWZ0a0puUVJfUmlqSThtZG54a0VfdGphMFltOUlWb1o0azBhWUV4Zl9LN2FRYUE4elRaOTFwb0FCVEd0Q2hKd2FmcW8?oc=5",
-      "source": "헬스조선",
-      "publishedAt": "2026-11-17T08:50:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "‘첨단 AI 해킹’ 막을 ‘차르’, 부처간 벽부터 넘어야 한다",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1KdXh4NktLTEJJSWhETklBcDdWVlhKcHNPNUhoUXZpZ2VCYkVaeVhYREZoZ2dObFhjOTIyVzdfYUJiRkhmN0p4TF94ZU9iOHhEWG42TW5kOHRYS1psZVhDNQ?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-17T23:14:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "첼룸 챔버 오케스트라, 베토벤 서거 200주년 앞두고 ‘황제의 환희’ 음악회 개최",
-      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE55VzhvanhzOTRnazdqSGViUWd5UTdfQUZkWlMtSzRoMXpPQkdHQ1pYcDgtZFd2YmxZT2M5WUJYNTQ0T0V0dUJtNGhFeUFoaThtM09LYjFXdmFVVGVmdVFyUGJ3?oc=5",
-      "source": "가톨릭신문",
-      "publishedAt": "2026-11-17T08:38:10+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "‘9kg 감량’ 박지윤, 고무줄바지 입고 뷔페서 실컷 먹어도 날씬⋯뭐 먹었길래?",
-      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE93LUdnTm9CVW5maVBXcEgyTHU3MGtlejlNcHY3R0U2WVRCcE9WU3hqZ19fZVJZekJmbmJwaDg0ODJwUQ?oc=5",
-      "source": "코메디닷컴",
-      "publishedAt": "2026-11-17T08:20:00+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "세계 4번째 수출 1조달러 초읽기…돼지털 팔던 나라의 기적",
-      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOT1V0SDJDdkM5WmxCQVNBLXJpaEd5YzZlMlZONUM4OVIzODY3SzVDX1NzMjdBcl8tMmxxM3ZlRzRzU2gxa2tucHJrUXRaUHRITW9VRWV1WmlJUTBSRVQ2VW5CWGEwQ2N2ZlFUNHo4TkRZTnA1MVNibFpjNzd4bUxMTWx3SDFMdEZEMzJYVGhLNlpGbzhRVUNGekdPYTVrYTFQR3djakNoMUkxcjdlVEJvRUZpM00zLVc2OXItUTNRbVFBYkdJZkUyY2tsQkR3SmpncXpSdzd3?oc=5",
-      "source": "한국무역협회-KITA.NET",
-      "publishedAt": "2026-11-17T22:52:20+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "공유-송혜교가 그려낼 뜨거운 청춘의 여정 ‘천천히 강렬하게’",
-      "url": "https://news.google.com/rss/articles/CBMixAJBVV95cUxPLWdxWUhfQ0lvV0FXMmRjUGhsSXhQVEg0Uy0yb2lsLTNYa2hIcXl1dXJBLS1HcFRKbHpFcVBXdF9rYlJXYU40ckVEOU1TREtONkswdHlSOWRwZnQ1U3FDcDlGb2djUTQtNVlUOTdxYlZkZXdSajlRbE9WUWNWU0JLSXJZT2kxUzhlVHpkajZEdEpESzNqc2I0Q1llNlZpbGNPODd2UkkzbTB0alY4TlJSUFlaRjdFSUdXRnJ0amZLRk9WeUk2OUZmR2pHcjFkOVp4NFZMNlZqVnFaaWF1WGQ2SjcyUWtReDJnMHlIdnVWMVpYYXVLWTJpbm52ZjRGN0R6clVoSXlibEV3eUI0allqbWp0T2wwMUtmMXpnWHoyUGx1SXdFMm1iMnJ2XzhGQkNIM21XQkZBNnFpeXhfSjBqTDBaLUc?oc=5",
-      "source": "Vogue korea",
-      "publishedAt": "2026-11-17T08:31:14+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "위시라이프, 비타민D3 ‘올앤디’ 출시",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1fNTJpbWNqUm5DTy1ZSEZQdkxEVU9rdjVBZVZ4S0VmbUNrSndkOXh4ZDY0aVlQbkUyZExwYVExT051b3pSalRxbTFoQlYxNEwzdkJUZVZrMDMzWm5rdkpKN0tuTHNxNWFDeW9sQg?oc=5",
-      "source": "경상일보",
-      "publishedAt": "2026-11-17T08:08:06+00:00",
-      "category": "생활·건강"
-    },
-    {
-      "title": "\"이젠 끝났다\" 공포에 팔았는데…삼전닉스에 나온 '깜짝 전망'",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE83UXlCamRYRVFHaFJWV2NHdllJTzVyZDdTY3pqeUthTUEySTk3UGtaUkZOZWp6Q1M5V3ctc296WUhsQUJpaW9XQ0cwakE5Q0pJTHl2MVlzaXUwdw?oc=5",
-      "source": "한국경제",
-      "publishedAt": "2026-11-17T22:43:19+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "‘불륜 의혹’ 양홍원 아내 원현주, SNS 공개 전환…남편 흔적은 사라져",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9RSzZmNi1vNzE5RGxjb2J5QTNzeXhEZm1POE1aYlhDU3ZnVHpiUTNLcEdCd0pva3RhS045bHJrNjFWNG12bWJuVGNrZFZ2Yk9YNTd6YnYxdzc?oc=5",
-      "source": "매일경제",
-      "publishedAt": "2026-11-17T08:08:31+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "디지털융합의약품 제도 마련됐지만…임상시험·허가자료 인정 기준은 '과제'",
-      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1fOHl5YnVSSjFoZDNUOFd0VzRnYVhUb2VXSW41Q20zakQySjl6UUMwNTVITWQyNkdqTUhQd0RaT3Y4bGhjTnN5UkFzbjZ4MnNrSFhBZzNqQQ?oc=5",
-      "source": "MEDI:GATE NEWS",
-      "publishedAt": "2026-11-17T22:41:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "“아이들 두고 어떻게 떠나나”…최희 장기기증 결심, 무슨 일?",
-      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFA4VkRSRVZ5M1FlUTJGRml3XzhlSko5RmJCdXdrdF96ZW5zVmlMRVVJMTMxS2FxcUhyWkxhdWJfQkNuRVNUUTBVU29ZeDVoaUthcm50cQ?oc=5",
-      "source": "매일경제",
-      "publishedAt": "2026-11-17T08:07:13+00:00",
-      "category": "문화"
-    },
-    {
-      "title": "김장 할 바엔 사 먹는 게 낫다고?…김치값 77만원에 '화들짝'",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBsU2JGYlNfT1dkNDVMYlNzOFVyUHp3UzFvdGNTWmtUY0pSWEJIazhicnBQMEo5MVMxZ2dUTVBIMmVfbWVhU2l0M2EySjdGSWZNZXpwNUhMYU5XZw?oc=5",
-      "source": "한국경제",
-      "publishedAt": "2026-11-17T22:27:22+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "다이소 품절템 손앤박까지 데려왔다… 이마트·노브랜드 뷰티 공세",
-      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOaWVJSmkyMjJnWXBDV0xxNHJWNC15cGVobXVTcENLQ1hnR2FpY040eGNOMVNkRHZQb3NqVkRGd2JXTHFpSlRuUXl3SXZMREVyc082UGlkamlqTWdLeGlUb2swOHFnQXVGd0Npa3ZvS25OaFNkUmI4WDMxTlJpS2RaV3lvM0Jqa2JXaGfSAZ4BQVVfeXFMTmJaRlpMTEZ3M1I4bmY2T0NQUzlDcjkzTXNOSW9JaHhDZy1CaVdrUE1qN0xFTWFSUHE3LWcyeGpZVjRXZ2gwaExlVXB0VGtOaXpOdXQtTm9LQjVVWE52bFlxWXY5U0hPd1laVXRxdzdxQ2ZmelJHdnlSZnFjLVdDTTZfSzN2X3VUNjlQOEZsVHlhODRfNjVleE9FLU5IVkE?oc=5",
-      "source": "Chosunbiz",
-      "publishedAt": "2026-11-17T21:00:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "앤트로픽 공모가 희망범위 상단 웃돌듯…흥행 기대감",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBGc2M5a2oyc2xCcEdSMUlLa1dqUjh5b0dQRHNsZHlxOFBDRmlTV2Z2V2hOcy15bTV5U1hZTFR0a19nMWlUTUtOTm4tUmZYVTh3Vzl3c3JkRkx6eXfSAWBBVV95cUxOaDc0RzU3ZDI2T0pqcTJVY1dsYUdEQzMwMTd1RVM1cWdQRHhabEVZbDBhVVRoanV2R3BNbGJfUGZDMVp1RW1meGZxMWdJanBRaGNnX2x4TlJOVHl3cWI5dnQ?oc=5",
-      "source": "연합뉴스",
-      "publishedAt": "2026-11-17T17:22:24+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "‘K-브랜드 정부인증 제도’ 81개사 참여 신청… 정부가 ‘상표권자’로 해외 짝퉁에 직접 대응",
-      "url": "https://news.google.com/rss/articles/CBMiyAJBVV95cUxOLURwSG45eWxjaXpGQmRkb1lwd0IxSHg1RU44RlZtcFc2aEhtMG1VUzZ6UEhONE1DcmpuWTBkcVhCS29DY0pOdGZJc21KSW5Nckh1RWhwSEpWdVczczhkOHZoSTFHSFlUa0NZM01KbmJZam1ZbU1DdFFrVC1VNHhpZUE3TWNxSnFrOEVuMVQtQUFlMUZhZk8yREl0azNzS2FZNTZVX0paMlhTbTlKU3JEOHp4T2p5TVJ3dlpaWk5uYnNyTTVWVlgtSFdwbEJwTVhOUzgwNGdFN1lLNzdhOHpMQXFoT2hiNkRRdk5HU0k3a1VnYnB6NjlhNlVkWnlCUXZpUFBVZVU1VGl6enM4VWo4U0lKVlJmMUppOUREMGRYOWZBQ2V5OVZ6QXdaYlBxdWRjQ1o3b0M1bGlaMjJBenFObkxfM3N4NzEw?oc=5",
-      "source": "IPDaily",
-      "publishedAt": "2026-11-17T16:23:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "27조 사업 따놓고 “저는 빠질게요”…체코 원전 시공사 교체의 의미는 [뉴스해부]",
-      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9UQW1mQXpJZ2RtQmZyUDEzRHFCbXRfQmtsRi16Ml9SN1o2dVNkV3k0SW1va2RSN2lFZ0NBYTdiNHJoZ0tkRUk0em0wZFo0SFM5WUdSTg?oc=5",
-      "source": "매일경제",
-      "publishedAt": "2026-11-17T11:07:07+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "공정위, 쿠팡·김범석 '총수 지정 자료 허위 제출' 혐의 고발 의견 송부",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5BNmN1YmlMRW9tRDZ5eE5GSWR0NEVmdVg3Y20xRFdYOUh4Skl0Y0FkSE5mTGpPTnVKeGY5WDhXbFB6OUQtbmpJYkRwTkU5OWVKQ1ZiM2tvLVFmUGxiOEZQLUJTQ01hU0xrbG1GcDZSXzZSeHRP0gF0QVVfeXFMTl9EbUI0dmZMcDNld3JNTGpyVGxiUENrLUN4dlFmZTQ0WFd4U1dwbTM3aXpJUXFianRPZllyVkw4MURmczk1NkJPN0x4Um1iWm9OdHNad2F3R21NR1RLQlpoZ1lpUl9CWl80TUpmZjRPTFdJM3A?oc=5",
-      "source": "MBC 뉴스",
-      "publishedAt": "2026-11-17T10:19:21+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "1300원대로 내려온 환율…유통업계 연말 전략 엇갈려",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9URGlDeDlrdGhVUWpKTlhqS0ZsQ0hNT3FidHhsTFo4MG5RbXh2UFNSSDFzOVFGaHh4MnFOVnNuSHdpaXhfR1c0RGNLa1dZbGl2YkwyV2JwWXZHdkFzdVNTZDFKRDhKZm5S?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-17T10:19:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "대구시. ‘2026 대구국제기계산업대전’ 개최",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5DYUMyVldyNmdqaFRRZjZPTlYtdVJYb09oSVZrSThVbEw4S2ZGUk9SMmNvSUtzNk1HQjNIWF8wTkdyek9yd255b3k1b2JnTGotZ2swX3RCRzctcktCTUNiSEVhN0R5Zw?oc=5",
-      "source": "데일리대구경북뉴스",
-      "publishedAt": "2026-11-17T09:24:38+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "거래 줄고 매물 늘고…서울 아파트값 하락장 신호탄일까?",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE4xOUdDX3lWajV2VjJDYkFwSG1IZ3FBR1lXeWUwcWVrQUNudlhnSlVscUpPU21adzNwb284b0JjbHZDdE9TS2l1SVVTdUFGS0haSktRQmJreGdoSV9MV3hUa2FLZTh1NG8y?oc=5",
-      "source": "한겨레",
-      "publishedAt": "2026-11-17T09:04:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "마이크로소프트 ‘아웃룩 대란’ 원인은 “저사양 장비로 테스트해 놓친 버그”… 4개월 잠복해",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQVms3WHJkLVpTLWRsWllPbjVLQkVZQWFXZUNVRE9na1NkeXQxZEtIb19CMklzOFlZeDBERFFRdjg3YWNzTElkVTJWZm02ejg2U2VxM0NvNWJ1VGV6QmZFclMyTjJCeGM5eEpXV28wbjFRd3JBejRCd0ZBRy1PNm93Z2dB?oc=5",
-      "source": "Chosunbiz",
-      "publishedAt": "2026-11-17T08:35:00+00:00",
-      "category": "경제"
-    },
-    {
-      "title": "가전 넘어 AI 인프라 겨눈 LG전자, 데이터센터 '냉각 솔루션' 승부수",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9FYWw4MmlPMURQcWZReVkzOGhXTDVaNEJES3F2RkZOTFlKNThHX1Bsd3lhVW5IZUtibDgxaFdROFpzV3ZZU25hRllpWTd4VlNlN1U2elln?oc=5",
-      "source": "지디넷코리아",
-      "publishedAt": "2026-11-17T07:45:15+00:00",
+      "publishedAt": "2026-11-18T02:04:19+00:00",
       "category": "경제"
     }
   ]
