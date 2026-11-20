@@ -1146,7 +1146,18 @@
     }
   },
   "google": {},
-  "held_batches": {},
+  "held_batches": {
+    "d143f42e39af454ba20f81647a874088": {
+      "entries": [
+        {
+          "fingerprint": "2026-11-20T03:02:59Z",
+          "url": "https://wic12.blogspot.com/2026/10/refrigerator-water-pooling-location-checklist.html"
+        }
+      ],
+      "prepared_at": "2026-11-20T03:41:07+00:00",
+      "status": "held"
+    }
+  },
   "sitemap_registered": false,
   "version": 1
 }
