@@ -1,0 +1,42 @@
+name: Blogger agent - GitHub Issue publishing
+
+on:
+  issues:
+    types: [opened]
+
+# Public Issues are untrusted input. The secret-bearing job is owner-only and
+# always checks out the protected main branch, never user-supplied code.
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: blogger-agent-issue-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  blogger-agent:
+    if: >-
+      github.repository == 'wiclab/blogger-manager' &&
+      github.actor == 'wiclab' &&
+      github.event.issue.user.login == 'wiclab' &&
+      startsWith(github.event.issue.title, '[blogger-agent] ')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Agent offline safety checks
+        run: python -m unittest tests.test_blogger_agent -v
+      - name: Process authorized Blogger Issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BLOGGER_AGENT_CLIENT_ID: ${{ secrets.BLOGGER_AGENT_CLIENT_ID }}
+          BLOGGER_AGENT_CLIENT_SECRET: ${{ secrets.BLOGGER_AGENT_CLIENT_SECRET }}
+          BLOGGER_AGENT_REFRESH_TOKEN: ${{ secrets.BLOGGER_AGENT_REFRESH_TOKEN }}
+        run: python -m scripts.blogger_agent
