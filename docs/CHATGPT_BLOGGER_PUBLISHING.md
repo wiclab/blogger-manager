@@ -77,7 +77,7 @@ Issue body: 아래 **하나의 JSON 객체만** 입력합니다.
 ## 오프라인 점검
 
 ~~~bash
-python -m unittest tests.test_blogger_agent -v
+python -m unittest discover -s tests -p 'test_blogger_agent.py' -v
 python -m compileall -q scripts tests
 ~~~
 
