@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blogger 발행 검토</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#f5f7fa;color:#172335;font:16px/1.6 system-ui,sans-serif}
+  main{max-width:920px;margin:auto;padding:24px 16px 48px}
+  h1{margin:0 0 16px}
+  h2{margin:0 0 12px}
+  section,form{background:white;border:1px solid #cdd7e4;border-radius:12px;padding:20px;margin:0 0 20px}
+  .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px}
+  label{display:block;margin:0 0 12px;font-weight:600}
+  input:not([type=checkbox]),select,textarea{width:100%;font:inherit;padding:8px;border:1px solid #8595a9;border-radius:6px}
+  textarea{min-height:180px;font-family:monospace}
+  button{background:#173c75;color:white;border:0;border-radius:6px;padding:10px 16px;font:inherit;cursor:pointer}
+  button:disabled{opacity:.5;cursor:default}
+  dt{font-weight:700}
+  dd{margin:0 0 8px;overflow-wrap:anywhere}
+  #preview{display:block;height:540px;border:1px solid #cdd7e4;border-radius:6px}
+  #links{overflow-wrap:anywhere;padding-left:24px}
+  #status,#previewStatus{overflow-wrap:anywhere}
+  .preview-error{color:#a22525}
+</style>
+<script defer src="./assets/editor-preview.js"></script>
+<script defer src="./assets/publisher-review.js"></script>
+</head>
+<body>
+<main>
+<h1>Blogger 발행 검토</h1>
+<form id="article">
+  <div class="fields">
+    <label>블로그
+      <select name="blog"><option value="byeol">별셈소</option><option value="nobody">Nobody Asked Data</option></select>
+    </label>
+    <label>제목 <input name="title" maxlength="180" required></label>
+    <label>맞춤 퍼머링크 <input name="slug" maxlength="75" placeholder="example-post-slug" required></label>
+    <label>라벨 (쉼표로 구분) <input name="label" maxlength="509"></label>
+    <label>대표이미지 <input id="cover" type="file" accept="image/png,image/jpeg,image/webp" required></label>
+    <label>대표이미지 대체 텍스트 <input name="alt" maxlength="160" required></label>
+  </div>
+  <label>검색 설명 (선택) <input name="description" maxlength="165"></label>
+  <label>본문 HTML 파일 (선택) <input id="htmlFile" type="file" accept=".html,.htm,.txt"></label>
+  <label>본문 HTML
+    <textarea name="html" maxlength="250000" required aria-describedby="bodyHelp" spellcheck="false"></textarea>
+  </label>
+  <p id="bodyHelp">대표이미지는 본문 맨 위에 자동 삽입됩니다. 본문 HTML에 같은 이미지를 넣지 마세요.</p>
+  <button id="previewButton" disabled>검토본 만들기</button>
+</form>
+<section id="review" hidden>
+  <h2>발행 내용</h2>
+  <dl id="metadata"></dl>
+  <h3>내부링크</h3>
+  <p>본문에 포함된 링크 주소를 표시합니다. 연결 상태는 브라우저에서 확인할 수 있습니다.</p>
+  <ul id="links"></ul>
+  <h3>본문 미리보기</h3>
+  <label>미리보기 너비 <select id="width"><option value="auto">화면에 맞춤</option><option>360</option><option>412</option></select></label>
+  <iframe id="preview" title="본문 미리보기" sandbox></iframe>
+  <p id="previewStatus" role="status"></p>
+  <label><input id="consent" type="checkbox"> 이 검토본을 Blogger에 임시글로 저장하는 데 동의합니다.</label>
+  <button id="approve" type="button" disabled>승인하고 Blogger 편집기 열기</button>
+  <p>Blogger 편집기에서 게시를 확인하면 글이 공개됩니다. 미리보기에서는 본문 스크립트의 실행을 차단합니다.</p>
+</section>
+<p id="status" role="status"></p>
+<a id="editor" hidden target="_blank" rel="noopener noreferrer">Blogger 편집기 열기</a>
+</main>
+</body>
+</html>

@@ -18,6 +18,7 @@
 - [모바일 레이아웃 점검](https://wiclab.github.io/blogger-manager/mobile-audit.html) — 공개 글의 모바일 표시 문제를 읽기 전용으로 확인
 - [공식 출처 링크 점검](https://wiclab.github.io/blogger-manager/sources.html) — 근거 링크의 상태를 읽기 전용으로 확인
 - [임시글 스튜디오](https://wiclab.github.io/blogger-manager/draft-studio.html) — 로컬 Chromium 환경을 이용하는 실험 기능(자동 배포·실제 로그인 보장 아님)
+- [완성 원고 발행 검토](docs/PUBLISHER_REVIEW.md) — 별셈소·Nobody Asked Data 원고와 대표이미지를 로컬에서 미리보고, 승인 후 Blogger 편집기에서 게시합니다.
 
 - [텔레그램 별셈소 방문 알림 시스템 설정](visitor-alert/README.md) — Cloudflare Worker, 방문마다 즉시 알림(대량 요청 보호 최대 60건/분), 모바일/PC 구분, GitHub Actions 자동 배포
 
