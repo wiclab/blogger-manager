@@ -9,6 +9,8 @@ const {parseJob,blogId}=require("./draft_studio_core.cjs");
 const {generateArticle,generateImage}=require("./draft_studio_generate.cjs");
 const {runChromium}=require("./draft_studio_blogger.cjs");
 
+const {createPublisher,readReviewBody}=require("./publisher_review.cjs");
+
 const PORT=Number(process.env.DRAFT_STUDIO_PORT||8765);
 const HOST="127.0.0.1";
 const ORIGIN="http://"+HOST+":"+PORT;
@@ -18,6 +20,8 @@ const JOBS=new Map();
 const HISTORY_PATH=path.join(WORKDIR,"history.json");
 const DEDUP_MS=24*3600000;
 let activeJob=null;
+let acceptingDraft=false;
+const publisher=createPublisher({workdir:path.join(WORKDIR,"publish-receipts"),isBusy:()=>!!activeJob||acceptingDraft});
 async function history(){
   try{
     const data=JSON.parse(await fsp.readFile(HISTORY_PATH,"utf8"));
@@ -42,7 +46,8 @@ function fingerprint(input){
 }
 function allowedPath(url){
   return ["/draft-studio.html","/assets/cms-shell.js","/assets/cms-shell.css",
-    "/assets/manager-header.css"].includes(url);
+    "/assets/manager-header.css","/publisher-review.html","/assets/publisher-review.js",
+    "/assets/editor-preview.js"].includes(url);
 }
 function send(res,status,obj){
   res.writeHead(status,{"Content-Type":"application/json; charset=utf-8",
@@ -126,9 +131,25 @@ async function serve(req,res) {
       res.writeHead(200,{"Content-Type":type+"; charset=utf-8",
         "Cache-Control":"no-store","X-Content-Type-Options":"nosniff",
         "Referrer-Policy":"no-referrer",
-        "Content-Security-Policy":"default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:;"});
+        "Content-Security-Policy":"default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: https:;"});
       res.end(body);
     }catch(_){send(res,404,{error:"File not found"});}return;
+  }
+  if(pathname.startsWith("/api/publisher/")){
+    try{
+      if(req.method==="POST"&&pathname==="/api/publisher/review"){
+        send(res,200,publisher.prepare(await readReviewBody(req)));return;
+      }
+      if(req.method==="POST"&&pathname==="/api/publisher/approve"){
+        const {id,approved}=await readReviewBody(req,1024);
+        if(approved!==true)throw Error("명시적인 Blogger 전송 승인이 필요합니다.");
+        send(res,202,publisher.approve(id));return;
+      }
+      const id=pathname.match(/^\/api\/publisher\/([0-9a-f-]{36})$/)?.[1];
+      if(req.method==="GET"&&id){send(res,200,publisher.get(id));return;}
+      send(res,404,{error:"Not found"});
+    }catch(e){send(res,400,{error:String(e.message||e)});}
+    return;
   }
   if(req.method==="GET"&&pathname==="/api/health"){
     send(res,200,{ready:true,localOnly:true,apiKeyConfigured:!!process.env.OPENAI_API_KEY,
@@ -149,29 +170,32 @@ async function serve(req,res) {
     return;
   }
   if(req.method==="POST"&&pathname==="/api/drafts"){
-    if(activeJob){send(res,409,{error:"다른 초안 작업이 진행 중이야. 중복 생성 방지를 위해 대기해줘."});return;}
-    let input;
+    if(activeJob||acceptingDraft||publisher.busy()){send(res,409,{error:"다른 초안 작업이 진행 중이야. 중복 생성 방지를 위해 대기해줘."});return;}
+    acceptingDraft=true;
     try{
-      if(!String(req.headers["content-type"]||"").startsWith("application/json"))
-        throw Error("JSON 요청만 허용해.");
-      input=parseJob(await readBody(req));
-      blogId(input);
-      if(!process.env.OPENAI_API_KEY)throw Error("서버의 OPENAI_API_KEY 설정이 필요해.");
-    }catch(e){send(res,400,{error:String(e.message||e)});return;}
-    const key=fingerprint(input),record=await history(),prior=record.items[key];
-    if(prior&&Number.isFinite(Date.parse(prior.createdAt))&&Date.now()-Date.parse(prior.createdAt)<DEDUP_MS){
-      send(res,409,{error:"같은 블로그·주제·라벨·메모로 이미 초안 작업을 시작했어. 중복 생성 전에 작업 기록 및 Blogger 임시글을 확인해줘.",
-        priorJobId:prior.id,priorStatus:prior.status,editorUrl:prior.editorUrl||null});
-      return;
-    }
-    const id=crypto.randomUUID(),job={id,request:input,status:"queued",
-      stage:"대기 중",updatedAt:new Date().toISOString(),article:null,imagePath:null,error:null,blogger:null};
-    await fsp.mkdir(path.join(WORKDIR,id),{recursive:true,mode:0o700});
-    record.items[key]={id,createdAt:job.updatedAt,status:"queued",editorUrl:null};
-    await persistHistory(record);
-    JOBS.set(id,job);activeJob=id;
-    send(res,202,{id,status:"queued"});
-    void processJob(job);
+      let input;
+      try{
+        if(!String(req.headers["content-type"]||"").startsWith("application/json"))
+          throw Error("JSON 요청만 허용해.");
+        input=parseJob(await readBody(req));
+        blogId(input);
+        if(!process.env.OPENAI_API_KEY)throw Error("서버의 OPENAI_API_KEY 설정이 필요해.");
+      }catch(e){send(res,400,{error:String(e.message||e)});return;}
+      const key=fingerprint(input),record=await history(),prior=record.items[key];
+      if(prior&&Number.isFinite(Date.parse(prior.createdAt))&&Date.now()-Date.parse(prior.createdAt)<DEDUP_MS){
+        send(res,409,{error:"같은 블로그·주제·라벨·메모로 이미 초안 작업을 시작했어. 중복 생성 전에 작업 기록 및 Blogger 임시글을 확인해줘.",
+          priorJobId:prior.id,priorStatus:prior.status,editorUrl:prior.editorUrl||null});
+        return;
+      }
+      const id=crypto.randomUUID(),job={id,request:input,status:"queued",
+        stage:"대기 중",updatedAt:new Date().toISOString(),article:null,imagePath:null,error:null,blogger:null};
+      await fsp.mkdir(path.join(WORKDIR,id),{recursive:true,mode:0o700});
+      record.items[key]={id,createdAt:job.updatedAt,status:"queued",editorUrl:null};
+      await persistHistory(record);
+      JOBS.set(id,job);activeJob=id;
+      send(res,202,{id,status:"queued"});
+      void processJob(job);
+    }finally{acceptingDraft=false;}
     return;
   }
   send(res,404,{error:"Not found"});

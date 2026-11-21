@@ -4,6 +4,10 @@ on:
   pull_request:
     paths:
       - "draft-studio.html"
+      - "publisher-review.html"
+      - "assets/publisher-review.js"
+      - "scripts/publisher_review.cjs"
+      - "tests/publisher_review.test.cjs"
       - "scripts/draft_studio_*.cjs"
       - "tests/draft_studio*.cjs"
       - ".github/workflows/draft-studio-checks.yml"
@@ -11,6 +15,10 @@ on:
     branches: [main]
     paths:
       - "draft-studio.html"
+      - "publisher-review.html"
+      - "assets/publisher-review.js"
+      - "scripts/publisher_review.cjs"
+      - "tests/publisher_review.test.cjs"
       - "scripts/draft_studio_*.cjs"
       - "tests/draft_studio*.cjs"
       - ".github/workflows/draft-studio-checks.yml"
@@ -29,7 +37,7 @@ jobs:
         with:
           node-version: "22"
       - name: Validate localhost draft-only behavior without network publishing
-        run: node --test tests/draft_studio.test.cjs
+        run: node --test tests/draft_studio.test.cjs tests/publisher_review.test.cjs
       - name: Install pinned Chromium for offline Blogger fixture
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1

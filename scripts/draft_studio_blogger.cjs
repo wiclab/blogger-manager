@@ -113,15 +113,23 @@ async function replaceWithHtml(page,html){
   input=await requireOne(input,"HTML 원본");
   await input.fill(html,{timeout});
   const read=await input.inputValue();
-  if(!read.includes("googleusercontent.com")||!read.includes("<h2"))
-    throw Error("이미지 주소나 소제목이 본문에서 누락됐어.");
+  if(read.replace(/\r\n/g,"\n")!==html.replace(/\r\n/g,"\n"))
+    throw Error("Blogger HTML 입력값이 검토한 본문과 일치하지 않습니다.");
 }
-async function openNewEditor(page,blogIdValue){
+async function openNewEditor(page,blogIdValue,expectedSite){
   await page.goto("https://www.blogger.com/blog/posts/"+blogIdValue,
     {waitUntil:"domcontentloaded",timeout:30000});
   const current=new URL(page.url());
   if(!/(\.|^)blogger\.com$/.test(current.hostname) || /accounts\.google\.com/.test(current.hostname))
     throw Error("Blogger 로그인 세션을 확인하지 못했어. 먼저 수동 로그인 연결을 해줘.");
+  if(expectedSite){
+    const host=new URL(expectedSite).hostname;
+    const expectedLinks=page.locator('a[href="https://'+host+'/"], a[href="https://'+host+'"], '+
+      'a[href="http://'+host+'/"], a[href="http://'+host+'"]');
+    await expectedLinks.first().waitFor({state:"attached",timeout}).catch(()=>{
+      throw Error("Blogger 관리자에서 대상 블로그 주소를 확인하지 못했습니다. 블로그 ID와 로그인 계정을 확인하세요.");
+    });
+  }
   await clickFirst(page,[
     page.getByRole("button",{name:/새 글|새 게시물|새 포스트|New post/i}),
     page.getByRole("link",{name:/새 글|새 게시물|New post/i})
@@ -131,20 +139,20 @@ async function openNewEditor(page,blogIdValue){
     throw Error("의도한 Blogger 블로그 편집기가 열리지 않았어.");
   return page.url();
 }
-async function draftOnly(page,job,article,imagePath,env=process.env){
+async function draftOnly(page,job,article,imagePath,env=process.env,expectedSite){
   const id=blogId(job,env);
   const record={blog:job.blog,blogId:id,editorUrl:null,verified:false,stage:"starting"};
   try{
-    await openNewEditor(page,id);
+    await openNewEditor(page,id,expectedSite);
     record.editorUrl=page.url();
     record.stage="new_editor";
     await assignTitle(page,article.title);
     // Permalink before save: a missing field is a stop condition, never publish.
     await permalink(page,article.slug);
     record.stage="permalink";
-    await setPanelField(page,/^(Labels|라벨)$/i,article.label,"라벨");
+    if(article.label)await setPanelField(page,/^(Labels|라벨)$/i,article.label,"라벨");
     record.stage="labels";
-    await setPanelField(page,/^(Search description|검색 설명|검색설명)$/i,article.description,"검색 설명");
+    if(article.description)await setPanelField(page,/^(Search description|검색 설명|검색설명)$/i,article.description,"검색 설명");
     record.stage="description";
     const imageUrl=await imageFromClipboard(page,imagePath);
     record.stage="image_uploaded";
@@ -177,7 +185,7 @@ async function draftOnly(page,job,article,imagePath,env=process.env){
     throw error;
   }
 }
-async function runChromium(job,article,imagePath,env=process.env){
+async function runChromium(job,article,imagePath,env=process.env,{manualPublish=false}={}){
   const {chromium}=require("playwright");
   const profile=path.resolve(".local/draft-studio-profile");
   await fs.mkdir(profile,{recursive:true,mode:0o700});
@@ -187,8 +195,15 @@ async function runChromium(job,article,imagePath,env=process.env){
   });
   try{
     const page=context.pages()[0]||await context.newPage();
-    return await draftOnly(page,job,article,imagePath,env);
-  }finally{await context.close();}
+    const record=await draftOnly(page,job,article,imagePath,env,manualPublish ? BLOGS[job.blog].site : undefined);
+    if(manualPublish){
+      // Keep Blogger open for the user’s final review and publish confirmation.
+      // Returning only after closure avoids concurrent use of this profile.
+      manualPublish.onReady(record);
+      await new Promise(resolve=>context.once("close",resolve));
+    }
+    return record;
+  }finally{await context.close().catch(()=>{});}
 }
 async function loginChromium(blog,env=process.env){
   if(!BLOGS[blog])throw Error("Unknown blog");
