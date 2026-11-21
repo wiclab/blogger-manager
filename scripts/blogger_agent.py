@@ -137,15 +137,15 @@ class Blogger:
         return str(item["id"])
 
     def get_post(self, blog_id: str, post_id: str):
-        return self.api("GET", f"/blogs/{blog_id}/posts/{post_id}")
+        return self.api("GET", f"/blogs/{blog_id}/posts/{post_id}?view=ADMIN")
 
     def all_posts(self, blog_id: str):
         # Fail closed if enumeration fails: otherwise retries could create duplicates.
-        for status in ("DRAFT", "LIVE", "SCHEDULED"):
+        for status in ("draft", "live", "scheduled"):
             page = ""
             seen = set()
             for _ in range(100):
-                params = {"status": status, "fetchBodies": "true", "maxResults": "500"}
+                params = {"status": status, "view": "ADMIN", "fetchBodies": "true", "maxResults": "500"}
                 if page:
                     params["pageToken"] = page
                 response = self.api("GET", f"/blogs/{blog_id}/posts?" + urlencode(params))
@@ -256,7 +256,7 @@ def main() -> int:
         result = execute(client, issue, data)
         post_id = str(result.get("id", ""))
         url = str(result.get("url", ""))
-        if not post_id or not url.startswith(BLOGS[data["blog"]]):
+        if not post_id or urlparse(url).hostname != urlparse(BLOGS[data["blog"]]).hostname or urlparse(url).scheme not in ("http", "https"):
             raise PublishError("Blogger returned an unexpected result URL. Inspect post manually.")
         message = (
             RESULT_MARKER + "\n"
