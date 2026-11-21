@@ -110,6 +110,11 @@
         "clicks": 1,
         "date": "2026-11-18",
         "impressions": 15
+      },
+      {
+        "clicks": 0,
+        "date": "2026-11-19",
+        "impressions": 1
       }
     ],
     "low_ctr_query_count": 0,
@@ -126,26 +131,26 @@
         "url": "https://wic12.blogspot.com/2026/09/2026-year-end-major-concert-schedule-official-guide.html"
       }
     ],
-    "query_rows_analyzed": 70,
+    "query_rows_analyzed": 89,
     "site_property": "https://wic12.blogspot.com/",
     "status": "ok",
     "totals": {
       "clicks": 3,
-      "ctr_pct": 1.53,
-      "impressions": 196
+      "ctr_pct": 1.52,
+      "impressions": 197
     },
-    "updated_at": "2026-11-20T10:35:17+00:00",
+    "updated_at": "2026-11-21T10:15:47+00:00",
     "window": {
-      "from": "2026-10-24",
-      "to": "2026-11-20",
+      "from": "2026-10-25",
+      "to": "2026-11-21",
       "type": "daily API values"
     }
   },
-  "checked_date": "2026-11-20",
+  "checked_date": "2026-11-21",
   "schema": 1,
   "site": "https://wic12.blogspot.com/",
   "stale": {
-    "checked_posts": 275,
+    "checked_posts": 279,
     "expired_count": 16,
     "items": [
       {
@@ -304,7 +309,7 @@
     "note": "Potential dates only: context can be historical or already updated. Do not auto-edit posts.",
     "status": "ok",
     "upcoming_count": 3,
-    "updated_at": "2026-11-20T10:35:19+00:00"
+    "updated_at": "2026-11-21T10:15:49+00:00"
   },
   "warnings": []
 }
