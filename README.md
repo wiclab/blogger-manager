@@ -60,3 +60,8 @@ node tests/cms_login_reuse.cjs
 ```
 
 브라우저가 필요한 테스트는 `Blogger editor checks`, `Draft studio Chromium fixture`, `Mobile layout hunter`의 GitHub Actions 실행 결과로 추가 확인합니다. 오프라인 테스트 통과는 Google 계정 로그인이나 실제 Blogger 저장·이미지 업로드 성공을 보장하지 않습니다.
+
+## ChatGPT에서 Blogger 글 직접 발행
+
+- [ChatGPT → Blogger 자동 발행 연결 안내](docs/CHATGPT_BLOGGER_PUBLISHING.md) — 기존 편집기와 별개로, 연결된 GitHub 도구로 게시 요청 Issue를 만들면 GitHub Actions가 Blogger API로 임시저장/공개 발행하거나 기존 글을 수정합니다. Google OAuth 발행 Secrets를 최초 1회 설정해야 합니다.
+- [Blogger agent Actions](https://github.com/wiclab/blogger-manager/actions/workflows/blogger-agent.yml) — 실제 발행 상태·오류는 Actions와 요청 Issue 댓글에서 확인합니다. GitHub Issue 생성만으로 실제 Blogger 발행이 완료된 것은 아닙니다.
